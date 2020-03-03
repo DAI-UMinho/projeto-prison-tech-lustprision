@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.lustprision.admin",
+      "nativeLanguage": "pt-pt"
+    },
+    "jhipsterVersion": "6.7.1",
+    "applicationType": "monolith",
+    "baseName": "LustPrision",
+    "packageName": "com.lustprision.admin",
+    "packageFolder": "com/lustprision/admin",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "oracle",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "Mjg0ODQzODIzODkyNjRhYTFlZDYxOGM1M2Y1YWQ1OGUwNGFiNzE5NWIyOTM1OWQyZDUxOWIxMWRiYzliOGQxMjVkNWE5MzQ3NmZiODcxOTk0MzhiY2Q2YjRmODNlOTdhOWY1Nzk4YjM4M2JlYjZkNDllYWU1YmI0NDRkODhiNmE=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1583238882133,
+    "testFrameworks": ["gatling", "cucumber", "protractor"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "pt-pt",
+    "languages": ["pt-pt"],
+    "blueprints": []
+  }
+}
