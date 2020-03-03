@@ -1,4 +1,4 @@
-# LustPrision
+# LustPrision teste
 
 This application was generated using JHipster 6.7.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.7.1](https://www.jhipster.tech/documentation-archive/v6.7.1).
 
