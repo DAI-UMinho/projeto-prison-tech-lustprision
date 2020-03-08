@@ -34,6 +34,7 @@ export const SettingsPage = (props: IUserSettingsProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="settings-title">
+
             <Translate contentKey="settings.title" interpolate={{ username: props.account.login }}>
               User settings for {props.account.login}
             </Translate>

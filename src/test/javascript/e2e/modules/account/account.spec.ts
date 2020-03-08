@@ -36,14 +36,14 @@ describe('Account', () => {
   });
 
   it('should fail to login with bad password', async () => {
-    // Login page should appear
+    // OldLogin page should appear
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
     await signInPage.username.sendKeys('admin');
     await signInPage.password.sendKeys('foo');
     await signInPage.loginButton.click();
 
-    // Login page should stay open when login fails
+    // OldLogin page should stay open when login fails
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
   });
 
@@ -58,7 +58,7 @@ describe('Account', () => {
     await signInPage.loginButton.click();
     await signInPage.waitUntilHidden();
 
-    // Login page should close when login success
+    // OldLogin page should close when login success
     expect(await signInPage.isHidden()()).to.be.true;
     await navBarPage.autoSignOut();
   });
@@ -118,7 +118,7 @@ describe('Account', () => {
     expect(await registerPage.getTitle()).to.eq(registerPageTitle);
 
     await registerPage.autoSignUpUsing('user_test', 'admin@localhost.jh', 'user_test');
-    const toast = getToastByInnerText('Login name already used!');
+    const toast = getToastByInnerText('OldLogin name already used!');
     await waitUntilDisplayed(toast);
 
     // Error toast should appear
@@ -146,7 +146,7 @@ describe('Account', () => {
     await signInPage.loginButton.click();
     await signInPage.waitUntilHidden();
 
-    // Login page should close when login success
+    // OldLogin page should close when login success
     expect(await signInPage.isHidden()()).to.be.true;
     await navBarPage.autoSignOut();
   });

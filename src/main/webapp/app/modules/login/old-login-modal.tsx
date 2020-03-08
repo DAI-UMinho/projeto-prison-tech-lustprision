@@ -11,7 +11,7 @@ export interface ILoginModalProps {
   handleClose: Function;
 }
 
-class LoginModal extends React.Component<ILoginModalProps> {
+class OldLoginModal extends React.Component<ILoginModalProps> {
   handleSubmit = (event, errors, { username, password, rememberMe }) => {
     const { handleLogin } = this.props;
     handleLogin(username, password, rememberMe);
@@ -90,4 +90,4 @@ class LoginModal extends React.Component<ILoginModalProps> {
   }
 }
 
-export default LoginModal;
+export default OldLoginModal;

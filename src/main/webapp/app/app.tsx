@@ -4,7 +4,7 @@ import './app.scss';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'reactstrap';
-import { BrowserRouter as Router } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { hot } from 'react-hot-loader';
 
@@ -18,6 +18,8 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
+import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
+import Login from "app/modules/login/login";
 
 const baseHref = document
   .querySelector('base')
@@ -32,7 +34,8 @@ export const App = (props: IAppProps) => {
     props.getProfile();
   }, []);
 
-  const paddingTop = '60px';
+  const paddingTop = '70px';
+
   return (
     <Router basename={baseHref}>
       <div className="app-container" style={{ paddingTop }}>
@@ -48,14 +51,17 @@ export const App = (props: IAppProps) => {
             isSwaggerEnabled={props.isSwaggerEnabled}
           />
         </ErrorBoundary>
-        <div className="container-fluid view-container" id="app-view-container">
-          <Card className="jh-card">
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </Card>
-          <Footer />
-        </div>
+        <Switch>
+          <ErrorBoundaryRoute exact={true} component={Login} path="/login"/>
+          <div className="container-fluid view-container" id="app-view-container">
+            <Card className="jh-card">
+              <ErrorBoundary>
+                <AppRoutes />
+              </ErrorBoundary>
+            </Card>
+            <Footer />
+          </div>
+        </Switch>
       </div>
     </Router>
   );

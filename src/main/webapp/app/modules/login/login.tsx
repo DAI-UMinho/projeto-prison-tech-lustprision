@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
+import './login.css'
 
-import { IRootState } from 'app/shared/reducers';
-import { login } from 'app/shared/reducers/authentication';
-import LoginModal from './login-modal';
+import React from 'react';
+import {connect} from 'react-redux';
+import {Link, Redirect, RouteComponentProps} from 'react-router-dom';
+import {IRootState} from 'app/shared/reducers';
+import {login} from 'app/shared/reducers/authentication';
+import {ModalBody, Alert, Row, Col, CustomInput} from 'reactstrap';
+import {AvForm, AvField} from 'availity-reactstrap-validation';
+import {translate, Translate} from "react-jhipster";
 
 export interface ILoginProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
 export const Login = (props: ILoginProps) => {
-  const [showModal, setShowModal] = useState(props.showModal);
 
-  useEffect(() => {
-    setShowModal(true);
-  }, []);
-
+  const loginError: boolean = props.loginError;
   const handleLogin = (username, password, rememberMe = false) => props.login(username, password, rememberMe);
 
-  const handleClose = () => {
-    setShowModal(false);
-    props.history.push('/');
+  const handleSubmit = (event, errors, { username, password, rememberMe }) => {
+    handleLogin(username, password, rememberMe);
   };
 
   const { location, isAuthenticated } = props;
@@ -27,13 +25,86 @@ export const Login = (props: ILoginProps) => {
   if (isAuthenticated) {
     return <Redirect to={from} />;
   }
-  return <LoginModal showModal={showModal} handleLogin={handleLogin} handleClose={handleClose} loginError={props.loginError} />;
+
+  return (
+    <div className="limiter">
+      <div className="container-login100">
+        <div className="wrap-login100">
+          <AvForm onSubmit={handleSubmit}>
+            <ModalBody>
+              <div className="login-form-test">
+                <img src="https://i.ibb.co/r4R8yYm/login-icon.png" className="login-logo"></img>
+              </div>
+                  <span className="login100-form-title p-b-34 p-t-27">
+                Log in
+              </span>
+              <Row>
+                <Col md="12">
+                  {loginError ? (
+                    <Alert color="danger">
+                      <Translate contentKey="login.messages.error.authentication">
+                        <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                      </Translate>
+                    </Alert>
+                  ) : null}
+                </Col>
+                <Col md="12">
+                  <div className="wrap-input100 validate-input">
+                    <AvField
+                      tag={CustomInput}
+                      className="input100"
+                      name="username"
+                      placeholder={translate('global.form.username.placeholder')}
+                      required
+                      errorMessage="Username cannot be empty!"
+                    />
+                    <span className="focus-input100" data-placeholder="&#xf207;"></span>
+                  </div>
+                  <div className="wrap-input100 validate-input">
+                    <AvField
+                      tag={CustomInput}
+                      className="input100"
+                      name="password"
+                      type="password"
+                      placeholder={translate('login.form.password.placeholder')}
+                      required
+                      errorMessage="Password cannot be empty!"
+                    />
+                    <span className="focus-input100" data-placeholder="&#xf191;"></span>
+                  </div>
+                  <div className="container-login100-form-btn">
+                    <button className="login100-form-btn">
+                      Login
+                    </button>
+                  </div>
+                </Col>
+              </Row>
+              <div className="mt-1">&nbsp;</div>
+              <Alert color="warning">
+                <Link to="/account/reset/request">
+                  <Translate contentKey="login.password.forgot">Did you forget your password?</Translate>
+                </Link>
+              </Alert>
+              <Alert color="warning">
+              <span>
+                <Translate
+                  contentKey="global.messages.info.register.noaccount">You don&apos;t have an account yet?</Translate>
+              </span>{' '}
+                <Link to="/account/register">
+                  <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
+                </Link>
+              </Alert>
+            </ModalBody>
+          </AvForm>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-const mapStateToProps = ({ authentication }: IRootState) => ({
+const mapStateToProps = ({authentication}: IRootState) => ({
   isAuthenticated: authentication.isAuthenticated,
-  loginError: authentication.loginError,
-  showModal: authentication.showModalLogin
+  loginError: authentication.loginError
 });
 
 const mapDispatchToProps = { login };

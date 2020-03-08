@@ -117,6 +117,7 @@ export const login = (username, password, rememberMe = false) => async (dispatch
     type: ACTION_TYPES.LOGIN,
     payload: axios.post('api/authenticate', { username, password, rememberMe })
   });
+
   const bearerToken = result.value.headers.authorization;
   if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
     const jwt = bearerToken.slice(7, bearerToken.length);
