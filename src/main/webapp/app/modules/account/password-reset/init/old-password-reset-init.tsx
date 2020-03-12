@@ -9,7 +9,7 @@ import { handlePasswordResetInit, reset } from '../password-reset.reducer';
 
 export type IPasswordResetInitProps = DispatchProps;
 
-export class PasswordResetInit extends React.Component<IPasswordResetInitProps> {
+export class OldPasswordResetInit extends React.Component<IPasswordResetInitProps> {
   componentWillUnmount() {
     this.props.reset();
   }
@@ -59,4 +59,4 @@ const mapDispatchToProps = { handlePasswordResetInit, reset };
 
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(null, mapDispatchToProps)(PasswordResetInit);
+export default connect(null, mapDispatchToProps)(OldPasswordResetInit);

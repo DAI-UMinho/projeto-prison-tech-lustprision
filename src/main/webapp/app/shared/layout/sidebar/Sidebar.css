@@ -1,0 +1,444 @@
+/*! CSS Used from: https://demos.creative-tim.com/paper-dashboard-react/static/css/2.151d002d.chunk.css */
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+ul {
+  margin-bottom: 1rem;
+}
+ul {
+  margin-top: 0;
+}
+a {
+  color: #007bff;
+  text-decoration: none;
+  background-color: initial;
+}
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+img {
+  border-style: none;
+}
+img {
+  vertical-align: middle;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+.nav-link:focus,
+.nav-link:hover {
+  text-decoration: none;
+}
+@media print {
+  *,
+  :after,
+  :before {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+  a:not(.btn) {
+    text-decoration: underline;
+  }
+  img {
+    page-break-inside: avoid;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+}
+.ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  -ms-overflow-style: none;
+  touch-action: auto;
+  -ms-touch-action: auto;
+}
+.ps__rail-x {
+  height: 15px;
+  bottom: 0;
+}
+.ps__rail-x,
+.ps__rail-y {
+  display: none;
+  opacity: 0;
+  transition: background-color 0.2s linear, opacity 0.2s linear;
+  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
+  position: absolute;
+}
+.ps__rail-y {
+  width: 15px;
+  right: 0;
+}
+.ps:hover > .ps__rail-x,
+.ps:hover > .ps__rail-y {
+  opacity: 0.6;
+}
+.ps .ps__rail-x:focus,
+.ps .ps__rail-x:hover,
+.ps .ps__rail-y:focus,
+.ps .ps__rail-y:hover {
+  background-color: #eee;
+  opacity: 0.9;
+}
+.ps__thumb-x {
+  transition: background-color 0.2s linear, height 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s linear, height 0.2s ease-in-out;
+  height: 6px;
+  bottom: 2px;
+}
+.ps__thumb-x,
+.ps__thumb-y {
+  background-color: #aaa;
+  border-radius: 6px;
+  position: absolute;
+}
+.ps__thumb-y {
+  transition: background-color 0.2s linear, width 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s linear, width 0.2s ease-in-out;
+  width: 6px;
+  right: 2px;
+}
+.ps__rail-x:focus > .ps__thumb-x,
+.ps__rail-x:hover > .ps__thumb-x {
+  background-color: #999;
+  height: 11px;
+}
+.ps__rail-y:focus > .ps__thumb-y,
+.ps__rail-y:hover > .ps__thumb-y {
+  background-color: #999;
+  width: 11px;
+}
+@media (-ms-high-contrast: none), screen and (-ms-high-contrast: active) {
+  .ps {
+    overflow: auto !important;
+  }
+}
+/*! CSS Used from: https://demos.creative-tim.com/paper-dashboard-react/static/css/main.57c121bb.chunk.css */
+::-moz-placeholder {
+  color: #9a9a9a;
+}
+:-ms-input-placeholder {
+  color: #9a9a9a;
+}
+::-webkit-input-placeholder {
+  color: #9a9a9a;
+}
+a,
+a:focus,
+a:hover {
+  color: #51cbce;
+}
+.sidebar .logo a.logo-mini,
+.sidebar .logo a.logo-normal,
+.sidebar .nav a,
+.sidebar .nav a i {
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+img {
+  max-width: 100%;
+  border-radius: 3px;
+}
+.nc-icon {
+  display: inline-block;
+  font: normal normal normal 14px/1 nucleo-icons;
+  font-size: inherit;
+  speak: none;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.nc-bank:before {
+  content: '\ea0b';
+}
+.nc-bell-55:before {
+  content: '\ea0d';
+}
+.nc-caps-small:before {
+  content: '\ea1c';
+}
+.nc-diamond:before {
+  content: '\ea29';
+}
+.nc-pin-3:before {
+  content: '\ea42';
+}
+.nc-single-02:before {
+  content: '\ea50';
+}
+.nc-spaceship:before {
+  content: '\ea53';
+}
+.nc-tile-56:before {
+  content: '\ea5a';
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  bottom: 0;
+  width: 260px;
+  left: 0;
+  z-index: 1030;
+  border-right: 1px solid #ddd;
+}
+.sidebar .sidebar-wrapper {
+  position: relative;
+  height: calc(100vh - 75px);
+  overflow: auto;
+  width: 260px;
+  z-index: 4;
+  padding-bottom: 100px;
+  overflow: hidden;
+}
+.sidebar .nav {
+  margin-top: 20px;
+  display: block;
+}
+.sidebar .nav li > a {
+  margin: 10px 15px 0;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 10px 8px;
+  line-height: 30px;
+  opacity: 0.7;
+}
+.sidebar .nav li.active > a,
+.sidebar .nav li.active > a > i,
+.sidebar .nav li:focus:not(.active) > a,
+.sidebar .nav li:hover:not(.active) > a {
+  opacity: 1;
+}
+.sidebar .nav i {
+  font-size: 24px;
+  float: left;
+  margin-right: 12px;
+  line-height: 30px;
+  width: 34px;
+  text-align: center;
+  color: hsla(0, 0%, 100%, 0.5);
+  position: relative;
+}
+.sidebar .nav p {
+  margin-bottom: 0;
+}
+.sidebar .logo {
+  position: relative;
+  padding: 7px 0.7rem;
+  z-index: 4;
+}
+.sidebar .logo a.logo-mini {
+  opacity: 1;
+  float: left;
+  width: 34px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 12px;
+}
+.sidebar .logo a.logo-normal {
+  display: block;
+  opacity: 1;
+  padding: 11px 0 8px;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.sidebar .logo:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+  height: 1px;
+  width: calc(100% - 30px);
+  background-color: hsla(0, 0%, 100%, 0.5);
+}
+.sidebar .logo .simple-text {
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  display: block;
+  white-space: nowrap;
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+  line-height: 30px;
+  overflow: hidden;
+}
+.sidebar:after,
+.sidebar:before {
+  display: block;
+  content: '';
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.sidebar:after {
+  background: #66615b;
+  background: -webkit-gradient(linear, left top, left bottom, from(#66615b), color-stop(80%, #000));
+  background: linear-gradient(#66615b, #000 80%);
+  z-index: 3;
+}
+.sidebar[data-color='black']:after {
+  background: #212120;
+}
+.sidebar[data-active-color='info'] .nav li.active > a,
+.sidebar[data-active-color='info'] .nav li.active > a i {
+  color: #51bcda;
+  opacity: 1;
+}
+.perfect-scrollbar-on .sidebar {
+  height: 100%;
+  max-height: 100%;
+}
+a.justatest {
+  margin: 10px 15px 0;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 10px 8px;
+  line-height: 30px;
+  opacity: 0.7;
+}
+a.active {
+  color: #51bcda;
+  opacity: 1;
+}
+.nav a.active i {
+  color: #51bcda;
+  opacity: 1;
+}
+
+@media screen and (max-width: 991px) {
+  .sidebar {
+    position: fixed;
+    display: block;
+    top: 0;
+    height: 100%;
+    width: 260px;
+    right: auto;
+    left: 0;
+    z-index: 1032;
+    visibility: visible;
+    overflow-y: visible;
+    padding: 0;
+    -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
+    transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
+    -webkit-transform: translate3d(-260px, 0, 0);
+    transform: translate3d(-260px, 0, 0);
+  }
+}
+@media screen and (min-width: 992px) {
+  .sidebar .sidebar-wrapper a.active:before {
+    border-right: 17px solid #ddd;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    right: -16px;
+    opacity: 1;
+    top: 7px;
+    -webkit-transition: opacity 0.15s ease-in;
+    transition: opacity 0.15s ease-in;
+  }
+  .sidebar .sidebar-wrapper a.active:after {
+    border-right: 17px solid #f4f3ef;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    right: -17px;
+    opacity: 1;
+    top: 7px;
+    -webkit-transition: opacity 0.15s ease-in;
+    transition: opacity 0.15s ease-in;
+  }
+  .sidebar .sidebar-wrapper li.active > a:not([data-toggle='collapse']):before {
+    border-right: 17px solid #ddd;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    right: -16px;
+    opacity: 1;
+    top: 7px;
+    -webkit-transition: opacity 0.15s ease-in;
+    transition: opacity 0.15s ease-in;
+  }
+  .sidebar .sidebar-wrapper li.active > a:not([data-toggle='collapse']):after {
+    border-right: 17px solid #f4f3ef;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    right: -17px;
+    opacity: 1;
+    top: 7px;
+    -webkit-transition: opacity 0.15s ease-in;
+    transition: opacity 0.15s ease-in;
+  }
+}
+*,
+:focus,
+a,
+a:focus {
+  outline: none;
+}
+@media (min-width: 992px) {
+  .sidebar .nav > li.active-pro {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+  }
+}
+/*! CSS Used fontfaces */
+@font-face {
+  font-family: nucleo-icons;
+  src: url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.f32ed5ad.eot);
+  src: url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.f32ed5ad.eot) format('embedded-opentype'),
+    url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.5c78b4cf.woff2) format('woff2'),
+    url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.6836b93b.woff) format('woff'),
+    url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.48ac036d.ttf) format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: nucleo-icons;
+  src: url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.f32ed5ad.eot);
+  src: url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.f32ed5ad.eot) format('embedded-opentype'),
+    url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.5c78b4cf.woff2) format('woff2'),
+    url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.6836b93b.woff) format('woff'),
+    url(https://demos.creative-tim.com/paper-dashboard-react/static/media/nucleo-icons.48ac036d.ttf);
+  font-weight: 400;
+  font-style: normal;
+}

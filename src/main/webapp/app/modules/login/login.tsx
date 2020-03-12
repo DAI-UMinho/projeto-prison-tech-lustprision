@@ -9,6 +9,8 @@ import {ModalBody, Alert, Row, Col, CustomInput} from 'reactstrap';
 import {AvForm, AvField} from 'availity-reactstrap-validation';
 import {translate, Translate} from "react-jhipster";
 
+import logo from "./login-icon.png"
+
 export interface ILoginProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
 export const Login = (props: ILoginProps) => {
@@ -33,7 +35,7 @@ export const Login = (props: ILoginProps) => {
           <AvForm onSubmit={handleSubmit}>
             <ModalBody>
               <div className="login-form-test">
-                <img src="https://i.ibb.co/r4R8yYm/login-icon.png" className="login-logo"></img>
+                <img src={logo} className="login-logo"></img>
               </div>
                   <span className="login100-form-title p-b-34 p-t-27">
                 Log in

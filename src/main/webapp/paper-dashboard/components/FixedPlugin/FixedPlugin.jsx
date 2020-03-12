@@ -151,18 +151,6 @@ class FixedPlugin extends Component {
                 <i className="nc-icon nc-paper" /> Documentation
               </Button>
             </li>
-            <li className="header-title">Want more components?</li>
-            <li className="button-container">
-              <Button
-                href="https://www.creative-tim.com/product/paper-dashboard-pro-react"
-                color="danger"
-                block
-                className="btn-round"
-                target="_blank"
-              >
-                Get pro version
-              </Button>
-            </li>
           </ul>
         </div>
       </div>

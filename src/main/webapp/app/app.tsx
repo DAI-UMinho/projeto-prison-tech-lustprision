@@ -20,6 +20,9 @@ import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
 import Login from "app/modules/login/login";
+import Register from "app/modules/account/register/register";
+import PasswordResetInit from "app/modules/account/password-reset/init/password-reset-init";
+import Dashboard from "app/Dashboard";
 
 const baseHref = document
   .querySelector('base')
@@ -52,7 +55,10 @@ export const App = (props: IAppProps) => {
           />
         </ErrorBoundary>
         <Switch>
-          <ErrorBoundaryRoute exact={true} component={Login} path="/login"/>
+          <ErrorBoundaryRoute path="/login" exact={true} component={Login}/>
+          <ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
+          <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />
+          <ErrorBoundaryRoute path="/dashboard" component={Dashboard}/>
           <div className="container-fluid view-container" id="app-view-container">
             <Card className="jh-card">
               <ErrorBoundary>
