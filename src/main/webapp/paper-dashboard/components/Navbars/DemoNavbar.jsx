@@ -36,7 +36,7 @@ import {
   Input
 } from "reactstrap";
 
-import routes from "routes.js";
+import routes from "routes.tsx";
 
 class Header extends React.Component {
   constructor(props) {

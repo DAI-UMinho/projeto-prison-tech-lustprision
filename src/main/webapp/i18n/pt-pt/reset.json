@@ -1,12 +1,12 @@
 {
   "reset": {
     "request": {
-      "title": "Reponha a palavra-passe",
+      "title": "Repor a password",
       "form": {
         "button": "Reposição da palavra-passe"
       },
       "messages": {
-        "info": "Introduza o endereço de email utilizado para registar",
+        "info": "Introduza o email utilizado no registo",
         "success": "Verifique o seu email para mais detalhes sobre como repor a palavra-passe."
       }
     },
