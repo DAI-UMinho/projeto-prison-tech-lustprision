@@ -1,0 +1,183 @@
+entity Prisioner{
+idPrisioner Integer
+name String
+bi Integer
+image String
+numPrisioner Integer
+numCell Integer
+dataNascimento LocalDate
+balance Double
+loginUserName String
+permissinidPermission Integer
+working Integer
+password String
+}
+    
+entity Question {
+     idQuestion Integer
+     question String
+     value Double
+     answer String
+}
+
+entity QuestionQuiz {
+     questionQuizId Integer
+     idQuiz Integer
+     idQuestion Integer
+}
+
+entity Permission {
+	idPremissin Integer
+    descPermission String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Login {
+	userName String,
+	possword String,
+	type String,
+}
+
+entity Purchase {
+	idPurchase Integer
+    prisionerId Integer
+}
+
+/**
+ * LustPrision team entity.
+ * 
+ */
+entity PressWork {
+	prisionerId Integer,
+	workId Integer
+}
+
+/**
+ * The PrisionerQuiz entity.
+ */
+entity PrisQuiz {
+	/**
+	* The prisioner attributes.
+	*/
+	prisionerIdPrisioner Integer,
+	quizIdQuestion Integer,
+	quizDate LocalDate,
+}
+
+entity SystemAdmin {
+	idSysAdmin Integer,
+	nameAdmin String,
+    userNameAdmin String,
+    password String
+	permissionIdPermission Integer
+}
+
+entity AdministriveEmployee {
+	idAdminEmp Integer,
+	nameAdminEmp String,
+	loginUserName String
+    password String
+    permissionIdPermission Integer
+}
+
+entity PressProduct {orderId Integer,
+    productCode Integer
+    quaty Integer
+    priceEach Long
+    purchaseIdPurchase Integer
+}
+entity Product {
+    codeProd Integer
+    productLinId Integer
+    nameProd String
+    price Long
+    seler String
+    descriptionProd String
+    quantyInStock Integer
+    buyPrice Long
+}
+
+entity Work {
+    idWork Integer
+    nameWork String
+    priceHour Long
+    numVacancies Integer
+}
+
+entity Quiz {
+    idQuiz Integer
+    question1 String
+    question1Value String
+    question2 String
+    question2Value String
+    question3 String
+    questio3Value String
+}
+
+enum Language {
+    PORTUGUESE, ENGLISH, SPANISH
+}
+
+relationship OneToMany {
+	Prisioner{idPurchase} to Purchase
+    Prisioner{quizIdQuestion} to PrisQuiz
+    Prisioner{workId} to PressWork
+}
+
+//relationship OneToOne {
+//}
+
+relationship OneToMany {
+	Login{loginUserName} to Prisioner
+    Login{userNameAdmin} to SystemAdmin
+    Login{loginUsername} to AdministriveEmployee
+}
+
+//relationship ManyToMany {
+//	Job{task(title)} to Task{job}
+//}
+
+// defining multiple OneToMany relationships with comments
+//relationship OneToMany {
+	//Employee{job} to Job,
+	/**
+	* A relationship
+	*/
+	//Department{employee} to
+	/**
+	* Another side of the same relationship
+	*/
+	/Employee
+//}
+
+relationship ManyToOne {
+	Prisioner{idPermission} to Permission
+    PressProduct{idPrisioner} to Purchase
+    AdministriveEmployee{idPermission} to Permission
+    SystemAdmin{idPermission} to Permission
+    PrisQuiz{idQuiz} to Quiz
+    PressWork{idWork} to Work
+    PressProduct{idProduct} to Product
+    QuestionQuiz{idQuiz} to Quiz
+    QuestionQuiz{idQuestion} to Question   
+}
+
+// defining multiple oneToOne relationships
+/relationship OneToOne {
+	//JobHistory{job} to Job,
+	////JobHistory{employee} to Employee
+/}
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+//paginate Job with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
