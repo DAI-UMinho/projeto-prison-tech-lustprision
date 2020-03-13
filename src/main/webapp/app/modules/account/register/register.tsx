@@ -103,7 +103,7 @@ export const RegisterPage = (props: IRegisterProps) => {
                   />
                   <span className="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
-                {/*<div className="wrap-input100 validate-input">
+                /*{/*<div className="wrap-input100 validate-input">
                   <AvField
                     tag={CustomInput}
                     className="input100"
@@ -139,7 +139,7 @@ export const RegisterPage = (props: IRegisterProps) => {
     </div>
   </div>);
 
-  /*return (
+  /* return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
