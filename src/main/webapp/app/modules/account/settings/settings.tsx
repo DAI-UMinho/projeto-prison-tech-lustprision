@@ -28,7 +28,6 @@ export const SettingsPage = (props: IUserSettingsProps) => {
     props.saveAccountSettings(account);
     event.persist();
   };
-
   return (
     <div>
       <Row className="justify-content-center">

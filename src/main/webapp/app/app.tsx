@@ -37,35 +37,47 @@ export const App = (props: IAppProps) => {
     props.getProfile();
   }, []);
 
-  const paddingTop = '70px';
+  const paddingTop = '62px';
 
   return (
     <Router basename={baseHref}>
-      <div className="app-container" style={{ paddingTop }}>
+      <div className="app-container">
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
-        <ErrorBoundary>
-          <Header
-            isAuthenticated={props.isAuthenticated}
-            isAdmin={props.isAdmin}
-            currentLocale={props.currentLocale}
-            onLocaleChange={props.setLocale}
-            ribbonEnv={props.ribbonEnv}
-            isInProduction={props.isInProduction}
-            isSwaggerEnabled={props.isSwaggerEnabled}
-          />
-        </ErrorBoundary>
         <Switch>
-          <ErrorBoundaryRoute path="/login" exact={true} component={Login}/>
-          <ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
-          <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />
-          <ErrorBoundaryRoute path="/dashboard" component={Dashboard}/>
-          <div className="container-fluid view-container" id="app-view-container">
-            <Card className="jh-card">
-              <ErrorBoundary>
-                <AppRoutes />
-              </ErrorBoundary>
-            </Card>
-            <Footer />
+          <Route path="/dashboard" render={() =>
+            <Dashboard isAuthenticated={props.isAuthenticated}
+                       isAdmin={props.isAdmin}
+                       currentLocale={props.currentLocale}
+                       onLocaleChange={props.setLocale}
+                       ribbonEnv={props.ribbonEnv}
+                       isInProduction={props.isInProduction}
+                       isSwaggerEnabled={props.isSwaggerEnabled}/>
+          }/>
+          <div id="no-auth" style={{ paddingTop }}>
+            <ErrorBoundary>
+              <Header
+                isAuthenticated={props.isAuthenticated}
+                isAdmin={props.isAdmin}
+                currentLocale={props.currentLocale}
+                onLocaleChange={props.setLocale}
+                ribbonEnv={props.ribbonEnv}
+                isInProduction={props.isInProduction}
+                isSwaggerEnabled={props.isSwaggerEnabled}
+              />
+            </ErrorBoundary>
+            <Switch>
+              <ErrorBoundaryRoute path="/login" exact={true} component={Login}/>
+              <ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
+              <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />
+              <div className="container-fluid view-container" id="app-view-container">
+                <Card className="jh-card">
+                  <ErrorBoundary>
+                    <AppRoutes />
+                  </ErrorBoundary>
+                </Card>
+                <Footer />
+              </div>
+            </Switch>
           </div>
         </Switch>
       </div>

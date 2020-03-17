@@ -1,0 +1,214 @@
+/*! CSS Used from: https://use.fontawesome.com/releases/v5.3.1/css/all.css */
+.fa {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+.fa-heart:before {
+  content: '\f004';
+}
+.fa {
+  font-family: 'Font Awesome 5 Free';
+}
+.fa {
+  font-weight: 900;
+}
+/*! CSS Used from: https://use.fontawesome.com/releases/v5.0.6/css/all.css */
+.fa {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+.fa-heart:before {
+  content: '\f004';
+}
+.fa {
+  font-family: Font Awesome\5 Free;
+}
+.fa {
+  font-weight: 900;
+}
+/*! CSS Used from: https://demos.creative-tim.com/paper-dashboard-react/static/css/2.151d002d.chunk.css */
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+footer,
+nav {
+  display: block;
+}
+ul {
+  margin-bottom: 1rem;
+}
+ul {
+  margin-top: 0;
+}
+a {
+  color: #007bff;
+  text-decoration: none;
+  background-color: initial;
+}
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.ml-auto {
+  margin-left: auto !important;
+}
+@media print {
+  *,
+  :after,
+  :before {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+  a:not(.btn) {
+    text-decoration: underline;
+  }
+}
+/*! CSS Used from: https://demos.creative-tim.com/paper-dashboard-react/static/css/main.57c121bb.chunk.css */
+::-moz-placeholder {
+  color: #9a9a9a;
+}
+:-ms-input-placeholder {
+  color: #9a9a9a;
+}
+::-webkit-input-placeholder {
+  color: #9a9a9a;
+}
+a,
+a:focus,
+a:hover {
+  color: #51cbce;
+}
+@media screen and (min-width: 768px) {
+  .footer:not(.footer-big) nav ul li:first-child {
+    margin-left: 0;
+  }
+}
+.footer {
+  padding: 24px 0;
+}
+.footer nav {
+  display: inline-block;
+  float: left;
+  padding-left: 0;
+}
+.footer ul {
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer ul li {
+  display: inline-block;
+}
+.footer ul li a {
+  color: inherit;
+  padding: 0.5rem;
+  font-size: 0.8571em;
+  text-transform: uppercase;
+}
+.footer ul li a,
+.footer ul li a:hover {
+  text-decoration: none;
+}
+.footer .copyright {
+  font-size: 0.8571em;
+  line-height: 1.8;
+}
+.footer:after {
+  display: table;
+  clear: both;
+  content: ' ';
+}
+@media screen and (max-width: 991px) {
+  .footer .copyright {
+    text-align: right;
+  }
+}
+@media screen and (min-width: 768px) {
+  .footer .footer-nav {
+    padding-left: 21px;
+  }
+  .footer .credits {
+    padding-right: 15px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .footer .copyright {
+    float: right;
+    padding-right: 15px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .footer nav {
+    display: block;
+    margin-bottom: 5px;
+    float: none;
+  }
+}
+@media screen and (max-width: 767px) {
+  .footer .credits,
+  .footer .footer-nav {
+    margin: 0 auto !important;
+  }
+  .footer .footer-nav {
+    margin-bottom: 10px !important;
+  }
+}
+@media screen and (max-width: 576px) {
+  .footer .copyright {
+    text-align: center;
+  }
+}
+*,
+:focus,
+a,
+a:focus {
+  outline: none;
+}
+/*! CSS Used fontfaces */
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-regular-400.eot);
+  src: url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-regular-400.eot#iefix) format('embedded-opentype'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-regular-400.woff2) format('woff2'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-regular-400.woff) format('woff'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-regular-400.ttf) format('truetype'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-regular-400.svg#fontawesome) format('svg');
+}
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  src: url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-solid-900.eot);
+  src: url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-solid-900.eot#iefix) format('embedded-opentype'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-solid-900.woff2) format('woff2'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-solid-900.woff) format('woff'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-solid-900.ttf) format('truetype'),
+    url(https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-solid-900.svg#fontawesome) format('svg');
+}

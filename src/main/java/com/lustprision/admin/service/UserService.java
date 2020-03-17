@@ -177,7 +177,7 @@ public class UserService {
      * @param langKey   language key.
      * @param imageUrl  image URL of user.
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
+    public void updateUser(String firstName, String lastName, String email, String login, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
@@ -186,6 +186,7 @@ public class UserService {
                 if (email != null) {
                     user.setEmail(email.toLowerCase());
                 }
+                user.setLogin(login);
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
                 this.clearUserCaches(user);

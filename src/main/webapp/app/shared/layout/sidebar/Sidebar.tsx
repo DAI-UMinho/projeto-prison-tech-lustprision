@@ -19,11 +19,11 @@
 import './Sidebar.css'
 
 import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useRouteMatch} from "react-router-dom";
 import {Nav} from "reactstrap";
 
 const Sidebar = props => {
-
+  const currentRoute = useRouteMatch();
   const [sidebar, setSideBar] = useState(React.createRef());
 
   return (
@@ -34,18 +34,18 @@ const Sidebar = props => {
     >
       <div className="logo">
         <a
-          href="https://www.creative-tim.com"
+          href={currentRoute.path}
           className="simple-text logo-mini">
           <div className="logo-img">
             <img src="https://i.ibb.co/r4R8yYm/login-icon.png" alt="react-logo"/>
           </div>
         </a>
         <a
-          href="https://www.creative-tim.com"
+          href={currentRoute.path}
           className="simple-text logo-normal"
         >LustPrision</a>
       </div>
-      <div className="sidebar-wrapper">
+      <div className="sidebar-wrapper ps">
         <Nav>
           {props.routes.map((prop, key) => {
             return (
@@ -53,6 +53,7 @@ const Sidebar = props => {
                 to={prop.layout + prop.path}
                 className="justatest"
                 activeClassName="active"
+                key={key}
               >
                 <i className={prop.icon}/>
                 <p>{prop.name}</p>

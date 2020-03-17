@@ -1,35 +1,16 @@
-/*!
-
-=========================================================
-* Paper Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import Sidebar from "app/shared/layout/sidebar/Sidebar";
 
 const routes = [
   {
-    path: "/settings",
-    name: "Settings",
-    icon: "nc-icon nc-bank",
+    path: "/home",
+    name: "Home",
+    icon: "nc-icon nc-shop",
     layout: "/dashboard"
   },
   {
-    path: "/password",
-    name: "Password",
-    icon: "nc-icon nc-diamond",
+    path: "/profile",
+    name: "Profile",
+    icon: "nc-icon nc-single-02",
     layout: "/dashboard"
   },
 ];
