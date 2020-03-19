@@ -1,0 +1,49 @@
+{
+    "name": "Product",
+    "fields": [
+        {
+            "fieldName": "codeProd",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "productLinId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "nameProd",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "seler",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "descriptionProd",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "quantyInStock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "buyPrice",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200320000500",
+    "entityTableName": "product",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

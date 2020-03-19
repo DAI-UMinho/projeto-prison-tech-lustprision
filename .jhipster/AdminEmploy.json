@@ -1,0 +1,52 @@
+{
+    "name": "AdminEmploy",
+    "fields": [
+        {
+            "fieldName": "idAdminEmp",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "nameAdminEmp",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "loginUserName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "permissionIdPermission",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "permission",
+            "otherEntityRelationshipName": "adminEmploy",
+            "relationshipName": "idPermission",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "login",
+            "otherEntityRelationshipName": "loginUsername",
+            "relationshipName": "login",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200320000300",
+    "entityTableName": "admin_employ",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

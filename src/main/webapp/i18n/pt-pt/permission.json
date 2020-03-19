@@ -1,0 +1,23 @@
+{
+  "lustPrisionApp": {
+    "permission": {
+      "home": {
+        "title": "Permissions",
+        "createLabel": "Criar novo(a) Permission",
+        "createOrEditLabel": "Criar ou editar Permission",
+        "notFound": "Nenhum Permissions encontrado"
+      },
+      "created": "Um novo Permission foi criado com o identificador {{ param }}",
+      "updated": "Permission com identificador {{ param }} foi actualizado",
+      "deleted": "Permission com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Permission {{ id }}?"
+      },
+      "detail": {
+        "title": "Permission"
+      },
+      "idPremissin": "Id Premissin",
+      "descPermission": "Desc Permission"
+    }
+  }
+}

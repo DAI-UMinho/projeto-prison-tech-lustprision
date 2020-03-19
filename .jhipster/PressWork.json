@@ -1,0 +1,40 @@
+{
+    "name": "PressWork",
+    "fields": [
+        {
+            "fieldName": "prisionerId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "workId",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "work",
+            "otherEntityRelationshipName": "pressWork",
+            "relationshipName": "idWork",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "prisioner",
+            "otherEntityRelationshipName": "workId",
+            "relationshipName": "prisioner",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200320000000",
+    "entityTableName": "press_work",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,92 @@
+{
+    "name": "Prisioner",
+    "fields": [
+        {
+            "fieldName": "idPrisioner",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bi",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "numPrisioner",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "numCell",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "dataNascimento",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "balance",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "loginUserName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "permissinidPermission",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "working",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "purchase",
+            "otherEntityRelationshipName": "prisioner",
+            "relationshipName": "idPurchase"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "pressWork",
+            "otherEntityRelationshipName": "prisioner",
+            "relationshipName": "workId"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "permission",
+            "otherEntityRelationshipName": "prisioner",
+            "relationshipName": "idPermission",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "login",
+            "otherEntityRelationshipName": "loginUserName",
+            "relationshipName": "login",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200319235400",
+    "entityTableName": "prisioner",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

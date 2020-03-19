@@ -1,0 +1,25 @@
+{
+    "name": "Permission",
+    "fields": [
+        {
+            "fieldName": "idPremissin",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "descPermission",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200319235700",
+    "entityTableName": "permission",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
