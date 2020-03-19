@@ -1,0 +1,33 @@
+{
+    "name": "Question",
+    "fields": [
+        {
+            "fieldName": "idQuestion",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "question",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "value",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "answer",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200319235500",
+    "entityTableName": "question",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,33 @@
+{
+    "name": "Work",
+    "fields": [
+        {
+            "fieldName": "idWork",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "nameWork",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "priceHour",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "numVacancies",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200320000600",
+    "entityTableName": "work",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

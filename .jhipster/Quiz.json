@@ -1,0 +1,29 @@
+{
+    "name": "Quiz",
+    "fields": [
+        {
+            "fieldName": "idQuiz",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "questQuizId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "qtyQuestion",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200320000700",
+    "entityTableName": "quiz",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

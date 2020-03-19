@@ -1,0 +1,25 @@
+{
+  "lustPrisionApp": {
+    "work": {
+      "home": {
+        "title": "Works",
+        "createLabel": "Criar novo(a) Work",
+        "createOrEditLabel": "Criar ou editar Work",
+        "notFound": "Nenhum Works encontrado"
+      },
+      "created": "Um novo Work foi criado com o identificador {{ param }}",
+      "updated": "Work com identificador {{ param }} foi actualizado",
+      "deleted": "Work com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Work {{ id }}?"
+      },
+      "detail": {
+        "title": "Work"
+      },
+      "idWork": "Id Work",
+      "nameWork": "Name Work",
+      "priceHour": "Price Hour",
+      "numVacancies": "Num Vacancies"
+    }
+  }
+}

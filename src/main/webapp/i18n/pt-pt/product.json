@@ -1,0 +1,29 @@
+{
+  "lustPrisionApp": {
+    "product": {
+      "home": {
+        "title": "Products",
+        "createLabel": "Criar novo(a) Product",
+        "createOrEditLabel": "Criar ou editar Product",
+        "notFound": "Nenhum Products encontrado"
+      },
+      "created": "Um novo Product foi criado com o identificador {{ param }}",
+      "updated": "Product com identificador {{ param }} foi actualizado",
+      "deleted": "Product com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Product"
+      },
+      "codeProd": "Code Prod",
+      "productLinId": "Product Lin Id",
+      "nameProd": "Name Prod",
+      "price": "Price",
+      "seler": "Seler",
+      "descriptionProd": "Description Prod",
+      "quantyInStock": "Quanty In Stock",
+      "buyPrice": "Buy Price"
+    }
+  }
+}

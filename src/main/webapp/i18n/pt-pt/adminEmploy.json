@@ -1,0 +1,28 @@
+{
+  "lustPrisionApp": {
+    "adminEmploy": {
+      "home": {
+        "title": "Admin Employs",
+        "createLabel": "Criar novo(a) Admin Employ",
+        "createOrEditLabel": "Criar ou editar Admin Employ",
+        "notFound": "Nenhum Admin Employs encontrado"
+      },
+      "created": "Um novo Admin Employ foi criado com o identificador {{ param }}",
+      "updated": "Admin Employ com identificador {{ param }} foi actualizado",
+      "deleted": "Admin Employ com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Admin Employ {{ id }}?"
+      },
+      "detail": {
+        "title": "Admin Employ"
+      },
+      "idAdminEmp": "Id Admin Emp",
+      "nameAdminEmp": "Name Admin Emp",
+      "loginUserName": "Login User Name",
+      "password": "Password",
+      "permissionIdPermission": "Permission Id Permission",
+      "idPermission": "Id Permission",
+      "login": "Login"
+    }
+  }
+}

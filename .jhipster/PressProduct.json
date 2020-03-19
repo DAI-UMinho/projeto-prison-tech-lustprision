@@ -1,0 +1,52 @@
+{
+    "name": "PressProduct",
+    "fields": [
+        {
+            "fieldName": "orderId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "productCode",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "quaty",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "priceEach",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "purchaseIdPurchase",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "purchase",
+            "otherEntityRelationshipName": "pressProduct",
+            "relationshipName": "idPrisioner",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "product",
+            "otherEntityRelationshipName": "pressProduct",
+            "relationshipName": "idProduct",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200320000400",
+    "entityTableName": "press_product",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

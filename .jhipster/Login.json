@@ -1,0 +1,48 @@
+{
+    "name": "Login",
+    "fields": [
+        {
+            "fieldName": "userName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "possword",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "prisioner",
+            "otherEntityRelationshipName": "login",
+            "relationshipName": "loginUserName"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "systemAdmin",
+            "otherEntityRelationshipName": "login",
+            "relationshipName": "userNameAdmin"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "adminEmploy",
+            "otherEntityRelationshipName": "login",
+            "relationshipName": "loginUsername"
+        }
+    ],
+    "changelogDate": "20200319235800",
+    "entityTableName": "login",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

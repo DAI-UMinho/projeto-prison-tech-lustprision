@@ -1,0 +1,24 @@
+{
+  "lustPrisionApp": {
+    "purchase": {
+      "home": {
+        "title": "Purchases",
+        "createLabel": "Criar novo(a) Purchase",
+        "createOrEditLabel": "Criar ou editar Purchase",
+        "notFound": "Nenhum Purchases encontrado"
+      },
+      "created": "Um novo Purchase foi criado com o identificador {{ param }}",
+      "updated": "Purchase com identificador {{ param }} foi actualizado",
+      "deleted": "Purchase com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Purchase {{ id }}?"
+      },
+      "detail": {
+        "title": "Purchase"
+      },
+      "idPurchase": "Id Purchase",
+      "prisionerId": "Prisioner Id",
+      "prisioner": "Prisioner"
+    }
+  }
+}

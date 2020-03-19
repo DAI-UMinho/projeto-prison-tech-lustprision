@@ -1,0 +1,37 @@
+{
+  "lustPrisionApp": {
+    "prisioner": {
+      "home": {
+        "title": "Prisioners",
+        "createLabel": "Criar novo(a) Prisioner",
+        "createOrEditLabel": "Criar ou editar Prisioner",
+        "notFound": "Nenhum Prisioners encontrado"
+      },
+      "created": "Um novo Prisioner foi criado com o identificador {{ param }}",
+      "updated": "Prisioner com identificador {{ param }} foi actualizado",
+      "deleted": "Prisioner com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Prisioner {{ id }}?"
+      },
+      "detail": {
+        "title": "Prisioner"
+      },
+      "idPrisioner": "Id Prisioner",
+      "name": "Name",
+      "bi": "Bi",
+      "image": "Image",
+      "numPrisioner": "Num Prisioner",
+      "numCell": "Num Cell",
+      "dataNascimento": "Data Nascimento",
+      "balance": "Balance",
+      "loginUserName": "Login User Name",
+      "permissinidPermission": "Permissinid Permission",
+      "working": "Working",
+      "password": "Password",
+      "idPurchase": "Id Purchase",
+      "workId": "Work Id",
+      "idPermission": "Id Permission",
+      "login": "Login"
+    }
+  }
+}
