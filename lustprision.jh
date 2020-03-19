@@ -30,9 +30,6 @@ entity Permission {
 	idPremissin Integer
     descPermission String
 }
-
-// an ignored comment
-/** not an ignored comment */
 entity Login {
 	userName String,
 	possword String,
@@ -44,24 +41,16 @@ entity Purchase {
     prisionerId Integer
 }
 
-/**
- * LustPrision team entity.
- * 
- */
 entity PressWork {
 	prisionerId Integer,
 	workId Integer
 }
 
-/**
- * The PrisionerQuiz entity.
- */
+
 entity PrisQuiz {
-	/**
-	* The prisioner attributes.
-	*/
-	prisionerIdPrisioner Integer,
-	quizIdQuestion Integer,
+
+	idPrisioner Integer,
+	idQuiz Integer,
 	quizDate LocalDate,
 }
 
@@ -73,7 +62,7 @@ entity SystemAdmin {
 	permissionIdPermission Integer
 }
 
-entity AdministriveEmployee {
+entity AdminEmploy {
 	idAdminEmp Integer,
 	nameAdminEmp String,
 	loginUserName String
@@ -107,12 +96,8 @@ entity Work {
 
 entity Quiz {
     idQuiz Integer
-    question1 String
-    question1Value String
-    question2 String
-    question2Value String
-    question3 String
-    questio3Value String
+    questQuizId Integer
+    qtyQuestion Integer
 }
 
 enum Language {
@@ -125,8 +110,6 @@ relationship OneToMany {
     Prisioner{workId} to PressWork
 }
 
-//relationship OneToOne {
-//}
 
 relationship OneToMany {
 	Login{loginUserName} to Prisioner
@@ -134,22 +117,6 @@ relationship OneToMany {
     Login{loginUsername} to AdministriveEmployee
 }
 
-//relationship ManyToMany {
-//	Job{task(title)} to Task{job}
-//}
-
-// defining multiple OneToMany relationships with comments
-//relationship OneToMany {
-	//Employee{job} to Job,
-	/**
-	* A relationship
-	*/
-	//Department{employee} to
-	/**
-	* Another side of the same relationship
-	*/
-	/Employee
-//}
 
 relationship ManyToOne {
 	Prisioner{idPermission} to Permission
@@ -163,21 +130,4 @@ relationship ManyToOne {
     QuestionQuiz{idQuestion} to Question   
 }
 
-// defining multiple oneToOne relationships
-/relationship OneToOne {
-	//JobHistory{job} to Job,
-	////JobHistory{employee} to Employee
-/}
 
-// Set pagination options
-//paginate JobHistory, Employee with infinite-scroll
-//paginate Job with pagination
-
-// Use Data Transfert Objects (DTO)
-// dto * with mapstruct
-
-// Set service options to all except few
-//service all with serviceImpl except Employee, Job
-
-// Set an angular suffix
-// angularSuffix * with mySuffix
