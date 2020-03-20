@@ -1,0 +1,24 @@
+{
+  "lustPrisionApp": {
+    "prisQuiz": {
+      "home": {
+        "title": "Pris Quizs",
+        "createLabel": "Criar novo(a) Pris Quiz",
+        "createOrEditLabel": "Criar ou editar Pris Quiz",
+        "notFound": "Nenhum Pris Quizs encontrado"
+      },
+      "created": "Um novo Pris Quiz foi criado com o identificador {{ param }}",
+      "updated": "Pris Quiz com identificador {{ param }} foi actualizado",
+      "deleted": "Pris Quiz com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Pris Quiz {{ id }}?"
+      },
+      "detail": {
+        "title": "Pris Quiz"
+      },
+      "quizDate": "Quiz Date",
+      "prisioner": "Prisioner",
+      "quiz": "Quiz"
+    }
+  }
+}

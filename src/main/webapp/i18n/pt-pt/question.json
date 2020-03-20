@@ -1,0 +1,26 @@
+{
+  "lustPrisionApp": {
+    "question": {
+      "home": {
+        "title": "Questions",
+        "createLabel": "Criar novo(a) Question",
+        "createOrEditLabel": "Criar ou editar Question",
+        "notFound": "Nenhum Questions encontrado"
+      },
+      "created": "Um novo Question foi criado com o identificador {{ param }}",
+      "updated": "Question com identificador {{ param }} foi actualizado",
+      "deleted": "Question com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Question {{ id }}?"
+      },
+      "detail": {
+        "title": "Question"
+      },
+      "idQuestion": "Id Question",
+      "question": "Question",
+      "value": "Value",
+      "answer": "Answer",
+      "idQuestion": "Id Question"
+    }
+  }
+}

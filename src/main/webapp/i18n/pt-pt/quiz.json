@@ -1,0 +1,25 @@
+{
+  "lustPrisionApp": {
+    "quiz": {
+      "home": {
+        "title": "Quizzes",
+        "createLabel": "Criar novo(a) Quiz",
+        "createOrEditLabel": "Criar ou editar Quiz",
+        "notFound": "Nenhum Quizzes encontrado"
+      },
+      "created": "Um novo Quiz foi criado com o identificador {{ param }}",
+      "updated": "Quiz com identificador {{ param }} foi actualizado",
+      "deleted": "Quiz com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Quiz {{ id }}?"
+      },
+      "detail": {
+        "title": "Quiz"
+      },
+      "idQuiz": "Id Quiz",
+      "qtyQuestion": "Qty Question",
+      "idQuiz": "Id Quiz",
+      "idQuz": "Id Quz"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "PressWork",
+    "fields": [
+        {
+            "fieldName": "workDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "prisioner",
+            "otherEntityRelationshipName": "idPrisioner",
+            "relationshipName": "prisioner",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "work",
+            "otherEntityRelationshipName": "idWork",
+            "relationshipName": "work",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200320151400",
+    "entityTableName": "press_work",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

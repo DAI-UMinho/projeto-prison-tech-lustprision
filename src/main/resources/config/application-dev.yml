@@ -37,9 +37,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:file:./target/h2db/db/lustprision;DB_CLOSE_DELAY=-1
-    username: LustPrision
-    password:
+    url: jdbc:oracle:thin:@//193.136.11.147:1521/lustdb
+    username: system
+    password: DBpassword#1
     hikari:
       poolName: Hikari
       auto-commit: false

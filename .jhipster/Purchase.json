@@ -1,0 +1,34 @@
+{
+    "name": "Purchase",
+    "fields": [
+        {
+            "fieldName": "idPurchase",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "pressProduct",
+            "otherEntityRelationshipName": "purchase",
+            "relationshipName": "idPurchase"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "prisioner",
+            "otherEntityRelationshipName": "idPrisioner",
+            "relationshipName": "prisioner",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200320152100",
+    "entityTableName": "purchase",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

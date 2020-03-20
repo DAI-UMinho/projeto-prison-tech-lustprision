@@ -1,0 +1,39 @@
+{
+    "name": "Question",
+    "fields": [
+        {
+            "fieldName": "idQuestion",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "question",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "value",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "answer",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "questionQuiz",
+            "otherEntityRelationshipName": "question",
+            "relationshipName": "idQuestion"
+        }
+    ],
+    "changelogDate": "20200320152000",
+    "entityTableName": "question",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

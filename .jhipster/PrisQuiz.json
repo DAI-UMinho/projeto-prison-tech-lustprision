@@ -1,0 +1,35 @@
+{
+    "name": "PrisQuiz",
+    "fields": [
+        {
+            "fieldName": "quizDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "prisioner",
+            "otherEntityRelationshipName": "idPrisioner",
+            "relationshipName": "prisioner",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "quiz",
+            "otherEntityRelationshipName": "idQuiz",
+            "relationshipName": "quiz",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200320151500",
+    "entityTableName": "pris_quiz",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

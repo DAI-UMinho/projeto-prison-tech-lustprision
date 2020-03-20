@@ -1,0 +1,35 @@
+{
+    "name": "QuestionQuiz",
+    "fields": [
+        {
+            "fieldName": "questionQuizId",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "quiz",
+            "otherEntityRelationshipName": "idQuz",
+            "relationshipName": "quiz",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "question",
+            "otherEntityRelationshipName": "idQuestion",
+            "relationshipName": "question",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200320151600",
+    "entityTableName": "question_quiz",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,19 +1,27 @@
 {
-  "login": {
-    "title": "Autenticação",
-    "form": {
-      "password": "Palavra-passe",
-      "password.placeholder": "A sua palavra-passe",
-      "rememberme": "Manter-me ligado",
-      "button": "Entrar"
-    },
-    "messages": {
-      "error": {
-        "authentication": "<strong>Erro de autenticação!</strong> Por favor verifique as suas credenciais e tente novamente."
-      }
-    },
-    "password": {
-      "forgot": "Esqueceu-se da sua palavra-passe?"
+  "lustPrisionApp": {
+    "login": {
+      "home": {
+        "title": "Logins",
+        "createLabel": "Criar novo(a) Login",
+        "createOrEditLabel": "Criar ou editar Login",
+        "notFound": "Nenhum Logins encontrado"
+      },
+      "created": "Um novo Login foi criado com o identificador {{ param }}",
+      "updated": "Login com identificador {{ param }} foi actualizado",
+      "deleted": "Login com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Login {{ id }}?"
+      },
+      "detail": {
+        "title": "Login"
+      },
+      "userName": "User Name",
+      "password": "Password",
+      "type": "Type",
+      "userName": "User Name",
+      "userName": "User Name",
+      "userName": "User Name"
     }
   }
 }

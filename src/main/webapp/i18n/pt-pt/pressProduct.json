@@ -1,0 +1,26 @@
+{
+  "lustPrisionApp": {
+    "pressProduct": {
+      "home": {
+        "title": "Press Products",
+        "createLabel": "Criar novo(a) Press Product",
+        "createOrEditLabel": "Criar ou editar Press Product",
+        "notFound": "Nenhum Press Products encontrado"
+      },
+      "created": "Um novo Press Product foi criado com o identificador {{ param }}",
+      "updated": "Press Product com identificador {{ param }} foi actualizado",
+      "deleted": "Press Product com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Press Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Press Product"
+      },
+      "orderId": "Order Id",
+      "qty": "Qty",
+      "priceEach": "Price Each",
+      "purchase": "Purchase",
+      "product": "Product"
+    }
+  }
+}

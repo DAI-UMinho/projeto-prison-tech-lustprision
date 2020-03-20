@@ -1,0 +1,114 @@
+entity Prisioner{
+idPrisioner Integer
+name String
+bi Integer
+image String
+numPrisioner Integer
+numCell Integer
+dataNascimento LocalDate
+balance Double
+working Integer
+password String
+}
+
+entity PressWork {
+	workDate LocalDate
+}
+
+entity PrisQuiz {
+	quizDate LocalDate,
+}
+
+entity QuestionQuiz {
+     questionQuizId Integer
+}
+
+entity PressProduct {
+	orderId Integer,
+    qty Integer
+    priceEach Long
+}
+
+entity Work {
+    idWork Integer
+    nameWork String
+    priceHour Long
+    numVacancies Integer
+}
+
+entity Quiz {
+    idQuiz Integer
+    qtyQuestion Integer
+}
+
+entity Question {
+     idQuestion Integer
+     question String
+     value Double
+     answer String
+}
+
+entity Purchase {
+	idPurchase Integer
+}
+
+entity Product {
+    codeProd Integer
+    productLinId Integer
+    nameProd String
+    price Long
+    seler String
+    descriptionProd String
+    quantyInStock Integer
+    buyPrice Long
+}
+
+entity Login {
+	userName String,
+	password String,
+	type String,
+}
+
+entity Permission {
+	idPermission Integer
+    descPermission String
+}
+
+entity SystemAdmin {
+	idSysAdmin Integer,
+	nameAdmin String,
+    password String
+}
+
+entity AdminEmploy {
+	idAdminEmp Integer,
+	nameAdminEmp String,
+    password String
+}
+
+relationship OneToMany{
+	Prisioner{idPrisioner} to PressWork
+    Work{idWork} to PressWork
+}
+
+relationship OneToMany{
+	Prisioner{idPrisioner} to PrisQuiz
+    Quiz{idQuiz} to PrisQuiz
+    Quiz{idQuz} to QuestionQuiz
+    Question{idQuestion} to QuestionQuiz
+}
+
+relationship OneToMany{
+	Prisioner{idPrisioner} to Purchase
+    Purchase{idPurchase} to PressProduct
+    Product{codeProd} to PressProduct
+}
+
+relationship OneToMany{
+	Login{userName} to Prisioner
+    Login{userName} to SystemAdmin
+    Login{userName} to AdminEmploy
+    Permission{idPermission} to Prisioner
+    Permission{idPermission} to SystemAdmin
+    Permission{idPermission} to AdminEmploy
+}

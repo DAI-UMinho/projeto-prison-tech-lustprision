@@ -7,6 +7,20 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "prisioner": "Prisioner",
+        "pressWork": "Press Work",
+        "prisQuiz": "Pris Quiz",
+        "questionQuiz": "Question Quiz",
+        "pressProduct": "Press Product",
+        "work": "Work",
+        "quiz": "Quiz",
+        "question": "Question",
+        "purchase": "Purchase",
+        "product": "Product",
+        "login": "Login",
+        "permission": "Permission",
+        "systemAdmin": "System Admin",
+        "adminEmploy": "Admin Employ",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

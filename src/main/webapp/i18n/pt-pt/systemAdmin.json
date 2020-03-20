@@ -1,0 +1,26 @@
+{
+  "lustPrisionApp": {
+    "systemAdmin": {
+      "home": {
+        "title": "System Admins",
+        "createLabel": "Criar novo(a) System Admin",
+        "createOrEditLabel": "Criar ou editar System Admin",
+        "notFound": "Nenhum System Admins encontrado"
+      },
+      "created": "Um novo System Admin foi criado com o identificador {{ param }}",
+      "updated": "System Admin com identificador {{ param }} foi actualizado",
+      "deleted": "System Admin com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) System Admin {{ id }}?"
+      },
+      "detail": {
+        "title": "System Admin"
+      },
+      "idSysAdmin": "Id Sys Admin",
+      "nameAdmin": "Name Admin",
+      "password": "Password",
+      "login": "Login",
+      "permission": "Permission"
+    }
+  }
+}

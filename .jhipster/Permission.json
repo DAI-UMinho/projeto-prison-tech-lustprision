@@ -1,0 +1,43 @@
+{
+    "name": "Permission",
+    "fields": [
+        {
+            "fieldName": "idPermission",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "descPermission",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "prisioner",
+            "otherEntityRelationshipName": "permission",
+            "relationshipName": "idPermission"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "systemAdmin",
+            "otherEntityRelationshipName": "permission",
+            "relationshipName": "idPermission"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "adminEmploy",
+            "otherEntityRelationshipName": "permission",
+            "relationshipName": "idPermission"
+        }
+    ],
+    "changelogDate": "20200320152400",
+    "entityTableName": "permission",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

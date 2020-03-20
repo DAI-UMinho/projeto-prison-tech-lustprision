@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity SystemAdmin.
+    -->
+    <changeSet id="20200320152500-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="login_id"
+                                 baseTableName="system_admin"
+                                 constraintName="fk_system_admin_login_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="login"/>
+
+        <addForeignKeyConstraint baseColumnNames="permission_id"
+                                 baseTableName="system_admin"
+                                 constraintName="fk_system_admin_permission_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="permission"/>
+
+    </changeSet>
+</databaseChangeLog>

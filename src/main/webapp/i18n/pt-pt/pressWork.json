@@ -1,0 +1,24 @@
+{
+  "lustPrisionApp": {
+    "pressWork": {
+      "home": {
+        "title": "Press Works",
+        "createLabel": "Criar novo(a) Press Work",
+        "createOrEditLabel": "Criar ou editar Press Work",
+        "notFound": "Nenhum Press Works encontrado"
+      },
+      "created": "Um novo Press Work foi criado com o identificador {{ param }}",
+      "updated": "Press Work com identificador {{ param }} foi actualizado",
+      "deleted": "Press Work com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Press Work {{ id }}?"
+      },
+      "detail": {
+        "title": "Press Work"
+      },
+      "workDate": "Work Date",
+      "prisioner": "Prisioner",
+      "work": "Work"
+    }
+  }
+}
