@@ -72,7 +72,6 @@ class QuizGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "idQuiz":"0"
                 , "qtyQuestion":"0"
                 }""")).asJson
             .check(status.is(201))

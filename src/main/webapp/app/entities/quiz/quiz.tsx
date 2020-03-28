@@ -37,9 +37,6 @@ export const Quiz = (props: IQuizProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.quiz.idQuiz">Id Quiz</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.quiz.qtyQuestion">Qty Question</Translate>
                 </th>
                 <th />
@@ -53,7 +50,6 @@ export const Quiz = (props: IQuizProps) => {
                       {quiz.id}
                     </Button>
                   </td>
-                  <td>{quiz.idQuiz}</td>
                   <td>{quiz.qtyQuestion}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

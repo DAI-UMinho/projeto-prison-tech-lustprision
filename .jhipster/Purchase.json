@@ -1,22 +1,17 @@
 {
     "name": "Purchase",
-    "fields": [
-        {
-            "fieldName": "idPurchase",
-            "fieldType": "Integer"
-        }
-    ],
+    "fields": [],
     "relationships": [
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "pressProduct",
             "otherEntityRelationshipName": "purchase",
-            "relationshipName": "idPurchase"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "prisioner",
-            "otherEntityRelationshipName": "idPrisioner",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "prisioner",
             "otherEntityField": "id"
         }

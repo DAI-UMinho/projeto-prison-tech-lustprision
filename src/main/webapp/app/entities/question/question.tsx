@@ -37,9 +37,6 @@ export const Question = (props: IQuestionProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.question.idQuestion">Id Question</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.question.question">Question</Translate>
                 </th>
                 <th>
@@ -59,7 +56,6 @@ export const Question = (props: IQuestionProps) => {
                       {question.id}
                     </Button>
                   </td>
-                  <td>{question.idQuestion}</td>
                   <td>{question.question}</td>
                   <td>{question.value}</td>
                   <td>{question.answer}</td>

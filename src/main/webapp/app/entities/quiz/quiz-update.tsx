@@ -76,12 +76,6 @@ export const QuizUpdate = (props: IQuizUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="idQuizLabel" for="quiz-idQuiz">
-                  <Translate contentKey="lustPrisionApp.quiz.idQuiz">Id Quiz</Translate>
-                </Label>
-                <AvField id="quiz-idQuiz" type="string" className="form-control" name="idQuiz" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="qtyQuestionLabel" for="quiz-qtyQuestion">
                   <Translate contentKey="lustPrisionApp.quiz.qtyQuestion">Qty Question</Translate>
                 </Label>

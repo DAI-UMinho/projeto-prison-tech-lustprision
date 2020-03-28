@@ -4,7 +4,6 @@ export default class ProductUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.product.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  codeProdInput: ElementFinder = element(by.css('input#product-codeProd'));
   productLinIdInput: ElementFinder = element(by.css('input#product-productLinId'));
   nameProdInput: ElementFinder = element(by.css('input#product-nameProd'));
   priceInput: ElementFinder = element(by.css('input#product-price'));
@@ -15,14 +14,6 @@ export default class ProductUpdatePage {
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setCodeProdInput(codeProd) {
-    await this.codeProdInput.sendKeys(codeProd);
-  }
-
-  async getCodeProdInput() {
-    return this.codeProdInput.getAttribute('value');
   }
 
   async setProductLinIdInput(productLinId) {

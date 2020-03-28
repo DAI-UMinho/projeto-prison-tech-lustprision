@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class PurchaseResourceIT {
 
-    private static final Integer DEFAULT_ID_PURCHASE = 1;
-    private static final Integer UPDATED_ID_PURCHASE = 2;
-
     @Autowired
     private PurchaseRepository purchaseRepository;
 
@@ -77,8 +74,7 @@ public class PurchaseResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Purchase createEntity(EntityManager em) {
-        Purchase purchase = new Purchase()
-            .idPurchase(DEFAULT_ID_PURCHASE);
+        Purchase purchase = new Purchase();
         return purchase;
     }
     /**
@@ -88,8 +84,7 @@ public class PurchaseResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Purchase createUpdatedEntity(EntityManager em) {
-        Purchase purchase = new Purchase()
-            .idPurchase(UPDATED_ID_PURCHASE);
+        Purchase purchase = new Purchase();
         return purchase;
     }
 
@@ -113,7 +108,6 @@ public class PurchaseResourceIT {
         List<Purchase> purchaseList = purchaseRepository.findAll();
         assertThat(purchaseList).hasSize(databaseSizeBeforeCreate + 1);
         Purchase testPurchase = purchaseList.get(purchaseList.size() - 1);
-        assertThat(testPurchase.getIdPurchase()).isEqualTo(DEFAULT_ID_PURCHASE);
     }
 
     @Test
@@ -146,8 +140,7 @@ public class PurchaseResourceIT {
         restPurchaseMockMvc.perform(get("/api/purchases?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(purchase.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idPurchase").value(hasItem(DEFAULT_ID_PURCHASE)));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(purchase.getId().intValue())));
     }
     
     @Test
@@ -160,8 +153,7 @@ public class PurchaseResourceIT {
         restPurchaseMockMvc.perform(get("/api/purchases/{id}", purchase.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(purchase.getId().intValue()))
-            .andExpect(jsonPath("$.idPurchase").value(DEFAULT_ID_PURCHASE));
+            .andExpect(jsonPath("$.id").value(purchase.getId().intValue()));
     }
 
     @Test
@@ -184,8 +176,6 @@ public class PurchaseResourceIT {
         Purchase updatedPurchase = purchaseRepository.findById(purchase.getId()).get();
         // Disconnect from session so that the updates on updatedPurchase are not directly saved in db
         em.detach(updatedPurchase);
-        updatedPurchase
-            .idPurchase(UPDATED_ID_PURCHASE);
 
         restPurchaseMockMvc.perform(put("/api/purchases")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -196,7 +186,6 @@ public class PurchaseResourceIT {
         List<Purchase> purchaseList = purchaseRepository.findAll();
         assertThat(purchaseList).hasSize(databaseSizeBeforeUpdate);
         Purchase testPurchase = purchaseList.get(purchaseList.size() - 1);
-        assertThat(testPurchase.getIdPurchase()).isEqualTo(UPDATED_ID_PURCHASE);
     }
 
     @Test

@@ -59,8 +59,6 @@ describe('Permission e2e test', () => {
 
   it('should create and save Permissions', async () => {
     await permissionComponentsPage.createButton.click();
-    await permissionUpdatePage.setIdPermissionInput('5');
-    expect(await permissionUpdatePage.getIdPermissionInput()).to.eq('5');
     await permissionUpdatePage.setDescPermissionInput('descPermission');
     expect(await permissionUpdatePage.getDescPermissionInput()).to.match(/descPermission/);
     await waitUntilDisplayed(permissionUpdatePage.saveButton);

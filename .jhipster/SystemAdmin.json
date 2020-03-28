@@ -2,10 +2,6 @@
     "name": "SystemAdmin",
     "fields": [
         {
-            "fieldName": "idSysAdmin",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "nameAdmin",
             "fieldType": "String"
         },
@@ -18,14 +14,14 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "login",
-            "otherEntityRelationshipName": "userName",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "login",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "permission",
-            "otherEntityRelationshipName": "idPermission",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "permission",
             "otherEntityField": "id"
         }

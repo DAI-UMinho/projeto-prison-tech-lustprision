@@ -16,11 +16,10 @@
       "detail": {
         "title": "Question"
       },
-      "idQuestion": "Id Question",
       "question": "Question",
       "value": "Value",
       "answer": "Answer",
-      "idQuestion": "Id Question"
+      "id": "Id"
     }
   }
 }

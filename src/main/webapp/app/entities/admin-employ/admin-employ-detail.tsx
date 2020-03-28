@@ -26,12 +26,6 @@ export const AdminEmployDetail = (props: IAdminEmployDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="idAdminEmp">
-              <Translate contentKey="lustPrisionApp.adminEmploy.idAdminEmp">Id Admin Emp</Translate>
-            </span>
-          </dt>
-          <dd>{adminEmployEntity.idAdminEmp}</dd>
-          <dt>
             <span id="nameAdminEmp">
               <Translate contentKey="lustPrisionApp.adminEmploy.nameAdminEmp">Name Admin Emp</Translate>
             </span>

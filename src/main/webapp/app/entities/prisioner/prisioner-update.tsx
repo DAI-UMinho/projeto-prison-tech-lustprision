@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
@@ -11,7 +11,7 @@ import { ILogin } from 'app/shared/model/login.model';
 import { getEntities as getLogins } from 'app/entities/login/login.reducer';
 import { IPermission } from 'app/shared/model/permission.model';
 import { getEntities as getPermissions } from 'app/entities/permission/permission.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './prisioner.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './prisioner.reducer';
 import { IPrisioner } from 'app/shared/model/prisioner.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -24,6 +24,8 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
   const { prisionerEntity, logins, permissions, loading, updating } = props;
+
+  const { profileImage, profileImageContentType } = prisionerEntity;
 
   const handleClose = () => {
     props.history.push('/prisioner');
@@ -39,6 +41,14 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
     props.getLogins();
     props.getPermissions();
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -84,12 +94,6 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
                   <AvInput id="prisioner-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
-              <AvGroup>
-                <Label id="idPrisionerLabel" for="prisioner-idPrisioner">
-                  <Translate contentKey="lustPrisionApp.prisioner.idPrisioner">Id Prisioner</Translate>
-                </Label>
-                <AvField id="prisioner-idPrisioner" type="string" className="form-control" name="idPrisioner" />
-              </AvGroup>
               <AvGroup>
                 <Label id="nameLabel" for="prisioner-name">
                   <Translate contentKey="lustPrisionApp.prisioner.name">Name</Translate>
@@ -143,6 +147,38 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
                   <Translate contentKey="lustPrisionApp.prisioner.password">Password</Translate>
                 </Label>
                 <AvField id="prisioner-password" type="text" name="password" />
+              </AvGroup>
+              <AvGroup>
+                <AvGroup>
+                  <Label id="profileImageLabel" for="profileImage">
+                    <Translate contentKey="lustPrisionApp.prisioner.profileImage">Profile Image</Translate>
+                  </Label>
+                  <br />
+                  {profileImage ? (
+                    <div>
+                      <a onClick={openFile(profileImageContentType, profileImage)}>
+                        <img src={`data:${profileImageContentType};base64,${profileImage}`} style={{ maxHeight: '100px' }} />
+                      </a>
+                      <br />
+                      <Row>
+                        <Col md="11">
+                          <span>
+                            {profileImageContentType}, {byteSize(profileImage)}
+                          </span>
+                        </Col>
+                        <Col md="1">
+                          <Button color="danger" onClick={clearBlob('profileImage')}>
+                            <FontAwesomeIcon icon="times-circle" />
+                          </Button>
+                        </Col>
+                      </Row>
+                    </div>
+                  ) : null}
+                  {!profileImage ? (
+                    <input id="file_profileImage" type="file" onChange={onBlobChange(true, 'profileImage')} accept="image/*" />
+                  ) : null}
+                  <AvInput type="hidden" name="profileImage" value={profileImage} />
+                </AvGroup>
               </AvGroup>
               <AvGroup>
                 <Label for="prisioner-login">
@@ -209,6 +245,7 @@ const mapDispatchToProps = {
   getPermissions,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset
 };

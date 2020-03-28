@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -25,12 +25,6 @@ export const PrisionerDetail = (props: IPrisionerDetailProps) => {
           <Translate contentKey="lustPrisionApp.prisioner.detail.title">Prisioner</Translate> [<b>{prisionerEntity.id}</b>]
         </h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="idPrisioner">
-              <Translate contentKey="lustPrisionApp.prisioner.idPrisioner">Id Prisioner</Translate>
-            </span>
-          </dt>
-          <dd>{prisionerEntity.idPrisioner}</dd>
           <dt>
             <span id="name">
               <Translate contentKey="lustPrisionApp.prisioner.name">Name</Translate>
@@ -87,6 +81,26 @@ export const PrisionerDetail = (props: IPrisionerDetailProps) => {
             </span>
           </dt>
           <dd>{prisionerEntity.password}</dd>
+          <dt>
+            <span id="profileImage">
+              <Translate contentKey="lustPrisionApp.prisioner.profileImage">Profile Image</Translate>
+            </span>
+          </dt>
+          <dd>
+            {prisionerEntity.profileImage ? (
+              <div>
+                <a onClick={openFile(prisionerEntity.profileImageContentType, prisionerEntity.profileImage)}>
+                  <img
+                    src={`data:${prisionerEntity.profileImageContentType};base64,${prisionerEntity.profileImage}`}
+                    style={{ maxHeight: '30px' }}
+                  />
+                </a>
+                <span>
+                  {prisionerEntity.profileImageContentType}, {byteSize(prisionerEntity.profileImage)}
+                </span>
+              </div>
+            ) : null}
+          </dd>
           <dt>
             <Translate contentKey="lustPrisionApp.prisioner.login">Login</Translate>
           </dt>

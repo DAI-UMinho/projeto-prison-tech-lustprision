@@ -4,21 +4,12 @@ export default class WorkUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.work.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idWorkInput: ElementFinder = element(by.css('input#work-idWork'));
   nameWorkInput: ElementFinder = element(by.css('input#work-nameWork'));
   priceHourInput: ElementFinder = element(by.css('input#work-priceHour'));
   numVacanciesInput: ElementFinder = element(by.css('input#work-numVacancies'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdWorkInput(idWork) {
-    await this.idWorkInput.sendKeys(idWork);
-  }
-
-  async getIdWorkInput() {
-    return this.idWorkInput.getAttribute('value');
   }
 
   async setNameWorkInput(nameWork) {

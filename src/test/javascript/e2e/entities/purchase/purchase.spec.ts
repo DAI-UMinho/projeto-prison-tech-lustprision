@@ -59,8 +59,6 @@ describe('Purchase e2e test', () => {
 
   it('should create and save Purchases', async () => {
     await purchaseComponentsPage.createButton.click();
-    await purchaseUpdatePage.setIdPurchaseInput('5');
-    expect(await purchaseUpdatePage.getIdPurchaseInput()).to.eq('5');
     await purchaseUpdatePage.prisionerSelectLastOption();
     await waitUntilDisplayed(purchaseUpdatePage.saveButton);
     await purchaseUpdatePage.save();

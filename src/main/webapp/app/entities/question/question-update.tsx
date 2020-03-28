@@ -76,12 +76,6 @@ export const QuestionUpdate = (props: IQuestionUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="idQuestionLabel" for="question-idQuestion">
-                  <Translate contentKey="lustPrisionApp.question.idQuestion">Id Question</Translate>
-                </Label>
-                <AvField id="question-idQuestion" type="string" className="form-control" name="idQuestion" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="questionLabel" for="question-question">
                   <Translate contentKey="lustPrisionApp.question.question">Question</Translate>
                 </Label>

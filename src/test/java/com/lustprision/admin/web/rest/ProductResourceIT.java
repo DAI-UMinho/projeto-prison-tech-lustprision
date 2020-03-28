@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class ProductResourceIT {
 
-    private static final Integer DEFAULT_CODE_PROD = 1;
-    private static final Integer UPDATED_CODE_PROD = 2;
-
     private static final Integer DEFAULT_PRODUCT_LIN_ID = 1;
     private static final Integer UPDATED_PRODUCT_LIN_ID = 2;
 
@@ -99,7 +96,6 @@ public class ProductResourceIT {
      */
     public static Product createEntity(EntityManager em) {
         Product product = new Product()
-            .codeProd(DEFAULT_CODE_PROD)
             .productLinId(DEFAULT_PRODUCT_LIN_ID)
             .nameProd(DEFAULT_NAME_PROD)
             .price(DEFAULT_PRICE)
@@ -117,7 +113,6 @@ public class ProductResourceIT {
      */
     public static Product createUpdatedEntity(EntityManager em) {
         Product product = new Product()
-            .codeProd(UPDATED_CODE_PROD)
             .productLinId(UPDATED_PRODUCT_LIN_ID)
             .nameProd(UPDATED_NAME_PROD)
             .price(UPDATED_PRICE)
@@ -148,7 +143,6 @@ public class ProductResourceIT {
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeCreate + 1);
         Product testProduct = productList.get(productList.size() - 1);
-        assertThat(testProduct.getCodeProd()).isEqualTo(DEFAULT_CODE_PROD);
         assertThat(testProduct.getProductLinId()).isEqualTo(DEFAULT_PRODUCT_LIN_ID);
         assertThat(testProduct.getNameProd()).isEqualTo(DEFAULT_NAME_PROD);
         assertThat(testProduct.getPrice()).isEqualTo(DEFAULT_PRICE);
@@ -189,7 +183,6 @@ public class ProductResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codeProd").value(hasItem(DEFAULT_CODE_PROD)))
             .andExpect(jsonPath("$.[*].productLinId").value(hasItem(DEFAULT_PRODUCT_LIN_ID)))
             .andExpect(jsonPath("$.[*].nameProd").value(hasItem(DEFAULT_NAME_PROD)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
@@ -210,7 +203,6 @@ public class ProductResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(product.getId().intValue()))
-            .andExpect(jsonPath("$.codeProd").value(DEFAULT_CODE_PROD))
             .andExpect(jsonPath("$.productLinId").value(DEFAULT_PRODUCT_LIN_ID))
             .andExpect(jsonPath("$.nameProd").value(DEFAULT_NAME_PROD))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()))
@@ -241,7 +233,6 @@ public class ProductResourceIT {
         // Disconnect from session so that the updates on updatedProduct are not directly saved in db
         em.detach(updatedProduct);
         updatedProduct
-            .codeProd(UPDATED_CODE_PROD)
             .productLinId(UPDATED_PRODUCT_LIN_ID)
             .nameProd(UPDATED_NAME_PROD)
             .price(UPDATED_PRICE)
@@ -259,7 +250,6 @@ public class ProductResourceIT {
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
         Product testProduct = productList.get(productList.size() - 1);
-        assertThat(testProduct.getCodeProd()).isEqualTo(UPDATED_CODE_PROD);
         assertThat(testProduct.getProductLinId()).isEqualTo(UPDATED_PRODUCT_LIN_ID);
         assertThat(testProduct.getNameProd()).isEqualTo(UPDATED_NAME_PROD);
         assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);

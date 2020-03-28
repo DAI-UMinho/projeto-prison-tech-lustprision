@@ -2,10 +2,6 @@
     "name": "Permission",
     "fields": [
         {
-            "fieldName": "idPermission",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "descPermission",
             "fieldType": "String"
         }
@@ -15,19 +11,19 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "prisioner",
             "otherEntityRelationshipName": "permission",
-            "relationshipName": "idPermission"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "systemAdmin",
             "otherEntityRelationshipName": "permission",
-            "relationshipName": "idPermission"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "adminEmploy",
             "otherEntityRelationshipName": "permission",
-            "relationshipName": "idPermission"
+            "relationshipName": "id"
         }
     ],
     "changelogDate": "20200320152400",

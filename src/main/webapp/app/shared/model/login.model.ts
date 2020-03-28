@@ -7,9 +7,9 @@ export interface ILogin {
   userName?: string;
   password?: string;
   type?: string;
-  userNames?: IPrisioner[];
-  userNames?: ISystemAdmin[];
-  userNames?: IAdminEmploy[];
+  ids?: IPrisioner[];
+  ids?: ISystemAdmin[];
+  ids?: IAdminEmploy[];
 }
 
 export const defaultValue: Readonly<ILogin> = {};

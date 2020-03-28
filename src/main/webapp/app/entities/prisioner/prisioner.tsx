@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
+import { openFile, byteSize, Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -37,9 +37,6 @@ export const Prisioner = (props: IPrisionerProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.prisioner.idPrisioner">Id Prisioner</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.prisioner.name">Name</Translate>
                 </th>
                 <th>
@@ -67,6 +64,9 @@ export const Prisioner = (props: IPrisionerProps) => {
                   <Translate contentKey="lustPrisionApp.prisioner.password">Password</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lustPrisionApp.prisioner.profileImage">Profile Image</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lustPrisionApp.prisioner.login">Login</Translate>
                 </th>
                 <th>
@@ -83,7 +83,6 @@ export const Prisioner = (props: IPrisionerProps) => {
                       {prisioner.id}
                     </Button>
                   </td>
-                  <td>{prisioner.idPrisioner}</td>
                   <td>{prisioner.name}</td>
                   <td>{prisioner.bi}</td>
                   <td>{prisioner.image}</td>
@@ -95,6 +94,22 @@ export const Prisioner = (props: IPrisionerProps) => {
                   <td>{prisioner.balance}</td>
                   <td>{prisioner.working}</td>
                   <td>{prisioner.password}</td>
+                  <td>
+                    {prisioner.profileImage ? (
+                      <div>
+                        <a onClick={openFile(prisioner.profileImageContentType, prisioner.profileImage)}>
+                          <img
+                            src={`data:${prisioner.profileImageContentType};base64,${prisioner.profileImage}`}
+                            style={{ maxHeight: '30px' }}
+                          />
+                          &nbsp;
+                        </a>
+                        <span>
+                          {prisioner.profileImageContentType}, {byteSize(prisioner.profileImage)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
                   <td>{prisioner.login ? <Link to={`login/${prisioner.login.id}`}>{prisioner.login.id}</Link> : ''}</td>
                   <td>{prisioner.permission ? <Link to={`permission/${prisioner.permission.id}`}>{prisioner.permission.id}</Link> : ''}</td>
                   <td className="text-right">

@@ -18,14 +18,14 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "purchase",
-            "otherEntityRelationshipName": "idPurchase",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "purchase",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "product",
-            "otherEntityRelationshipName": "codeProd",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "product",
             "otherEntityField": "id"
         }

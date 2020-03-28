@@ -7,7 +7,6 @@ import { IPermission } from 'app/shared/model/permission.model';
 
 export interface IPrisioner {
   id?: number;
-  idPrisioner?: number;
   name?: string;
   bi?: number;
   image?: string;
@@ -17,9 +16,11 @@ export interface IPrisioner {
   balance?: number;
   working?: number;
   password?: string;
-  idPrisioners?: IPressWork[];
-  idPrisioners?: IPrisQuiz[];
-  idPrisioners?: IPurchase[];
+  profileImageContentType?: string;
+  profileImage?: any;
+  ids?: IPressWork[];
+  ids?: IPrisQuiz[];
+  ids?: IPurchase[];
   login?: ILogin;
   permission?: IPermission;
 }

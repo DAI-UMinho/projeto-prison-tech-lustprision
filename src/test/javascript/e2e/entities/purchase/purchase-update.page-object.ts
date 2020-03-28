@@ -4,19 +4,10 @@ export default class PurchaseUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.purchase.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idPurchaseInput: ElementFinder = element(by.css('input#purchase-idPurchase'));
   prisionerSelect: ElementFinder = element(by.css('select#purchase-prisioner'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdPurchaseInput(idPurchase) {
-    await this.idPurchaseInput.sendKeys(idPurchase);
-  }
-
-  async getIdPurchaseInput() {
-    return this.idPurchaseInput.getAttribute('value');
   }
 
   async prisionerSelectLastOption() {

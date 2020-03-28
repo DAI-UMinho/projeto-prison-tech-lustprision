@@ -4,19 +4,10 @@ export default class PermissionUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.permission.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idPermissionInput: ElementFinder = element(by.css('input#permission-idPermission'));
   descPermissionInput: ElementFinder = element(by.css('input#permission-descPermission'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdPermissionInput(idPermission) {
-    await this.idPermissionInput.sendKeys(idPermission);
-  }
-
-  async getIdPermissionInput() {
-    return this.idPermissionInput.getAttribute('value');
   }
 
   async setDescPermissionInput(descPermission) {

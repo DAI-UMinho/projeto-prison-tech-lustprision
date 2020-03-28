@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
@@ -80,12 +80,6 @@ export const PurchaseUpdate = (props: IPurchaseUpdateProps) => {
                   <AvInput id="purchase-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
-              <AvGroup>
-                <Label id="idPurchaseLabel" for="purchase-idPurchase">
-                  <Translate contentKey="lustPrisionApp.purchase.idPurchase">Id Purchase</Translate>
-                </Label>
-                <AvField id="purchase-idPurchase" type="string" className="form-control" name="idPurchase" />
-              </AvGroup>
               <AvGroup>
                 <Label for="purchase-prisioner">
                   <Translate contentKey="lustPrisionApp.purchase.prisioner">Prisioner</Translate>

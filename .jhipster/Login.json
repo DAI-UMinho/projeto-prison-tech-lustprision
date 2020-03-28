@@ -19,19 +19,19 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "prisioner",
             "otherEntityRelationshipName": "login",
-            "relationshipName": "userName"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "systemAdmin",
             "otherEntityRelationshipName": "login",
-            "relationshipName": "userName"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "adminEmploy",
             "otherEntityRelationshipName": "login",
-            "relationshipName": "userName"
+            "relationshipName": "id"
         }
     ],
     "changelogDate": "20200320152300",

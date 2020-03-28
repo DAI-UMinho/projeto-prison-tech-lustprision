@@ -16,7 +16,6 @@
       "detail": {
         "title": "Product"
       },
-      "codeProd": "Code Prod",
       "productLinId": "Product Lin Id",
       "nameProd": "Name Prod",
       "price": "Price",
@@ -24,7 +23,7 @@
       "descriptionProd": "Description Prod",
       "quantyInStock": "Quanty In Stock",
       "buyPrice": "Buy Price",
-      "codeProd": "Code Prod"
+      "id": "Id"
     }
   }
 }

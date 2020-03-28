@@ -16,7 +16,6 @@
       "detail": {
         "title": "System Admin"
       },
-      "idSysAdmin": "Id Sys Admin",
       "nameAdmin": "Name Admin",
       "password": "Password",
       "login": "Login",

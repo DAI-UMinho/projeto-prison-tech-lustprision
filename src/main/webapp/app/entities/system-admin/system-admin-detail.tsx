@@ -26,12 +26,6 @@ export const SystemAdminDetail = (props: ISystemAdminDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="idSysAdmin">
-              <Translate contentKey="lustPrisionApp.systemAdmin.idSysAdmin">Id Sys Admin</Translate>
-            </span>
-          </dt>
-          <dd>{systemAdminEntity.idSysAdmin}</dd>
-          <dt>
             <span id="nameAdmin">
               <Translate contentKey="lustPrisionApp.systemAdmin.nameAdmin">Name Admin</Translate>
             </span>

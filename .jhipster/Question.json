@@ -2,10 +2,6 @@
     "name": "Question",
     "fields": [
         {
-            "fieldName": "idQuestion",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "question",
             "fieldType": "String"
         },
@@ -23,7 +19,7 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "questionQuiz",
             "otherEntityRelationshipName": "question",
-            "relationshipName": "idQuestion"
+            "relationshipName": "id"
         }
     ],
     "changelogDate": "20200320152000",

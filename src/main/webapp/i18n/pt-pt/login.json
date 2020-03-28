@@ -19,9 +19,9 @@
       "userName": "User Name",
       "password": "Password",
       "type": "Type",
-      "userName": "User Name",
-      "userName": "User Name",
-      "userName": "User Name"
+      "id": "Id",
+      "id": "Id",
+      "id": "Id"
     }
   }
 }

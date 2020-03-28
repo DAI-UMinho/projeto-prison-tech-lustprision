@@ -33,11 +33,11 @@ public class PressProduct implements Serializable {
     private Long priceEach;
 
     @ManyToOne
-    @JsonIgnoreProperties("idPurchases")
+    @JsonIgnoreProperties("ids")
     private Purchase purchase;
 
     @ManyToOne
-    @JsonIgnoreProperties("codeProds")
+    @JsonIgnoreProperties("ids")
     private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

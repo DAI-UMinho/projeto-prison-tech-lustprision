@@ -61,8 +61,6 @@ describe('AdminEmploy e2e test', () => {
 
   it('should create and save AdminEmploys', async () => {
     await adminEmployComponentsPage.createButton.click();
-    await adminEmployUpdatePage.setIdAdminEmpInput('5');
-    expect(await adminEmployUpdatePage.getIdAdminEmpInput()).to.eq('5');
     await adminEmployUpdatePage.setNameAdminEmpInput('nameAdminEmp');
     expect(await adminEmployUpdatePage.getNameAdminEmpInput()).to.match(/nameAdminEmp/);
     await adminEmployUpdatePage.setPasswordInput('password');

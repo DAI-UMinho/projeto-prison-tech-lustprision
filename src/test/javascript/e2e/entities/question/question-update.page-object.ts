@@ -4,21 +4,12 @@ export default class QuestionUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.question.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idQuestionInput: ElementFinder = element(by.css('input#question-idQuestion'));
   questionInput: ElementFinder = element(by.css('input#question-question'));
   valueInput: ElementFinder = element(by.css('input#question-value'));
   answerInput: ElementFinder = element(by.css('input#question-answer'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdQuestionInput(idQuestion) {
-    await this.idQuestionInput.sendKeys(idQuestion);
-  }
-
-  async getIdQuestionInput() {
-    return this.idQuestionInput.getAttribute('value');
   }
 
   async setQuestionInput(question) {

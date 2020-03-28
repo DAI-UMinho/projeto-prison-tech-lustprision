@@ -26,12 +26,6 @@ export const ProductDetail = (props: IProductDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="codeProd">
-              <Translate contentKey="lustPrisionApp.product.codeProd">Code Prod</Translate>
-            </span>
-          </dt>
-          <dd>{productEntity.codeProd}</dd>
-          <dt>
             <span id="productLinId">
               <Translate contentKey="lustPrisionApp.product.productLinId">Product Lin Id</Translate>
             </span>

@@ -16,7 +16,6 @@
       "detail": {
         "title": "Admin Employ"
       },
-      "idAdminEmp": "Id Admin Emp",
       "nameAdminEmp": "Name Admin Emp",
       "password": "Password",
       "login": "Login",

@@ -3,7 +3,6 @@ import { IPermission } from 'app/shared/model/permission.model';
 
 export interface ISystemAdmin {
   id?: number;
-  idSysAdmin?: number;
   nameAdmin?: string;
   password?: string;
   login?: ILogin;

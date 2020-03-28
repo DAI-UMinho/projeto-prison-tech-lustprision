@@ -23,9 +23,6 @@ public class SystemAdmin implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "id_sys_admin")
-    private Integer idSysAdmin;
-
     @Column(name = "name_admin")
     private String nameAdmin;
 
@@ -33,11 +30,11 @@ public class SystemAdmin implements Serializable {
     private String password;
 
     @ManyToOne
-    @JsonIgnoreProperties("userNames")
+    @JsonIgnoreProperties("ids")
     private Login login;
 
     @ManyToOne
-    @JsonIgnoreProperties("idPermissions")
+    @JsonIgnoreProperties("ids")
     private Permission permission;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -47,19 +44,6 @@ public class SystemAdmin implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdSysAdmin() {
-        return idSysAdmin;
-    }
-
-    public SystemAdmin idSysAdmin(Integer idSysAdmin) {
-        this.idSysAdmin = idSysAdmin;
-        return this;
-    }
-
-    public void setIdSysAdmin(Integer idSysAdmin) {
-        this.idSysAdmin = idSysAdmin;
     }
 
     public String getNameAdmin() {
@@ -135,7 +119,6 @@ public class SystemAdmin implements Serializable {
     public String toString() {
         return "SystemAdmin{" +
             "id=" + getId() +
-            ", idSysAdmin=" + getIdSysAdmin() +
             ", nameAdmin='" + getNameAdmin() + "'" +
             ", password='" + getPassword() + "'" +
             "}";

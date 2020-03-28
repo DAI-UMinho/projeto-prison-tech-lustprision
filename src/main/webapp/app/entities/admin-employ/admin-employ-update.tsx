@@ -85,12 +85,6 @@ export const AdminEmployUpdate = (props: IAdminEmployUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="idAdminEmpLabel" for="admin-employ-idAdminEmp">
-                  <Translate contentKey="lustPrisionApp.adminEmploy.idAdminEmp">Id Admin Emp</Translate>
-                </Label>
-                <AvField id="admin-employ-idAdminEmp" type="string" className="form-control" name="idAdminEmp" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="nameAdminEmpLabel" for="admin-employ-nameAdminEmp">
                   <Translate contentKey="lustPrisionApp.adminEmploy.nameAdminEmp">Name Admin Emp</Translate>
                 </Label>

@@ -636,7 +636,7 @@
                         <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                         <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                         <driver>oracle.jdbc.OracleDriver</driver>
-                        <url>jdbc:oracle:thin:@//193.136.11.147:1521/lustdb</url>
+                        <url>jdbc:oracle:thin:@193.136.11.147:1521:lustdb2</url>
                         <defaultSchemaName></defaultSchemaName>
                         <username>system</username>
                         <password>DBpassword#1</password>

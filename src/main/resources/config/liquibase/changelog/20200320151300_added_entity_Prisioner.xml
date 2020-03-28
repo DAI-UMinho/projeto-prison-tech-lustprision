@@ -15,9 +15,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="id_prisioner" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -43,6 +40,12 @@
                 <constraints nullable="true" />
             </column>
             <column name="jhi_password" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="profile_image" type="blob">
+                <constraints nullable="true" />
+            </column>
+            <column name="profile_image_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="login_id" type="bigint">
@@ -74,7 +77,6 @@
                   separator=";"
                   tableName="prisioner">
             <column name="id" type="numeric"/>
-            <column name="id_prisioner" type="numeric"/>
             <column name="name" type="string"/>
             <column name="bi" type="numeric"/>
             <column name="image" type="string"/>
@@ -84,6 +86,8 @@
             <column name="balance" type="numeric"/>
             <column name="working" type="numeric"/>
             <column name="jhi_password" type="string"/>
+            <column name="profile_image" type="blob"/>
+            <column name="profile_image_content_type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

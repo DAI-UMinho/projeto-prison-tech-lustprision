@@ -10,14 +10,14 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "prisioner",
-            "otherEntityRelationshipName": "idPrisioner",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "prisioner",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "work",
-            "otherEntityRelationshipName": "idWork",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "work",
             "otherEntityField": "id"
         }

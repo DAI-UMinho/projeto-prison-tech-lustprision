@@ -26,12 +26,6 @@ export const PermissionDetail = (props: IPermissionDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="idPermission">
-              <Translate contentKey="lustPrisionApp.permission.idPermission">Id Permission</Translate>
-            </span>
-          </dt>
-          <dd>{permissionEntity.idPermission}</dd>
-          <dt>
             <span id="descPermission">
               <Translate contentKey="lustPrisionApp.permission.descPermission">Desc Permission</Translate>
             </span>

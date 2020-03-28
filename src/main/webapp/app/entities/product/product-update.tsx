@@ -76,12 +76,6 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="codeProdLabel" for="product-codeProd">
-                  <Translate contentKey="lustPrisionApp.product.codeProd">Code Prod</Translate>
-                </Label>
-                <AvField id="product-codeProd" type="string" className="form-control" name="codeProd" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="productLinIdLabel" for="product-productLinId">
                   <Translate contentKey="lustPrisionApp.product.productLinId">Product Lin Id</Translate>
                 </Label>

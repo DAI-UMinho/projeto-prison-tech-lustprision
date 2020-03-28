@@ -1,10 +1,8 @@
 package com.lustprision.admin.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.lustprision.admin.domain.Login;
-import com.lustprision.admin.domain.PressWork;
-import com.lustprision.admin.domain.PrisQuiz;
-import com.lustprision.admin.domain.Purchase;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -18,25 +16,21 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "prisioner")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Prisioner implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-
-    @Column(name = "id_prisioner")
-    private Integer idPrisioner;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "bi")
     private Integer bi;
-
-    @Column(name = "image")
-    private String image;
 
     @Column(name = "num_prisioner")
     private Integer numPrisioner;
@@ -53,24 +47,34 @@ public class Prisioner implements Serializable {
     @Column(name = "working")
     private Integer working;
 
-    @Column(name = "password")
+    @Column(name = "jhi_password")
     private String password;
 
-    @OneToMany(mappedBy = "prisioner")
-    private Set<PressWork> idWorkPrisioners = new HashSet<>();
+    @Lob
+    @Column(name = "profile_image")
+    private byte[] profileImage;
+
+    @Column(name = "profile_image_content_type")
+    private String profileImageContentType;
 
     @OneToMany(mappedBy = "prisioner")
-    private Set<PrisQuiz> idQuizPrisioners = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<PressWork> ids = new HashSet<>();
 
     @OneToMany(mappedBy = "prisioner")
-    private Set<Purchase> idPurchasePrisioners = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<PrisQuiz> idsa = new HashSet<>();
+
+    @OneToMany(mappedBy = "prisioner")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Purchase> idsaa = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties("userNames")
+    @JsonIgnoreProperties("ids")
     private Login login;
 
     @ManyToOne
-    @JsonIgnoreProperties("idPermissions")
+    @JsonIgnoreProperties("ids")
     private Permission permission;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -80,19 +84,6 @@ public class Prisioner implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdPrisioner() {
-        return idPrisioner;
-    }
-
-    public Prisioner idPrisioner(Integer idPrisioner) {
-        this.idPrisioner = idPrisioner;
-        return this;
-    }
-
-    public void setIdPrisioner(Integer idPrisioner) {
-        this.idPrisioner = idPrisioner;
     }
 
     public String getName() {
@@ -119,19 +110,6 @@ public class Prisioner implements Serializable {
 
     public void setBi(Integer bi) {
         this.bi = bi;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public Prisioner image(String image) {
-        this.image = image;
-        return this;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Integer getNumPrisioner() {
@@ -212,80 +190,106 @@ public class Prisioner implements Serializable {
         this.password = password;
     }
 
-    public Set<PressWork> getIdWorkPrisioners() {
-        return idWorkPrisioners;
+    public byte[] getProfileImage() {
+        return profileImage;
     }
 
-    public Prisioner idWorkPrisioners(Set<PressWork> pressWorks) {
-        this.idWorkPrisioners = pressWorks;
+    public Prisioner profileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
         return this;
     }
 
-    public Prisioner addIdPrisioner(PressWork pressWork) {
-        this.idWorkPrisioners.add(pressWork);
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public String getProfileImageContentType() {
+        return profileImageContentType;
+    }
+
+    public Prisioner profileImageContentType(String profileImageContentType) {
+        this.profileImageContentType = profileImageContentType;
+        return this;
+    }
+
+    public void setProfileImageContentType(String profileImageContentType) {
+        this.profileImageContentType = profileImageContentType;
+    }
+
+  /*  public Set<PressWork> getIds() {
+        return ids;
+    }
+
+    public Prisioner ids(Set<PressWork> pressWorks) {
+        this.ids = pressWorks;
+        return this;
+    }
+
+    public Prisioner addId(PressWork pressWork) {
+        this.ids.add(pressWork);
         pressWork.setPrisioner(this);
         return this;
     }
 
-    public Prisioner removeIdPrisioner(PressWork pressWork) {
-        this.idWorkPrisioners.remove(pressWork);
+    public Prisioner removeId(PressWork pressWork) {
+        this.ids.remove(pressWork);
         pressWork.setPrisioner(null);
         return this;
     }
 
-    public void setIdWorkPrisioners(Set<PressWork> pressWorks) {
-        this.idWorkPrisioners = pressWorks;
+    public void setIds(Set<PressWork> pressWorks) {
+        this.ids = pressWorks;
     }
 
-    public Set<PrisQuiz> getIdQuizPrisioners() {
-        return idQuizPrisioners;
+    public Set<PrisQuiz> getIds() {
+        return ids;
     }
 
-    public Prisioner idQuizPrisioners(Set<PrisQuiz> prisQuizs) {
-        this.idQuizPrisioners = prisQuizs;
+    public Prisioner ids(Set<PrisQuiz> prisQuizs) {
+        this.ids = prisQuizs;
         return this;
     }
 
-    public Prisioner addIdPrisioner(PrisQuiz prisQuiz) {
-        this.idQuizPrisioners.add(prisQuiz);
+    public Prisioner addId(PrisQuiz prisQuiz) {
+        this.ids.add(prisQuiz);
         prisQuiz.setPrisioner(this);
         return this;
     }
 
-    public Prisioner removeIdPrisioner(PrisQuiz prisQuiz) {
-        this.idQuizPrisioners.remove(prisQuiz);
+    public Prisioner removeId(PrisQuiz prisQuiz) {
+        this.ids.remove(prisQuiz);
         prisQuiz.setPrisioner(null);
         return this;
     }
 
-    public void setIdQuizPrisioners(Set<PrisQuiz> prisQuizs) {
-        this.idQuizPrisioners = prisQuizs;
+    public void setIds(Set<PrisQuiz> prisQuizs) {
+        this.ids = prisQuizs;
     }
 
-    public Set<Purchase> getIdPurchasePrisioners() {
-        return idPurchasePrisioners;
+    public Set<Purchase> getIds() {
+        return ids;
     }
 
-    public Prisioner idPurchasePrisioners(Set<Purchase> purchases) {
-        this.idPurchasePrisioners = purchases;
+    public Prisioner ids(Set<Purchase> purchases) {
+        this.ids = purchases;
         return this;
     }
 
-    public Prisioner addIdPrisioner(Purchase purchase) {
-        this.idPurchasePrisioners.add(purchase);
+    public Prisioner addId(Purchase purchase) {
+        this.ids.add(purchase);
         purchase.setPrisioner(this);
         return this;
     }
 
-    public Prisioner removeIdPrisioner(Purchase purchase) {
-        this.idPurchasePrisioners.remove(purchase);
+    public Prisioner removeId(Purchase purchase) {
+        this.ids.remove(purchase);
         purchase.setPrisioner(null);
         return this;
     }
 
-    public void setIdPrisioners(Set<Purchase> purchases) {
-        this.idPurchasePrisioners = purchases;
-    }
+    public void setIds(Set<Purchase> purchases) {
+        this.ids = purchases;
+    }*/
 
     public Login getLogin() {
         return login;
@@ -334,16 +338,16 @@ public class Prisioner implements Serializable {
     public String toString() {
         return "Prisioner{" +
             "id=" + getId() +
-            ", idPrisioner=" + getIdPrisioner() +
             ", name='" + getName() + "'" +
             ", bi=" + getBi() +
-            ", image='" + getImage() + "'" +
             ", numPrisioner=" + getNumPrisioner() +
             ", numCell=" + getNumCell() +
             ", dataNascimento='" + getDataNascimento() + "'" +
             ", balance=" + getBalance() +
             ", working=" + getWorking() +
             ", password='" + getPassword() + "'" +
+            ", profileImage='" + getProfileImage() + "'" +
+            ", profileImageContentType='" + getProfileImageContentType() + "'" +
             "}";
     }
 }

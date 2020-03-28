@@ -61,8 +61,6 @@ describe('SystemAdmin e2e test', () => {
 
   it('should create and save SystemAdmins', async () => {
     await systemAdminComponentsPage.createButton.click();
-    await systemAdminUpdatePage.setIdSysAdminInput('5');
-    expect(await systemAdminUpdatePage.getIdSysAdminInput()).to.eq('5');
     await systemAdminUpdatePage.setNameAdminInput('nameAdmin');
     expect(await systemAdminUpdatePage.getNameAdminInput()).to.match(/nameAdmin/);
     await systemAdminUpdatePage.setPasswordInput('password');

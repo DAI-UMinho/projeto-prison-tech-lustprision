@@ -59,8 +59,6 @@ describe('Question e2e test', () => {
 
   it('should create and save Questions', async () => {
     await questionComponentsPage.createButton.click();
-    await questionUpdatePage.setIdQuestionInput('5');
-    expect(await questionUpdatePage.getIdQuestionInput()).to.eq('5');
     await questionUpdatePage.setQuestionInput('question');
     expect(await questionUpdatePage.getQuestionInput()).to.match(/question/);
     await questionUpdatePage.setValueInput('5');

@@ -4,7 +4,6 @@ export default class AdminEmployUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.adminEmploy.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idAdminEmpInput: ElementFinder = element(by.css('input#admin-employ-idAdminEmp'));
   nameAdminEmpInput: ElementFinder = element(by.css('input#admin-employ-nameAdminEmp'));
   passwordInput: ElementFinder = element(by.css('input#admin-employ-password'));
   loginSelect: ElementFinder = element(by.css('select#admin-employ-login'));
@@ -12,14 +11,6 @@ export default class AdminEmployUpdatePage {
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdAdminEmpInput(idAdminEmp) {
-    await this.idAdminEmpInput.sendKeys(idAdminEmp);
-  }
-
-  async getIdAdminEmpInput() {
-    return this.idAdminEmpInput.getAttribute('value');
   }
 
   async setNameAdminEmpInput(nameAdminEmp) {

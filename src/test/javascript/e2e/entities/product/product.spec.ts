@@ -59,8 +59,6 @@ describe('Product e2e test', () => {
 
   it('should create and save Products', async () => {
     await productComponentsPage.createButton.click();
-    await productUpdatePage.setCodeProdInput('5');
-    expect(await productUpdatePage.getCodeProdInput()).to.eq('5');
     await productUpdatePage.setProductLinIdInput('5');
     expect(await productUpdatePage.getProductLinIdInput()).to.eq('5');
     await productUpdatePage.setNameProdInput('nameProd');

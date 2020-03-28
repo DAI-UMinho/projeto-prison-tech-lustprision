@@ -76,12 +76,6 @@ export const WorkUpdate = (props: IWorkUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="idWorkLabel" for="work-idWork">
-                  <Translate contentKey="lustPrisionApp.work.idWork">Id Work</Translate>
-                </Label>
-                <AvField id="work-idWork" type="string" className="form-control" name="idWork" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="nameWorkLabel" for="work-nameWork">
                   <Translate contentKey="lustPrisionApp.work.nameWork">Name Work</Translate>
                 </Label>

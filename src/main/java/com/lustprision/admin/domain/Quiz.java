@@ -24,19 +24,16 @@ public class Quiz implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "id_quiz")
-    private Integer idQuiz;
-
     @Column(name = "qty_question")
     private Integer qtyQuestion;
 
     @OneToMany(mappedBy = "quiz")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<PrisQuiz> idQuizs = new HashSet<>();
+    private Set<PrisQuiz> ids = new HashSet<>();
 
     @OneToMany(mappedBy = "quiz")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<QuestionQuiz> idQuzs = new HashSet<>();
+    private Set<QuestionQuiz> idquestion = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -45,19 +42,6 @@ public class Quiz implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdQuiz() {
-        return idQuiz;
-    }
-
-    public Quiz idQuiz(Integer idQuiz) {
-        this.idQuiz = idQuiz;
-        return this;
-    }
-
-    public void setIdQuiz(Integer idQuiz) {
-        this.idQuiz = idQuiz;
     }
 
     public Integer getQtyQuestion() {
@@ -73,55 +57,55 @@ public class Quiz implements Serializable {
         this.qtyQuestion = qtyQuestion;
     }
 
-    public Set<PrisQuiz> getIdQuizs() {
-        return idQuizs;
+    /*public Set<PrisQuiz> getIds() {
+        return ids;
     }
 
-    public Quiz idQuizs(Set<PrisQuiz> prisQuizs) {
-        this.idQuizs = prisQuizs;
+    public Quiz ids(Set<PrisQuiz> prisQuizs) {
+        this.ids = prisQuizs;
         return this;
-    }
+    }*/
 
-    public Quiz addIdQuiz(PrisQuiz prisQuiz) {
-        this.idQuizs.add(prisQuiz);
+    public Quiz addId(PrisQuiz prisQuiz) {
+        this.ids.add(prisQuiz);
         prisQuiz.setQuiz(this);
         return this;
     }
 
-    public Quiz removeIdQuiz(PrisQuiz prisQuiz) {
-        this.idQuizs.remove(prisQuiz);
+    public Quiz removeId(PrisQuiz prisQuiz) {
+        this.ids.remove(prisQuiz);
         prisQuiz.setQuiz(null);
         return this;
     }
 
-    public void setIdQuizs(Set<PrisQuiz> prisQuizs) {
-        this.idQuizs = prisQuizs;
+    /*public void setIds(Set<PrisQuiz> prisQuizs) {
+        this.ids = prisQuizs;
     }
 
-    public Set<QuestionQuiz> getIdQuzs() {
-        return idQuzs;
+    public Set<QuestionQuiz> getIds() {
+        return ids;
     }
 
-    public Quiz idQuzs(Set<QuestionQuiz> questionQuizs) {
-        this.idQuzs = questionQuizs;
+    public Quiz ids(Set<QuestionQuiz> questionQuizs) {
+        this.ids = questionQuizs;
         return this;
     }
 
-    public Quiz addIdQuz(QuestionQuiz questionQuiz) {
-        this.idQuzs.add(questionQuiz);
+    public Quiz addId(QuestionQuiz questionQuiz) {
+        this.ids.add(questionQuiz);
         questionQuiz.setQuiz(this);
         return this;
-    }
+    }*/
 
-    public Quiz removeIdQuz(QuestionQuiz questionQuiz) {
-        this.idQuzs.remove(questionQuiz);
+    public Quiz removeId(QuestionQuiz questionQuiz) {
+        this.ids.remove(questionQuiz);
         questionQuiz.setQuiz(null);
         return this;
     }
 
-    public void setIdQuzs(Set<QuestionQuiz> questionQuizs) {
-        this.idQuzs = questionQuizs;
-    }
+   /* public void setIds(Set<QuestionQuiz> questionQuizs) {
+        this.ids = questionQuizs;
+    }*/
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -144,7 +128,6 @@ public class Quiz implements Serializable {
     public String toString() {
         return "Quiz{" +
             "id=" + getId() +
-            ", idQuiz=" + getIdQuiz() +
             ", qtyQuestion=" + getQtyQuestion() +
             "}";
     }

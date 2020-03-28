@@ -4,7 +4,6 @@ export default class PrisionerUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.prisioner.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idPrisionerInput: ElementFinder = element(by.css('input#prisioner-idPrisioner'));
   nameInput: ElementFinder = element(by.css('input#prisioner-name'));
   biInput: ElementFinder = element(by.css('input#prisioner-bi'));
   imageInput: ElementFinder = element(by.css('input#prisioner-image'));
@@ -14,19 +13,12 @@ export default class PrisionerUpdatePage {
   balanceInput: ElementFinder = element(by.css('input#prisioner-balance'));
   workingInput: ElementFinder = element(by.css('input#prisioner-working'));
   passwordInput: ElementFinder = element(by.css('input#prisioner-password'));
+  profileImageInput: ElementFinder = element(by.css('input#file_profileImage'));
   loginSelect: ElementFinder = element(by.css('select#prisioner-login'));
   permissionSelect: ElementFinder = element(by.css('select#prisioner-permission'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdPrisionerInput(idPrisioner) {
-    await this.idPrisionerInput.sendKeys(idPrisioner);
-  }
-
-  async getIdPrisionerInput() {
-    return this.idPrisionerInput.getAttribute('value');
   }
 
   async setNameInput(name) {
@@ -99,6 +91,14 @@ export default class PrisionerUpdatePage {
 
   async getPasswordInput() {
     return this.passwordInput.getAttribute('value');
+  }
+
+  async setProfileImageInput(profileImage) {
+    await this.profileImageInput.sendKeys(profileImage);
+  }
+
+  async getProfileImageInput() {
+    return this.profileImageInput.getAttribute('value');
   }
 
   async loginSelectLastOption() {

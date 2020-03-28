@@ -25,15 +25,12 @@ public class Purchase implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "id_purchase")
-    private Integer idPurchase;
-
     @OneToMany(mappedBy = "purchase")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<PressProduct> idPurchases = new HashSet<>();
+    private Set<PressProduct> ids = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties("idPrisioners")
+    @JsonIgnoreProperties("ids")
     private Prisioner prisioner;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -45,42 +42,29 @@ public class Purchase implements Serializable {
         this.id = id;
     }
 
-    public Integer getIdPurchase() {
-        return idPurchase;
+    public Set<PressProduct> getIds() {
+        return ids;
     }
 
-    public Purchase idPurchase(Integer idPurchase) {
-        this.idPurchase = idPurchase;
+    public Purchase ids(Set<PressProduct> pressProducts) {
+        this.ids = pressProducts;
         return this;
     }
 
-    public void setIdPurchase(Integer idPurchase) {
-        this.idPurchase = idPurchase;
-    }
-
-    public Set<PressProduct> getIdPurchases() {
-        return idPurchases;
-    }
-
-    public Purchase idPurchases(Set<PressProduct> pressProducts) {
-        this.idPurchases = pressProducts;
-        return this;
-    }
-
-    public Purchase addIdPurchase(PressProduct pressProduct) {
-        this.idPurchases.add(pressProduct);
+    public Purchase addId(PressProduct pressProduct) {
+        this.ids.add(pressProduct);
         pressProduct.setPurchase(this);
         return this;
     }
 
-    public Purchase removeIdPurchase(PressProduct pressProduct) {
-        this.idPurchases.remove(pressProduct);
+    public Purchase removeId(PressProduct pressProduct) {
+        this.ids.remove(pressProduct);
         pressProduct.setPurchase(null);
         return this;
     }
 
-    public void setIdPurchases(Set<PressProduct> pressProducts) {
-        this.idPurchases = pressProducts;
+    public void setIds(Set<PressProduct> pressProducts) {
+        this.ids = pressProducts;
     }
 
     public Prisioner getPrisioner() {
@@ -117,7 +101,6 @@ public class Purchase implements Serializable {
     public String toString() {
         return "Purchase{" +
             "id=" + getId() +
-            ", idPurchase=" + getIdPurchase() +
             "}";
     }
 }

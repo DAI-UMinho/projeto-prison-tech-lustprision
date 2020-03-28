@@ -72,7 +72,6 @@ class QuestionGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "idQuestion":"0"
                 , "question":"SAMPLE_TEXT"
                 , "value":null
                 , "answer":"SAMPLE_TEXT"

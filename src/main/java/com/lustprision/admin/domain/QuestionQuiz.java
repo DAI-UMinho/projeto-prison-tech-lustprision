@@ -23,15 +23,12 @@ public class QuestionQuiz implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "question_quiz_id")
-    private Integer questionQuizId;
-
     @ManyToOne
-    @JsonIgnoreProperties("idQuzs")
+    @JsonIgnoreProperties("ids")
     private Quiz quiz;
 
     @ManyToOne
-    @JsonIgnoreProperties("idQuestions")
+    @JsonIgnoreProperties("ids")
     private Question question;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -41,19 +38,6 @@ public class QuestionQuiz implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getQuestionQuizId() {
-        return questionQuizId;
-    }
-
-    public QuestionQuiz questionQuizId(Integer questionQuizId) {
-        this.questionQuizId = questionQuizId;
-        return this;
-    }
-
-    public void setQuestionQuizId(Integer questionQuizId) {
-        this.questionQuizId = questionQuizId;
     }
 
     public Quiz getQuiz() {
@@ -103,7 +87,6 @@ public class QuestionQuiz implements Serializable {
     public String toString() {
         return "QuestionQuiz{" +
             "id=" + getId() +
-            ", questionQuizId=" + getQuestionQuizId() +
             "}";
     }
 }

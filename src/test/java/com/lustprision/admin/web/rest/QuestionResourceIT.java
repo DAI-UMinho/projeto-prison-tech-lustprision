@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class QuestionResourceIT {
 
-    private static final Integer DEFAULT_ID_QUESTION = 1;
-    private static final Integer UPDATED_ID_QUESTION = 2;
-
     private static final String DEFAULT_QUESTION = "AAAAAAAAAA";
     private static final String UPDATED_QUESTION = "BBBBBBBBBB";
 
@@ -87,7 +84,6 @@ public class QuestionResourceIT {
      */
     public static Question createEntity(EntityManager em) {
         Question question = new Question()
-            .idQuestion(DEFAULT_ID_QUESTION)
             .question(DEFAULT_QUESTION)
             .value(DEFAULT_VALUE)
             .answer(DEFAULT_ANSWER);
@@ -101,7 +97,6 @@ public class QuestionResourceIT {
      */
     public static Question createUpdatedEntity(EntityManager em) {
         Question question = new Question()
-            .idQuestion(UPDATED_ID_QUESTION)
             .question(UPDATED_QUESTION)
             .value(UPDATED_VALUE)
             .answer(UPDATED_ANSWER);
@@ -128,7 +123,6 @@ public class QuestionResourceIT {
         List<Question> questionList = questionRepository.findAll();
         assertThat(questionList).hasSize(databaseSizeBeforeCreate + 1);
         Question testQuestion = questionList.get(questionList.size() - 1);
-        assertThat(testQuestion.getIdQuestion()).isEqualTo(DEFAULT_ID_QUESTION);
         assertThat(testQuestion.getQuestion()).isEqualTo(DEFAULT_QUESTION);
         assertThat(testQuestion.getValue()).isEqualTo(DEFAULT_VALUE);
         assertThat(testQuestion.getAnswer()).isEqualTo(DEFAULT_ANSWER);
@@ -165,7 +159,6 @@ public class QuestionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(question.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idQuestion").value(hasItem(DEFAULT_ID_QUESTION)))
             .andExpect(jsonPath("$.[*].question").value(hasItem(DEFAULT_QUESTION)))
             .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE.doubleValue())))
             .andExpect(jsonPath("$.[*].answer").value(hasItem(DEFAULT_ANSWER)));
@@ -182,7 +175,6 @@ public class QuestionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(question.getId().intValue()))
-            .andExpect(jsonPath("$.idQuestion").value(DEFAULT_ID_QUESTION))
             .andExpect(jsonPath("$.question").value(DEFAULT_QUESTION))
             .andExpect(jsonPath("$.value").value(DEFAULT_VALUE.doubleValue()))
             .andExpect(jsonPath("$.answer").value(DEFAULT_ANSWER));
@@ -209,7 +201,6 @@ public class QuestionResourceIT {
         // Disconnect from session so that the updates on updatedQuestion are not directly saved in db
         em.detach(updatedQuestion);
         updatedQuestion
-            .idQuestion(UPDATED_ID_QUESTION)
             .question(UPDATED_QUESTION)
             .value(UPDATED_VALUE)
             .answer(UPDATED_ANSWER);
@@ -223,7 +214,6 @@ public class QuestionResourceIT {
         List<Question> questionList = questionRepository.findAll();
         assertThat(questionList).hasSize(databaseSizeBeforeUpdate);
         Question testQuestion = questionList.get(questionList.size() - 1);
-        assertThat(testQuestion.getIdQuestion()).isEqualTo(UPDATED_ID_QUESTION);
         assertThat(testQuestion.getQuestion()).isEqualTo(UPDATED_QUESTION);
         assertThat(testQuestion.getValue()).isEqualTo(UPDATED_VALUE);
         assertThat(testQuestion.getAnswer()).isEqualTo(UPDATED_ANSWER);

@@ -13,6 +13,7 @@ import {
   waitUntilCount,
   isVisible
 } from '../../util/utils';
+import path from 'path';
 
 const expect = chai.expect;
 
@@ -22,6 +23,8 @@ describe('Prisioner e2e test', () => {
   let prisionerComponentsPage: PrisionerComponentsPage;
   let prisionerUpdatePage: PrisionerUpdatePage;
   let prisionerDeleteDialog: PrisionerDeleteDialog;
+  const fileToUpload = '../../../../../../src/main/webapp/content/images/logo-jhipster.png';
+  const absolutePath = path.resolve(__dirname, fileToUpload);
   let beforeRecordsCount = 0;
 
   before(async () => {
@@ -59,8 +62,6 @@ describe('Prisioner e2e test', () => {
 
   it('should create and save Prisioners', async () => {
     await prisionerComponentsPage.createButton.click();
-    await prisionerUpdatePage.setIdPrisionerInput('5');
-    expect(await prisionerUpdatePage.getIdPrisionerInput()).to.eq('5');
     await prisionerUpdatePage.setNameInput('name');
     expect(await prisionerUpdatePage.getNameInput()).to.match(/name/);
     await prisionerUpdatePage.setBiInput('5');
@@ -79,6 +80,7 @@ describe('Prisioner e2e test', () => {
     expect(await prisionerUpdatePage.getWorkingInput()).to.eq('5');
     await prisionerUpdatePage.setPasswordInput('password');
     expect(await prisionerUpdatePage.getPasswordInput()).to.match(/password/);
+    await prisionerUpdatePage.setProfileImageInput(absolutePath);
     await prisionerUpdatePage.loginSelectLastOption();
     await prisionerUpdatePage.permissionSelectLastOption();
     await waitUntilDisplayed(prisionerUpdatePage.saveButton);

@@ -12,6 +12,7 @@ export const ACTION_TYPES = {
   CREATE_PRISIONER: 'prisioner/CREATE_PRISIONER',
   UPDATE_PRISIONER: 'prisioner/UPDATE_PRISIONER',
   DELETE_PRISIONER: 'prisioner/DELETE_PRISIONER',
+  SET_BLOB: 'prisioner/SET_BLOB',
   RESET: 'prisioner/RESET'
 };
 
@@ -86,6 +87,17 @@ export default (state: PrisionerState = initialState, action): PrisionerState =>
         updateSuccess: true,
         entity: {}
       };
+    case ACTION_TYPES.SET_BLOB: {
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType
+        }
+      };
+    }
     case ACTION_TYPES.RESET:
       return {
         ...initialState
@@ -139,6 +151,15 @@ export const deleteEntity: ICrudDeleteAction<IPrisioner> = id => async dispatch 
   dispatch(getEntities());
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType
+  }
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

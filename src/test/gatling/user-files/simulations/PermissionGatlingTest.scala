@@ -72,7 +72,6 @@ class PermissionGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "idPermission":"0"
                 , "descPermission":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))

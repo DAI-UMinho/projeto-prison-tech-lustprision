@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class SystemAdminResourceIT {
 
-    private static final Integer DEFAULT_ID_SYS_ADMIN = 1;
-    private static final Integer UPDATED_ID_SYS_ADMIN = 2;
-
     private static final String DEFAULT_NAME_ADMIN = "AAAAAAAAAA";
     private static final String UPDATED_NAME_ADMIN = "BBBBBBBBBB";
 
@@ -84,7 +81,6 @@ public class SystemAdminResourceIT {
      */
     public static SystemAdmin createEntity(EntityManager em) {
         SystemAdmin systemAdmin = new SystemAdmin()
-            .idSysAdmin(DEFAULT_ID_SYS_ADMIN)
             .nameAdmin(DEFAULT_NAME_ADMIN)
             .password(DEFAULT_PASSWORD);
         return systemAdmin;
@@ -97,7 +93,6 @@ public class SystemAdminResourceIT {
      */
     public static SystemAdmin createUpdatedEntity(EntityManager em) {
         SystemAdmin systemAdmin = new SystemAdmin()
-            .idSysAdmin(UPDATED_ID_SYS_ADMIN)
             .nameAdmin(UPDATED_NAME_ADMIN)
             .password(UPDATED_PASSWORD);
         return systemAdmin;
@@ -123,7 +118,6 @@ public class SystemAdminResourceIT {
         List<SystemAdmin> systemAdminList = systemAdminRepository.findAll();
         assertThat(systemAdminList).hasSize(databaseSizeBeforeCreate + 1);
         SystemAdmin testSystemAdmin = systemAdminList.get(systemAdminList.size() - 1);
-        assertThat(testSystemAdmin.getIdSysAdmin()).isEqualTo(DEFAULT_ID_SYS_ADMIN);
         assertThat(testSystemAdmin.getNameAdmin()).isEqualTo(DEFAULT_NAME_ADMIN);
         assertThat(testSystemAdmin.getPassword()).isEqualTo(DEFAULT_PASSWORD);
     }
@@ -159,7 +153,6 @@ public class SystemAdminResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(systemAdmin.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idSysAdmin").value(hasItem(DEFAULT_ID_SYS_ADMIN)))
             .andExpect(jsonPath("$.[*].nameAdmin").value(hasItem(DEFAULT_NAME_ADMIN)))
             .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)));
     }
@@ -175,7 +168,6 @@ public class SystemAdminResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(systemAdmin.getId().intValue()))
-            .andExpect(jsonPath("$.idSysAdmin").value(DEFAULT_ID_SYS_ADMIN))
             .andExpect(jsonPath("$.nameAdmin").value(DEFAULT_NAME_ADMIN))
             .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD));
     }
@@ -201,7 +193,6 @@ public class SystemAdminResourceIT {
         // Disconnect from session so that the updates on updatedSystemAdmin are not directly saved in db
         em.detach(updatedSystemAdmin);
         updatedSystemAdmin
-            .idSysAdmin(UPDATED_ID_SYS_ADMIN)
             .nameAdmin(UPDATED_NAME_ADMIN)
             .password(UPDATED_PASSWORD);
 
@@ -214,7 +205,6 @@ public class SystemAdminResourceIT {
         List<SystemAdmin> systemAdminList = systemAdminRepository.findAll();
         assertThat(systemAdminList).hasSize(databaseSizeBeforeUpdate);
         SystemAdmin testSystemAdmin = systemAdminList.get(systemAdminList.size() - 1);
-        assertThat(testSystemAdmin.getIdSysAdmin()).isEqualTo(UPDATED_ID_SYS_ADMIN);
         assertThat(testSystemAdmin.getNameAdmin()).isEqualTo(UPDATED_NAME_ADMIN);
         assertThat(testSystemAdmin.getPassword()).isEqualTo(UPDATED_PASSWORD);
     }

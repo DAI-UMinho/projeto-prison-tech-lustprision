@@ -15,9 +15,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="id_question" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="question" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -50,7 +47,6 @@
                   separator=";"
                   tableName="question">
             <column name="id" type="numeric"/>
-            <column name="id_question" type="numeric"/>
             <column name="question" type="string"/>
             <column name="jhi_value" type="numeric"/>
             <column name="answer" type="string"/>

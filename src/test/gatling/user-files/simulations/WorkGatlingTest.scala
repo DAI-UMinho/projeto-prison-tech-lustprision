@@ -72,7 +72,6 @@ class WorkGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "idWork":"0"
                 , "nameWork":"SAMPLE_TEXT"
                 , "priceHour":null
                 , "numVacancies":"0"

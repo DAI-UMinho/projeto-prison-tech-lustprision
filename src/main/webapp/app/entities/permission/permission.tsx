@@ -37,9 +37,6 @@ export const Permission = (props: IPermissionProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.permission.idPermission">Id Permission</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.permission.descPermission">Desc Permission</Translate>
                 </th>
                 <th />
@@ -53,7 +50,6 @@ export const Permission = (props: IPermissionProps) => {
                       {permission.id}
                     </Button>
                   </td>
-                  <td>{permission.idPermission}</td>
                   <td>{permission.descPermission}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

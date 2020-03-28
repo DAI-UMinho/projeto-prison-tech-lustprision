@@ -1,5 +1,4 @@
 entity Prisioner{
-idPrisioner Integer
 name String
 bi Integer
 image String
@@ -20,7 +19,6 @@ entity PrisQuiz {
 }
 
 entity QuestionQuiz {
-     questionQuizId Integer
 }
 
 entity PressProduct {
@@ -30,30 +28,26 @@ entity PressProduct {
 }
 
 entity Work {
-    idWork Integer
     nameWork String
     priceHour Long
     numVacancies Integer
 }
 
 entity Quiz {
-    idQuiz Integer
     qtyQuestion Integer
 }
 
 entity Question {
-     idQuestion Integer
      question String
      value Double
      answer String
 }
 
 entity Purchase {
-	idPurchase Integer
+
 }
 
 entity Product {
-    codeProd Integer
     productLinId Integer
     nameProd String
     price Long
@@ -70,45 +64,42 @@ entity Login {
 }
 
 entity Permission {
-	idPermission Integer
     descPermission String
 }
 
 entity SystemAdmin {
-	idSysAdmin Integer,
 	nameAdmin String,
     password String
 }
 
 entity AdminEmploy {
-	idAdminEmp Integer,
 	nameAdminEmp String,
     password String
 }
 
 relationship OneToMany{
-	Prisioner{idPrisioner} to PressWork
-    Work{idWork} to PressWork
+	Prisioner{id} to PressWork
+    Work{id} to PressWork
 }
 
 relationship OneToMany{
-	Prisioner{idPrisioner} to PrisQuiz
-    Quiz{idQuiz} to PrisQuiz
-    Quiz{idQuz} to QuestionQuiz
-    Question{idQuestion} to QuestionQuiz
+	Prisioner{id} to PrisQuiz
+    Quiz{id} to PrisQuiz
+    Quiz{id} to QuestionQuiz
+    Question{id} to QuestionQuiz
 }
 
 relationship OneToMany{
-	Prisioner{idPrisioner} to Purchase
-    Purchase{idPurchase} to PressProduct
-    Product{codeProd} to PressProduct
+	Prisioner{id} to Purchase
+    Purchase{id} to PressProduct
+    Product{id} to PressProduct
 }
 
 relationship OneToMany{
-	Login{userName} to Prisioner
-    Login{userName} to SystemAdmin
-    Login{userName} to AdminEmploy
-    Permission{idPermission} to Prisioner
-    Permission{idPermission} to SystemAdmin
-    Permission{idPermission} to AdminEmploy
+	Login{id} to Prisioner
+    Login{id} to SystemAdmin
+    Login{id} to AdminEmploy
+    Permission{id} to Prisioner
+    Permission{id} to SystemAdmin
+    Permission{id} to AdminEmploy
 }

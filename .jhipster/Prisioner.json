@@ -2,10 +2,6 @@
     "name": "Prisioner",
     "fields": [
         {
-            "fieldName": "idPrisioner",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "name",
             "fieldType": "String"
         },
@@ -40,6 +36,11 @@
         {
             "fieldName": "password",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "profileImage",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
         }
     ],
     "relationships": [
@@ -47,31 +48,31 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "pressWork",
             "otherEntityRelationshipName": "prisioner",
-            "relationshipName": "idPrisioner"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "prisQuiz",
             "otherEntityRelationshipName": "prisioner",
-            "relationshipName": "idPrisioner"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "purchase",
             "otherEntityRelationshipName": "prisioner",
-            "relationshipName": "idPrisioner"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "login",
-            "otherEntityRelationshipName": "userName",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "login",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "permission",
-            "otherEntityRelationshipName": "idPermission",
+            "otherEntityRelationshipName": "id",
             "relationshipName": "permission",
             "otherEntityField": "id"
         }
@@ -85,5 +86,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

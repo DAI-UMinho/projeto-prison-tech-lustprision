@@ -4,7 +4,6 @@ export default class SystemAdminUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.systemAdmin.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idSysAdminInput: ElementFinder = element(by.css('input#system-admin-idSysAdmin'));
   nameAdminInput: ElementFinder = element(by.css('input#system-admin-nameAdmin'));
   passwordInput: ElementFinder = element(by.css('input#system-admin-password'));
   loginSelect: ElementFinder = element(by.css('select#system-admin-login'));
@@ -12,14 +11,6 @@ export default class SystemAdminUpdatePage {
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdSysAdminInput(idSysAdmin) {
-    await this.idSysAdminInput.sendKeys(idSysAdmin);
-  }
-
-  async getIdSysAdminInput() {
-    return this.idSysAdminInput.getAttribute('value');
   }
 
   async setNameAdminInput(nameAdmin) {

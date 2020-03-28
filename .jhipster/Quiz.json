@@ -2,10 +2,6 @@
     "name": "Quiz",
     "fields": [
         {
-            "fieldName": "idQuiz",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "qtyQuestion",
             "fieldType": "Integer"
         }
@@ -15,13 +11,13 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "prisQuiz",
             "otherEntityRelationshipName": "quiz",
-            "relationshipName": "idQuiz"
+            "relationshipName": "id"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "questionQuiz",
             "otherEntityRelationshipName": "quiz",
-            "relationshipName": "idQuz"
+            "relationshipName": "id"
         }
     ],
     "changelogDate": "20200320151900",

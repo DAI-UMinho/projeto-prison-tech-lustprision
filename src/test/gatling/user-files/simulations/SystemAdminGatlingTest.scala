@@ -72,7 +72,6 @@ class SystemAdminGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "idSysAdmin":"0"
                 , "nameAdmin":"SAMPLE_TEXT"
                 , "password":"SAMPLE_TEXT"
                 }""")).asJson

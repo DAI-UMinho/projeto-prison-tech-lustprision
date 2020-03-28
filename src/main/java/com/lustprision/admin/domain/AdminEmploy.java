@@ -23,9 +23,6 @@ public class AdminEmploy implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "id_admin_emp")
-    private Integer idAdminEmp;
-
     @Column(name = "name_admin_emp")
     private String nameAdminEmp;
 
@@ -33,11 +30,11 @@ public class AdminEmploy implements Serializable {
     private String password;
 
     @ManyToOne
-    @JsonIgnoreProperties("userNames")
+    @JsonIgnoreProperties("ids")
     private Login login;
 
     @ManyToOne
-    @JsonIgnoreProperties("idPermissions")
+    @JsonIgnoreProperties("ids")
     private Permission permission;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -47,19 +44,6 @@ public class AdminEmploy implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdAdminEmp() {
-        return idAdminEmp;
-    }
-
-    public AdminEmploy idAdminEmp(Integer idAdminEmp) {
-        this.idAdminEmp = idAdminEmp;
-        return this;
-    }
-
-    public void setIdAdminEmp(Integer idAdminEmp) {
-        this.idAdminEmp = idAdminEmp;
     }
 
     public String getNameAdminEmp() {
@@ -135,7 +119,6 @@ public class AdminEmploy implements Serializable {
     public String toString() {
         return "AdminEmploy{" +
             "id=" + getId() +
-            ", idAdminEmp=" + getIdAdminEmp() +
             ", nameAdminEmp='" + getNameAdminEmp() + "'" +
             ", password='" + getPassword() + "'" +
             "}";

@@ -72,7 +72,6 @@ class ProductGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "codeProd":"0"
                 , "productLinId":"0"
                 , "nameProd":"SAMPLE_TEXT"
                 , "price":null

@@ -16,8 +16,7 @@
       "detail": {
         "title": "Purchase"
       },
-      "idPurchase": "Id Purchase",
-      "idPurchase": "Id Purchase",
+      "id": "Id",
       "prisioner": "Prisioner"
     }
   }

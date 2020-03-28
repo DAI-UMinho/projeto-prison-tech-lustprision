@@ -37,9 +37,6 @@ export const Purchase = (props: IPurchaseProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.purchase.idPurchase">Id Purchase</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.purchase.prisioner">Prisioner</Translate>
                 </th>
                 <th />
@@ -53,7 +50,6 @@ export const Purchase = (props: IPurchaseProps) => {
                       {purchase.id}
                     </Button>
                   </td>
-                  <td>{purchase.idPurchase}</td>
                   <td>{purchase.prisioner ? <Link to={`prisioner/${purchase.prisioner.id}`}>{purchase.prisioner.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

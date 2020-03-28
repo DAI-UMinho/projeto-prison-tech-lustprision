@@ -59,8 +59,6 @@ describe('Quiz e2e test', () => {
 
   it('should create and save Quizzes', async () => {
     await quizComponentsPage.createButton.click();
-    await quizUpdatePage.setIdQuizInput('5');
-    expect(await quizUpdatePage.getIdQuizInput()).to.eq('5');
     await quizUpdatePage.setQtyQuestionInput('5');
     expect(await quizUpdatePage.getQtyQuestionInput()).to.eq('5');
     await waitUntilDisplayed(quizUpdatePage.saveButton);

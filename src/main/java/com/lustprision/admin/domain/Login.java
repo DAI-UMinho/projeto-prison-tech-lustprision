@@ -1,5 +1,8 @@
 package com.lustprision.admin.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -11,31 +14,36 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "login")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Login implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "password")
+    @Column(name = "jhi_password")
     private String password;
 
-    @Column(name = "type")
+    @Column(name = "jhi_type")
     private String type;
 
     @OneToMany(mappedBy = "login")
-    private Set<Prisioner> userPrisionerNames = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Prisioner> ids = new HashSet<>();
 
     @OneToMany(mappedBy = "login")
-    private Set<SystemAdmin> userSystemNames = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<SystemAdmin> idsystem = new HashSet<>();
 
     @OneToMany(mappedBy = "login")
-    private Set<AdminEmploy> userAdminNames = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<AdminEmploy> idadmin = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -85,80 +93,80 @@ public class Login implements Serializable {
         this.type = type;
     }
 
-    public Set<Prisioner> getUserPrisionerNames() {
-        return userPrisionerNames;
+/*    public Set<Prisioner> getIds() {
+        return ids;
     }
 
-    public Login userPrisionerNames(Set<Prisioner> prisioners) {
-        this.userPrisionerNames = prisioners;
+    public Login ids(Set<Prisioner> prisioners) {
+        this.ids = prisioners;
+        return this;
+    }*/
+
+    public Login addId(Prisioner prisioner) {
+        this.ids.add(prisioner);
+        prisioner.setLogin(this);
         return this;
     }
 
-    public Login addUserName(Prisioner prisioner) {
-        this.userPrisionerNames.add(prisioner);
-//        prisioner.setLogin(this);
+    public Login removeId(Prisioner prisioner) {
+        this.ids.remove(prisioner);
+        prisioner.setLogin(null);
         return this;
     }
 
-    public Login removeUserName(Prisioner prisioner) {
-        this.userPrisionerNames.remove(prisioner);
-//        prisioner.setLogin(null);
+/*    public void setIds(Set<Prisioner> prisioners) {
+        this.ids = prisioners;
+    }
+
+    public Set<SystemAdmin> getIds() {
+        return ids;
+    }
+
+    public Login ids(Set<SystemAdmin> systemAdmins) {
+        this.ids = systemAdmins;
         return this;
-    }
+    }*//*
 
-    public void setPrisionerUserNames(Set<Prisioner> prisioners) {
-        this.userPrisionerNames = prisioners;
-    }
-
-    public Set<SystemAdmin> getSystemUserNames() {
-        return userSystemNames;
-    }
-
-    public Login userSystemNames(Set<SystemAdmin> systemAdmins) {
-        this.userSystemNames = systemAdmins;
-        return this;
-    }
-
-    public Login addUserName(SystemAdmin systemAdmin) {
-        this.userSystemNames.add(systemAdmin);
+    public Login addId(SystemAdmin systemAdmin) {
+        this.ids.add(systemAdmin);
         systemAdmin.setLogin(this);
         return this;
-    }
+    }*/
 
-    public Login removeUserName(SystemAdmin systemAdmin) {
-        this.userSystemNames.remove(systemAdmin);
+    public Login removeId(SystemAdmin systemAdmin) {
+        this.ids.remove(systemAdmin);
         systemAdmin.setLogin(null);
         return this;
     }
 
-    public void setUserSystemNames(Set<SystemAdmin> systemAdmins) {
-        this.userSystemNames = systemAdmins;
+/*    public void setIds(Set<SystemAdmin> systemAdmins) {
+        this.ids = systemAdmins;
     }
 
-    public Set<AdminEmploy> getUserNames() {
-        return userAdminNames;
+    public Set<AdminEmploy> getIds() {
+        return ids;
     }
 
-    public Login userNames(Set<AdminEmploy> adminEmploys) {
-        this.userAdminNames = adminEmploys;
+    public Login ids(Set<AdminEmploy> adminEmploys) {
+        this.ids = adminEmploys;
         return this;
     }
 
-    public Login addUserName(AdminEmploy adminEmploy) {
-        this.userAdminNames.add(adminEmploy);
+    public Login addId(AdminEmploy adminEmploy) {
+        this.ids.add(adminEmploy);
         adminEmploy.setLogin(this);
         return this;
-    }
+    }*/
 
-    public Login removeUserName(AdminEmploy adminEmploy) {
-        this.userAdminNames.remove(adminEmploy);
+    public Login removeId(AdminEmploy adminEmploy) {
+        this.ids.remove(adminEmploy);
         adminEmploy.setLogin(null);
         return this;
     }
 
-    public void setUserNames(Set<AdminEmploy> adminEmploys) {
-        this.userAdminNames = adminEmploys;
-    }
+/*    public void setIds(Set<AdminEmploy> adminEmploys) {
+        this.ids = adminEmploys;
+    }*/
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

@@ -11,7 +11,7 @@ import ErrorBoundary from "app/shared/error/error-boundary";
 import Scrollbars from "react-custom-scrollbars"
 import HDashboard from "app/modules/home/home-dashboard";
 import PrivateRoute from "app/shared/auth/private-route";
-
+import Prisioner from "app/modules/account/prisoner/";
 
 export interface IDashboardProps {
   isAuthenticated: boolean;
@@ -22,7 +22,6 @@ export interface IDashboardProps {
   currentLocale: string;
   onLocaleChange: Function;
 }
-let ps;
 
 const Dashboard = (props: IDashboardProps) => {
   const currentRoute = useRouteMatch();
@@ -42,6 +41,7 @@ const Dashboard = (props: IDashboardProps) => {
           <Switch>
             <PrivateRoute path={`${currentRoute.url}/profile`} component={User} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/home`} component={HDashboard} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
+            <PrivateRoute path={`${currentRoute.url}/prisoners`} component={Prisioner} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <ErrorBoundary>
               <Redirect to={`${currentRoute.url}/home`}/>
             </ErrorBoundary>

@@ -3,8 +3,7 @@ import { IPrisioner } from 'app/shared/model/prisioner.model';
 
 export interface IPurchase {
   id?: number;
-  idPurchase?: number;
-  idPurchases?: IPressProduct[];
+  ids?: IPressProduct[];
   prisioner?: IPrisioner;
 }
 

@@ -72,7 +72,6 @@ class PrisionerGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "idPrisioner":"0"
                 , "name":"SAMPLE_TEXT"
                 , "bi":"0"
                 , "image":"SAMPLE_TEXT"
@@ -82,6 +81,7 @@ class PrisionerGatlingTest extends Simulation {
                 , "balance":null
                 , "working":"0"
                 , "password":"SAMPLE_TEXT"
+                , "profileImage":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_prisioner_url"))).exitHereIfFailed

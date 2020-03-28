@@ -2,10 +2,6 @@
     "name": "Product",
     "fields": [
         {
-            "fieldName": "codeProd",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "productLinId",
             "fieldType": "Integer"
         },
@@ -39,7 +35,7 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "pressProduct",
             "otherEntityRelationshipName": "product",
-            "relationshipName": "codeProd"
+            "relationshipName": "id"
         }
     ],
     "changelogDate": "20200320152200",

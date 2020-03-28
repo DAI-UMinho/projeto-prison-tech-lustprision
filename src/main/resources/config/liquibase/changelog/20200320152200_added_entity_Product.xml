@@ -15,9 +15,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="code_prod" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="product_lin_id" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -62,7 +59,6 @@
                   separator=";"
                   tableName="product">
             <column name="id" type="numeric"/>
-            <column name="code_prod" type="numeric"/>
             <column name="product_lin_id" type="numeric"/>
             <column name="name_prod" type="string"/>
             <column name="price" type="numeric"/>

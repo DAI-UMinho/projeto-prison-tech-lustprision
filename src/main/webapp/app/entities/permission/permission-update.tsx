@@ -76,12 +76,6 @@ export const PermissionUpdate = (props: IPermissionUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="idPermissionLabel" for="permission-idPermission">
-                  <Translate contentKey="lustPrisionApp.permission.idPermission">Id Permission</Translate>
-                </Label>
-                <AvField id="permission-idPermission" type="string" className="form-control" name="idPermission" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="descPermissionLabel" for="permission-descPermission">
                   <Translate contentKey="lustPrisionApp.permission.descPermission">Desc Permission</Translate>
                 </Label>

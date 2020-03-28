@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class PermissionResourceIT {
 
-    private static final Integer DEFAULT_ID_PERMISSION = 1;
-    private static final Integer UPDATED_ID_PERMISSION = 2;
-
     private static final String DEFAULT_DESC_PERMISSION = "AAAAAAAAAA";
     private static final String UPDATED_DESC_PERMISSION = "BBBBBBBBBB";
 
@@ -81,7 +78,6 @@ public class PermissionResourceIT {
      */
     public static Permission createEntity(EntityManager em) {
         Permission permission = new Permission()
-            .idPermission(DEFAULT_ID_PERMISSION)
             .descPermission(DEFAULT_DESC_PERMISSION);
         return permission;
     }
@@ -93,7 +89,6 @@ public class PermissionResourceIT {
      */
     public static Permission createUpdatedEntity(EntityManager em) {
         Permission permission = new Permission()
-            .idPermission(UPDATED_ID_PERMISSION)
             .descPermission(UPDATED_DESC_PERMISSION);
         return permission;
     }
@@ -118,7 +113,6 @@ public class PermissionResourceIT {
         List<Permission> permissionList = permissionRepository.findAll();
         assertThat(permissionList).hasSize(databaseSizeBeforeCreate + 1);
         Permission testPermission = permissionList.get(permissionList.size() - 1);
-        assertThat(testPermission.getIdPermission()).isEqualTo(DEFAULT_ID_PERMISSION);
         assertThat(testPermission.getDescPermission()).isEqualTo(DEFAULT_DESC_PERMISSION);
     }
 
@@ -153,7 +147,6 @@ public class PermissionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(permission.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idPermission").value(hasItem(DEFAULT_ID_PERMISSION)))
             .andExpect(jsonPath("$.[*].descPermission").value(hasItem(DEFAULT_DESC_PERMISSION)));
     }
     
@@ -168,7 +161,6 @@ public class PermissionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(permission.getId().intValue()))
-            .andExpect(jsonPath("$.idPermission").value(DEFAULT_ID_PERMISSION))
             .andExpect(jsonPath("$.descPermission").value(DEFAULT_DESC_PERMISSION));
     }
 
@@ -193,7 +185,6 @@ public class PermissionResourceIT {
         // Disconnect from session so that the updates on updatedPermission are not directly saved in db
         em.detach(updatedPermission);
         updatedPermission
-            .idPermission(UPDATED_ID_PERMISSION)
             .descPermission(UPDATED_DESC_PERMISSION);
 
         restPermissionMockMvc.perform(put("/api/permissions")
@@ -205,7 +196,6 @@ public class PermissionResourceIT {
         List<Permission> permissionList = permissionRepository.findAll();
         assertThat(permissionList).hasSize(databaseSizeBeforeUpdate);
         Permission testPermission = permissionList.get(permissionList.size() - 1);
-        assertThat(testPermission.getIdPermission()).isEqualTo(UPDATED_ID_PERMISSION);
         assertThat(testPermission.getDescPermission()).isEqualTo(UPDATED_DESC_PERMISSION);
     }
 

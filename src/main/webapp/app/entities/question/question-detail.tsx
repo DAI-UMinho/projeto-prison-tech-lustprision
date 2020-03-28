@@ -26,12 +26,6 @@ export const QuestionDetail = (props: IQuestionDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="idQuestion">
-              <Translate contentKey="lustPrisionApp.question.idQuestion">Id Question</Translate>
-            </span>
-          </dt>
-          <dd>{questionEntity.idQuestion}</dd>
-          <dt>
             <span id="question">
               <Translate contentKey="lustPrisionApp.question.question">Question</Translate>
             </span>

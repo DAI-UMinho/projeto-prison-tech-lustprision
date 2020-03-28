@@ -72,7 +72,6 @@ class AdminEmployGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "idAdminEmp":"0"
                 , "nameAdminEmp":"SAMPLE_TEXT"
                 , "password":"SAMPLE_TEXT"
                 }""")).asJson

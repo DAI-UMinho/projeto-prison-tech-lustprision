@@ -16,21 +16,32 @@
       "detail": {
         "title": "Prisioner"
       },
-      "idPrisioner": "Id Prisioner",
-      "name": "Name",
+      "name": "Nome",
       "bi": "Bi",
-      "image": "Image",
-      "numPrisioner": "Num Prisioner",
-      "numCell": "Num Cell",
-      "dataNascimento": "Data Nascimento",
-      "balance": "Balance",
-      "working": "Working",
+      "numPrisioner": "Número de Prisioneiro",
+      "numCell": "Número de Cela",
+      "dataNascimento": "Data de Nascimento",
+      "balance": "Créditos",
+      "working": "A trabalhar",
       "password": "Password",
-      "idPrisioner": "Id Prisioner",
-      "idPrisioner": "Id Prisioner",
-      "idPrisioner": "Id Prisioner",
+      "profileImage": "Imagem de Perfil",
+      "id": "Id",
       "login": "Login",
-      "permission": "Permission"
+      "permission": "Permissão",
+      "validation": {
+        "numPrisoner": {
+          "required": "O número de prisioneiro é obrigatório",
+          "length": "O número de prisioneiro é constituido por 5 digitos"
+        },
+        "numCell": {
+          "required": "O número de cela é obrigatório",
+          "maxLength": "O número de cela é constituido por no max 4 digitos"
+        },
+        "bi": {
+          "required": "O bilhete de identidade é obrigatório",
+          "length": "O bi é constituido por 9 digitos"
+        }
+      }
     }
   }
 }

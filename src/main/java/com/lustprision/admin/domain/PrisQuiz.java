@@ -28,11 +28,11 @@ public class PrisQuiz implements Serializable {
     private LocalDate quizDate;
 
     @ManyToOne
-    @JsonIgnoreProperties("idPrisioners")
+    @JsonIgnoreProperties("ids")
     private Prisioner prisioner;
 
     @ManyToOne
-    @JsonIgnoreProperties("idQuizs")
+    @JsonIgnoreProperties("ids")
     private Quiz quiz;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

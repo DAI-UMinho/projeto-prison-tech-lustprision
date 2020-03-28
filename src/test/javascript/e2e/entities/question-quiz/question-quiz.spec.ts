@@ -61,8 +61,6 @@ describe('QuestionQuiz e2e test', () => {
 
   it('should create and save QuestionQuizs', async () => {
     await questionQuizComponentsPage.createButton.click();
-    await questionQuizUpdatePage.setQuestionQuizIdInput('5');
-    expect(await questionQuizUpdatePage.getQuestionQuizIdInput()).to.eq('5');
     await questionQuizUpdatePage.quizSelectLastOption();
     await questionQuizUpdatePage.questionSelectLastOption();
     await waitUntilDisplayed(questionQuizUpdatePage.saveButton);

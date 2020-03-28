@@ -24,9 +24,6 @@ public class Product implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "code_prod")
-    private Integer codeProd;
-
     @Column(name = "product_lin_id")
     private Integer productLinId;
 
@@ -50,7 +47,7 @@ public class Product implements Serializable {
 
     @OneToMany(mappedBy = "product")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<PressProduct> codeProds = new HashSet<>();
+    private Set<PressProduct> ids = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -59,19 +56,6 @@ public class Product implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getCodeProd() {
-        return codeProd;
-    }
-
-    public Product codeProd(Integer codeProd) {
-        this.codeProd = codeProd;
-        return this;
-    }
-
-    public void setCodeProd(Integer codeProd) {
-        this.codeProd = codeProd;
     }
 
     public Integer getProductLinId() {
@@ -165,29 +149,29 @@ public class Product implements Serializable {
         this.buyPrice = buyPrice;
     }
 
-    public Set<PressProduct> getCodeProds() {
-        return codeProds;
+    public Set<PressProduct> getIds() {
+        return ids;
     }
 
-    public Product codeProds(Set<PressProduct> pressProducts) {
-        this.codeProds = pressProducts;
+    public Product ids(Set<PressProduct> pressProducts) {
+        this.ids = pressProducts;
         return this;
     }
 
-    public Product addCodeProd(PressProduct pressProduct) {
-        this.codeProds.add(pressProduct);
+    public Product addId(PressProduct pressProduct) {
+        this.ids.add(pressProduct);
         pressProduct.setProduct(this);
         return this;
     }
 
-    public Product removeCodeProd(PressProduct pressProduct) {
-        this.codeProds.remove(pressProduct);
+    public Product removeId(PressProduct pressProduct) {
+        this.ids.remove(pressProduct);
         pressProduct.setProduct(null);
         return this;
     }
 
-    public void setCodeProds(Set<PressProduct> pressProducts) {
-        this.codeProds = pressProducts;
+    public void setIds(Set<PressProduct> pressProducts) {
+        this.ids = pressProducts;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -211,7 +195,6 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" +
             "id=" + getId() +
-            ", codeProd=" + getCodeProd() +
             ", productLinId=" + getProductLinId() +
             ", nameProd='" + getNameProd() + "'" +
             ", price=" + getPrice() +

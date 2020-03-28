@@ -4,11 +4,10 @@ import { IAdminEmploy } from 'app/shared/model/admin-employ.model';
 
 export interface IPermission {
   id?: number;
-  idPermission?: number;
   descPermission?: string;
-  idPermissions?: IPrisioner[];
-  idPermissions?: ISystemAdmin[];
-  idPermissions?: IAdminEmploy[];
+  ids?: IPrisioner[];
+  ids?: ISystemAdmin[];
+  ids?: IAdminEmploy[];
 }
 
 export const defaultValue: Readonly<IPermission> = {};

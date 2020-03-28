@@ -16,11 +16,10 @@
       "detail": {
         "title": "Work"
       },
-      "idWork": "Id Work",
       "nameWork": "Name Work",
       "priceHour": "Price Hour",
       "numVacancies": "Num Vacancies",
-      "idWork": "Id Work"
+      "id": "Id"
     }
   }
 }

@@ -16,6 +16,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -34,9 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes = LustPrisionApp.class)
 public class PrisionerResourceIT {
-
-    private static final Integer DEFAULT_ID_PRISIONER = 1;
-    private static final Integer UPDATED_ID_PRISIONER = 2;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -64,6 +62,11 @@ public class PrisionerResourceIT {
 
     private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
     private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
+
+    private static final byte[] DEFAULT_PROFILE_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_PROFILE_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_PROFILE_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_PROFILE_IMAGE_CONTENT_TYPE = "image/png";
 
     @Autowired
     private PrisionerRepository prisionerRepository;
@@ -107,16 +110,16 @@ public class PrisionerResourceIT {
      */
     public static Prisioner createEntity(EntityManager em) {
         Prisioner prisioner = new Prisioner()
-            .idPrisioner(DEFAULT_ID_PRISIONER)
             .name(DEFAULT_NAME)
             .bi(DEFAULT_BI)
-            .image(DEFAULT_IMAGE)
             .numPrisioner(DEFAULT_NUM_PRISIONER)
             .numCell(DEFAULT_NUM_CELL)
             .dataNascimento(DEFAULT_DATA_NASCIMENTO)
             .balance(DEFAULT_BALANCE)
             .working(DEFAULT_WORKING)
-            .password(DEFAULT_PASSWORD);
+            .password(DEFAULT_PASSWORD)
+            .profileImage(DEFAULT_PROFILE_IMAGE)
+            .profileImageContentType(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE);
         return prisioner;
     }
     /**
@@ -127,16 +130,16 @@ public class PrisionerResourceIT {
      */
     public static Prisioner createUpdatedEntity(EntityManager em) {
         Prisioner prisioner = new Prisioner()
-            .idPrisioner(UPDATED_ID_PRISIONER)
             .name(UPDATED_NAME)
             .bi(UPDATED_BI)
-            .image(UPDATED_IMAGE)
             .numPrisioner(UPDATED_NUM_PRISIONER)
             .numCell(UPDATED_NUM_CELL)
             .dataNascimento(UPDATED_DATA_NASCIMENTO)
             .balance(UPDATED_BALANCE)
             .working(UPDATED_WORKING)
-            .password(UPDATED_PASSWORD);
+            .password(UPDATED_PASSWORD)
+            .profileImage(UPDATED_PROFILE_IMAGE)
+            .profileImageContentType(UPDATED_PROFILE_IMAGE_CONTENT_TYPE);
         return prisioner;
     }
 
@@ -160,16 +163,16 @@ public class PrisionerResourceIT {
         List<Prisioner> prisionerList = prisionerRepository.findAll();
         assertThat(prisionerList).hasSize(databaseSizeBeforeCreate + 1);
         Prisioner testPrisioner = prisionerList.get(prisionerList.size() - 1);
-        assertThat(testPrisioner.getIdPrisioner()).isEqualTo(DEFAULT_ID_PRISIONER);
         assertThat(testPrisioner.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testPrisioner.getBi()).isEqualTo(DEFAULT_BI);
-        assertThat(testPrisioner.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testPrisioner.getNumPrisioner()).isEqualTo(DEFAULT_NUM_PRISIONER);
         assertThat(testPrisioner.getNumCell()).isEqualTo(DEFAULT_NUM_CELL);
         assertThat(testPrisioner.getDataNascimento()).isEqualTo(DEFAULT_DATA_NASCIMENTO);
         assertThat(testPrisioner.getBalance()).isEqualTo(DEFAULT_BALANCE);
         assertThat(testPrisioner.getWorking()).isEqualTo(DEFAULT_WORKING);
         assertThat(testPrisioner.getPassword()).isEqualTo(DEFAULT_PASSWORD);
+        assertThat(testPrisioner.getProfileImage()).isEqualTo(DEFAULT_PROFILE_IMAGE);
+        assertThat(testPrisioner.getProfileImageContentType()).isEqualTo(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -203,7 +206,6 @@ public class PrisionerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(prisioner.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idPrisioner").value(hasItem(DEFAULT_ID_PRISIONER)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].bi").value(hasItem(DEFAULT_BI)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(DEFAULT_IMAGE)))
@@ -212,9 +214,11 @@ public class PrisionerResourceIT {
             .andExpect(jsonPath("$.[*].dataNascimento").value(hasItem(DEFAULT_DATA_NASCIMENTO.toString())))
             .andExpect(jsonPath("$.[*].balance").value(hasItem(DEFAULT_BALANCE.doubleValue())))
             .andExpect(jsonPath("$.[*].working").value(hasItem(DEFAULT_WORKING)))
-            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)));
+            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)))
+            .andExpect(jsonPath("$.[*].profileImageContentType").value(hasItem(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].profileImage").value(hasItem(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE))));
     }
-    
+
     @Test
     @Transactional
     public void getPrisioner() throws Exception {
@@ -226,7 +230,6 @@ public class PrisionerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(prisioner.getId().intValue()))
-            .andExpect(jsonPath("$.idPrisioner").value(DEFAULT_ID_PRISIONER))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.bi").value(DEFAULT_BI))
             .andExpect(jsonPath("$.image").value(DEFAULT_IMAGE))
@@ -235,7 +238,9 @@ public class PrisionerResourceIT {
             .andExpect(jsonPath("$.dataNascimento").value(DEFAULT_DATA_NASCIMENTO.toString()))
             .andExpect(jsonPath("$.balance").value(DEFAULT_BALANCE.doubleValue()))
             .andExpect(jsonPath("$.working").value(DEFAULT_WORKING))
-            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD));
+            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD))
+            .andExpect(jsonPath("$.profileImageContentType").value(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.profileImage").value(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE)));
     }
 
     @Test
@@ -259,16 +264,16 @@ public class PrisionerResourceIT {
         // Disconnect from session so that the updates on updatedPrisioner are not directly saved in db
         em.detach(updatedPrisioner);
         updatedPrisioner
-            .idPrisioner(UPDATED_ID_PRISIONER)
             .name(UPDATED_NAME)
             .bi(UPDATED_BI)
-            .image(UPDATED_IMAGE)
             .numPrisioner(UPDATED_NUM_PRISIONER)
             .numCell(UPDATED_NUM_CELL)
             .dataNascimento(UPDATED_DATA_NASCIMENTO)
             .balance(UPDATED_BALANCE)
             .working(UPDATED_WORKING)
-            .password(UPDATED_PASSWORD);
+            .password(UPDATED_PASSWORD)
+            .profileImage(UPDATED_PROFILE_IMAGE)
+            .profileImageContentType(UPDATED_PROFILE_IMAGE_CONTENT_TYPE);
 
         restPrisionerMockMvc.perform(put("/api/prisioners")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -279,16 +284,16 @@ public class PrisionerResourceIT {
         List<Prisioner> prisionerList = prisionerRepository.findAll();
         assertThat(prisionerList).hasSize(databaseSizeBeforeUpdate);
         Prisioner testPrisioner = prisionerList.get(prisionerList.size() - 1);
-        assertThat(testPrisioner.getIdPrisioner()).isEqualTo(UPDATED_ID_PRISIONER);
         assertThat(testPrisioner.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPrisioner.getBi()).isEqualTo(UPDATED_BI);
-        assertThat(testPrisioner.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testPrisioner.getNumPrisioner()).isEqualTo(UPDATED_NUM_PRISIONER);
         assertThat(testPrisioner.getNumCell()).isEqualTo(UPDATED_NUM_CELL);
         assertThat(testPrisioner.getDataNascimento()).isEqualTo(UPDATED_DATA_NASCIMENTO);
         assertThat(testPrisioner.getBalance()).isEqualTo(UPDATED_BALANCE);
         assertThat(testPrisioner.getWorking()).isEqualTo(UPDATED_WORKING);
         assertThat(testPrisioner.getPassword()).isEqualTo(UPDATED_PASSWORD);
+        assertThat(testPrisioner.getProfileImage()).isEqualTo(UPDATED_PROFILE_IMAGE);
+        assertThat(testPrisioner.getProfileImageContentType()).isEqualTo(UPDATED_PROFILE_IMAGE_CONTENT_TYPE);
     }
 
     @Test

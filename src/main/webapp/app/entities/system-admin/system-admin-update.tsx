@@ -85,12 +85,6 @@ export const SystemAdminUpdate = (props: ISystemAdminUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="idSysAdminLabel" for="system-admin-idSysAdmin">
-                  <Translate contentKey="lustPrisionApp.systemAdmin.idSysAdmin">Id Sys Admin</Translate>
-                </Label>
-                <AvField id="system-admin-idSysAdmin" type="string" className="form-control" name="idSysAdmin" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="nameAdminLabel" for="system-admin-nameAdmin">
                   <Translate contentKey="lustPrisionApp.systemAdmin.nameAdmin">Name Admin</Translate>
                 </Label>

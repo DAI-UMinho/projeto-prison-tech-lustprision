@@ -16,10 +16,9 @@
       "detail": {
         "title": "Quiz"
       },
-      "idQuiz": "Id Quiz",
       "qtyQuestion": "Qty Question",
-      "idQuiz": "Id Quiz",
-      "idQuz": "Id Quz"
+      "id": "Id",
+      "id": "Id"
     }
   }
 }

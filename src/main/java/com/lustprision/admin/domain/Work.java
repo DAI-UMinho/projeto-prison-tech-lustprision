@@ -24,9 +24,6 @@ public class Work implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "id_work")
-    private Integer idWork;
-
     @Column(name = "name_work")
     private String nameWork;
 
@@ -38,7 +35,7 @@ public class Work implements Serializable {
 
     @OneToMany(mappedBy = "work")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<PressWork> idWorks = new HashSet<>();
+    private Set<PressWork> ids = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -47,19 +44,6 @@ public class Work implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdWork() {
-        return idWork;
-    }
-
-    public Work idWork(Integer idWork) {
-        this.idWork = idWork;
-        return this;
-    }
-
-    public void setIdWork(Integer idWork) {
-        this.idWork = idWork;
     }
 
     public String getNameWork() {
@@ -101,29 +85,29 @@ public class Work implements Serializable {
         this.numVacancies = numVacancies;
     }
 
-    public Set<PressWork> getIdWorks() {
-        return idWorks;
+    public Set<PressWork> getIds() {
+        return ids;
     }
 
-    public Work idWorks(Set<PressWork> pressWorks) {
-        this.idWorks = pressWorks;
+    public Work ids(Set<PressWork> pressWorks) {
+        this.ids = pressWorks;
         return this;
     }
 
-    public Work addIdWork(PressWork pressWork) {
-        this.idWorks.add(pressWork);
+    public Work addId(PressWork pressWork) {
+        this.ids.add(pressWork);
         pressWork.setWork(this);
         return this;
     }
 
-    public Work removeIdWork(PressWork pressWork) {
-        this.idWorks.remove(pressWork);
+    public Work removeId(PressWork pressWork) {
+        this.ids.remove(pressWork);
         pressWork.setWork(null);
         return this;
     }
 
-    public void setIdWorks(Set<PressWork> pressWorks) {
-        this.idWorks = pressWorks;
+    public void setIds(Set<PressWork> pressWorks) {
+        this.ids = pressWorks;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -147,7 +131,6 @@ public class Work implements Serializable {
     public String toString() {
         return "Work{" +
             "id=" + getId() +
-            ", idWork=" + getIdWork() +
             ", nameWork='" + getNameWork() + "'" +
             ", priceHour=" + getPriceHour() +
             ", numVacancies=" + getNumVacancies() +

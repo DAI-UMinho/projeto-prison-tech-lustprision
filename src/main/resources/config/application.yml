@@ -101,6 +101,12 @@ spring:
   output:
     ansi:
       console-available: true
+  http:
+
+  servlet:
+    multipart:
+      enabled: true
+      location: ${java.io.tmpdir}
 
 server:
   servlet:

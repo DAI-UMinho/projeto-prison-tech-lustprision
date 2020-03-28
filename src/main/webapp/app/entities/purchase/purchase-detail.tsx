@@ -26,12 +26,6 @@ export const PurchaseDetail = (props: IPurchaseDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="idPurchase">
-              <Translate contentKey="lustPrisionApp.purchase.idPurchase">Id Purchase</Translate>
-            </span>
-          </dt>
-          <dd>{purchaseEntity.idPurchase}</dd>
-          <dt>
             <Translate contentKey="lustPrisionApp.purchase.prisioner">Prisioner</Translate>
           </dt>
           <dd>{purchaseEntity.prisioner ? purchaseEntity.prisioner.id : ''}</dd>

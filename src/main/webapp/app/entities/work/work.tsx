@@ -37,9 +37,6 @@ export const Work = (props: IWorkProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.work.idWork">Id Work</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.work.nameWork">Name Work</Translate>
                 </th>
                 <th>
@@ -59,7 +56,6 @@ export const Work = (props: IWorkProps) => {
                       {work.id}
                     </Button>
                   </td>
-                  <td>{work.idWork}</td>
                   <td>{work.nameWork}</td>
                   <td>{work.priceHour}</td>
                   <td>{work.numVacancies}</td>

@@ -37,9 +37,6 @@ export const AdminEmploy = (props: IAdminEmployProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.adminEmploy.idAdminEmp">Id Admin Emp</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.adminEmploy.nameAdminEmp">Name Admin Emp</Translate>
                 </th>
                 <th>
@@ -62,7 +59,6 @@ export const AdminEmploy = (props: IAdminEmployProps) => {
                       {adminEmploy.id}
                     </Button>
                   </td>
-                  <td>{adminEmploy.idAdminEmp}</td>
                   <td>{adminEmploy.nameAdminEmp}</td>
                   <td>{adminEmploy.password}</td>
                   <td>{adminEmploy.login ? <Link to={`login/${adminEmploy.login.id}`}>{adminEmploy.login.id}</Link> : ''}</td>

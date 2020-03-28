@@ -15,9 +15,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="id_work" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="name_work" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -50,7 +47,6 @@
                   separator=";"
                   tableName="jhi_work">
             <column name="id" type="numeric"/>
-            <column name="id_work" type="numeric"/>
             <column name="name_work" type="string"/>
             <column name="price_hour" type="numeric"/>
             <column name="num_vacancies" type="numeric"/>

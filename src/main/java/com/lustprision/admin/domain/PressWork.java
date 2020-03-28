@@ -28,11 +28,11 @@ public class PressWork implements Serializable {
     private LocalDate workDate;
 
     @ManyToOne
-    @JsonIgnoreProperties("idPrisioners")
+    @JsonIgnoreProperties("ids")
     private Prisioner prisioner;
 
     @ManyToOne
-    @JsonIgnoreProperties("idWorks")
+    @JsonIgnoreProperties("ids")
     private Work work;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

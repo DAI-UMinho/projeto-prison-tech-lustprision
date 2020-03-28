@@ -37,9 +37,6 @@ export const Product = (props: IProductProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.product.codeProd">Code Prod</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.product.productLinId">Product Lin Id</Translate>
                 </th>
                 <th>
@@ -71,7 +68,6 @@ export const Product = (props: IProductProps) => {
                       {product.id}
                     </Button>
                   </td>
-                  <td>{product.codeProd}</td>
                   <td>{product.productLinId}</td>
                   <td>{product.nameProd}</td>
                   <td>{product.price}</td>

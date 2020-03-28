@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class WorkResourceIT {
 
-    private static final Integer DEFAULT_ID_WORK = 1;
-    private static final Integer UPDATED_ID_WORK = 2;
-
     private static final String DEFAULT_NAME_WORK = "AAAAAAAAAA";
     private static final String UPDATED_NAME_WORK = "BBBBBBBBBB";
 
@@ -87,7 +84,6 @@ public class WorkResourceIT {
      */
     public static Work createEntity(EntityManager em) {
         Work work = new Work()
-            .idWork(DEFAULT_ID_WORK)
             .nameWork(DEFAULT_NAME_WORK)
             .priceHour(DEFAULT_PRICE_HOUR)
             .numVacancies(DEFAULT_NUM_VACANCIES);
@@ -101,7 +97,6 @@ public class WorkResourceIT {
      */
     public static Work createUpdatedEntity(EntityManager em) {
         Work work = new Work()
-            .idWork(UPDATED_ID_WORK)
             .nameWork(UPDATED_NAME_WORK)
             .priceHour(UPDATED_PRICE_HOUR)
             .numVacancies(UPDATED_NUM_VACANCIES);
@@ -128,7 +123,6 @@ public class WorkResourceIT {
         List<Work> workList = workRepository.findAll();
         assertThat(workList).hasSize(databaseSizeBeforeCreate + 1);
         Work testWork = workList.get(workList.size() - 1);
-        assertThat(testWork.getIdWork()).isEqualTo(DEFAULT_ID_WORK);
         assertThat(testWork.getNameWork()).isEqualTo(DEFAULT_NAME_WORK);
         assertThat(testWork.getPriceHour()).isEqualTo(DEFAULT_PRICE_HOUR);
         assertThat(testWork.getNumVacancies()).isEqualTo(DEFAULT_NUM_VACANCIES);
@@ -165,7 +159,6 @@ public class WorkResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(work.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idWork").value(hasItem(DEFAULT_ID_WORK)))
             .andExpect(jsonPath("$.[*].nameWork").value(hasItem(DEFAULT_NAME_WORK)))
             .andExpect(jsonPath("$.[*].priceHour").value(hasItem(DEFAULT_PRICE_HOUR.intValue())))
             .andExpect(jsonPath("$.[*].numVacancies").value(hasItem(DEFAULT_NUM_VACANCIES)));
@@ -182,7 +175,6 @@ public class WorkResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(work.getId().intValue()))
-            .andExpect(jsonPath("$.idWork").value(DEFAULT_ID_WORK))
             .andExpect(jsonPath("$.nameWork").value(DEFAULT_NAME_WORK))
             .andExpect(jsonPath("$.priceHour").value(DEFAULT_PRICE_HOUR.intValue()))
             .andExpect(jsonPath("$.numVacancies").value(DEFAULT_NUM_VACANCIES));
@@ -209,7 +201,6 @@ public class WorkResourceIT {
         // Disconnect from session so that the updates on updatedWork are not directly saved in db
         em.detach(updatedWork);
         updatedWork
-            .idWork(UPDATED_ID_WORK)
             .nameWork(UPDATED_NAME_WORK)
             .priceHour(UPDATED_PRICE_HOUR)
             .numVacancies(UPDATED_NUM_VACANCIES);
@@ -223,7 +214,6 @@ public class WorkResourceIT {
         List<Work> workList = workRepository.findAll();
         assertThat(workList).hasSize(databaseSizeBeforeUpdate);
         Work testWork = workList.get(workList.size() - 1);
-        assertThat(testWork.getIdWork()).isEqualTo(UPDATED_ID_WORK);
         assertThat(testWork.getNameWork()).isEqualTo(UPDATED_NAME_WORK);
         assertThat(testWork.getPriceHour()).isEqualTo(UPDATED_PRICE_HOUR);
         assertThat(testWork.getNumVacancies()).isEqualTo(UPDATED_NUM_VACANCIES);

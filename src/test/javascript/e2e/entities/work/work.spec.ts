@@ -59,8 +59,6 @@ describe('Work e2e test', () => {
 
   it('should create and save Works', async () => {
     await workComponentsPage.createButton.click();
-    await workUpdatePage.setIdWorkInput('5');
-    expect(await workUpdatePage.getIdWorkInput()).to.eq('5');
     await workUpdatePage.setNameWorkInput('nameWork');
     expect(await workUpdatePage.getNameWorkInput()).to.match(/nameWork/);
     await workUpdatePage.setPriceHourInput('5');

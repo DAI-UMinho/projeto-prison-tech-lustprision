@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class AdminEmployResourceIT {
 
-    private static final Integer DEFAULT_ID_ADMIN_EMP = 1;
-    private static final Integer UPDATED_ID_ADMIN_EMP = 2;
-
     private static final String DEFAULT_NAME_ADMIN_EMP = "AAAAAAAAAA";
     private static final String UPDATED_NAME_ADMIN_EMP = "BBBBBBBBBB";
 
@@ -84,7 +81,6 @@ public class AdminEmployResourceIT {
      */
     public static AdminEmploy createEntity(EntityManager em) {
         AdminEmploy adminEmploy = new AdminEmploy()
-            .idAdminEmp(DEFAULT_ID_ADMIN_EMP)
             .nameAdminEmp(DEFAULT_NAME_ADMIN_EMP)
             .password(DEFAULT_PASSWORD);
         return adminEmploy;
@@ -97,7 +93,6 @@ public class AdminEmployResourceIT {
      */
     public static AdminEmploy createUpdatedEntity(EntityManager em) {
         AdminEmploy adminEmploy = new AdminEmploy()
-            .idAdminEmp(UPDATED_ID_ADMIN_EMP)
             .nameAdminEmp(UPDATED_NAME_ADMIN_EMP)
             .password(UPDATED_PASSWORD);
         return adminEmploy;
@@ -123,7 +118,6 @@ public class AdminEmployResourceIT {
         List<AdminEmploy> adminEmployList = adminEmployRepository.findAll();
         assertThat(adminEmployList).hasSize(databaseSizeBeforeCreate + 1);
         AdminEmploy testAdminEmploy = adminEmployList.get(adminEmployList.size() - 1);
-        assertThat(testAdminEmploy.getIdAdminEmp()).isEqualTo(DEFAULT_ID_ADMIN_EMP);
         assertThat(testAdminEmploy.getNameAdminEmp()).isEqualTo(DEFAULT_NAME_ADMIN_EMP);
         assertThat(testAdminEmploy.getPassword()).isEqualTo(DEFAULT_PASSWORD);
     }
@@ -159,7 +153,6 @@ public class AdminEmployResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(adminEmploy.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idAdminEmp").value(hasItem(DEFAULT_ID_ADMIN_EMP)))
             .andExpect(jsonPath("$.[*].nameAdminEmp").value(hasItem(DEFAULT_NAME_ADMIN_EMP)))
             .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)));
     }
@@ -175,7 +168,6 @@ public class AdminEmployResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(adminEmploy.getId().intValue()))
-            .andExpect(jsonPath("$.idAdminEmp").value(DEFAULT_ID_ADMIN_EMP))
             .andExpect(jsonPath("$.nameAdminEmp").value(DEFAULT_NAME_ADMIN_EMP))
             .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD));
     }
@@ -201,7 +193,6 @@ public class AdminEmployResourceIT {
         // Disconnect from session so that the updates on updatedAdminEmploy are not directly saved in db
         em.detach(updatedAdminEmploy);
         updatedAdminEmploy
-            .idAdminEmp(UPDATED_ID_ADMIN_EMP)
             .nameAdminEmp(UPDATED_NAME_ADMIN_EMP)
             .password(UPDATED_PASSWORD);
 
@@ -214,7 +205,6 @@ public class AdminEmployResourceIT {
         List<AdminEmploy> adminEmployList = adminEmployRepository.findAll();
         assertThat(adminEmployList).hasSize(databaseSizeBeforeUpdate);
         AdminEmploy testAdminEmploy = adminEmployList.get(adminEmployList.size() - 1);
-        assertThat(testAdminEmploy.getIdAdminEmp()).isEqualTo(UPDATED_ID_ADMIN_EMP);
         assertThat(testAdminEmploy.getNameAdminEmp()).isEqualTo(UPDATED_NAME_ADMIN_EMP);
         assertThat(testAdminEmploy.getPassword()).isEqualTo(UPDATED_PASSWORD);
     }

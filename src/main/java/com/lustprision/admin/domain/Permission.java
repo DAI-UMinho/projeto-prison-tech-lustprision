@@ -1,5 +1,8 @@
 package com.lustprision.admin.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -11,28 +14,30 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "permission")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Permission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-
-    @Column(name = "id_permission")
-    private Integer idPermission;
 
     @Column(name = "desc_permission")
     private String descPermission;
 
     @OneToMany(mappedBy = "permission")
-    private Set<Prisioner> idPrisionerPermissions = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Prisioner> ids = new HashSet<>();
 
     @OneToMany(mappedBy = "permission")
-    private Set<SystemAdmin> idSystemPermissions = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<SystemAdmin> idsystem = new HashSet<>();
 
     @OneToMany(mappedBy = "permission")
-    private Set<AdminEmploy> idAdminPermissions = new HashSet<>();
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<AdminEmploy> idadmin = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -41,19 +46,6 @@ public class Permission implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdPermission() {
-        return idPermission;
-    }
-
-    public Permission idPermission(Integer idPermission) {
-        this.idPermission = idPermission;
-        return this;
-    }
-
-    public void setIdPermission(Integer idPermission) {
-        this.idPermission = idPermission;
     }
 
     public String getDescPermission() {
@@ -69,80 +61,80 @@ public class Permission implements Serializable {
         this.descPermission = descPermission;
     }
 
-    public Set<Prisioner> getIdPrisionerPermissions() {
-        return idPrisionerPermissions;
+/*    public Set<Prisioner> getIds() {
+        return ids;
     }
 
-    public Permission idPrisionerPermissions(Set<Prisioner> prisioners) {
-        this.idPrisionerPermissions = prisioners;
+    public Permission ids(Set<Prisioner> prisioners) {
+        this.ids = prisioners;
+        return this;
+    }*/
+
+    public Permission addId(Prisioner prisioner) {
+        this.ids.add(prisioner);
+        prisioner.setPermission(this);
         return this;
     }
 
-    public Permission addIdPermission(Prisioner prisioner) {
-        this.idPrisionerPermissions.add(prisioner);
-//        prisioner.setPermission(this);
+    public Permission removeId(Prisioner prisioner) {
+        this.ids.remove(prisioner);
+        prisioner.setPermission(null);
         return this;
     }
 
-    public Permission removeIdPermission(Prisioner prisioner) {
-        this.idPrisionerPermissions.remove(prisioner);
-//        prisioner.setPermission(null);
+   /* public void setIds(Set<Prisioner> prisioners) {
+        this.ids = prisioners;
+    }
+
+    public Set<SystemAdmin> getIds() {
+        return ids;
+    }
+
+    public Permission ids(Set<SystemAdmin> systemAdmins) {
+        this.ids = systemAdmins;
         return this;
     }
 
-    public void setIdPrsionerPermissions(Set<Prisioner> prisioners) {
-        this.idPrisionerPermissions = prisioners;
-    }
-
-    public Set<SystemAdmin> getIdSystemPermissions() {
-        return idSystemPermissions;
-    }
-
-    public Permission idSystemPermissions(Set<SystemAdmin> systemAdmins) {
-        this.idSystemPermissions = systemAdmins;
-        return this;
-    }
-
-    public Permission addIdPermission(SystemAdmin systemAdmin) {
-        this.idSystemPermissions.add(systemAdmin);
+    public Permission addId(SystemAdmin systemAdmin) {
+        this.ids.add(systemAdmin);
         systemAdmin.setPermission(this);
         return this;
-    }
+    }*/
 
-    public Permission removeIdPermission(SystemAdmin systemAdmin) {
-        this.idSystemPermissions.remove(systemAdmin);
+    public Permission removeId(SystemAdmin systemAdmin) {
+        this.ids.remove(systemAdmin);
         systemAdmin.setPermission(null);
         return this;
     }
 
-    public void setIdPSystemermissions(Set<SystemAdmin> systemAdmins) {
-        this.idSystemPermissions = systemAdmins;
+   /* public void setIds(Set<SystemAdmin> systemAdmins) {
+        this.ids = systemAdmins;
     }
 
-    public Set<AdminEmploy> getIdPermissions() {
-        return idAdminPermissions;
+    public Set<AdminEmploy> getIds() {
+        return ids;
     }
 
-    public Permission idPermissions(Set<AdminEmploy> adminEmploys) {
-        this.idAdminPermissions = adminEmploys;
+    public Permission ids(Set<AdminEmploy> adminEmploys) {
+        this.ids = adminEmploys;
         return this;
     }
 
-    public Permission addIdPermission(AdminEmploy adminEmploy) {
-        this.idAdminPermissions.add(adminEmploy);
+    public Permission addId(AdminEmploy adminEmploy) {
+        this.ids.add(adminEmploy);
         adminEmploy.setPermission(this);
         return this;
-    }
+    }*/
 
-    public Permission removeIdPermission(AdminEmploy adminEmploy) {
-        this.idAdminPermissions.remove(adminEmploy);
+    public Permission removeId(AdminEmploy adminEmploy) {
+        this.ids.remove(adminEmploy);
         adminEmploy.setPermission(null);
         return this;
     }
 
-    public void setIdPermissions(Set<AdminEmploy> adminEmploys) {
-        this.idAdminPermissions = adminEmploys;
-    }
+    /*public void setIds(Set<AdminEmploy> adminEmploys) {
+        this.ids = adminEmploys;
+    }*/
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -165,7 +157,6 @@ public class Permission implements Serializable {
     public String toString() {
         return "Permission{" +
             "id=" + getId() +
-            ", idPermission=" + getIdPermission() +
             ", descPermission='" + getDescPermission() + "'" +
             "}";
     }

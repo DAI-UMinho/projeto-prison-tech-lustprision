@@ -34,7 +34,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}question`} component={Question} />
       <ErrorBoundaryRoute path={`${match.url}purchase`} component={Purchase} />
       <ErrorBoundaryRoute path={`${match.url}product`} component={Product} />
-      <ErrorBoundaryRoute path={`${match.url}login`} component={Login} />
+      <ErrorBoundaryRoute path={`${match.url}login2`} component={Login} />
       <ErrorBoundaryRoute path={`${match.url}permission`} component={Permission} />
       <ErrorBoundaryRoute path={`${match.url}system-admin`} component={SystemAdmin} />
       <ErrorBoundaryRoute path={`${match.url}admin-employ`} component={AdminEmploy} />
