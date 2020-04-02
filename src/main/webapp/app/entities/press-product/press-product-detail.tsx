@@ -26,12 +26,6 @@ export const PressProductDetail = (props: IPressProductDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="orderId">
-              <Translate contentKey="lustPrisionApp.pressProduct.orderId">Order Id</Translate>
-            </span>
-          </dt>
-          <dd>{pressProductEntity.orderId}</dd>
-          <dt>
             <span id="qty">
               <Translate contentKey="lustPrisionApp.pressProduct.qty">Qty</Translate>
             </span>

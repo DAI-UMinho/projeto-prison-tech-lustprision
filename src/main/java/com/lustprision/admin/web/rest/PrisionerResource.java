@@ -1,7 +1,12 @@
 package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Prisioner;
+import com.lustprision.admin.domain.Purchase;
 import com.lustprision.admin.repository.PrisionerRepository;
+import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.service.PrisionerService;
+import com.lustprision.admin.service.dto.PurchaseDTO;
+import com.lustprision.admin.service.dto.WorkDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -34,9 +39,11 @@ public class PrisionerResource {
     private String applicationName;
 
     private final PrisionerRepository prisionerRepository;
+    private final PrisionerService prisionerService;
 
-    public PrisionerResource(PrisionerRepository prisionerRepository) {
+    public PrisionerResource(PrisionerRepository prisionerRepository, PrisionerService prisionerService) {
         this.prisionerRepository = prisionerRepository;
+        this.prisionerService = prisionerService;
     }
 
     /**
@@ -114,5 +121,17 @@ public class PrisionerResource {
         log.debug("REST request to delete Prisioner : {}", id);
         prisionerRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/prisioners/{id}/purchases")
+    public List<PurchaseDTO> getPrisionerPurchases(@PathVariable Long id){
+        log.debug("REST request to get all Prisioner purchases : {}", id);
+        return prisionerService.getPrisionerPurchases(id);
+    }
+
+    @GetMapping("/prisioners/{id}/work")
+    public List<WorkDTO> getPrisionerWork(@PathVariable Long id){
+        log.debug("REST request to get all Prisioner work jobs : {}", id);
+        return prisionerService.getPrisionerWork(id);
     }
 }

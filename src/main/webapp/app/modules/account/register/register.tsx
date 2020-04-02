@@ -22,6 +22,7 @@ export const RegisterPage = (props: IRegisterProps) => {
   const handleValidSubmit = (event, values) => {
     props.handleRegister(values.username, values.email, values.firstPassword, props.currentLocale);
     event.preventDefault();
+    window.location.replace("/login");
   };
 
   const updatePassword = event => setPassword(event.target.value);
@@ -103,29 +104,6 @@ export const RegisterPage = (props: IRegisterProps) => {
                   />
                   <span className="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
-                /*{/*<div className="wrap-input100 validate-input">
-                  <AvField
-                    tag={CustomInput}
-                    className="input100"
-                    name="username"
-                    placeholder={translate('global.form.username.placeholder')}
-                    required
-                    errorMessage="Username cannot be empty!"
-                  />
-                  <span className="focus-input100" data-placeholder="&#xf207;"></span>
-                </div>
-                <div className="wrap-input100 validate-input">
-                  <AvField
-                    tag={CustomInput}
-                    className="input100"
-                    name="password"
-                    type="password"
-                    placeholder={translate('login.form.password.placeholder')}
-                    required
-                    errorMessage="Password cannot be empty!"
-                  />
-                  <span className="focus-input100" data-placeholder="&#xf191;"></span>
-                </div>*/}
                 <div className="container-login100-form-btn">
                   <button className="login100-form-btn">
                     <Translate contentKey="register.form.button">Register</Translate>

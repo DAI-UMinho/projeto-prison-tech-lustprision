@@ -37,9 +37,6 @@ export const PressProduct = (props: IPressProductProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.pressProduct.orderId">Order Id</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.pressProduct.qty">Qty</Translate>
                 </th>
                 <th>
@@ -62,7 +59,6 @@ export const PressProduct = (props: IPressProductProps) => {
                       {pressProduct.id}
                     </Button>
                   </td>
-                  <td>{pressProduct.orderId}</td>
                   <td>{pressProduct.qty}</td>
                   <td>{pressProduct.priceEach}</td>
                   <td>

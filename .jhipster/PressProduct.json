@@ -2,10 +2,6 @@
     "name": "PressProduct",
     "fields": [
         {
-            "fieldName": "orderId",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "qty",
             "fieldType": "Integer"
         },
@@ -39,5 +35,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

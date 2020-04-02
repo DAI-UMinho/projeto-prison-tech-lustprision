@@ -18,7 +18,7 @@
     ],
     "changelogDate": "20200320152100",
     "entityTableName": "purchase",
-    "dto": "no",
+    "dto": "yes",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,

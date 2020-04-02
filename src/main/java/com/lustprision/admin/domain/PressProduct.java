@@ -23,9 +23,6 @@ public class PressProduct implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "order_id")
-    private Integer orderId;
-
     @Column(name = "qty")
     private Integer qty;
 
@@ -47,19 +44,6 @@ public class PressProduct implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public PressProduct orderId(Integer orderId) {
-        this.orderId = orderId;
-        return this;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
     }
 
     public Integer getQty() {
@@ -135,7 +119,6 @@ public class PressProduct implements Serializable {
     public String toString() {
         return "PressProduct{" +
             "id=" + getId() +
-            ", orderId=" + getOrderId() +
             ", qty=" + getQty() +
             ", priceEach=" + getPriceEach() +
             "}";

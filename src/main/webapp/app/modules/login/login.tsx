@@ -11,21 +11,22 @@ import {translate, Translate} from "react-jhipster";
 
 import logo from "./login-icon.png"
 
-export interface ILoginProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
+export interface ILoginProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
+}
 
 export const Login = (props: ILoginProps) => {
 
   const loginError: boolean = props.loginError;
   const handleLogin = (username, password, rememberMe = false) => props.login(username, password, rememberMe);
 
-  const handleSubmit = (event, errors, { username, password, rememberMe }) => {
+  const handleSubmit = (event, errors, {username, password, rememberMe}) => {
     handleLogin(username, password, rememberMe);
   };
 
-  const { location, isAuthenticated } = props;
-  const { from } = (location.state as any) || { from: { pathname: '/', search: location.search } };
+  const {location, isAuthenticated} = props;
+  const {from} = (location.state as any) || {from: {pathname: '/', search: location.search}};
   if (isAuthenticated) {
-    return <Redirect to={from} />;
+    return <Redirect to={from}/>;
   }
 
   return (
@@ -37,7 +38,7 @@ export const Login = (props: ILoginProps) => {
               <div className="login-form-test">
                 <img src={logo} className="login-logo"></img>
               </div>
-                  <span className="login100-form-title p-b-34 p-t-27">
+              <span className="login100-form-title p-b-34 p-t-27">
                 Log in
               </span>
               <Row>
@@ -82,12 +83,12 @@ export const Login = (props: ILoginProps) => {
                 </Col>
               </Row>
               <div className="mt-1">&nbsp;</div>
-              <Alert color="warning">
-                <Link to="/account/reset/request">
+              <Alert color="info" >
+                <Link to="/account/reset/request" style={{color: '#fffffff'}}>
                   <Translate contentKey="login.password.forgot">Did you forget your password?</Translate>
                 </Link>
               </Alert>
-              <Alert color="warning">
+              <Alert color="info">
               <span>
                 <Translate
                   contentKey="global.messages.info.register.noaccount">You don&apos;t have an account yet?</Translate>
@@ -109,7 +110,7 @@ const mapStateToProps = ({authentication}: IRootState) => ({
   loginError: authentication.loginError
 });
 
-const mapDispatchToProps = { login };
+const mapDispatchToProps = {login};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

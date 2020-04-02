@@ -21,13 +21,11 @@ export interface IPrisionerProps extends StateProps, DispatchProps, RouteCompone
 
 interface TableState {
   columns: Array<Column<any>>;
-  data: Array<any>;
 }
 
 export const Prisioner = (props: IPrisionerProps) => {
 
   const [data, setData] = useState([]);
-  // @ts-ignore
   const [state, setState] = React.useState<TableState>({
     columns: [
       {
@@ -42,7 +40,7 @@ export const Prisioner = (props: IPrisionerProps) => {
       {title: 'Prisoner Num', field: 'numPrisioner'},
       {title: 'Data Nascimento', field: 'dataNascimento', type: 'date'},
       {title: 'Balance', field: 'balance'},
-      {title: 'Bi', field: 'bi'},
+      {title: 'Bi', field: 'bi'}
     ]
   });
 
@@ -52,6 +50,9 @@ export const Prisioner = (props: IPrisionerProps) => {
 
   const {prisionerList, match, loading} = props;
 
+  const updateTable = () => {
+    setData([...prisionerList]);
+  };
   useEffect(() => {
     {
       prisionerList && prisionerList.length > 0 ? updateTable() : console.log("NO")
@@ -87,10 +88,6 @@ export const Prisioner = (props: IPrisionerProps) => {
   }));
 
   const classes = useStyles();
-
-  const updateTable = () => {
-    setData([...prisionerList]);
-  };
 
   return (
     <Row className="justify-content-center">
@@ -158,7 +155,7 @@ export const Prisioner = (props: IPrisionerProps) => {
       <Col md="10">
         <Card className="card-user">
           <MaterialTable
-            title="Presidiários"
+            title=""
             columns={state.columns}
             data={data}
             onRowClick={((evt, selectedRow) => {

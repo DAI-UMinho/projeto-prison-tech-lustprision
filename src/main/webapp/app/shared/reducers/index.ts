@@ -15,7 +15,7 @@ import passwordReset, { PasswordResetState } from 'app/modules/account/password-
 // prettier-ignore
 import prisioner, {
   PrisionerState
-} from 'app/entities/prisioner/prisioner.reducer';
+} from 'app/modules/account/prisoner/prisioner.reducer';
 // prettier-ignore
 import pressWork, {
   PressWorkState
@@ -68,6 +68,10 @@ import systemAdmin, {
 import adminEmploy, {
   AdminEmployState
 } from 'app/entities/admin-employ/admin-employ.reducer';
+// prettier-ignore
+import pressproduct, {
+  PressproductState
+} from 'app/entities/pressproduct/pressproduct.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -95,6 +99,7 @@ export interface IRootState {
   readonly permission: PermissionState;
   readonly systemAdmin: SystemAdminState;
   readonly adminEmploy: AdminEmployState;
+  readonly pressproduct: PressproductState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -124,6 +129,7 @@ const rootReducer = combineReducers<IRootState>({
   permission,
   systemAdmin,
   adminEmploy,
+  pressproduct,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

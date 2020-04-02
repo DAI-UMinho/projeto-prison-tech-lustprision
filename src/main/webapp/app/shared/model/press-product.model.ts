@@ -3,7 +3,6 @@ import { IProduct } from 'app/shared/model/product.model';
 
 export interface IPressProduct {
   id?: number;
-  orderId?: number;
   qty?: number;
   priceEach?: number;
   purchase?: IPurchase;

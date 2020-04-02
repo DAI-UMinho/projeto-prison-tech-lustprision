@@ -15,9 +15,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="order_id" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="qty" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -53,7 +50,6 @@
                   separator=";"
                   tableName="press_product">
             <column name="id" type="numeric"/>
-            <column name="order_id" type="numeric"/>
             <column name="qty" type="numeric"/>
             <column name="price_each" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->

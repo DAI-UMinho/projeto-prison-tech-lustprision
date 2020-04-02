@@ -21,6 +21,7 @@
         "permission": "Permission",
         "systemAdmin": "System Admin",
         "adminEmploy": "Admin Employ",
+        "pressproduct": "Pressproduct",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

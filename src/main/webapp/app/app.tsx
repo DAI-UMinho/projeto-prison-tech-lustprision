@@ -21,6 +21,7 @@ import AppRoutes from 'app/routes';
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
 import Login from "app/modules/login/login";
 import Register from "app/modules/account/register/register";
+import ActivatePage from "app/modules/account/activate/activate";
 import PasswordResetInit from "app/modules/account/password-reset/init/password-reset-init";
 import Dashboard from "app/Dashboard";
 
@@ -68,6 +69,7 @@ export const App = (props: IAppProps) => {
             <Switch>
               <ErrorBoundaryRoute path="/login" exact={true} component={Login}/>
               <ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
+              <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
               <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />
               <div className="container-fluid view-container" id="app-view-container">
                 <Card className="jh-card">

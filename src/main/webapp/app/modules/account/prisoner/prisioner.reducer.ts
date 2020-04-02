@@ -5,13 +5,17 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IPrisioner, defaultValue } from 'app/shared/model/prisioner.model';
+import { IPurchase } from 'app/shared/model/purchase.model';
 
 export const ACTION_TYPES = {
+  FETCH_PRISIONER_WORK_LIST: 'prisioner/FECTCH_PRISIONER_WORK_LIST',
+  FETCH_PRISIONER_PURCHASE_LIST: 'prisioner/FETCH_PRISIONER_PURCHASE_LIST',
   FETCH_PRISIONER_LIST: 'prisioner/FETCH_PRISIONER_LIST',
   FETCH_PRISIONER: 'prisioner/FETCH_PRISIONER',
   CREATE_PRISIONER: 'prisioner/CREATE_PRISIONER',
   UPDATE_PRISIONER: 'prisioner/UPDATE_PRISIONER',
   DELETE_PRISIONER: 'prisioner/DELETE_PRISIONER',
+  SET_BLOB: 'prisioner/SET_BLOB',
   RESET: 'prisioner/RESET'
 };
 
@@ -20,6 +24,8 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IPrisioner>,
   entity: defaultValue,
+  purchases: [] as ReadonlyArray<any>,
+  works: [] as ReadonlyArray<any>,
   updating: false,
   updateSuccess: false
 };
@@ -30,6 +36,8 @@ export type PrisionerState = Readonly<typeof initialState>;
 
 export default (state: PrisionerState = initialState, action): PrisionerState => {
   switch (action.type) {
+    case REQUEST(ACTION_TYPES.FETCH_PRISIONER_WORK_LIST):
+    case REQUEST(ACTION_TYPES.FETCH_PRISIONER_PURCHASE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRISIONER_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRISIONER):
       return {
@@ -47,6 +55,8 @@ export default (state: PrisionerState = initialState, action): PrisionerState =>
         updateSuccess: false,
         updating: true
       };
+    case FAILURE(ACTION_TYPES.FETCH_PRISIONER_WORK_LIST):
+    case FAILURE(ACTION_TYPES.FETCH_PRISIONER_PURCHASE_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRISIONER_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRISIONER):
     case FAILURE(ACTION_TYPES.CREATE_PRISIONER):
@@ -58,6 +68,18 @@ export default (state: PrisionerState = initialState, action): PrisionerState =>
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_PRISIONER_WORK_LIST):
+      return {
+        ...state,
+        loading: false,
+        works: action.payload.data
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_PRISIONER_PURCHASE_LIST):
+      return {
+        ...state,
+        loading: false,
+        purchases: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PRISIONER_LIST):
       return {
@@ -86,6 +108,17 @@ export default (state: PrisionerState = initialState, action): PrisionerState =>
         updateSuccess: true,
         entity: {}
       };
+    case ACTION_TYPES.SET_BLOB: {
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType
+        }
+      };
+    }
     case ACTION_TYPES.RESET:
       return {
         ...initialState
@@ -109,6 +142,22 @@ export const getEntity: ICrudGetAction<IPrisioner> = id => {
   return {
     type: ACTION_TYPES.FETCH_PRISIONER,
     payload: axios.get<IPrisioner>(requestUrl)
+  };
+};
+
+export const getPrisonerPurchases: ICrudGetAllAction<any> = id => {
+  const requestUrl = `${apiUrl}/${id}/purchases`;
+  return {
+    type: ACTION_TYPES.FETCH_PRISIONER_PURCHASE_LIST,
+    payload: axios.get<any>(requestUrl)
+  };
+};
+
+export const getPrisionerWorks: ICrudGetAllAction<any> = id => {
+  const requestUrl = `${apiUrl}/${id}/work`;
+  return {
+    type: ACTION_TYPES.FETCH_PRISIONER_WORK_LIST,
+    payload: axios.get<any>(requestUrl)
   };
 };
 
@@ -139,6 +188,15 @@ export const deleteEntity: ICrudDeleteAction<IPrisioner> = id => async dispatch 
   dispatch(getEntities());
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType
+  }
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

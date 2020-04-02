@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class PressProductResourceIT {
 
-    private static final Integer DEFAULT_ORDER_ID = 1;
-    private static final Integer UPDATED_ORDER_ID = 2;
-
     private static final Integer DEFAULT_QTY = 1;
     private static final Integer UPDATED_QTY = 2;
 
@@ -84,7 +81,6 @@ public class PressProductResourceIT {
      */
     public static PressProduct createEntity(EntityManager em) {
         PressProduct pressProduct = new PressProduct()
-            .orderId(DEFAULT_ORDER_ID)
             .qty(DEFAULT_QTY)
             .priceEach(DEFAULT_PRICE_EACH);
         return pressProduct;
@@ -97,7 +93,6 @@ public class PressProductResourceIT {
      */
     public static PressProduct createUpdatedEntity(EntityManager em) {
         PressProduct pressProduct = new PressProduct()
-            .orderId(UPDATED_ORDER_ID)
             .qty(UPDATED_QTY)
             .priceEach(UPDATED_PRICE_EACH);
         return pressProduct;
@@ -123,7 +118,6 @@ public class PressProductResourceIT {
         List<PressProduct> pressProductList = pressProductRepository.findAll();
         assertThat(pressProductList).hasSize(databaseSizeBeforeCreate + 1);
         PressProduct testPressProduct = pressProductList.get(pressProductList.size() - 1);
-        assertThat(testPressProduct.getOrderId()).isEqualTo(DEFAULT_ORDER_ID);
         assertThat(testPressProduct.getQty()).isEqualTo(DEFAULT_QTY);
         assertThat(testPressProduct.getPriceEach()).isEqualTo(DEFAULT_PRICE_EACH);
     }
@@ -159,7 +153,6 @@ public class PressProductResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(pressProduct.getId().intValue())))
-            .andExpect(jsonPath("$.[*].orderId").value(hasItem(DEFAULT_ORDER_ID)))
             .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY)))
             .andExpect(jsonPath("$.[*].priceEach").value(hasItem(DEFAULT_PRICE_EACH.intValue())));
     }
@@ -175,7 +168,6 @@ public class PressProductResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(pressProduct.getId().intValue()))
-            .andExpect(jsonPath("$.orderId").value(DEFAULT_ORDER_ID))
             .andExpect(jsonPath("$.qty").value(DEFAULT_QTY))
             .andExpect(jsonPath("$.priceEach").value(DEFAULT_PRICE_EACH.intValue()));
     }
@@ -201,7 +193,6 @@ public class PressProductResourceIT {
         // Disconnect from session so that the updates on updatedPressProduct are not directly saved in db
         em.detach(updatedPressProduct);
         updatedPressProduct
-            .orderId(UPDATED_ORDER_ID)
             .qty(UPDATED_QTY)
             .priceEach(UPDATED_PRICE_EACH);
 
@@ -214,7 +205,6 @@ public class PressProductResourceIT {
         List<PressProduct> pressProductList = pressProductRepository.findAll();
         assertThat(pressProductList).hasSize(databaseSizeBeforeUpdate);
         PressProduct testPressProduct = pressProductList.get(pressProductList.size() - 1);
-        assertThat(testPressProduct.getOrderId()).isEqualTo(UPDATED_ORDER_ID);
         assertThat(testPressProduct.getQty()).isEqualTo(UPDATED_QTY);
         assertThat(testPressProduct.getPriceEach()).isEqualTo(UPDATED_PRICE_EACH);
     }

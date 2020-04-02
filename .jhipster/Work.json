@@ -24,7 +24,7 @@
     ],
     "changelogDate": "20200320151800",
     "entityTableName": "work",
-    "dto": "no",
+    "dto": "yes",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,

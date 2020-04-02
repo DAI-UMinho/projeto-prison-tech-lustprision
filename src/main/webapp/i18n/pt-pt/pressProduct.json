@@ -16,7 +16,6 @@
       "detail": {
         "title": "Press Product"
       },
-      "orderId": "Order Id",
       "qty": "Qty",
       "priceEach": "Price Each",
       "purchase": "Purchase",

@@ -72,7 +72,6 @@ class PressProductGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "orderId":"0"
                 , "qty":"0"
                 , "priceEach":null
                 }""")).asJson

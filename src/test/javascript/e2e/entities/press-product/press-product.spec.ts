@@ -61,8 +61,6 @@ describe('PressProduct e2e test', () => {
 
   it('should create and save PressProducts', async () => {
     await pressProductComponentsPage.createButton.click();
-    await pressProductUpdatePage.setOrderIdInput('5');
-    expect(await pressProductUpdatePage.getOrderIdInput()).to.eq('5');
     await pressProductUpdatePage.setQtyInput('5');
     expect(await pressProductUpdatePage.getQtyInput()).to.eq('5');
     await pressProductUpdatePage.setPriceEachInput('5');

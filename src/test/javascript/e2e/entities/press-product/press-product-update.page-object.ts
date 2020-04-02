@@ -4,7 +4,6 @@ export default class PressProductUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.pressProduct.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  orderIdInput: ElementFinder = element(by.css('input#press-product-orderId'));
   qtyInput: ElementFinder = element(by.css('input#press-product-qty'));
   priceEachInput: ElementFinder = element(by.css('input#press-product-priceEach'));
   purchaseSelect: ElementFinder = element(by.css('select#press-product-purchase'));
@@ -12,14 +11,6 @@ export default class PressProductUpdatePage {
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setOrderIdInput(orderId) {
-    await this.orderIdInput.sendKeys(orderId);
-  }
-
-  async getOrderIdInput() {
-    return this.orderIdInput.getAttribute('value');
   }
 
   async setQtyInput(qty) {

@@ -3,6 +3,8 @@ package com.lustprision.admin.web.rest;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Prisioner;
 import com.lustprision.admin.repository.PrisionerRepository;
+import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.service.PrisionerService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -72,6 +74,9 @@ public class PrisionerResourceIT {
     private PrisionerRepository prisionerRepository;
 
     @Autowired
+    private PrisionerService prisionerService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -93,7 +98,7 @@ public class PrisionerResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PrisionerResource prisionerResource = new PrisionerResource(prisionerRepository);
+        final PrisionerResource prisionerResource = new PrisionerResource(prisionerRepository, prisionerService);
         this.restPrisionerMockMvc = MockMvcBuilders.standaloneSetup(prisionerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

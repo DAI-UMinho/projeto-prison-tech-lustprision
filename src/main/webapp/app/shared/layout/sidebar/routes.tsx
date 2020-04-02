@@ -9,13 +9,25 @@ const routes = [
   },
   {
     path: "/prisoners",
-    name: "Prisoners",
+    name: "Presidiários",
     icon: "nc-icon nc-single-02",
     layout: "/dashboard"
   },
   {
+    path: "/products",
+    name: "Produtos",
+    icon: "nc-icon nc-bag-16",
+    layout: "/dashboard"
+  },
+  {
+    path: "/quizs",
+    name: "Quizes",
+    icon: "nc-icon nc-paper",
+    layout: "/dashboard"
+  },
+  {
     path: "/profile",
-    name: "Profile",
+    name: "Perfil",
     icon: "nc-icon nc-circle-10",
     layout: "/dashboard"
   },

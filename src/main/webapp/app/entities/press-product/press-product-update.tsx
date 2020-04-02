@@ -85,12 +85,6 @@ export const PressProductUpdate = (props: IPressProductUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="orderIdLabel" for="press-product-orderId">
-                  <Translate contentKey="lustPrisionApp.pressProduct.orderId">Order Id</Translate>
-                </Label>
-                <AvField id="press-product-orderId" type="string" className="form-control" name="orderId" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="qtyLabel" for="press-product-qty">
                   <Translate contentKey="lustPrisionApp.pressProduct.qty">Qty</Translate>
                 </Label>

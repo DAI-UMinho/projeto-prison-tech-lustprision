@@ -28,6 +28,7 @@
     <include file="config/liquibase/changelog/20200320152400_added_entity_Permission.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320152500_added_entity_SystemAdmin.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320152600_added_entity_AdminEmploy.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200320151700_added_entity_Pressproduct.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200320151300_added_entity_constraints_Prisioner.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320151400_added_entity_constraints_PressWork.xml" relativeToChangelogFile="false"/>
@@ -37,5 +38,6 @@
     <include file="config/liquibase/changelog/20200320152100_added_entity_constraints_Purchase.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320152500_added_entity_constraints_SystemAdmin.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320152600_added_entity_constraints_AdminEmploy.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200320151700_added_entity_constraints_Pressproduct.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
