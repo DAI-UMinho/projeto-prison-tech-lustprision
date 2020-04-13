@@ -52,6 +52,11 @@ module.exports = options => ({
   },
   module: {
     rules: [
+      {test: /\.js$/,
+        loader: 'source-map-loader',
+        exclude: [
+          /node_modules\/ng2-redux/
+        ]},
       {
         test: /\.module\.css$/,
         use: [

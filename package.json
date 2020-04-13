@@ -4,9 +4,6 @@
   "description": "Description for LustPrision",
   "private": true,
   "license": "UNLICENSED",
-  "cacheDirectories": [
-    "node_modules"
-  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.26",
     "@fortawesome/free-solid-svg-icons": "5.12.0",
@@ -48,6 +45,9 @@
     "tslib": "1.10.0",
     "uuid": "3.3.3"
   },
+  "cacheDirectories": [
+    "node_modules"
+  ],
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "1.0.10-4.2.3",
     "@types/chai": "4.1.7",
@@ -88,7 +88,7 @@
     "file-loader": "5.0.2",
     "fork-ts-checker-webpack-plugin": "3.1.1",
     "friendly-errors-webpack-plugin": "1.7.0",
-    "generator-jhipster": "6.7.1",
+    "generator-jhipster": "^6.8.0",
     "html-webpack-plugin": "3.2.0",
     "husky": "3.1.0",
     "identity-obj-proxy": "3.0.0",
