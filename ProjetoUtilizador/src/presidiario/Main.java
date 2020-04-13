@@ -1,4 +1,4 @@
-package sample;
+package presidiario;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String url = "/com/jdenner/view/PrimeiraJanela.fxml";
+        String url = "/presidiario/view/PrimeiraJanela.fxml";
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root = loader.load();
         Scene scene = new Scene(root);
