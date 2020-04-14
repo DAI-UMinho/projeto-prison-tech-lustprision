@@ -43,18 +43,18 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="394.0" layoutY="96.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 1 : ">
+      <Label alignment="CENTER" layoutX="394.0" layoutY="97.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 1 : ">
          <font>
             <Font name="Segoe UI" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="535.0" layoutY="94.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="531.0" layoutY="95.0" prefHeight="28.0" prefWidth="234.0" />
       <Label alignment="CENTER" layoutX="382.0" layoutY="132.0" prefHeight="23.0" prefWidth="173.0" text="Resposta :">
          <font>
             <Font name="Segoe UI" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="535.0" layoutY="118.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="531.0" layoutY="130.0" prefHeight="28.0" prefWidth="234.0" />
       <Label alignment="CENTER" layoutX="394.0" layoutY="164.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 2 : ">
          <font>
             <Font name="Segoe UI" size="18.0" />
