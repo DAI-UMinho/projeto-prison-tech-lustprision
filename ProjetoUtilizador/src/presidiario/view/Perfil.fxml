@@ -16,7 +16,7 @@
                         <Image url="@images/favicon-32x32.png" />
                     </image>
                 </ImageView>
-                <Label alignment="CENTER" layoutX="105.0" layoutY="262.0" prefHeight="23.0" prefWidth="173.0" text="SARSP" textFill="WHITE">
+                <Label alignment="CENTER" layoutX="109.0" layoutY="262.0" prefHeight="23.0" prefWidth="173.0" text="SARSP" textFill="WHITE">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
                     </font>
@@ -38,14 +38,56 @@
                 <Image url="@images/favicon-32x32.png" />
             </image>
         </ImageView>
-      <Button fx:id="btnSignin1" layoutX="427.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Perfil" />
-      <Button fx:id="btnSignin11" layoutX="427.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Quiz" />
-      <Button fx:id="btnSignin12" layoutX="657.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Trabalho" />
-      <Label layoutX="478.0" layoutY="14.0" prefHeight="52.0" prefWidth="288.0" text="Bem vindo à LUSTPRISION" textFill="#0c39ff">
+      <Label layoutX="575.0" layoutY="14.0" prefHeight="52.0" prefWidth="59.0" text="Perfil" textFill="#0c39ff">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnSignin111" layoutX="657.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Loja" />
+      <Label alignment="CENTER" layoutX="380.0" layoutY="339.0" prefHeight="23.0" prefWidth="173.0" text="Password :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="575.0" layoutY="411.0" mnemonicParsing="false" text="Editar Perfil" />
+      <Label alignment="CENTER" layoutX="409.0" layoutY="92.0" prefHeight="23.0" prefWidth="77.0" text="Nome : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="409.0" layoutY="124.0" prefHeight="23.0" prefWidth="203.0" text="Nº Cartão de Cidadão :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="417.0" layoutY="162.0" prefHeight="23.0" prefWidth="121.0" text="Nº Prisionerio :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="417.0" layoutY="264.0" prefHeight="23.0" prefWidth="160.0" text="Imagem de perfil : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="417.0" layoutY="229.0" prefHeight="23.0" prefWidth="181.0" text="Data de Nascimento :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="394.0" layoutY="197.0" prefHeight="23.0" prefWidth="121.0" text="Nº Cela :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="402.0" layoutY="301.0" prefHeight="23.0" prefWidth="121.0" text="Balanço : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="406.0" layoutY="373.0" prefHeight="23.0" prefWidth="121.0" text="Trabalho : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
