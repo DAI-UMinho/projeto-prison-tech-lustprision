@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -38,14 +38,70 @@
                 <Image url="@images/favicon-32x32.png" />
             </image>
         </ImageView>
-      <Button fx:id="btnSignin1" layoutX="427.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Perfil" />
-      <Button fx:id="btnSignin11" layoutX="427.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Quiz" />
-      <Button fx:id="btnSignin12" layoutX="657.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Trabalho" />
-      <Label layoutX="478.0" layoutY="14.0" prefHeight="52.0" prefWidth="288.0" text="Bem vindo à LUSTPRISION" textFill="#0c39ff">
+      <Label layoutX="583.0" layoutY="14.0" prefHeight="52.0" prefWidth="69.0" text="QUIZ" textFill="#0c39ff">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnSignin111" layoutX="657.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="34.0" prefWidth="137.0" stylesheets="@styling/fullpackstyling.css" text="Loja" />
+      <Label alignment="CENTER" layoutX="394.0" layoutY="96.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 1 : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="535.0" layoutY="94.0" prefHeight="28.0" prefWidth="234.0" />
+      <Label alignment="CENTER" layoutX="382.0" layoutY="132.0" prefHeight="23.0" prefWidth="173.0" text="Resposta :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="535.0" layoutY="118.0" prefHeight="28.0" prefWidth="234.0" />
+      <Label alignment="CENTER" layoutX="394.0" layoutY="164.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 2 : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="382.0" layoutY="261.0" prefHeight="23.0" prefWidth="173.0" text="Resposta :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="382.0" layoutY="194.0" prefHeight="23.0" prefWidth="173.0" text="Resposta :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="394.0" layoutY="229.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 3 : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="382.0" layoutY="389.0" prefHeight="23.0" prefWidth="173.0" text="Resposta :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="382.0" layoutY="328.0" prefHeight="23.0" prefWidth="173.0" text="Resposta :">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="394.0" layoutY="294.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 4 : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="394.0" layoutY="358.0" prefHeight="23.0" prefWidth="173.0" text="Pergunta 5 : ">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="535.0" layoutY="162.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="535.0" layoutY="192.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="541.0" layoutY="387.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="541.0" layoutY="356.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="541.0" layoutY="292.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="541.0" layoutY="326.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="541.0" layoutY="227.0" prefHeight="28.0" prefWidth="234.0" />
+      <TextField layoutX="541.0" layoutY="259.0" prefHeight="28.0" prefWidth="234.0" />
     </children>
 </AnchorPane>
