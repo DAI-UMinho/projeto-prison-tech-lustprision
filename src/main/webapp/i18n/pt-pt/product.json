@@ -5,7 +5,8 @@
         "title": "Products",
         "createLabel": "Criar novo(a) Product",
         "createOrEditLabel": "Criar ou editar Product",
-        "notFound": "Nenhum Products encontrado"
+        "notFound": "Nenhum Products encontrado",
+        "newCard": "Produto"
       },
       "created": "Um novo Product foi criado com o identificador {{ param }}",
       "updated": "Product com identificador {{ param }} foi actualizado",
@@ -17,12 +18,13 @@
         "title": "Product"
       },
       "productLinId": "Product Lin Id",
-      "nameProd": "Name Prod",
-      "price": "Price",
-      "seler": "Seler",
-      "descriptionProd": "Description Prod",
-      "quantyInStock": "Quanty In Stock",
+      "nameProd": "Nome do Produto",
+      "price": "Preço",
+      "seler": "Vendedor",
+      "descriptionProd": "Descrição",
+      "quantyInStock": "Quantidade em Stock",
       "buyPrice": "Buy Price",
+      "image": "Image",
       "id": "Id"
     }
   }

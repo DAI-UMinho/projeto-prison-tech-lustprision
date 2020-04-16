@@ -3,6 +3,7 @@ import { IQuestion } from 'app/shared/model/question.model';
 
 export interface IQuestionQuiz {
   id?: number;
+  questionAnswer?: string;
   quiz?: IQuiz;
   question?: IQuestion;
 }

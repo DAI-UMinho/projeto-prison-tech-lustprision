@@ -4822,6 +4822,13 @@ img {
   border: 1px solid #fff;
   position: relative;
 }
+
+.card-user .product-avatar {
+  width: 256px;
+  height: 256px;
+  border: 1px solid #fff;
+  position: relative;
+}
 .card-user .card-body {
   min-height: 240px;
 }

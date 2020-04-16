@@ -7,8 +7,6 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, o
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { ILogin } from 'app/shared/model/login.model';
-import { getEntities as getLogins } from 'app/entities/login/login.reducer';
 import { IPermission } from 'app/shared/model/permission.model';
 import { getEntities as getPermissions } from 'app/entities/permission/permission.reducer';
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './prisioner.reducer';
@@ -19,11 +17,10 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IPrisionerUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
-  const [loginId, setLoginId] = useState('0');
   const [permissionId, setPermissionId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { prisionerEntity, logins, permissions, loading, updating } = props;
+  const { prisionerEntity, permissions, loading, updating } = props;
 
   const { profileImage, profileImageContentType } = prisionerEntity;
 
@@ -38,7 +35,6 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
 
-    props.getLogins();
     props.getPermissions();
   }, []);
 
@@ -143,12 +139,6 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
                 <AvField id="prisioner-working" type="string" className="form-control" name="working" />
               </AvGroup>
               <AvGroup>
-                <Label id="passwordLabel" for="prisioner-password">
-                  <Translate contentKey="lustPrisionApp.prisioner.password">Password</Translate>
-                </Label>
-                <AvField id="prisioner-password" type="text" name="password" />
-              </AvGroup>
-              <AvGroup>
                 <AvGroup>
                   <Label id="profileImageLabel" for="profileImage">
                     <Translate contentKey="lustPrisionApp.prisioner.profileImage">Profile Image</Translate>
@@ -174,26 +164,40 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
                       </Row>
                     </div>
                   ) : null}
-                  {!profileImage ? (
-                    <input id="file_profileImage" type="file" onChange={onBlobChange(true, 'profileImage')} accept="image/*" />
-                  ) : null}
+                  <input id="file_profileImage" type="file" onChange={onBlobChange(true, 'profileImage')} accept="image/*" />
                   <AvInput type="hidden" name="profileImage" value={profileImage} />
                 </AvGroup>
               </AvGroup>
               <AvGroup>
-                <Label for="prisioner-login">
-                  <Translate contentKey="lustPrisionApp.prisioner.login">Login</Translate>
+                <Label id="nfcCodeLabel" for="prisioner-nfcCode">
+                  <Translate contentKey="lustPrisionApp.prisioner.nfcCode">Nfc Code</Translate>
                 </Label>
-                <AvInput id="prisioner-login" type="select" className="form-control" name="login.id">
-                  <option value="" key="0" />
-                  {logins
-                    ? logins.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
+                <AvField
+                  id="prisioner-nfcCode"
+                  type="string"
+                  className="form-control"
+                  name="nfcCode"
+                  validate={{
+                    max: { value: 30, errorMessage: translate('entity.validation.max', { max: 30 }) },
+                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
+                <Label id="codigoCartaoLabel" for="prisioner-codigoCartao">
+                  <Translate contentKey="lustPrisionApp.prisioner.codigoCartao">Codigo Cartao</Translate>
+                </Label>
+                <AvField
+                  id="prisioner-codigoCartao"
+                  type="string"
+                  className="form-control"
+                  name="codigoCartao"
+                  validate={{
+                    min: { value: 4, errorMessage: translate('entity.validation.min', { min: 4 }) },
+                    max: { value: 4, errorMessage: translate('entity.validation.max', { max: 4 }) },
+                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                  }}
+                />
               </AvGroup>
               <AvGroup>
                 <Label for="prisioner-permission">
@@ -232,7 +236,6 @@ export const PrisionerUpdate = (props: IPrisionerUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  logins: storeState.login.entities,
   permissions: storeState.permission.entities,
   prisionerEntity: storeState.prisioner.entity,
   loading: storeState.prisioner.loading,
@@ -241,7 +244,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getLogins,
   getPermissions,
   getEntity,
   updateEntity,

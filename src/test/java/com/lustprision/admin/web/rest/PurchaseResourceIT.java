@@ -3,6 +3,7 @@ package com.lustprision.admin.web.rest;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Purchase;
 import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.service.PurchaseService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.lustprision.admin.web.rest.TestUtil.createFormattingConversionService;
@@ -33,8 +36,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class PurchaseResourceIT {
 
+    private static final Instant DEFAULT_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Double DEFAULT_PURCHASE_TOTAL = 1D;
+    private static final Double UPDATED_PURCHASE_TOTAL = 2D;
+
     @Autowired
     private PurchaseRepository purchaseRepository;
+
+    @Autowired
+    private PurchaseService purchaseService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -58,7 +70,7 @@ public class PurchaseResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PurchaseResource purchaseResource = new PurchaseResource(purchaseRepository);
+        final PurchaseResource purchaseResource = new PurchaseResource(purchaseRepository, purchaseService);
         this.restPurchaseMockMvc = MockMvcBuilders.standaloneSetup(purchaseResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -74,7 +86,9 @@ public class PurchaseResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Purchase createEntity(EntityManager em) {
-        Purchase purchase = new Purchase();
+        Purchase purchase = new Purchase()
+            .date(DEFAULT_DATE)
+            .purchaseTotal(DEFAULT_PURCHASE_TOTAL);
         return purchase;
     }
     /**
@@ -84,7 +98,9 @@ public class PurchaseResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Purchase createUpdatedEntity(EntityManager em) {
-        Purchase purchase = new Purchase();
+        Purchase purchase = new Purchase()
+            .date(UPDATED_DATE)
+            .purchaseTotal(UPDATED_PURCHASE_TOTAL);
         return purchase;
     }
 
@@ -108,6 +124,8 @@ public class PurchaseResourceIT {
         List<Purchase> purchaseList = purchaseRepository.findAll();
         assertThat(purchaseList).hasSize(databaseSizeBeforeCreate + 1);
         Purchase testPurchase = purchaseList.get(purchaseList.size() - 1);
+        assertThat(testPurchase.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testPurchase.getPurchaseTotal()).isEqualTo(DEFAULT_PURCHASE_TOTAL);
     }
 
     @Test
@@ -132,6 +150,42 @@ public class PurchaseResourceIT {
 
     @Test
     @Transactional
+    public void checkDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = purchaseRepository.findAll().size();
+        // set the field null
+        purchase.setDate(null);
+
+        // Create the Purchase, which fails.
+
+        restPurchaseMockMvc.perform(post("/api/purchases")
+            .contentType(TestUtil.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(purchase)))
+            .andExpect(status().isBadRequest());
+
+        List<Purchase> purchaseList = purchaseRepository.findAll();
+        assertThat(purchaseList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkPurchaseTotalIsRequired() throws Exception {
+        int databaseSizeBeforeTest = purchaseRepository.findAll().size();
+        // set the field null
+        purchase.setPurchaseTotal(null);
+
+        // Create the Purchase, which fails.
+
+        restPurchaseMockMvc.perform(post("/api/purchases")
+            .contentType(TestUtil.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(purchase)))
+            .andExpect(status().isBadRequest());
+
+        List<Purchase> purchaseList = purchaseRepository.findAll();
+        assertThat(purchaseList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPurchases() throws Exception {
         // Initialize the database
         purchaseRepository.saveAndFlush(purchase);
@@ -140,9 +194,11 @@ public class PurchaseResourceIT {
         restPurchaseMockMvc.perform(get("/api/purchases?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(purchase.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(purchase.getId().intValue())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].purchaseTotal").value(hasItem(DEFAULT_PURCHASE_TOTAL.doubleValue())));
     }
-    
+
     @Test
     @Transactional
     public void getPurchase() throws Exception {
@@ -153,7 +209,9 @@ public class PurchaseResourceIT {
         restPurchaseMockMvc.perform(get("/api/purchases/{id}", purchase.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(purchase.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(purchase.getId().intValue()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.purchaseTotal").value(DEFAULT_PURCHASE_TOTAL.doubleValue()));
     }
 
     @Test
@@ -176,6 +234,9 @@ public class PurchaseResourceIT {
         Purchase updatedPurchase = purchaseRepository.findById(purchase.getId()).get();
         // Disconnect from session so that the updates on updatedPurchase are not directly saved in db
         em.detach(updatedPurchase);
+        updatedPurchase
+            .date(UPDATED_DATE)
+            .purchaseTotal(UPDATED_PURCHASE_TOTAL);
 
         restPurchaseMockMvc.perform(put("/api/purchases")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -186,6 +247,8 @@ public class PurchaseResourceIT {
         List<Purchase> purchaseList = purchaseRepository.findAll();
         assertThat(purchaseList).hasSize(databaseSizeBeforeUpdate);
         Purchase testPurchase = purchaseList.get(purchaseList.size() - 1);
+        assertThat(testPurchase.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testPurchase.getPurchaseTotal()).isEqualTo(UPDATED_PURCHASE_TOTAL);
     }
 
     @Test

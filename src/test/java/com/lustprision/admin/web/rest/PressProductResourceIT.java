@@ -119,7 +119,7 @@ public class PressProductResourceIT {
         assertThat(pressProductList).hasSize(databaseSizeBeforeCreate + 1);
         PressProduct testPressProduct = pressProductList.get(pressProductList.size() - 1);
         assertThat(testPressProduct.getQty()).isEqualTo(DEFAULT_QTY);
-        assertThat(testPressProduct.getPriceEach()).isEqualTo(DEFAULT_PRICE_EACH);
+        assertThat(testPressProduct.getPriceTotal()).isEqualTo(DEFAULT_PRICE_EACH);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class PressProductResourceIT {
             .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY)))
             .andExpect(jsonPath("$.[*].priceEach").value(hasItem(DEFAULT_PRICE_EACH.intValue())));
     }
-    
+
     @Test
     @Transactional
     public void getPressProduct() throws Exception {
@@ -206,7 +206,7 @@ public class PressProductResourceIT {
         assertThat(pressProductList).hasSize(databaseSizeBeforeUpdate);
         PressProduct testPressProduct = pressProductList.get(pressProductList.size() - 1);
         assertThat(testPressProduct.getQty()).isEqualTo(UPDATED_QTY);
-        assertThat(testPressProduct.getPriceEach()).isEqualTo(UPDATED_PRICE_EACH);
+        assertThat(testPressProduct.getPriceTotal()).isEqualTo(UPDATED_PRICE_EACH);
     }
 
     @Test

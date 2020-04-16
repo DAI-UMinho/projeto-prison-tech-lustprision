@@ -4,11 +4,20 @@ export default class QuestionQuizUpdatePage {
   pageTitle: ElementFinder = element(by.id('lustPrisionApp.questionQuiz.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
+  questionAnswerInput: ElementFinder = element(by.css('input#question-quiz-questionAnswer'));
   quizSelect: ElementFinder = element(by.css('select#question-quiz-quiz'));
   questionSelect: ElementFinder = element(by.css('select#question-quiz-question'));
 
   getPageTitle() {
     return this.pageTitle;
+  }
+
+  async setQuestionAnswerInput(questionAnswer) {
+    await this.questionAnswerInput.sendKeys(questionAnswer);
+  }
+
+  async getQuestionAnswerInput() {
+    return this.questionAnswerInput.getAttribute('value');
   }
 
   async quizSelectLastOption() {

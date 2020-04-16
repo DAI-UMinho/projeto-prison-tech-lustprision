@@ -1,14 +1,22 @@
 package com.lustprision.admin.web.rest;
 
+import com.lustprision.admin.domain.AdminEmploy;
+import com.lustprision.admin.domain.Login;
 import com.lustprision.admin.domain.User;
+import com.lustprision.admin.repository.LoginRepository;
 import com.lustprision.admin.repository.UserRepository;
 import com.lustprision.admin.security.SecurityUtils;
+import com.lustprision.admin.service.AdminEmployService;
 import com.lustprision.admin.service.MailService;
 import com.lustprision.admin.service.UserService;
+import com.lustprision.admin.service.UsernameAlreadyUsedException;
+import com.lustprision.admin.service.dto.AdminEmployDTO;
+import com.lustprision.admin.service.dto.LoginDTO;
 import com.lustprision.admin.service.dto.PasswordChangeDTO;
 import com.lustprision.admin.service.dto.UserDTO;
 import com.lustprision.admin.web.rest.errors.*;
 import com.lustprision.admin.web.rest.vm.KeyAndPasswordVM;
+import com.lustprision.admin.web.rest.vm.ManagedEmployVM;
 import com.lustprision.admin.web.rest.vm.ManagedUserVM;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,13 +48,20 @@ public class AccountResource {
 
     private final UserService userService;
 
+    private final AdminEmployService adminEmployService;
+
+    private final LoginRepository loginRepository;
+
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,
+                           AdminEmployService adminEmployService, LoginRepository loginRepository) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.adminEmployService = adminEmployService;
+        this.loginRepository = loginRepository;
     }
 
     /**
@@ -65,6 +80,25 @@ public class AccountResource {
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
+    }
+
+    @PostMapping("/register2")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerEmployeeAccount(@Valid @RequestBody ManagedEmployVM managedEmployVM) {
+        if (!checkPasswordLength(managedEmployVM.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+
+        loginRepository.findOneByUserName(managedEmployVM.getUserName()).ifPresent(login -> {
+            throw new UsernameAlreadyUsedException();
+        });
+
+        AdminEmploy employee = adminEmployService.registerEmployee(managedEmployVM);
+        Login login = new Login();
+        login.setUserName(managedEmployVM.getUserName());
+        login.setPassword(managedEmployVM.getPassword());
+        login.setAdminEmploy(employee);
+        loginRepository.save(login);
     }
 
     /**
@@ -105,6 +139,15 @@ public class AccountResource {
             .map(UserDTO::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
+
+/*
+    @GetMapping("/account2")
+    public AdminEmployDTO getAccountAlternative() {
+        return adminEmployService.getUserWithAuthorities()
+            .map(AdminEmployDTO::new)
+            .orElseThrow(() -> new AccountResourceException("User could not be found"));
+    }
+*/
 
     /**
      * {@code POST  /account} : update the current user information.

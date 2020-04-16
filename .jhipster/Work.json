@@ -12,6 +12,10 @@
         {
             "fieldName": "numVacancies",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
         }
     ],
     "relationships": [
@@ -23,7 +27,7 @@
         }
     ],
     "changelogDate": "20200320151800",
-    "entityTableName": "work",
+    "entityTableName": "jhi_work",
     "dto": "yes",
     "pagination": "no",
     "service": "no",
@@ -31,5 +35,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

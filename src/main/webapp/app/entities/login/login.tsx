@@ -45,6 +45,9 @@ export const Login = (props: ILoginProps) => {
                 <th>
                   <Translate contentKey="lustPrisionApp.login.type">Type</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.login.adminEmploy">Admin Employ</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -59,6 +62,7 @@ export const Login = (props: ILoginProps) => {
                   <td>{login.userName}</td>
                   <td>{login.password}</td>
                   <td>{login.type}</td>
+                  <td>{login.adminEmploy ? <Link to={`admin-employ/${login.adminEmploy.id}`}>{login.adminEmploy.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${login.id}`} color="info" size="sm">

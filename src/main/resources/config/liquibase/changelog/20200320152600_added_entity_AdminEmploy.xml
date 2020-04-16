@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity AdminEmploy.
     -->
@@ -18,17 +18,30 @@
             <column name="name_admin_emp" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="jhi_password" type="varchar(255)">
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="activated" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="activation_key" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="reset_key" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="reset_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="authority_name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="login_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="permission_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="admin_employ" columnName="reset_date" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20200320152600-1-relations" author="jhipster">
@@ -51,7 +64,13 @@
                   tableName="admin_employ">
             <column name="id" type="numeric"/>
             <column name="name_admin_emp" type="string"/>
-            <column name="jhi_password" type="string"/>
+            <column name="email" type="string"/>
+            <column name="activated" type="boolean"/>
+            <column name="activation_key" type="string"/>
+            <column name="reset_key" type="string"/>
+            <column name="reset_date" type="datetime"/>
+            <column name="authority_name" type="string"/>
+            <column name="login_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

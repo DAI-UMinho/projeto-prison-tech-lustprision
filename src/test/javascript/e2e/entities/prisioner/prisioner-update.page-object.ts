@@ -12,9 +12,9 @@ export default class PrisionerUpdatePage {
   dataNascimentoInput: ElementFinder = element(by.css('input#prisioner-dataNascimento'));
   balanceInput: ElementFinder = element(by.css('input#prisioner-balance'));
   workingInput: ElementFinder = element(by.css('input#prisioner-working'));
-  passwordInput: ElementFinder = element(by.css('input#prisioner-password'));
   profileImageInput: ElementFinder = element(by.css('input#file_profileImage'));
-  loginSelect: ElementFinder = element(by.css('select#prisioner-login'));
+  nfcCodeInput: ElementFinder = element(by.css('input#prisioner-nfcCode'));
+  codigoCartaoInput: ElementFinder = element(by.css('input#prisioner-codigoCartao'));
   permissionSelect: ElementFinder = element(by.css('select#prisioner-permission'));
 
   getPageTitle() {
@@ -85,14 +85,6 @@ export default class PrisionerUpdatePage {
     return this.workingInput.getAttribute('value');
   }
 
-  async setPasswordInput(password) {
-    await this.passwordInput.sendKeys(password);
-  }
-
-  async getPasswordInput() {
-    return this.passwordInput.getAttribute('value');
-  }
-
   async setProfileImageInput(profileImage) {
     await this.profileImageInput.sendKeys(profileImage);
   }
@@ -101,23 +93,20 @@ export default class PrisionerUpdatePage {
     return this.profileImageInput.getAttribute('value');
   }
 
-  async loginSelectLastOption() {
-    await this.loginSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
+  async setNfcCodeInput(nfcCode) {
+    await this.nfcCodeInput.sendKeys(nfcCode);
   }
 
-  async loginSelectOption(option) {
-    await this.loginSelect.sendKeys(option);
+  async getNfcCodeInput() {
+    return this.nfcCodeInput.getAttribute('value');
   }
 
-  getLoginSelect() {
-    return this.loginSelect;
+  async setCodigoCartaoInput(codigoCartao) {
+    await this.codigoCartaoInput.sendKeys(codigoCartao);
   }
 
-  async getLoginSelectedOption() {
-    return this.loginSelect.element(by.css('option:checked')).getText();
+  async getCodigoCartaoInput() {
+    return this.codigoCartaoInput.getAttribute('value');
   }
 
   async permissionSelectLastOption() {

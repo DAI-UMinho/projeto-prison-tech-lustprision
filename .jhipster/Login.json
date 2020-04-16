@@ -16,22 +16,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "prisioner",
-            "otherEntityRelationshipName": "login",
-            "relationshipName": "id"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "systemAdmin",
-            "otherEntityRelationshipName": "login",
-            "relationshipName": "id"
-        },
-        {
-            "relationshipType": "one-to-many",
+            "relationshipName": "adminEmploy",
             "otherEntityName": "adminEmploy",
-            "otherEntityRelationshipName": "login",
-            "relationshipName": "id"
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": false,
+            "otherEntityRelationshipName": "login"
         }
     ],
     "changelogDate": "20200320152300",
@@ -43,5 +37,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

@@ -47,11 +47,11 @@ import question, {
 // prettier-ignore
 import purchase, {
   PurchaseState
-} from 'app/entities/purchase/purchase.reducer';
+} from 'app/modules/account/prisoner/purchase.reducer';
 // prettier-ignore
 import product, {
   ProductState
-} from 'app/entities/product/product.reducer';
+} from 'app/modules/products/product.reducer';
 // prettier-ignore
 import login, {
   LoginState
@@ -72,6 +72,11 @@ import adminEmploy, {
 import pressproduct, {
   PressproductState
 } from 'app/entities/pressproduct/pressproduct.reducer';
+// prettier-ignore
+/*import prisioner, {
+  PrisionerState
+} from 'app/entities/prisioner/prisioner.reducer';*/
+// prettier-ignore
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

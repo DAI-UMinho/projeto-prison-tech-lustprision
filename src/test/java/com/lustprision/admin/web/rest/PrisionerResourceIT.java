@@ -3,7 +3,6 @@ package com.lustprision.admin.web.rest;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Prisioner;
 import com.lustprision.admin.repository.PrisionerRepository;
-import com.lustprision.admin.repository.PurchaseRepository;
 import com.lustprision.admin.service.PrisionerService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -24,6 +23,7 @@ import org.springframework.validation.Validator;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.lustprision.admin.web.rest.TestUtil.createFormattingConversionService;
@@ -62,13 +62,16 @@ public class PrisionerResourceIT {
     private static final Integer DEFAULT_WORKING = 1;
     private static final Integer UPDATED_WORKING = 2;
 
-    private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
-    private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
-
     private static final byte[] DEFAULT_PROFILE_IMAGE = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PROFILE_IMAGE = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_PROFILE_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PROFILE_IMAGE_CONTENT_TYPE = "image/png";
+
+    private static final Integer DEFAULT_NFC_CODE = 30;
+    private static final Integer UPDATED_NFC_CODE = 29;
+
+    private static final Integer DEFAULT_CODIGO_CARTAO = 4;
+    private static final Integer UPDATED_CODIGO_CARTAO = 5;
 
     @Autowired
     private PrisionerRepository prisionerRepository;
@@ -122,9 +125,10 @@ public class PrisionerResourceIT {
             .dataNascimento(DEFAULT_DATA_NASCIMENTO)
             .balance(DEFAULT_BALANCE)
             .working(DEFAULT_WORKING)
-            .password(DEFAULT_PASSWORD)
             .profileImage(DEFAULT_PROFILE_IMAGE)
-            .profileImageContentType(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE);
+            .profileImageContentType(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE)
+            .nfcCode(DEFAULT_NFC_CODE)
+            .codigoCartao(DEFAULT_CODIGO_CARTAO);
         return prisioner;
     }
     /**
@@ -142,9 +146,10 @@ public class PrisionerResourceIT {
             .dataNascimento(UPDATED_DATA_NASCIMENTO)
             .balance(UPDATED_BALANCE)
             .working(UPDATED_WORKING)
-            .password(UPDATED_PASSWORD)
             .profileImage(UPDATED_PROFILE_IMAGE)
             .profileImageContentType(UPDATED_PROFILE_IMAGE_CONTENT_TYPE);
+//            .nfcCode(UPDATED_NFC_CODE)
+//            .codigoCartao(UPDATED_CODIGO_CARTAO);
         return prisioner;
     }
 
@@ -175,9 +180,10 @@ public class PrisionerResourceIT {
         assertThat(testPrisioner.getDataNascimento()).isEqualTo(DEFAULT_DATA_NASCIMENTO);
         assertThat(testPrisioner.getBalance()).isEqualTo(DEFAULT_BALANCE);
         assertThat(testPrisioner.getWorking()).isEqualTo(DEFAULT_WORKING);
-        assertThat(testPrisioner.getPassword()).isEqualTo(DEFAULT_PASSWORD);
         assertThat(testPrisioner.getProfileImage()).isEqualTo(DEFAULT_PROFILE_IMAGE);
         assertThat(testPrisioner.getProfileImageContentType()).isEqualTo(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE);
+//        assertThat(testPrisioner.getNfcCode()).isEqualTo(DEFAULT_NFC_CODE);
+//        assertThat(testPrisioner.getCodigoCartao()).isEqualTo(DEFAULT_CODIGO_CARTAO);
     }
 
     @Test
@@ -213,15 +219,15 @@ public class PrisionerResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(prisioner.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].bi").value(hasItem(DEFAULT_BI)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.[*].numPrisioner").value(hasItem(DEFAULT_NUM_PRISIONER)))
             .andExpect(jsonPath("$.[*].numCell").value(hasItem(DEFAULT_NUM_CELL)))
             .andExpect(jsonPath("$.[*].dataNascimento").value(hasItem(DEFAULT_DATA_NASCIMENTO.toString())))
             .andExpect(jsonPath("$.[*].balance").value(hasItem(DEFAULT_BALANCE.doubleValue())))
             .andExpect(jsonPath("$.[*].working").value(hasItem(DEFAULT_WORKING)))
-            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)))
             .andExpect(jsonPath("$.[*].profileImageContentType").value(hasItem(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].profileImage").value(hasItem(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE))));
+            .andExpect(jsonPath("$.[*].profileImage").value(hasItem(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE))))
+            .andExpect(jsonPath("$.[*].nfcCode").value(hasItem(DEFAULT_NFC_CODE)))
+            .andExpect(jsonPath("$.[*].codigoCartao").value(hasItem(DEFAULT_CODIGO_CARTAO)));
     }
 
     @Test
@@ -237,15 +243,15 @@ public class PrisionerResourceIT {
             .andExpect(jsonPath("$.id").value(prisioner.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.bi").value(DEFAULT_BI))
-            .andExpect(jsonPath("$.image").value(DEFAULT_IMAGE))
             .andExpect(jsonPath("$.numPrisioner").value(DEFAULT_NUM_PRISIONER))
             .andExpect(jsonPath("$.numCell").value(DEFAULT_NUM_CELL))
             .andExpect(jsonPath("$.dataNascimento").value(DEFAULT_DATA_NASCIMENTO.toString()))
             .andExpect(jsonPath("$.balance").value(DEFAULT_BALANCE.doubleValue()))
             .andExpect(jsonPath("$.working").value(DEFAULT_WORKING))
-            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD))
             .andExpect(jsonPath("$.profileImageContentType").value(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.profileImage").value(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE)));
+            .andExpect(jsonPath("$.profileImage").value(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE)))
+            .andExpect(jsonPath("$.nfcCode").value(DEFAULT_NFC_CODE))
+            .andExpect(jsonPath("$.codigoCartao").value(DEFAULT_CODIGO_CARTAO));
     }
 
     @Test
@@ -276,9 +282,10 @@ public class PrisionerResourceIT {
             .dataNascimento(UPDATED_DATA_NASCIMENTO)
             .balance(UPDATED_BALANCE)
             .working(UPDATED_WORKING)
-            .password(UPDATED_PASSWORD)
             .profileImage(UPDATED_PROFILE_IMAGE)
             .profileImageContentType(UPDATED_PROFILE_IMAGE_CONTENT_TYPE);
+//            .nfcCode(UPDATED_NFC_CODE)
+//            .codigoCartao(UPDATED_CODIGO_CARTAO);
 
         restPrisionerMockMvc.perform(put("/api/prisioners")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -296,9 +303,10 @@ public class PrisionerResourceIT {
         assertThat(testPrisioner.getDataNascimento()).isEqualTo(UPDATED_DATA_NASCIMENTO);
         assertThat(testPrisioner.getBalance()).isEqualTo(UPDATED_BALANCE);
         assertThat(testPrisioner.getWorking()).isEqualTo(UPDATED_WORKING);
-        assertThat(testPrisioner.getPassword()).isEqualTo(UPDATED_PASSWORD);
         assertThat(testPrisioner.getProfileImage()).isEqualTo(UPDATED_PROFILE_IMAGE);
         assertThat(testPrisioner.getProfileImageContentType()).isEqualTo(UPDATED_PROFILE_IMAGE_CONTENT_TYPE);
+//        assertThat(testPrisioner.getNfcCode()).isEqualTo(UPDATED_NFC_CODE);
+//        assertThat(testPrisioner.getCodigoCartao()).isEqualTo(UPDATED_CODIGO_CARTAO);
     }
 
     @Test

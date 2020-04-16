@@ -76,12 +76,6 @@ export const PrisionerDetail = (props: IPrisionerDetailProps) => {
           </dt>
           <dd>{prisionerEntity.working}</dd>
           <dt>
-            <span id="password">
-              <Translate contentKey="lustPrisionApp.prisioner.password">Password</Translate>
-            </span>
-          </dt>
-          <dd>{prisionerEntity.password}</dd>
-          <dt>
             <span id="profileImage">
               <Translate contentKey="lustPrisionApp.prisioner.profileImage">Profile Image</Translate>
             </span>
@@ -102,9 +96,17 @@ export const PrisionerDetail = (props: IPrisionerDetailProps) => {
             ) : null}
           </dd>
           <dt>
-            <Translate contentKey="lustPrisionApp.prisioner.login">Login</Translate>
+            <span id="nfcCode">
+              <Translate contentKey="lustPrisionApp.prisioner.nfcCode">Nfc Code</Translate>
+            </span>
           </dt>
-          <dd>{prisionerEntity.login ? prisionerEntity.login.id : ''}</dd>
+          <dd>{prisionerEntity.nfcCode}</dd>
+          <dt>
+            <span id="codigoCartao">
+              <Translate contentKey="lustPrisionApp.prisioner.codigoCartao">Codigo Cartao</Translate>
+            </span>
+          </dt>
+          <dd>{prisionerEntity.codigoCartao}</dd>
           <dt>
             <Translate contentKey="lustPrisionApp.prisioner.permission">Permission</Translate>
           </dt>

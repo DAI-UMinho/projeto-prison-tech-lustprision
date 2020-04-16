@@ -75,6 +75,7 @@ class WorkGatlingTest extends Simulation {
                 , "nameWork":"SAMPLE_TEXT"
                 , "priceHour":null
                 , "numVacancies":"0"
+                , "date":"2020-01-01T00:00:00.000Z"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_work_url"))).exitHereIfFailed

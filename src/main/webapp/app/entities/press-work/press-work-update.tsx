@@ -54,6 +54,7 @@ export const PressWorkUpdate = (props: IPressWorkUpdateProps) => {
       };
 
       if (isNew) {
+        console.log(entity);
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);

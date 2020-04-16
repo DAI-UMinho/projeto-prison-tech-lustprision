@@ -80,8 +80,9 @@ class PrisionerGatlingTest extends Simulation {
                 , "dataNascimento":"2020-01-01T00:00:00.000Z"
                 , "balance":null
                 , "working":"0"
-                , "password":"SAMPLE_TEXT"
                 , "profileImage":null
+                , "nfcCode":"0"
+                , "codigoCartao":"0"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_prisioner_url"))).exitHereIfFailed

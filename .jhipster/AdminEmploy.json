@@ -6,26 +6,43 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "password",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "login",
-            "otherEntityRelationshipName": "id",
-            "relationshipName": "login",
-            "otherEntityField": "id"
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
         },
         {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "permission",
-            "otherEntityRelationshipName": "id",
-            "relationshipName": "permission",
-            "otherEntityField": "id"
+            "fieldName": "activated",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "actitionKey",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "resetKey",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "resetDate",
+            "fieldType": "Instant"
         }
     ],
+    "relationships": [],
     "changelogDate": "20200320152600",
     "entityTableName": "admin_employ",
     "dto": "no",
@@ -35,5 +52,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

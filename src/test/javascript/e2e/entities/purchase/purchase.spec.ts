@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, protractor } from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
@@ -59,6 +59,10 @@ describe('Purchase e2e test', () => {
 
   it('should create and save Purchases', async () => {
     await purchaseComponentsPage.createButton.click();
+    await purchaseUpdatePage.setDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+    expect(await purchaseUpdatePage.getDateInput()).to.contain('2001-01-01T02:30');
+    await purchaseUpdatePage.setPurchaseTotalInput('5');
+    expect(await purchaseUpdatePage.getPurchaseTotalInput()).to.eq('5');
     await purchaseUpdatePage.prisionerSelectLastOption();
     await waitUntilDisplayed(purchaseUpdatePage.saveButton);
     await purchaseUpdatePage.save();

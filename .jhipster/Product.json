@@ -28,6 +28,11 @@
         {
             "fieldName": "buyPrice",
             "fieldType": "Long"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
         }
     ],
     "relationships": [
@@ -47,5 +52,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

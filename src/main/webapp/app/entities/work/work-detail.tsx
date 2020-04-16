@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -43,6 +43,14 @@ export const WorkDetail = (props: IWorkDetailProps) => {
             </span>
           </dt>
           <dd>{workEntity.numVacancies}</dd>
+          <dt>
+            <span id="date">
+              <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
+            </span>
+          </dt>
+          <dd>
+            <TextFormat value={workEntity.date} type="date" format={APP_LOCAL_DATE_FORMAT} />
+          </dd>
         </dl>
         <Button tag={Link} to="/work" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

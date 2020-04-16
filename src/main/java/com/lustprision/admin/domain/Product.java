@@ -45,6 +45,13 @@ public class Product implements Serializable {
     @Column(name = "buy_price")
     private Long buyPrice;
 
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
     @OneToMany(mappedBy = "product")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressProduct> ids = new HashSet<>();
@@ -149,6 +156,32 @@ public class Product implements Serializable {
         this.buyPrice = buyPrice;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public Product image(byte[] image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return imageContentType;
+    }
+
+    public Product imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
     public Set<PressProduct> getIds() {
         return ids;
     }
@@ -202,6 +235,8 @@ public class Product implements Serializable {
             ", descriptionProd='" + getDescriptionProd() + "'" +
             ", quantyInStock=" + getQuantyInStock() +
             ", buyPrice=" + getBuyPrice() +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
             "}";
     }
 }

@@ -6,26 +6,7 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "prisioner",
-            "otherEntityRelationshipName": "permission",
-            "relationshipName": "id"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "systemAdmin",
-            "otherEntityRelationshipName": "permission",
-            "relationshipName": "id"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "adminEmploy",
-            "otherEntityRelationshipName": "permission",
-            "relationshipName": "id"
-        }
-    ],
+    "relationships": [],
     "changelogDate": "20200320152400",
     "entityTableName": "permission",
     "dto": "no",
@@ -35,5 +16,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

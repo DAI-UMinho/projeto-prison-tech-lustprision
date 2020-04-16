@@ -61,13 +61,13 @@ export const Prisioner = (props: IPrisionerProps) => {
                   <Translate contentKey="lustPrisionApp.prisioner.working">Working</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.prisioner.password">Password</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lustPrisionApp.prisioner.profileImage">Profile Image</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.prisioner.login">Login</Translate>
+                  <Translate contentKey="lustPrisionApp.prisioner.nfcCode">Nfc Code</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.prisioner.codigoCartao">Codigo Cartao</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lustPrisionApp.prisioner.permission">Permission</Translate>
@@ -93,7 +93,6 @@ export const Prisioner = (props: IPrisionerProps) => {
                   </td>
                   <td>{prisioner.balance}</td>
                   <td>{prisioner.working}</td>
-                  <td>{prisioner.password}</td>
                   <td>
                     {prisioner.profileImage ? (
                       <div>
@@ -110,7 +109,8 @@ export const Prisioner = (props: IPrisionerProps) => {
                       </div>
                     ) : null}
                   </td>
-                  <td>{prisioner.login ? <Link to={`login/${prisioner.login.id}`}>{prisioner.login.id}</Link> : ''}</td>
+                  <td>{prisioner.nfcCode}</td>
+                  <td>{prisioner.codigoCartao}</td>
                   <td>{prisioner.permission ? <Link to={`permission/${prisioner.permission.id}`}>{prisioner.permission.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

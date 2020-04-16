@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  * A Work.
  */
 @Entity
-@Table(name = "jhi_work")
+@Table(name = "work_job")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Work implements Serializable {
 
@@ -27,11 +28,14 @@ public class Work implements Serializable {
     @Column(name = "name_work")
     private String nameWork;
 
-    @Column(name = "price_hour")
-    private Long priceHour;
+    @Column(name = "total_credits")
+    private Long totalCredits;
 
-    @Column(name = "num_vacancies")
-    private Integer numVacancies;
+    @Column(name = "num_remaining_entries")
+    private Integer numRemainingEntries;
+
+    @Column(name = "date_work")
+    private LocalDate date;
 
     @OneToMany(mappedBy = "work")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -59,30 +63,43 @@ public class Work implements Serializable {
         this.nameWork = nameWork;
     }
 
-    public Long getPriceHour() {
-        return priceHour;
+    public Long getTotalCredits() {
+        return totalCredits;
     }
 
     public Work priceHour(Long priceHour) {
-        this.priceHour = priceHour;
+        this.totalCredits = priceHour;
         return this;
     }
 
-    public void setPriceHour(Long priceHour) {
-        this.priceHour = priceHour;
+    public void setTotalCredits(Long priceHour) {
+        this.totalCredits = priceHour;
     }
 
-    public Integer getNumVacancies() {
-        return numVacancies;
+    public Integer getNumRemainingEntries() {
+        return numRemainingEntries;
     }
 
     public Work numVacancies(Integer numVacancies) {
-        this.numVacancies = numVacancies;
+        this.numRemainingEntries = numVacancies;
         return this;
     }
 
-    public void setNumVacancies(Integer numVacancies) {
-        this.numVacancies = numVacancies;
+    public void setNumRemainingEntries(Integer numVacancies) {
+        this.numRemainingEntries = numVacancies;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Work date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Set<PressWork> getIds() {
@@ -132,8 +149,9 @@ public class Work implements Serializable {
         return "Work{" +
             "id=" + getId() +
             ", nameWork='" + getNameWork() + "'" +
-            ", priceHour=" + getPriceHour() +
-            ", numVacancies=" + getNumVacancies() +
+            ", priceHour=" + getTotalCredits() +
+            ", numVacancies=" + getNumRemainingEntries() +
+            ", date='" + getDate() + "'" +
             "}";
     }
 }

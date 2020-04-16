@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -37,6 +37,12 @@ export const Purchase = (props: IPurchaseProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lustPrisionApp.purchase.date">Date</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.purchase.purchaseTotal">Purchase Total</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lustPrisionApp.purchase.prisioner">Prisioner</Translate>
                 </th>
                 <th />
@@ -50,7 +56,11 @@ export const Purchase = (props: IPurchaseProps) => {
                       {purchase.id}
                     </Button>
                   </td>
-                  <td>{purchase.prisioner ? <Link to={`prisioner/${purchase.prisioner.id}`}>{purchase.prisioner.id}</Link> : ''}</td>
+                  <td>
+                    <TextFormat type="date" value={purchase.date} format={APP_DATE_FORMAT} />
+                  </td>
+                  <td>{purchase.purchaseTotal}</td>
+                  <td>{purchase.prisionerId ? <Link to={`prisioner/${purchase.prisionerId}`}>{purchase.prisionerId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${purchase.id}`} color="info" size="sm">

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -26,9 +26,23 @@ export const PurchaseDetail = (props: IPurchaseDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
+            <span id="date">
+              <Translate contentKey="lustPrisionApp.purchase.date">Date</Translate>
+            </span>
+          </dt>
+          <dd>
+            <TextFormat value={purchaseEntity.date} type="date" format={APP_DATE_FORMAT} />
+          </dd>
+          <dt>
+            <span id="purchaseTotal">
+              <Translate contentKey="lustPrisionApp.purchase.purchaseTotal">Purchase Total</Translate>
+            </span>
+          </dt>
+          <dd>{purchaseEntity.purchaseTotal}</dd>
+          <dt>
             <Translate contentKey="lustPrisionApp.purchase.prisioner">Prisioner</Translate>
           </dt>
-          <dd>{purchaseEntity.prisioner ? purchaseEntity.prisioner.id : ''}</dd>
+          <dd>{purchaseEntity.prisionerId ? purchaseEntity.prisionerId : ''}</dd>
         </dl>
         <Button tag={Link} to="/purchase" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

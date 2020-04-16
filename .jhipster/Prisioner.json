@@ -34,13 +34,27 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "password",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "profileImage",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "nfcCode",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "max"
+            ],
+            "fieldValidateRulesMax": "30"
+        },
+        {
+            "fieldName": "codigoCartao",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "4",
+            "fieldValidateRulesMax": "4"
         }
     ],
     "relationships": [
@@ -61,13 +75,6 @@
             "otherEntityName": "purchase",
             "otherEntityRelationshipName": "prisioner",
             "relationshipName": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "login",
-            "otherEntityRelationshipName": "id",
-            "relationshipName": "login",
-            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",

@@ -5,8 +5,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * A AdminEmploy.
@@ -26,16 +28,29 @@ public class AdminEmploy implements Serializable {
     @Column(name = "name_admin_emp")
     private String nameAdminEmp;
 
-    @Column(name = "jhi_password")
-    private String password;
+    @NotNull
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    @ManyToOne
-    @JsonIgnoreProperties("ids")
-    private Login login;
+    @NotNull
+    @Column(name = "activated", nullable = false)
+    private Boolean activated;
 
-    @ManyToOne
-    @JsonIgnoreProperties("ids")
-    private Permission permission;
+    @Size(max = 20)
+    @Column(name = "activation_key", length = 20)
+    private String actitionKey;
+
+    @Size(max = 20)
+    @Column(name = "reset_key", length = 20)
+    private String resetKey;
+
+    @Column(name = "reset_date")
+    private Instant resetDate;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("adminEmploys")
+    private Authority authority;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -59,45 +74,75 @@ public class AdminEmploy implements Serializable {
         this.nameAdminEmp = nameAdminEmp;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public AdminEmploy password(String password) {
-        this.password = password;
+    public AdminEmploy email(String email) {
+        this.email = email;
         return this;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Login getLogin() {
-        return login;
+    public Boolean isActivated() {
+        return activated;
     }
 
-    public AdminEmploy login(Login login) {
-        this.login = login;
+    public AdminEmploy activated(Boolean activated) {
+        this.activated = activated;
         return this;
     }
 
-    public void setLogin(Login login) {
-        this.login = login;
+    public void setActivated(Boolean activated) {
+        this.activated = activated;
     }
 
-    public Permission getPermission() {
-        return permission;
+    public String getActitionKey() {
+        return actitionKey;
     }
 
-    public AdminEmploy permission(Permission permission) {
-        this.permission = permission;
+    public AdminEmploy actitionKey(String actitionKey) {
+        this.actitionKey = actitionKey;
         return this;
     }
 
-    public void setPermission(Permission permission) {
-        this.permission = permission;
+    public void setActitionKey(String actitionKey) {
+        this.actitionKey = actitionKey;
+    }
+
+    public String getResetKey() {
+        return resetKey;
+    }
+
+    public AdminEmploy resetKey(String resetKey) {
+        this.resetKey = resetKey;
+        return this;
+    }
+
+    public void setResetKey(String resetKey) {
+        this.resetKey = resetKey;
+    }
+
+    public Instant getResetDate() {
+        return resetDate;
+    }
+
+    public AdminEmploy resetDate(Instant resetDate) {
+        this.resetDate = resetDate;
+        return this;
+    }
+
+    public void setResetDate(Instant resetDate) {
+        this.resetDate = resetDate;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public Authority getAuthority(){ return authority; }
+
+    public void setAuthority(Authority authority){ this.authority = authority; }
 
     @Override
     public boolean equals(Object o) {
@@ -120,7 +165,12 @@ public class AdminEmploy implements Serializable {
         return "AdminEmploy{" +
             "id=" + getId() +
             ", nameAdminEmp='" + getNameAdminEmp() + "'" +
-            ", password='" + getPassword() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", activated='" + isActivated() + "'" +
+            ", actitionKey='" + getActitionKey() + "'" +
+            ", resetKey='" + getResetKey() + "'" +
+            ", resetDate='" + getResetDate() + "'" +
+            ", authority='" + getAuthority().getName() + "'" +
             "}";
     }
 }

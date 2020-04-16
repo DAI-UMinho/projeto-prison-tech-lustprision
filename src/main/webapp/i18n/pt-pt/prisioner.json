@@ -5,7 +5,8 @@
         "title": "Prisioners",
         "createLabel": "Criar novo(a) Prisioner",
         "createOrEditLabel": "Criar ou editar Prisioner",
-        "notFound": "Nenhum Prisioners encontrado"
+        "notFound": "Nenhum Prisioners encontrado",
+        "newCard": "Prisioneiro"
       },
       "created": "Um novo Prisioner foi criado com o identificador {{ param }}",
       "updated": "Prisioner com identificador {{ param }} foi actualizado",
@@ -25,6 +26,8 @@
       "working": "A trabalhar",
       "password": "Password",
       "profileImage": "Imagem de Perfil",
+      "nfcCode": "Codigo NFC",
+      "pinCode": "PIN de Segurança",
       "id": "Id",
       "login": "Login",
       "permission": "Permissão",

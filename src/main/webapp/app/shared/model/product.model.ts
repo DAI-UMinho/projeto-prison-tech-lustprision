@@ -9,6 +9,8 @@ export interface IProduct {
   descriptionProd?: string;
   quantyInStock?: number;
   buyPrice?: number;
+  imageContentType?: string;
+  image?: any;
   ids?: IPressProduct[];
 }
 

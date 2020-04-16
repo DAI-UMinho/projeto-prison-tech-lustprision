@@ -72,6 +72,7 @@ class QuestionQuizGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
+                , "questionAnswer":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_questionQuiz_url"))).exitHereIfFailed

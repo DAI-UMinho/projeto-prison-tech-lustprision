@@ -19,6 +19,7 @@
       "nameWork": "Name Work",
       "priceHour": "Price Hour",
       "numVacancies": "Num Vacancies",
+      "date": "Date",
       "id": "Id"
     }
   }

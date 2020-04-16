@@ -16,6 +16,7 @@
       "detail": {
         "title": "Question Quiz"
       },
+      "questionAnswer": "Question Answer",
       "quiz": "Quiz",
       "question": "Question"
     }

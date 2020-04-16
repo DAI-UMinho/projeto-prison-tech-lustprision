@@ -6,6 +6,7 @@ import com.lustprision.admin.repository.PrisionerRepository;
 import com.lustprision.admin.repository.PurchaseRepository;
 import com.lustprision.admin.service.PrisionerService;
 import com.lustprision.admin.service.dto.PurchaseDTO;
+import com.lustprision.admin.service.dto.QuizDTO;
 import com.lustprision.admin.service.dto.WorkDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
@@ -94,7 +95,7 @@ public class PrisionerResource {
     @GetMapping("/prisioners")
     public List<Prisioner> getAllPrisioners() {
         log.debug("REST request to get all Prisioners");
-        return prisionerRepository.findAll();
+        return  prisionerRepository.findAll();
     }
 
     /**
@@ -134,4 +135,11 @@ public class PrisionerResource {
         log.debug("REST request to get all Prisioner work jobs : {}", id);
         return prisionerService.getPrisionerWork(id);
     }
+
+    @GetMapping("/prisioners/{id}/quizs")
+    public List<QuizDTO> getPrisionerQuizs(@PathVariable Long id){
+        log.debug("REST request to get all Prisioner work jobs : {}", id);
+        return prisionerService.getPrisionerQuizs(id);
+    }
 }
+

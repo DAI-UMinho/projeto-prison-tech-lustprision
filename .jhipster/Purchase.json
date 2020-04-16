@@ -1,6 +1,21 @@
 {
     "name": "Purchase",
-    "fields": [],
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "purchaseTotal",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
     "relationships": [
         {
             "relationshipType": "one-to-many",
@@ -25,5 +40,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

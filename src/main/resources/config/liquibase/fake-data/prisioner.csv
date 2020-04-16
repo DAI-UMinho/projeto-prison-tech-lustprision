@@ -1,11 +1,11 @@
-id;name;bi;image;num_prisioner;num_cell;data_nascimento;balance;working;jhi_password;profile_image;profile_image_content_type
-1;Intelligent;57514;Overpass local;19580;39272;2020-03-20;14886;70042;bypassing Buckinghamshire;../fake-data/blob/hipster.png;image/png
-2;withdrawal;52423;withdrawal granular indigo;15683;43427;2020-03-20;68708;37790;open-source JSON Expanded;../fake-data/blob/hipster.png;image/png
-3;Garden Massachusetts Bike;27031;Dalasi deposit Strategist;56068;90281;2020-03-19;91216;18189;port parse pixel;../fake-data/blob/hipster.png;image/png
-4;bandwidth-monitored Ball;62426;auxiliary;76991;27406;2020-03-20;46665;81320;encryption;../fake-data/blob/hipster.png;image/png
-5;Oregon;24418;1080p Investment Account index;42346;22217;2020-03-20;1349;94191;black;../fake-data/blob/hipster.png;image/png
-6;visualize Union;60831;methodologies mission-critical;48589;71332;2020-03-20;88291;51487;application;../fake-data/blob/hipster.png;image/png
-7;multi-byte salmon invoice;84930;hybrid;48267;51611;2020-03-20;18194;33423;bi-directional bypassing;../fake-data/blob/hipster.png;image/png
-8;optical mission-critical Customer;12974;bypassing;54689;63280;2020-03-20;61379;71181;transmitting;../fake-data/blob/hipster.png;image/png
-9;benchmark;27261;didactic Books;96091;87917;2020-03-20;84322;29550;Chad Australian Dollar;../fake-data/blob/hipster.png;image/png
-10;neutral;63717;hub ivory Fantastic;77023;57103;2020-03-20;88686;82757;quantify;../fake-data/blob/hipster.png;image/png
+id;name;bi;image;num_prisioner;num_cell;data_nascimento;balance;working;profile_image;profile_image_content_type;nfc_code;codigo_cartao
+1;Intelligent;57514;Overpass local;19580;39272;2020-03-20;14886;70042;../fake-data/blob/hipster.png;image/png;16;4
+2;Buckinghamshire;3612;synthesize bluetooth;42927;35485;2020-03-20;20629;80419;../fake-data/blob/hipster.png;image/png;4;4
+3;Iranian Rial cross-platform;66342;Future tangible Garden;55723;41429;2020-03-20;21980;27031;../fake-data/blob/hipster.png;image/png;22;4
+4;deposit;99042;Virginia Chief Salad;70770;26005;2020-03-19;94972;73971;../fake-data/blob/hipster.png;image/png;18;4
+5;Wooden;27841;Bacon Licensed Plastic Computer;46665;81320;2020-03-20;33006;30441;../fake-data/blob/hipster.png;image/png;7;4
+6;Team-oriented 1080p Investment Account;77189;eyeballs Bridge;94191;2182;2020-03-20;28979;55111;../fake-data/blob/hipster.png;image/png;11;4
+7;Investor Israel;98726;Investment Account;71332;21821;2020-03-19;51487;14000;../fake-data/blob/hipster.png;image/png;9;4
+8;multi-byte salmon invoice;84930;hybrid;48267;51611;2020-03-20;18194;33423;../fake-data/blob/hipster.png;image/png;11;4
+9;bypassing;73027;PCI azure Brunei Darussalam;1546;84313;2020-03-20;54689;63280;../fake-data/blob/hipster.png;image/png;8;4
+10;secured line hacking benchmark;27261;didactic Books;96091;87917;2020-03-20;84322;29550;../fake-data/blob/hipster.png;image/png;19;4

@@ -72,6 +72,8 @@ class PurchaseGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
+                , "date":"2020-01-01T00:00:00.000Z"
+                , "purchaseTotal":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_purchase_url"))).exitHereIfFailed

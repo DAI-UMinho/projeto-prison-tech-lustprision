@@ -144,6 +144,7 @@ public class UserResource {
      */
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
+        log.debug("REST request to save User : {}", pageable);
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

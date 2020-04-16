@@ -1,6 +1,11 @@
 {
     "name": "QuestionQuiz",
-    "fields": [],
+    "fields": [
+        {
+            "fieldName": "questionAnswer",
+            "fieldType": "String"
+        }
+    ],
     "relationships": [
         {
             "relationshipType": "many-to-one",
@@ -26,5 +31,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

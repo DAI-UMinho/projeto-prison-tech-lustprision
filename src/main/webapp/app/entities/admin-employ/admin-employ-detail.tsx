@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -32,19 +32,37 @@ export const AdminEmployDetail = (props: IAdminEmployDetailProps) => {
           </dt>
           <dd>{adminEmployEntity.nameAdminEmp}</dd>
           <dt>
-            <span id="password">
-              <Translate contentKey="lustPrisionApp.adminEmploy.password">Password</Translate>
+            <span id="email">
+              <Translate contentKey="lustPrisionApp.adminEmploy.email">Email</Translate>
             </span>
           </dt>
-          <dd>{adminEmployEntity.password}</dd>
+          <dd>{adminEmployEntity.email}</dd>
           <dt>
-            <Translate contentKey="lustPrisionApp.adminEmploy.login">Login</Translate>
+            <span id="activated">
+              <Translate contentKey="lustPrisionApp.adminEmploy.activated">Activated</Translate>
+            </span>
           </dt>
-          <dd>{adminEmployEntity.login ? adminEmployEntity.login.id : ''}</dd>
+          <dd>{adminEmployEntity.activated ? 'true' : 'false'}</dd>
           <dt>
-            <Translate contentKey="lustPrisionApp.adminEmploy.permission">Permission</Translate>
+            <span id="actitionKey">
+              <Translate contentKey="lustPrisionApp.adminEmploy.actitionKey">Actition Key</Translate>
+            </span>
           </dt>
-          <dd>{adminEmployEntity.permission ? adminEmployEntity.permission.id : ''}</dd>
+          <dd>{adminEmployEntity.actitionKey}</dd>
+          <dt>
+            <span id="resetKey">
+              <Translate contentKey="lustPrisionApp.adminEmploy.resetKey">Reset Key</Translate>
+            </span>
+          </dt>
+          <dd>{adminEmployEntity.resetKey}</dd>
+          <dt>
+            <span id="resetDate">
+              <Translate contentKey="lustPrisionApp.adminEmploy.resetDate">Reset Date</Translate>
+            </span>
+          </dt>
+          <dd>
+            <TextFormat value={adminEmployEntity.resetDate} type="date" format={APP_DATE_FORMAT} />
+          </dd>
         </dl>
         <Button tag={Link} to="/admin-employ" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

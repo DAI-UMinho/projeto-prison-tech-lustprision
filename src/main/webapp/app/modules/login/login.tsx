@@ -24,7 +24,10 @@ export const Login = (props: ILoginProps) => {
   };
 
   const {location, isAuthenticated} = props;
-  const {from} = (location.state as any) || {from: {pathname: '/', search: location.search}};
+  const {from} = (location.pathname === '/')
+    ? (location.state as any) || {from: {pathname: '/dashboard', search: location.search}}
+    : {from: {pathname: '/dashboard', search: location.search}};
+
   if (isAuthenticated) {
     return <Redirect to={from}/>;
   }

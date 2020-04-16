@@ -1,5 +1,3 @@
-import { IPrisioner } from 'app/shared/model/prisioner.model';
-import { ISystemAdmin } from 'app/shared/model/system-admin.model';
 import { IAdminEmploy } from 'app/shared/model/admin-employ.model';
 
 export interface ILogin {
@@ -7,9 +5,7 @@ export interface ILogin {
   userName?: string;
   password?: string;
   type?: string;
-  ids?: IPrisioner[];
-  ids?: ISystemAdmin[];
-  ids?: IAdminEmploy[];
+  adminEmploy?: IAdminEmploy;
 }
 
 export const defaultValue: Readonly<ILogin> = {};

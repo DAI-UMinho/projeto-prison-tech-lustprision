@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
@@ -43,6 +43,8 @@ export const PurchaseUpdate = (props: IPurchaseUpdateProps) => {
   }, [props.updateSuccess]);
 
   const saveEntity = (event, errors, values) => {
+    values.date = convertDateTimeToServer(values.date);
+
     if (errors.length === 0) {
       const entity = {
         ...purchaseEntity,
@@ -50,6 +52,7 @@ export const PurchaseUpdate = (props: IPurchaseUpdateProps) => {
       };
 
       if (isNew) {
+        console.log(entity);
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -81,6 +84,37 @@ export const PurchaseUpdate = (props: IPurchaseUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
+                <Label id="dateLabel" for="purchase-date">
+                  <Translate contentKey="lustPrisionApp.purchase.date">Date</Translate>
+                </Label>
+                <AvInput
+                  id="purchase-date"
+                  type="datetime-local"
+                  className="form-control"
+                  name="date"
+                  placeholder={'YYYY-MM-DD HH:mm'}
+                  value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.purchaseEntity.date)}
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
+                <Label id="purchaseTotalLabel" for="purchase-purchaseTotal">
+                  <Translate contentKey="lustPrisionApp.purchase.purchaseTotal">Purchase Total</Translate>
+                </Label>
+                <AvField
+                  id="purchase-purchaseTotal"
+                  type="string"
+                  className="form-control"
+                  name="purchaseTotal"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
                 <Label for="purchase-prisioner">
                   <Translate contentKey="lustPrisionApp.purchase.prisioner">Prisioner</Translate>
                 </Label>
@@ -88,10 +122,10 @@ export const PurchaseUpdate = (props: IPurchaseUpdateProps) => {
                   <option value="" key="0" />
                   {prisioners
                     ? prisioners.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
                     : null}
                 </AvInput>
               </AvGroup>

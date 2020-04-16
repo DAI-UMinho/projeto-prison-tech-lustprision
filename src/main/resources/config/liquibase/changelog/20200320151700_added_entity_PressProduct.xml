@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity PressProduct.
     -->
@@ -18,7 +18,7 @@
             <column name="qty" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="price_each" type="bigint">
+            <column name="price_total" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="purchase_id" type="bigint">
@@ -51,7 +51,7 @@
                   tableName="press_product">
             <column name="id" type="numeric"/>
             <column name="qty" type="numeric"/>
-            <column name="price_each" type="numeric"/>
+            <column name="price_total" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

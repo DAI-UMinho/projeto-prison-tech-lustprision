@@ -7,6 +7,7 @@ export default class WorkUpdatePage {
   nameWorkInput: ElementFinder = element(by.css('input#work-nameWork'));
   priceHourInput: ElementFinder = element(by.css('input#work-priceHour'));
   numVacanciesInput: ElementFinder = element(by.css('input#work-numVacancies'));
+  dateInput: ElementFinder = element(by.css('input#work-date'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -34,6 +35,14 @@ export default class WorkUpdatePage {
 
   async getNumVacanciesInput() {
     return this.numVacanciesInput.getAttribute('value');
+  }
+
+  async setDateInput(date) {
+    await this.dateInput.sendKeys(date);
+  }
+
+  async getDateInput() {
+    return this.dateInput.getAttribute('value');
   }
 
   async save() {

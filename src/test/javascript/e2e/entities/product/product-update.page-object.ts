@@ -11,6 +11,7 @@ export default class ProductUpdatePage {
   descriptionProdInput: ElementFinder = element(by.css('input#product-descriptionProd'));
   quantyInStockInput: ElementFinder = element(by.css('input#product-quantyInStock'));
   buyPriceInput: ElementFinder = element(by.css('input#product-buyPrice'));
+  imageInput: ElementFinder = element(by.css('input#file_image'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -70,6 +71,14 @@ export default class ProductUpdatePage {
 
   async getBuyPriceInput() {
     return this.buyPriceInput.getAttribute('value');
+  }
+
+  async setImageInput(image) {
+    await this.imageInput.sendKeys(image);
+  }
+
+  async getImageInput() {
+    return this.imageInput.getAttribute('value');
   }
 
   async save() {

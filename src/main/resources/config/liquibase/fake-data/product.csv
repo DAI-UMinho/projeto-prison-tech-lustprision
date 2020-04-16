@@ -1,11 +1,11 @@
-id;product_lin_id;name_prod;price;seler;description_prod;quanty_in_stock;buy_price
-1;23324;Checking Account;62682;website calculating;cross-platform support;98666;76190
-2;35091;wireless Computer;76146;reboot deposit Sri Lanka Rupee;withdrawal Refined Metal Car Division;6255;13165
-3;4972;Kina networks;40879;Michigan Incredible Infrastructure;Internal compressing;55080;63810
-4;30312;green Credit Card Account;51217;intranet;Ball Australian Dollar;4184;16473
-5;23281;digital;11502;CFP Franc aggregate;Security;46269;94963
-6;80588;distributed Dynamic auxiliary;85535;COM Personal Loan Account yellow;Cape Verde;40746;27546
-7;52784;Prairie;45935;invoice;Liaison;22423;16073
-8;14900;Central Ergonomic Concrete Ball;88292;Checking Account methodical optical;Cheese rich multi-byte;80408;45155
-9;90340;project Stand-alone Computer;36445;Sleek Soft Sausages Practical;User-friendly lavender wireless;77577;35940
-10;21464;Harbors backing up;91780;e-commerce Ergonomic Concrete Salad;Ergonomic;93852;5859
+id;product_lin_id;name_prod;price;seler;description_prod;quanty_in_stock;buy_price;image;image_content_type
+1;23324;Checking Account;62682;website calculating;cross-platform support;98666;76190;../fake-data/blob/hipster.png;image/png
+2;35091;wireless Computer;76146;reboot deposit Sri Lanka Rupee;withdrawal Refined Metal Car Division;6255;13165;../fake-data/blob/hipster.png;image/png
+3;4972;Kina networks;40879;Michigan Incredible Infrastructure;Internal compressing;55080;63810;../fake-data/blob/hipster.png;image/png
+4;30312;green Credit Card Account;51217;intranet;Ball Australian Dollar;4184;16473;../fake-data/blob/hipster.png;image/png
+5;23281;digital;11502;CFP Franc aggregate;Security;46269;94963;../fake-data/blob/hipster.png;image/png
+6;80588;distributed Dynamic auxiliary;85535;COM Personal Loan Account yellow;Cape Verde;40746;27546;../fake-data/blob/hipster.png;image/png
+7;52784;Prairie;45935;invoice;Liaison;22423;16073;../fake-data/blob/hipster.png;image/png
+8;14900;Central Ergonomic Concrete Ball;88292;Checking Account methodical optical;Cheese rich multi-byte;80408;45155;../fake-data/blob/hipster.png;image/png
+9;90340;project Stand-alone Computer;36445;Sleek Soft Sausages Practical;User-friendly lavender wireless;77577;35940;../fake-data/blob/hipster.png;image/png
+10;21464;Harbors backing up;91780;e-commerce Ergonomic Concrete Salad;Ergonomic;93852;5859;../fake-data/blob/hipster.png;image/png

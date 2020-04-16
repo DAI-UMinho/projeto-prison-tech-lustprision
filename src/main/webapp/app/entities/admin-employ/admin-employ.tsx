@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -40,13 +40,19 @@ export const AdminEmploy = (props: IAdminEmployProps) => {
                   <Translate contentKey="lustPrisionApp.adminEmploy.nameAdminEmp">Name Admin Emp</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.adminEmploy.password">Password</Translate>
+                  <Translate contentKey="lustPrisionApp.adminEmploy.email">Email</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.adminEmploy.login">Login</Translate>
+                  <Translate contentKey="lustPrisionApp.adminEmploy.activated">Activated</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lustPrisionApp.adminEmploy.permission">Permission</Translate>
+                  <Translate contentKey="lustPrisionApp.adminEmploy.actitionKey">Actition Key</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.adminEmploy.resetKey">Reset Key</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.adminEmploy.resetDate">Reset Date</Translate>
                 </th>
                 <th />
               </tr>
@@ -60,10 +66,12 @@ export const AdminEmploy = (props: IAdminEmployProps) => {
                     </Button>
                   </td>
                   <td>{adminEmploy.nameAdminEmp}</td>
-                  <td>{adminEmploy.password}</td>
-                  <td>{adminEmploy.login ? <Link to={`login/${adminEmploy.login.id}`}>{adminEmploy.login.id}</Link> : ''}</td>
+                  <td>{adminEmploy.email}</td>
+                  <td>{adminEmploy.activated ? 'true' : 'false'}</td>
+                  <td>{adminEmploy.actitionKey}</td>
+                  <td>{adminEmploy.resetKey}</td>
                   <td>
-                    {adminEmploy.permission ? <Link to={`permission/${adminEmploy.permission.id}`}>{adminEmploy.permission.id}</Link> : ''}
+                    <TextFormat type="date" value={adminEmploy.resetDate} format={APP_DATE_FORMAT} />
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

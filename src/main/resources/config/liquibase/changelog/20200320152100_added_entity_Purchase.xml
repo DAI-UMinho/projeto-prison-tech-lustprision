@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity Purchase.
     -->
@@ -15,11 +15,18 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="purchase_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="purchase_total" type="double">
+                <constraints nullable="false" />
+            </column>
             <column name="prisioner_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+<!--        <dropDefaultValue tableName="purchase" columnName="jhi_date" columnDataType="datetime"/>-->
     </changeSet>
 
     <changeSet id="20200320152100-1-relations" author="jhipster">
@@ -41,6 +48,8 @@
                   separator=";"
                   tableName="purchase">
             <column name="id" type="numeric"/>
+            <column name="purchase_date" type="datetime"/>
+            <column name="purchase_total" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

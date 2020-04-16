@@ -9,12 +9,13 @@ import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import MaterialTable, {MTableToolbar, Column} from 'material-table';
 
 import {withStyles, Theme, createStyles, makeStyles} from '@material-ui/core/styles';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import {Moment} from "moment";
 
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { Ellipsis } from 'react-spinners-css';
+import {LinearProgress} from "@material-ui/core";
+import {Translate} from "react-jhipster";
 
 export interface IPrisionerProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
@@ -103,8 +104,8 @@ export const Prisioner = (props: IPrisionerProps) => {
               <Col md="8" xs="7">
                 <div className="numbers">
                   <p className="card-category">Número de Prisioneiros</p>
-                  <CardTitle tag="p">{prisionerList.length}</CardTitle>
-                  <p/>
+                  {loading ? (<Ellipsis color="#99c3ff" size={40}/> )
+                    : (<CardTitle tag="p">{prisionerList.length}</CardTitle>)}
                 </div>
               </Col>
             </Row>
@@ -123,8 +124,8 @@ export const Prisioner = (props: IPrisionerProps) => {
               <Col md="8" xs="7">
                 <div className="numbers">
                   <p className="card-category">Trabalhos Realizados</p>
-                  <CardTitle tag="p">0</CardTitle>
-                  <p/>
+                  {loading ? (<Ellipsis color="#99c3ff" size={40}/> )
+                    : (<CardTitle tag="p">0</CardTitle>)}
                 </div>
               </Col>
             </Row>
@@ -143,7 +144,9 @@ export const Prisioner = (props: IPrisionerProps) => {
                 </Col>
                 <Col md="8" xs="7">
                   <div className="numbers">
-                    <CardTitle tag="p" style={{color: '#ffffff'}}>New Prisoner</CardTitle>
+                    <CardTitle tag="p" style={{color: '#ffffff'}}>
+                      <Translate contentKey="lustPrisionApp.prisioner.home.newCard">New Prisoner</Translate>
+                    </CardTitle>
                     <p/>
                   </div>
                 </Col>
@@ -158,6 +161,7 @@ export const Prisioner = (props: IPrisionerProps) => {
             title=""
             columns={state.columns}
             data={data}
+            isLoading={loading}
             onRowClick={((evt, selectedRow) => {
               props.history.push(`${match.url}/${selectedRow.id}`)
             })}

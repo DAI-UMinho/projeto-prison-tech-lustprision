@@ -92,9 +92,9 @@ export const PressProductUpdate = (props: IPressProductUpdateProps) => {
               </AvGroup>
               <AvGroup>
                 <Label id="priceEachLabel" for="press-product-priceEach">
-                  <Translate contentKey="lustPrisionApp.pressProduct.priceEach">Price Each</Translate>
+                  <Translate contentKey="lustPrisionApp.pressProduct.priceEach">Price Total</Translate>
                 </Label>
-                <AvField id="press-product-priceEach" type="string" className="form-control" name="priceEach" />
+                <AvField id="press-product-priceEach" type="string" className="form-control" name="priceTotal" />
               </AvGroup>
               <AvGroup>
                 <Label for="press-product-purchase">

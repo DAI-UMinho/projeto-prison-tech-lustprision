@@ -7,6 +7,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IAdminEmploy } from 'app/shared/model/admin-employ.model';
+import { getEntities as getAdminEmploys } from 'app/entities/admin-employ/admin-employ.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './login.reducer';
 import { ILogin } from 'app/shared/model/login.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,9 +17,10 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface ILoginUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const LoginUpdate = (props: ILoginUpdateProps) => {
+  const [adminEmployId, setAdminEmployId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { loginEntity, loading, updating } = props;
+  const { loginEntity, adminEmploys, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/login');
@@ -29,6 +32,8 @@ export const LoginUpdate = (props: ILoginUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
+
+    props.getAdminEmploys();
   }, []);
 
   useEffect(() => {
@@ -93,6 +98,21 @@ export const LoginUpdate = (props: ILoginUpdateProps) => {
                 </Label>
                 <AvField id="login-type" type="text" name="type" />
               </AvGroup>
+              <AvGroup>
+                <Label for="login-adminEmploy">
+                  <Translate contentKey="lustPrisionApp.login.adminEmploy">Admin Employ</Translate>
+                </Label>
+                <AvInput id="login-adminEmploy" type="select" className="form-control" name="adminEmploy.id">
+                  <option value="" key="0" />
+                  {adminEmploys
+                    ? adminEmploys.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/login" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -115,6 +135,7 @@ export const LoginUpdate = (props: ILoginUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  adminEmploys: storeState.adminEmploy.entities,
   loginEntity: storeState.login.entity,
   loading: storeState.login.loading,
   updating: storeState.login.updating,
@@ -122,6 +143,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getAdminEmploys,
   getEntity,
   updateEntity,
   createEntity,

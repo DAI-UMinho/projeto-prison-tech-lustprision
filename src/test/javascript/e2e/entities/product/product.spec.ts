@@ -13,6 +13,7 @@ import {
   waitUntilCount,
   isVisible
 } from '../../util/utils';
+import path from 'path';
 
 const expect = chai.expect;
 
@@ -22,6 +23,8 @@ describe('Product e2e test', () => {
   let productComponentsPage: ProductComponentsPage;
   let productUpdatePage: ProductUpdatePage;
   let productDeleteDialog: ProductDeleteDialog;
+  const fileToUpload = '../../../../../../src/main/webapp/content/images/logo-jhipster.png';
+  const absolutePath = path.resolve(__dirname, fileToUpload);
   let beforeRecordsCount = 0;
 
   before(async () => {
@@ -73,6 +76,7 @@ describe('Product e2e test', () => {
     expect(await productUpdatePage.getQuantyInStockInput()).to.eq('5');
     await productUpdatePage.setBuyPriceInput('5');
     expect(await productUpdatePage.getBuyPriceInput()).to.eq('5');
+    await productUpdatePage.setImageInput(absolutePath);
     await waitUntilDisplayed(productUpdatePage.saveButton);
     await productUpdatePage.save();
     await waitUntilHidden(productUpdatePage.saveButton);

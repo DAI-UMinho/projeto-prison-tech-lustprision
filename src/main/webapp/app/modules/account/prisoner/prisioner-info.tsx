@@ -8,13 +8,24 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import {IRootState} from 'app/shared/reducers';
 import {createEntity, getEntity, reset, setBlob, updateEntity} from './prisioner.reducer';
-import PasswordStrengthBar from "app/shared/layout/password/password-strength-bar";
+import {CircularProgress} from "@material-ui/core";
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 
 export interface IPrisionerInfoProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string  }> {
 }
 
-export const PrisionerInfo = (props: IPrisionerInfoProps) => {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    spinner: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  }));
 
+export const PrisionerInfo = (props: IPrisionerInfoProps) => {
+  const classes = useStyles();
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const [password, setPassword] = useState('');
 
@@ -67,7 +78,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
           </CardHeader>
           <CardBody>
             {loading ? (
-              <p>Loading...</p>
+              <CircularProgress color="secondary" className={classes.spinner}/>
             ) : (
               <AvForm model={isNew ? {} : prisionerEntity} onSubmit={saveEntity}>
                 <div className="profile-wrap">
@@ -177,24 +188,44 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                            }}/>
                 </AvGroup>
                 <AvGroup>
-                  <Translate contentKey="lustPrisionApp.prisioner.password">Password</Translate>
-                  <AvField id="prisioner-password" type="password" name="password"
+                  <Translate contentKey="lustPrisionApp.prisioner.nfcCode">NFC Code</Translate>
+                  <AvField id="prisioner-bi" type="text" className="form-control" name="nfcCode"
+                           value={prisionerEntity.nfcCode}
                            validate={{
+                             number: true,
+                             required: {
+                               value: true,
+                               errorMessage: translate('lustPrisionApp.prisioner.validation.bi.required')
+                             },
+                             minLength: {
+                               value: 10,
+                               errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
+                             },
+                             maxLength: {
+                               value: 12,
+                               errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
+                             }
+                           }}/>
+                </AvGroup>
+                <AvGroup>
+                  <Translate contentKey="lustPrisionApp.prisioner.pinCode">PIN</Translate>
+                  <AvField id="prisioner-password" type="password" name="codigoCartao"
+                           value={prisionerEntity.codigoCartao}
+                           validate={{
+                             number: true,
                              required: {
                                value: true,
                                errorMessage: translate('global.messages.validate.newpassword.required')
                              },
                              minLength: {
-                               value: 6,
+                               value: 4,
                                errorMessage: translate('global.messages.validate.newpassword.minlength')
                              },
                              maxLength: {
-                               value: 50,
+                               value: 4,
                                errorMessage: translate('global.messages.validate.newpassword.maxlength')
                              }
-                           }}
-                           onChange={updatePassword}/>
-                  <PasswordStrengthBar password={password}/>
+                           }}/>
                 </AvGroup>
                 <AvField id="prisioner-password" type="hidden" name="balance" value="0"/>
                 <Button tag={Link} id="cancel-save" to="/dashboard/prisoners" replace color="info">

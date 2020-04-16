@@ -5,9 +5,11 @@ export default class AdminEmployUpdatePage {
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   nameAdminEmpInput: ElementFinder = element(by.css('input#admin-employ-nameAdminEmp'));
-  passwordInput: ElementFinder = element(by.css('input#admin-employ-password'));
-  loginSelect: ElementFinder = element(by.css('select#admin-employ-login'));
-  permissionSelect: ElementFinder = element(by.css('select#admin-employ-permission'));
+  emailInput: ElementFinder = element(by.css('input#admin-employ-email'));
+  activatedInput: ElementFinder = element(by.css('input#admin-employ-activated'));
+  actitionKeyInput: ElementFinder = element(by.css('input#admin-employ-actitionKey'));
+  resetKeyInput: ElementFinder = element(by.css('input#admin-employ-resetKey'));
+  resetDateInput: ElementFinder = element(by.css('input#admin-employ-resetDate'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -21,50 +23,39 @@ export default class AdminEmployUpdatePage {
     return this.nameAdminEmpInput.getAttribute('value');
   }
 
-  async setPasswordInput(password) {
-    await this.passwordInput.sendKeys(password);
+  async setEmailInput(email) {
+    await this.emailInput.sendKeys(email);
   }
 
-  async getPasswordInput() {
-    return this.passwordInput.getAttribute('value');
+  async getEmailInput() {
+    return this.emailInput.getAttribute('value');
   }
 
-  async loginSelectLastOption() {
-    await this.loginSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
+  getActivatedInput() {
+    return this.activatedInput;
+  }
+  async setActitionKeyInput(actitionKey) {
+    await this.actitionKeyInput.sendKeys(actitionKey);
   }
 
-  async loginSelectOption(option) {
-    await this.loginSelect.sendKeys(option);
+  async getActitionKeyInput() {
+    return this.actitionKeyInput.getAttribute('value');
   }
 
-  getLoginSelect() {
-    return this.loginSelect;
+  async setResetKeyInput(resetKey) {
+    await this.resetKeyInput.sendKeys(resetKey);
   }
 
-  async getLoginSelectedOption() {
-    return this.loginSelect.element(by.css('option:checked')).getText();
+  async getResetKeyInput() {
+    return this.resetKeyInput.getAttribute('value');
   }
 
-  async permissionSelectLastOption() {
-    await this.permissionSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
+  async setResetDateInput(resetDate) {
+    await this.resetDateInput.sendKeys(resetDate);
   }
 
-  async permissionSelectOption(option) {
-    await this.permissionSelect.sendKeys(option);
-  }
-
-  getPermissionSelect() {
-    return this.permissionSelect;
-  }
-
-  async getPermissionSelectedOption() {
-    return this.permissionSelect.element(by.css('option:checked')).getText();
+  async getResetDateInput() {
+    return this.resetDateInput.getAttribute('value');
   }
 
   async save() {

@@ -34,7 +34,9 @@ module.exports = (options) => webpackMerge(commonConfig({env: ENV}), {
           options: {implementation: sass}
         }
         ]
-      }
+      },
+      {test: /\.js$/ , loader:'babel-loader', exclude: '/node_modules/'},
+      {test: /\.jsx$/ , loader:'babel-loader', exclude: '/node_modules/'}
     ]
   },
   devServer: {

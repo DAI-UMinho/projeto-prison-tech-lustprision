@@ -7,10 +7,6 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { ILogin } from 'app/shared/model/login.model';
-import { getEntities as getLogins } from 'app/entities/login/login.reducer';
-import { IPermission } from 'app/shared/model/permission.model';
-import { getEntities as getPermissions } from 'app/entities/permission/permission.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './admin-employ.reducer';
 import { IAdminEmploy } from 'app/shared/model/admin-employ.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -19,11 +15,9 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IAdminEmployUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const AdminEmployUpdate = (props: IAdminEmployUpdateProps) => {
-  const [loginId, setLoginId] = useState('0');
-  const [permissionId, setPermissionId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { adminEmployEntity, logins, permissions, loading, updating } = props;
+  const { adminEmployEntity, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/admin-employ');
@@ -35,9 +29,6 @@ export const AdminEmployUpdate = (props: IAdminEmployUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
-
-    props.getLogins();
-    props.getPermissions();
   }, []);
 
   useEffect(() => {
@@ -47,6 +38,8 @@ export const AdminEmployUpdate = (props: IAdminEmployUpdateProps) => {
   }, [props.updateSuccess]);
 
   const saveEntity = (event, errors, values) => {
+    values.resetDate = convertDateTimeToServer(values.resetDate);
+
     if (errors.length === 0) {
       const entity = {
         ...adminEmployEntity,
@@ -91,40 +84,66 @@ export const AdminEmployUpdate = (props: IAdminEmployUpdateProps) => {
                 <AvField id="admin-employ-nameAdminEmp" type="text" name="nameAdminEmp" />
               </AvGroup>
               <AvGroup>
-                <Label id="passwordLabel" for="admin-employ-password">
-                  <Translate contentKey="lustPrisionApp.adminEmploy.password">Password</Translate>
+                <Label id="emailLabel" for="admin-employ-email">
+                  <Translate contentKey="lustPrisionApp.adminEmploy.email">Email</Translate>
                 </Label>
-                <AvField id="admin-employ-password" type="text" name="password" />
+                <AvField
+                  id="admin-employ-email"
+                  type="text"
+                  name="email"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    pattern: {
+                      value: '^[a-zA-Z0-9]*$',
+                      errorMessage: translate('entity.validation.pattern', { pattern: '^[a-zA-Z0-9]*$' })
+                    }
+                  }}
+                />
+              </AvGroup>
+              <AvGroup check>
+                <Label id="activatedLabel">
+                  <AvInput id="admin-employ-activated" type="checkbox" className="form-check-input" name="activated" />
+                  <Translate contentKey="lustPrisionApp.adminEmploy.activated">Activated</Translate>
+                </Label>
               </AvGroup>
               <AvGroup>
-                <Label for="admin-employ-login">
-                  <Translate contentKey="lustPrisionApp.adminEmploy.login">Login</Translate>
+                <Label id="actitionKeyLabel" for="admin-employ-actitionKey">
+                  <Translate contentKey="lustPrisionApp.adminEmploy.actitionKey">Actition Key</Translate>
                 </Label>
-                <AvInput id="admin-employ-login" type="select" className="form-control" name="login.id">
-                  <option value="" key="0" />
-                  {logins
-                    ? logins.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
+                <AvField
+                  id="admin-employ-actitionKey"
+                  type="text"
+                  name="actitionKey"
+                  validate={{
+                    maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
+                  }}
+                />
               </AvGroup>
               <AvGroup>
-                <Label for="admin-employ-permission">
-                  <Translate contentKey="lustPrisionApp.adminEmploy.permission">Permission</Translate>
+                <Label id="resetKeyLabel" for="admin-employ-resetKey">
+                  <Translate contentKey="lustPrisionApp.adminEmploy.resetKey">Reset Key</Translate>
                 </Label>
-                <AvInput id="admin-employ-permission" type="select" className="form-control" name="permission.id">
-                  <option value="" key="0" />
-                  {permissions
-                    ? permissions.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
+                <AvField
+                  id="admin-employ-resetKey"
+                  type="text"
+                  name="resetKey"
+                  validate={{
+                    maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
+                <Label id="resetDateLabel" for="admin-employ-resetDate">
+                  <Translate contentKey="lustPrisionApp.adminEmploy.resetDate">Reset Date</Translate>
+                </Label>
+                <AvInput
+                  id="admin-employ-resetDate"
+                  type="datetime-local"
+                  className="form-control"
+                  name="resetDate"
+                  placeholder={'YYYY-MM-DD HH:mm'}
+                  value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.adminEmployEntity.resetDate)}
+                />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/admin-employ" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
@@ -148,8 +167,6 @@ export const AdminEmployUpdate = (props: IAdminEmployUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  logins: storeState.login.entities,
-  permissions: storeState.permission.entities,
   adminEmployEntity: storeState.adminEmploy.entity,
   loading: storeState.adminEmploy.loading,
   updating: storeState.adminEmploy.updating,
@@ -157,8 +174,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getLogins,
-  getPermissions,
   getEntity,
   updateEntity,
   createEntity,

@@ -5,7 +5,15 @@ import {Col, Row, Card, CardBody, CardTitle} from 'reactstrap';
 
 import {IRootState} from 'app/shared/reducers';
 import {getPrisionerWorks} from './prisioner.reducer';
+import {deleteWork} from "app/entities/work/work.reducer";
 import MaterialTable, {Column} from "material-table";
+import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from "app/config/constants";
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import {TextFormat} from "react-jhipster";
+
+const MySwal = withReactContent(Swal);
 
 interface TableState {
   columns: Array<Column<any>>;
@@ -16,14 +24,14 @@ export interface IPrisionerWorkProps extends StateProps, DispatchProps, RouteCom
 
 export const PrisionerWork = (props: IPrisionerWorkProps) => {
   const [data, setData] = useState([]);
-  const {prisionerWorks} = props;
+  const {prisionerWorks, updateSuccess} = props;
 
   const [state, setState] = React.useState<TableState>({
     columns: [
       {title: 'Identificação', field: 'id', render: rowData => <i>#{rowData.id}</i>},
-      {title: 'Prisoner Num', field: 'nameWork'},
+      {title: 'Nome', field: 'nameWork'},
       {title: 'Data', field: 'dateWork', type: 'date'},
-      {title: 'Preço Hora', field: 'priceHour'},
+      {title: 'Créditos', field: 'totalCredits'},
       {title: 'Estado', field: 'state', render: rowData => <span className="span-status" style={{border: '1px solid rgb(67, 160, 71)', color: 'rgb(67, 160, 71)'}}>CONCLUIDO</span>},
     ]
   });
@@ -54,6 +62,36 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
                   }
                 }
               }}
+              actions={[
+                {
+                  icon: 'delete',
+                  tooltip: 'Remover trabalho',
+                  onClick: (event, rowData) => {
+                    MySwal.fire({
+                      title: <p>Apagar Trabalho?</p>,
+                      text: "Não é possivel reverter esta operação!",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Apagar!'
+                    }).then((result) => {
+                      if (result.value) {
+                        return props.deleteWork(rowData.id);
+                      }
+                    }).then((result: any) => {
+                      if(result.value.status === 204){
+                        props.getPrisionerWorks(props.match.params.id);
+                        Swal.fire(
+                          'Sucesso!',
+                          'O trabalho deste presioneiro foi removido.',
+                          'success'
+                        )
+                      }
+                    })
+                  }
+                }
+              ]}
             />
         </Card>
       </Col>
@@ -117,11 +155,12 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
   );
 };
 
-const mapStateToProps = ({prisioner}: IRootState) => ({
-  prisionerWorks: prisioner.works,
+const mapStateToProps = (state: IRootState) => ({
+  prisionerWorks: state.prisioner.works,
+  updateSuccess: state.work.updateSuccess,
 });
 
-const mapDispatchToProps = {getPrisionerWorks};
+const mapDispatchToProps = {getPrisionerWorks, deleteWork};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -8,12 +8,6 @@
     -->
     <changeSet id="20200320151300-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="login_id"
-                                 baseTableName="prisioner"
-                                 constraintName="fk_prisioner_login_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="login"/>
-
         <addForeignKeyConstraint baseColumnNames="permission_id"
                                  baseTableName="prisioner"
                                  constraintName="fk_prisioner_permission_id"

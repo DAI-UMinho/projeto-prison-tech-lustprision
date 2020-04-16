@@ -7,6 +7,7 @@ export default class LoginUpdatePage {
   userNameInput: ElementFinder = element(by.css('input#login-userName'));
   passwordInput: ElementFinder = element(by.css('input#login-password'));
   typeInput: ElementFinder = element(by.css('input#login-type'));
+  adminEmploySelect: ElementFinder = element(by.css('select#login-adminEmploy'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -34,6 +35,25 @@ export default class LoginUpdatePage {
 
   async getTypeInput() {
     return this.typeInput.getAttribute('value');
+  }
+
+  async adminEmploySelectLastOption() {
+    await this.adminEmploySelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async adminEmploySelectOption(option) {
+    await this.adminEmploySelect.sendKeys(option);
+  }
+
+  getAdminEmploySelect() {
+    return this.adminEmploySelect;
+  }
+
+  async getAdminEmploySelectedOption() {
+    return this.adminEmploySelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

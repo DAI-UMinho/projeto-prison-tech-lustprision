@@ -85,13 +85,19 @@ export const WorkUpdate = (props: IWorkUpdateProps) => {
                 <Label id="priceHourLabel" for="work-priceHour">
                   <Translate contentKey="lustPrisionApp.work.priceHour">Price Hour</Translate>
                 </Label>
-                <AvField id="work-priceHour" type="string" className="form-control" name="priceHour" />
+                <AvField id="work-priceHour" type="string" className="form-control" name="totalCredits" />
               </AvGroup>
               <AvGroup>
                 <Label id="numVacanciesLabel" for="work-numVacancies">
                   <Translate contentKey="lustPrisionApp.work.numVacancies">Num Vacancies</Translate>
                 </Label>
-                <AvField id="work-numVacancies" type="string" className="form-control" name="numVacancies" />
+                <AvField id="work-numVacancies" type="string" className="form-control" name="numRemainingEntries" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="dateLabel" for="work-date">
+                  <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
+                </Label>
+                <AvField id="work-date" type="date" className="form-control" name="dateWork" />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/work" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />

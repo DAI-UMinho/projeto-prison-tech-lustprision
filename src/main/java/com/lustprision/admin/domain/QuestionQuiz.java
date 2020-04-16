@@ -23,6 +23,9 @@ public class QuestionQuiz implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Column(name = "question_answer")
+    private String questionAnswer;
+
     @ManyToOne
     @JsonIgnoreProperties("ids")
     private Quiz quiz;
@@ -38,6 +41,19 @@ public class QuestionQuiz implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getQuestionAnswer() {
+        return questionAnswer;
+    }
+
+    public QuestionQuiz questionAnswer(String questionAnswer) {
+        this.questionAnswer = questionAnswer;
+        return this;
+    }
+
+    public void setQuestionAnswer(String questionAnswer) {
+        this.questionAnswer = questionAnswer;
     }
 
     public Quiz getQuiz() {
@@ -87,6 +103,7 @@ public class QuestionQuiz implements Serializable {
     public String toString() {
         return "QuestionQuiz{" +
             "id=" + getId() +
+            ", questionAnswer='" + getQuestionAnswer() + "'" +
             "}";
     }
 }

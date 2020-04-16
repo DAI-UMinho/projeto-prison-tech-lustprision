@@ -78,10 +78,11 @@ describe('Prisioner e2e test', () => {
     expect(await prisionerUpdatePage.getBalanceInput()).to.eq('5');
     await prisionerUpdatePage.setWorkingInput('5');
     expect(await prisionerUpdatePage.getWorkingInput()).to.eq('5');
-    await prisionerUpdatePage.setPasswordInput('password');
-    expect(await prisionerUpdatePage.getPasswordInput()).to.match(/password/);
     await prisionerUpdatePage.setProfileImageInput(absolutePath);
-    await prisionerUpdatePage.loginSelectLastOption();
+    await prisionerUpdatePage.setNfcCodeInput('5');
+    expect(await prisionerUpdatePage.getNfcCodeInput()).to.eq('5');
+    await prisionerUpdatePage.setCodigoCartaoInput('5');
+    expect(await prisionerUpdatePage.getCodigoCartaoInput()).to.eq('5');
     await prisionerUpdatePage.permissionSelectLastOption();
     await waitUntilDisplayed(prisionerUpdatePage.saveButton);
     await prisionerUpdatePage.save();

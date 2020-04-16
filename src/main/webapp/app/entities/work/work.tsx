@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -45,6 +45,9 @@ export const Work = (props: IWorkProps) => {
                 <th>
                   <Translate contentKey="lustPrisionApp.work.numVacancies">Num Vacancies</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -59,6 +62,9 @@ export const Work = (props: IWorkProps) => {
                   <td>{work.nameWork}</td>
                   <td>{work.priceHour}</td>
                   <td>{work.numVacancies}</td>
+                  <td>
+                    <TextFormat type="date" value={work.date} format={APP_LOCAL_DATE_FORMAT} />
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${work.id}`} color="info" size="sm">

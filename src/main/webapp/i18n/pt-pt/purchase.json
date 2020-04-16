@@ -16,6 +16,8 @@
       "detail": {
         "title": "Purchase"
       },
+      "date": "Date",
+      "purchaseTotal": "Purchase Total",
       "id": "Id",
       "prisioner": "Prisioner"
     }

@@ -2,6 +2,9 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Purchase;
 import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.service.PurchaseService;
+import com.lustprision.admin.service.dto.PressProductDTO;
+import com.lustprision.admin.service.dto.PressProductExtendedDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -13,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -35,8 +39,11 @@ public class PurchaseResource {
 
     private final PurchaseRepository purchaseRepository;
 
-    public PurchaseResource(PurchaseRepository purchaseRepository) {
+    private final PurchaseService purchaseService;
+
+    public PurchaseResource(PurchaseRepository purchaseRepository, PurchaseService purchaseService) {
         this.purchaseRepository = purchaseRepository;
+        this.purchaseService = purchaseService;
     }
 
     /**
@@ -47,7 +54,7 @@ public class PurchaseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/purchases")
-    public ResponseEntity<Purchase> createPurchase(@RequestBody Purchase purchase) throws URISyntaxException {
+    public ResponseEntity<Purchase> createPurchase(@Valid @RequestBody Purchase purchase) throws URISyntaxException {
         log.debug("REST request to save Purchase : {}", purchase);
         if (purchase.getId() != null) {
             throw new BadRequestAlertException("A new purchase cannot already have an ID", ENTITY_NAME, "idexists");
@@ -68,7 +75,7 @@ public class PurchaseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/purchases")
-    public ResponseEntity<Purchase> updatePurchase(@RequestBody Purchase purchase) throws URISyntaxException {
+    public ResponseEntity<Purchase> updatePurchase(@Valid @RequestBody Purchase purchase) throws URISyntaxException {
         log.debug("REST request to update Purchase : {}", purchase);
         if (purchase.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -114,5 +121,12 @@ public class PurchaseResource {
         log.debug("REST request to delete Purchase : {}", id);
         purchaseRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/purchases/{id}/pres-products")
+    public List<PressProductExtendedDTO> getPurchaseProductList(@PathVariable Long id) {
+        log.debug("REST request to get Purchase : {}", id);
+//        return purchaseService.getPurchasePresProduct(id);
+        return purchaseService.getPurchaseProductListInfo(id);
     }
 }

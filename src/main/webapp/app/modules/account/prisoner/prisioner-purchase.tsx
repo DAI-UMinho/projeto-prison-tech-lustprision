@@ -5,6 +5,7 @@ import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle} from 'reactstra
 
 import {IRootState} from 'app/shared/reducers';
 import {getPrisonerPurchases} from './prisioner.reducer';
+import { APP_DATE_FORMAT } from 'app/config/constants';
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -13,8 +14,13 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
+import MaterialTable, {Column} from "material-table";
+import PurchaseDetailDialog from "app/modules/account/prisoner/prisioner-purchase-details";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import {TextFormat} from "react-jhipster";
 
-const StyledTableCell = withStyles((theme) => ({
+/*const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
@@ -36,43 +42,97 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
-});
+});*/
+interface TableState {
+  columns: Array<Column<any>>;
+}
+
+const MySwal = withReactContent(Swal);
 
 export interface IPrisionerPurchaseProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string  }> {
 }
 
 export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
-  const classes = useStyles();
+  // const classes = useStyles();
+  const [selectedID, setSelectedID] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState('AMERICA');
+  const [state, setState] = React.useState<TableState>({
+    columns: [
+      {title: 'Numero de Compra', field: 'id', render: rowData => <i>#{rowData.id}</i>},
+      {title: 'Data', field: 'date', type: 'datetime', render: rowData => <TextFormat value={rowData.date} type="date" format={APP_DATE_FORMAT} blankOnInvalid />},
+      {title: 'Valor Total', field: 'purchaseTotal'},
+    ]
+  });
+
+  const purchaseDelete = () =>{
+    MySwal.fire({
+      title: <p>Reverter Compra?</p>,
+      text: "Os créditos irão ser devolvidos ao comprador",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#dd791e',
+      confirmButtonText: 'Reverter!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Compra Revertida!',
+          'Os créditos gastos na compra foram repostos',
+          'success'
+        )
+      }
+    })
+  }
+
+  const purchaseClick = id => {
+    setSelectedID(id);
+    setOpen(true);
+  };
+
+  const handleDialogClose = (value: string) => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
+
   const {prisionerPurchases} = props;
 
   return (
     <Row className="justify-content-center">
       <Col md="8">
         <Card className="card-user justify-content-center">
-          <CardHeader>
-            <CardTitle tag="h5">Todas as compras</CardTitle>
-          </CardHeader>
-          <CardBody>
-            <TableContainer component={Paper}>
-              <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>Numero da Compra</StyledTableCell>
-                    <StyledTableCell>Items</StyledTableCell>
-                    <StyledTableCell>Valor</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {prisionerPurchases.map((row) => (
-                    <StyledTableRow key={row.name}>
-                      <StyledTableCell component="th" scope="row">#{row.id}</StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </CardBody>
+          <MaterialTable
+            title="Compras Efetuadas"
+            columns={state.columns}
+            data={prisionerPurchases}
+            onRowClick={((evt, selectedRow) => {purchaseClick(selectedRow.id)})}
+            options={{
+              headerStyle: {
+                backgroundColor: '#8a8a8a',
+                color: '#FFF',
+                fontWeight: 'bold'
+              },
+              actionsColumnIndex: -1,
+              exportButton: true
+            }}
+            actions={[
+              {
+                icon: 'replay',
+                tooltip: 'Reverter Compra',
+                onClick: (event, rowData) => { purchaseDelete() }
+              }
+            ]}
+            localization={{
+              body: {
+                emptyDataSourceMessage: "Não existem compras efetuadas por este presidiário",
+                editRow: {
+                  deleteText: "Tem a certeza que quer eliminar esta compra!?"
+                }
+              }
+            }}
+          />
         </Card>
+        <PurchaseDetailDialog open={open} selectedValue={selectedValue} onClose={handleDialogClose} purchaseID={selectedID}/>
       </Col>
     </Row>
   );

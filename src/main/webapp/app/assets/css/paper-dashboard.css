@@ -6447,3 +6447,7 @@ a:focus {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-weight: 700;
 }
+
+.center-div-alone {
+  text-align: center;
+}

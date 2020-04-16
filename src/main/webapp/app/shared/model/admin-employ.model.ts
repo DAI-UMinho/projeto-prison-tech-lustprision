@@ -1,12 +1,15 @@
-import { ILogin } from 'app/shared/model/login.model';
-import { IPermission } from 'app/shared/model/permission.model';
+import { Moment } from 'moment';
 
 export interface IAdminEmploy {
   id?: number;
   nameAdminEmp?: string;
-  password?: string;
-  login?: ILogin;
-  permission?: IPermission;
+  email?: string;
+  activated?: boolean;
+  actitionKey?: string;
+  resetKey?: string;
+  resetDate?: Moment;
 }
 
-export const defaultValue: Readonly<IAdminEmploy> = {};
+export const defaultValue: Readonly<IAdminEmploy> = {
+  activated: false
+};

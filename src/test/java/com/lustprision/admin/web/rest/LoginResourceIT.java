@@ -2,6 +2,7 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Login;
+import com.lustprision.admin.domain.AdminEmploy;
 import com.lustprision.admin.repository.LoginRepository;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -87,6 +88,16 @@ public class LoginResourceIT {
             .userName(DEFAULT_USER_NAME)
             .password(DEFAULT_PASSWORD)
             .type(DEFAULT_TYPE);
+        // Add required entity
+        AdminEmploy adminEmploy;
+        if (TestUtil.findAll(em, AdminEmploy.class).isEmpty()) {
+            adminEmploy = AdminEmployResourceIT.createEntity(em);
+            em.persist(adminEmploy);
+            em.flush();
+        } else {
+            adminEmploy = TestUtil.findAll(em, AdminEmploy.class).get(0);
+        }
+        login.setAdminEmploy(adminEmploy);
         return login;
     }
     /**
@@ -100,6 +111,16 @@ public class LoginResourceIT {
             .userName(UPDATED_USER_NAME)
             .password(UPDATED_PASSWORD)
             .type(UPDATED_TYPE);
+        // Add required entity
+        AdminEmploy adminEmploy;
+        if (TestUtil.findAll(em, AdminEmploy.class).isEmpty()) {
+            adminEmploy = AdminEmployResourceIT.createUpdatedEntity(em);
+            em.persist(adminEmploy);
+            em.flush();
+        } else {
+            adminEmploy = TestUtil.findAll(em, AdminEmploy.class).get(0);
+        }
+        login.setAdminEmploy(adminEmploy);
         return login;
     }
 

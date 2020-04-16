@@ -4,10 +4,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A Login.
@@ -27,23 +26,16 @@ public class Login implements Serializable {
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "jhi_password")
+    @Column(name = "password_hash")
     private String password;
 
     @Column(name = "jhi_type")
     private String type;
 
-    @OneToMany(mappedBy = "login")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Prisioner> ids = new HashSet<>();
-
-    @OneToMany(mappedBy = "login")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<SystemAdmin> idsystem = new HashSet<>();
-
-    @OneToMany(mappedBy = "login")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AdminEmploy> idadmin = new HashSet<>();
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = true)
+    private AdminEmploy adminEmploy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -93,80 +85,18 @@ public class Login implements Serializable {
         this.type = type;
     }
 
-/*    public Set<Prisioner> getIds() {
-        return ids;
+    public AdminEmploy getAdminEmploy() {
+        return adminEmploy;
     }
 
-    public Login ids(Set<Prisioner> prisioners) {
-        this.ids = prisioners;
-        return this;
-    }*/
-
-    public Login addId(Prisioner prisioner) {
-        this.ids.add(prisioner);
-        prisioner.setLogin(this);
+    public Login adminEmploy(AdminEmploy adminEmploy) {
+        this.adminEmploy = adminEmploy;
         return this;
     }
 
-    public Login removeId(Prisioner prisioner) {
-        this.ids.remove(prisioner);
-        prisioner.setLogin(null);
-        return this;
+    public void setAdminEmploy(AdminEmploy adminEmploy) {
+        this.adminEmploy = adminEmploy;
     }
-
-/*    public void setIds(Set<Prisioner> prisioners) {
-        this.ids = prisioners;
-    }
-
-    public Set<SystemAdmin> getIds() {
-        return ids;
-    }
-
-    public Login ids(Set<SystemAdmin> systemAdmins) {
-        this.ids = systemAdmins;
-        return this;
-    }*//*
-
-    public Login addId(SystemAdmin systemAdmin) {
-        this.ids.add(systemAdmin);
-        systemAdmin.setLogin(this);
-        return this;
-    }*/
-
-    public Login removeId(SystemAdmin systemAdmin) {
-        this.ids.remove(systemAdmin);
-        systemAdmin.setLogin(null);
-        return this;
-    }
-
-/*    public void setIds(Set<SystemAdmin> systemAdmins) {
-        this.ids = systemAdmins;
-    }
-
-    public Set<AdminEmploy> getIds() {
-        return ids;
-    }
-
-    public Login ids(Set<AdminEmploy> adminEmploys) {
-        this.ids = adminEmploys;
-        return this;
-    }
-
-    public Login addId(AdminEmploy adminEmploy) {
-        this.ids.add(adminEmploy);
-        adminEmploy.setLogin(this);
-        return this;
-    }*/
-
-    public Login removeId(AdminEmploy adminEmploy) {
-        this.ids.remove(adminEmploy);
-        adminEmploy.setLogin(null);
-        return this;
-    }
-
-/*    public void setIds(Set<AdminEmploy> adminEmploys) {
-        this.ids = adminEmploys;
-    }*/
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

@@ -33,6 +33,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class QuestionQuizResourceIT {
 
+    private static final String DEFAULT_QUESTION_ANSWER = "AAAAAAAAAA";
+    private static final String UPDATED_QUESTION_ANSWER = "BBBBBBBBBB";
+
     @Autowired
     private QuestionQuizRepository questionQuizRepository;
 
@@ -74,7 +77,8 @@ public class QuestionQuizResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static QuestionQuiz createEntity(EntityManager em) {
-        QuestionQuiz questionQuiz = new QuestionQuiz();
+        QuestionQuiz questionQuiz = new QuestionQuiz()
+            .questionAnswer(DEFAULT_QUESTION_ANSWER);
         return questionQuiz;
     }
     /**
@@ -84,7 +88,8 @@ public class QuestionQuizResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static QuestionQuiz createUpdatedEntity(EntityManager em) {
-        QuestionQuiz questionQuiz = new QuestionQuiz();
+        QuestionQuiz questionQuiz = new QuestionQuiz()
+            .questionAnswer(UPDATED_QUESTION_ANSWER);
         return questionQuiz;
     }
 
@@ -108,6 +113,7 @@ public class QuestionQuizResourceIT {
         List<QuestionQuiz> questionQuizList = questionQuizRepository.findAll();
         assertThat(questionQuizList).hasSize(databaseSizeBeforeCreate + 1);
         QuestionQuiz testQuestionQuiz = questionQuizList.get(questionQuizList.size() - 1);
+        assertThat(testQuestionQuiz.getQuestionAnswer()).isEqualTo(DEFAULT_QUESTION_ANSWER);
     }
 
     @Test
@@ -140,7 +146,8 @@ public class QuestionQuizResourceIT {
         restQuestionQuizMockMvc.perform(get("/api/question-quizs?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(questionQuiz.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(questionQuiz.getId().intValue())))
+            .andExpect(jsonPath("$.[*].questionAnswer").value(hasItem(DEFAULT_QUESTION_ANSWER)));
     }
     
     @Test
@@ -153,7 +160,8 @@ public class QuestionQuizResourceIT {
         restQuestionQuizMockMvc.perform(get("/api/question-quizs/{id}", questionQuiz.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(questionQuiz.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(questionQuiz.getId().intValue()))
+            .andExpect(jsonPath("$.questionAnswer").value(DEFAULT_QUESTION_ANSWER));
     }
 
     @Test
@@ -176,6 +184,8 @@ public class QuestionQuizResourceIT {
         QuestionQuiz updatedQuestionQuiz = questionQuizRepository.findById(questionQuiz.getId()).get();
         // Disconnect from session so that the updates on updatedQuestionQuiz are not directly saved in db
         em.detach(updatedQuestionQuiz);
+        updatedQuestionQuiz
+            .questionAnswer(UPDATED_QUESTION_ANSWER);
 
         restQuestionQuizMockMvc.perform(put("/api/question-quizs")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -186,6 +196,7 @@ public class QuestionQuizResourceIT {
         List<QuestionQuiz> questionQuizList = questionQuizRepository.findAll();
         assertThat(questionQuizList).hasSize(databaseSizeBeforeUpdate);
         QuestionQuiz testQuestionQuiz = questionQuizList.get(questionQuizList.size() - 1);
+        assertThat(testQuestionQuiz.getQuestionAnswer()).isEqualTo(UPDATED_QUESTION_ANSWER);
     }
 
     @Test

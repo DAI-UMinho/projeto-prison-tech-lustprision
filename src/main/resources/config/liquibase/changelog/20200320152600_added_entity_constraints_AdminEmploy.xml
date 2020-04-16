@@ -7,18 +7,12 @@
         Added the constraints for entity AdminEmploy.
     -->
     <changeSet id="20200320152600-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="login_id"
-                                 baseTableName="admin_employ"
-                                 constraintName="fk_admin_employ_login_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="login"/>
 
-        <addForeignKeyConstraint baseColumnNames="permission_id"
+        <addForeignKeyConstraint baseColumnNames="authority_name"
                                  baseTableName="admin_employ"
-                                 constraintName="fk_admin_employ_permission_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="permission"/>
+                                 constraintName="fk_admin_employ_authority_id"
+                                 referencedColumnNames="name"
+                                 referencedTableName="jhi_authority"/>
 
     </changeSet>
 </databaseChangeLog>

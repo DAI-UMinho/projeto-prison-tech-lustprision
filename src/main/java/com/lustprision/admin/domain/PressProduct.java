@@ -26,8 +26,8 @@ public class PressProduct implements Serializable {
     @Column(name = "qty")
     private Integer qty;
 
-    @Column(name = "price_each")
-    private Long priceEach;
+    @Column(name = "price_total")
+    private Long priceTotal;
 
     @ManyToOne
     @JsonIgnoreProperties("ids")
@@ -59,17 +59,17 @@ public class PressProduct implements Serializable {
         this.qty = qty;
     }
 
-    public Long getPriceEach() {
-        return priceEach;
+    public Long getPriceTotal() {
+        return priceTotal;
     }
 
     public PressProduct priceEach(Long priceEach) {
-        this.priceEach = priceEach;
+        this.priceTotal = priceEach;
         return this;
     }
 
-    public void setPriceEach(Long priceEach) {
-        this.priceEach = priceEach;
+    public void setPriceTotal(Long priceEach) {
+        this.priceTotal = priceEach;
     }
 
     public Purchase getPurchase() {
@@ -120,7 +120,7 @@ public class PressProduct implements Serializable {
         return "PressProduct{" +
             "id=" + getId() +
             ", qty=" + getQty() +
-            ", priceEach=" + getPriceEach() +
+            ", priceEach=" + getPriceTotal() +
             "}";
     }
 }

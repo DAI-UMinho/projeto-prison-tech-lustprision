@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, protractor } from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
@@ -63,10 +63,22 @@ describe('AdminEmploy e2e test', () => {
     await adminEmployComponentsPage.createButton.click();
     await adminEmployUpdatePage.setNameAdminEmpInput('nameAdminEmp');
     expect(await adminEmployUpdatePage.getNameAdminEmpInput()).to.match(/nameAdminEmp/);
-    await adminEmployUpdatePage.setPasswordInput('password');
-    expect(await adminEmployUpdatePage.getPasswordInput()).to.match(/password/);
-    await adminEmployUpdatePage.loginSelectLastOption();
-    await adminEmployUpdatePage.permissionSelectLastOption();
+    await adminEmployUpdatePage.setEmailInput('email');
+    expect(await adminEmployUpdatePage.getEmailInput()).to.match(/email/);
+    const selectedActivated = await adminEmployUpdatePage.getActivatedInput().isSelected();
+    if (selectedActivated) {
+      await adminEmployUpdatePage.getActivatedInput().click();
+      expect(await adminEmployUpdatePage.getActivatedInput().isSelected()).to.be.false;
+    } else {
+      await adminEmployUpdatePage.getActivatedInput().click();
+      expect(await adminEmployUpdatePage.getActivatedInput().isSelected()).to.be.true;
+    }
+    await adminEmployUpdatePage.setActitionKeyInput('actitionKey');
+    expect(await adminEmployUpdatePage.getActitionKeyInput()).to.match(/actitionKey/);
+    await adminEmployUpdatePage.setResetKeyInput('resetKey');
+    expect(await adminEmployUpdatePage.getResetKeyInput()).to.match(/resetKey/);
+    await adminEmployUpdatePage.setResetDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+    expect(await adminEmployUpdatePage.getResetDateInput()).to.contain('2001-01-01T02:30');
     await waitUntilDisplayed(adminEmployUpdatePage.saveButton);
     await adminEmployUpdatePage.save();
     await waitUntilHidden(adminEmployUpdatePage.saveButton);

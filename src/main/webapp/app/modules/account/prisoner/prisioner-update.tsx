@@ -7,16 +7,16 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {IRootState} from "app/shared/reducers";
-import {getEntities as getLogins} from "app/entities/login/login.reducer";
-import {getEntities as getPermissions} from "app/entities/permission/permission.reducer";
 
-import {getPrisonerPurchases, getEntity, getPrisionerWorks} from "./prisioner.reducer";
+import {getPrisonerPurchases, getEntity, getPrisionerWorks, getPrisionerQuizs} from "./prisioner.reducer";
+import {deleteWork} from "app/entities/work/work.reducer";
 import {connect} from "react-redux";
 import PrisionerInfo from "app/modules/account/prisoner/prisioner-info";
 import PrivateRoute from "app/shared/auth/private-route";
 import {PrisionerDetail} from "app/entities/prisioner/prisioner-detail";
 import {PrisionerWork} from "app/modules/account/prisoner/prisioner-work";
 import {PrisionerPurchase} from "app/modules/account/prisoner/prisioner-purchase";
+import {PrisionerQuiz} from "app/modules/account/prisoner/prisioner-quiz";
 
 interface TabPanelProps {
   children?: any;
@@ -53,10 +53,11 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
   const [permissionId, setPermissionId] = useState('0');
   const [purchaseData, setPurchaseData] = useState([]);
   const [workData, setWorkData] = useState([]);
+  const [quizData, setQuizDate] = useState([]);
   const [value, setValue] = React.useState(0);
 
 /*  const {logins, permissions, prisionerPurchases, match} = props;*/
-  const {prisionerEntity, prisionerPurchases, loading, updating} = props;
+  const {prisionerEntity, prisionerPurchases, prisionerQuizs, loading, updating} = props;
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -74,16 +75,18 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
     }
   }, [props.prisionerWorks]);
 
-/*  useEffect(() => {
-    if (props.prisionerPurchases && props.prisionerPurchases.length > 0) {
-      setPurchaseData(props.prisionerPurchases.concat);
+
+  useEffect(() => {
+    if (props.prisionerQuizs && props.prisionerQuizs.length > 0) {
+      setQuizDate(props.prisionerQuizs);
     }
-  }, [props.prisionerPurchases]);*/
+  }, [props.prisionerQuizs]);
 
   useEffect(() => {
     props.getEntity(props.match.params.id);
     props.getPrisionerWorks(props.match.params.id);
     props.getPrisonerPurchases(props.match.params.id);
+    props.getPrisionerQuizs(props.match.params.id);
   }, []);
 
   function TabPanel(props: TabPanelProps) {
@@ -125,7 +128,7 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
         <PrisionerPurchase {...props} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Three
+        <PrisionerQuiz {...props}/>
       </TabPanel>
     </div>
   );
@@ -137,6 +140,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   prisionerPurchases: storeState.prisioner.purchases,
   prisionerEntity: storeState.prisioner.entity,
   prisionerWorks: storeState.prisioner.works,
+  prisionerQuizs: storeState.prisioner.quizs,
   loading: storeState.prisioner.loading,
   updating: storeState.prisioner.updating,
   updateSuccess: storeState.prisioner.updateSuccess
@@ -146,6 +150,8 @@ const mapDispatchToProps = {
   getEntity,
   getPrisonerPurchases,
   getPrisionerWorks,
+  getPrisionerQuizs,
+  deleteWork
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

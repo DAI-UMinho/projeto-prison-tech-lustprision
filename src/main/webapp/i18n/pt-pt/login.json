@@ -34,11 +34,9 @@
         "title": "Login"
       },
       "userName": "User Name",
-      "password": "Palavra-passe",
+      "password": "Password",
       "type": "Type",
-      "id": "Id",
-      "id": "Id",
-      "id": "Id"
+      "adminEmploy": "Admin Employ"
     }
   }
 }

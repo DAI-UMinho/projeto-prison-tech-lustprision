@@ -5,6 +5,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -47,8 +50,11 @@ public class Prisioner implements Serializable {
     @Column(name = "working")
     private Integer working;
 
-    @Column(name = "jhi_password")
-    private String password;
+    @Column(name = "nfc_code")
+    private Integer nfcCode;
+
+    @Column(name = "codigo_cartao")
+    private Integer codigoCartao;
 
     @Lob
     @Column(name = "profile_image")
@@ -68,10 +74,6 @@ public class Prisioner implements Serializable {
     @OneToMany(mappedBy = "prisioner")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Purchase> idsaa = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties("ids")
-    private Login login;
 
     @ManyToOne
     @JsonIgnoreProperties("ids")
@@ -177,19 +179,6 @@ public class Prisioner implements Serializable {
         this.working = working;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public Prisioner password(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public byte[] getProfileImage() {
         return profileImage;
     }
@@ -216,6 +205,31 @@ public class Prisioner implements Serializable {
         this.profileImageContentType = profileImageContentType;
     }
 
+    public Integer getNfcCode() {
+        return nfcCode;
+    }
+
+    public Prisioner nfcCode(Integer nfcCode) {
+        this.nfcCode = nfcCode;
+        return this;
+    }
+
+    public void setNfcCode(Integer nfcCode) {
+        this.nfcCode = nfcCode;
+    }
+
+    public Integer getCodigoCartao() {
+        return codigoCartao;
+    }
+
+    public Prisioner codigoCartao(Integer codigoCartao) {
+        this.codigoCartao = codigoCartao;
+        return this;
+    }
+
+    public void setCodigoCartao(Integer codigoCartao) {
+        this.codigoCartao = codigoCartao;
+    }
   /*  public Set<PressWork> getIds() {
         return ids;
     }
@@ -291,19 +305,6 @@ public class Prisioner implements Serializable {
         this.ids = purchases;
     }*/
 
-    public Login getLogin() {
-        return login;
-    }
-
-    public Prisioner login(Login login) {
-        this.login = login;
-        return this;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
-    }
-
     public Permission getPermission() {
         return permission;
     }
@@ -345,7 +346,6 @@ public class Prisioner implements Serializable {
             ", dataNascimento='" + getDataNascimento() + "'" +
             ", balance=" + getBalance() +
             ", working=" + getWorking() +
-            ", password='" + getPassword() + "'" +
             ", profileImage='" + getProfileImage() + "'" +
             ", profileImageContentType='" + getProfileImageContentType() + "'" +
             "}";

@@ -8,6 +8,7 @@ import { IPrisioner, defaultValue } from 'app/shared/model/prisioner.model';
 import { IPurchase } from 'app/shared/model/purchase.model';
 
 export const ACTION_TYPES = {
+  FETCH_PRISIONER_QUIZ_LIST: 'prisioner/FETCH_PRISIONER_QUIZ_LIST',
   FETCH_PRISIONER_WORK_LIST: 'prisioner/FECTCH_PRISIONER_WORK_LIST',
   FETCH_PRISIONER_PURCHASE_LIST: 'prisioner/FETCH_PRISIONER_PURCHASE_LIST',
   FETCH_PRISIONER_LIST: 'prisioner/FETCH_PRISIONER_LIST',
@@ -26,6 +27,7 @@ const initialState = {
   entity: defaultValue,
   purchases: [] as ReadonlyArray<any>,
   works: [] as ReadonlyArray<any>,
+  quizs: [] as ReadonlyArray<any>,
   updating: false,
   updateSuccess: false
 };
@@ -36,6 +38,7 @@ export type PrisionerState = Readonly<typeof initialState>;
 
 export default (state: PrisionerState = initialState, action): PrisionerState => {
   switch (action.type) {
+    case REQUEST(ACTION_TYPES.FETCH_PRISIONER_QUIZ_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRISIONER_WORK_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRISIONER_PURCHASE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRISIONER_LIST):
@@ -55,6 +58,7 @@ export default (state: PrisionerState = initialState, action): PrisionerState =>
         updateSuccess: false,
         updating: true
       };
+    case FAILURE(ACTION_TYPES.FETCH_PRISIONER_QUIZ_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRISIONER_WORK_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRISIONER_PURCHASE_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRISIONER_LIST):
@@ -68,6 +72,12 @@ export default (state: PrisionerState = initialState, action): PrisionerState =>
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_PRISIONER_QUIZ_LIST):
+      return {
+        ...state,
+        loading: false,
+        quizs: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PRISIONER_WORK_LIST):
       return {
@@ -157,6 +167,14 @@ export const getPrisionerWorks: ICrudGetAllAction<any> = id => {
   const requestUrl = `${apiUrl}/${id}/work`;
   return {
     type: ACTION_TYPES.FETCH_PRISIONER_WORK_LIST,
+    payload: axios.get<any>(requestUrl)
+  };
+};
+
+export const getPrisionerQuizs: ICrudGetAllAction<any> = id => {
+  const requestUrl = `${apiUrl}/${id}/quizs`;
+  return {
+    type: ACTION_TYPES.FETCH_PRISIONER_QUIZ_LIST,
     payload: axios.get<any>(requestUrl)
   };
 };

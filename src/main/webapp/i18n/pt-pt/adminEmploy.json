@@ -17,9 +17,11 @@
         "title": "Admin Employ"
       },
       "nameAdminEmp": "Name Admin Emp",
-      "password": "Password",
-      "login": "Login",
-      "permission": "Permission"
+      "email": "Email",
+      "activated": "Activated",
+      "actitionKey": "Actition Key",
+      "resetKey": "Reset Key",
+      "resetDate": "Reset Date"
     }
   }
 }

@@ -5,8 +5,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +27,14 @@ public class Purchase implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @NotNull
+    @Column(name = "purchase_date", nullable = false)
+    private Instant date;
+
+    @NotNull
+    @Column(name = "purchase_total", nullable = false)
+    private Double purchaseTotal;
+
     @OneToMany(mappedBy = "purchase")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressProduct> ids = new HashSet<>();
@@ -40,6 +50,32 @@ public class Purchase implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Instant getDate() {
+        return date;
+    }
+
+    public Purchase date(Instant date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
+
+    public Double getPurchaseTotal() {
+        return purchaseTotal;
+    }
+
+    public Purchase purchaseTotal(Double purchaseTotal) {
+        this.purchaseTotal = purchaseTotal;
+        return this;
+    }
+
+    public void setPurchaseTotal(Double purchaseTotal) {
+        this.purchaseTotal = purchaseTotal;
     }
 
     public Set<PressProduct> getIds() {
@@ -101,6 +137,8 @@ public class Purchase implements Serializable {
     public String toString() {
         return "Purchase{" +
             "id=" + getId() +
+            ", date='" + getDate() + "'" +
+            ", purchaseTotal=" + getPurchaseTotal() +
             "}";
     }
 }

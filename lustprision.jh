@@ -1,4 +1,4 @@
-entity Prisioner{
+ entity Prisioner{
 idPrisioner Integer
 name String
 bi Integer
@@ -12,7 +12,7 @@ permissinidPermission Integer
 working Integer
 password String
 }
-    
+
 entity Question {
      idQuestion Integer
      question String
@@ -126,7 +126,7 @@ relationship ManyToOne {
     PressWork{idWork} to Work
     PressProduct{idProduct} to Product
     QuestionQuiz{idQuiz} to Quiz
-    QuestionQuiz{idQuestion} to Question 
+    QuestionQuiz{idQuestion} to Question
     PrisQuiz{idPrisioner} to Prisioner
 }
 

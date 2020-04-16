@@ -21,7 +21,7 @@ describe('Login e2e test', () => {
   let signInPage: SignInPage;
   let loginComponentsPage: LoginComponentsPage;
   let loginUpdatePage: LoginUpdatePage;
-  let loginDeleteDialog: LoginDeleteDialog;
+  /* let loginDeleteDialog: LoginDeleteDialog; */
   let beforeRecordsCount = 0;
 
   before(async () => {
@@ -57,45 +57,48 @@ describe('Login e2e test', () => {
     await loginUpdatePage.cancel();
   });
 
-  it('should create and save Logins', async () => {
-    await loginComponentsPage.createButton.click();
-    await loginUpdatePage.setUserNameInput('userName');
-    expect(await loginUpdatePage.getUserNameInput()).to.match(/userName/);
-    await loginUpdatePage.setPasswordInput('password');
-    expect(await loginUpdatePage.getPasswordInput()).to.match(/password/);
-    await loginUpdatePage.setTypeInput('type');
-    expect(await loginUpdatePage.getTypeInput()).to.match(/type/);
-    await waitUntilDisplayed(loginUpdatePage.saveButton);
-    await loginUpdatePage.save();
-    await waitUntilHidden(loginUpdatePage.saveButton);
-    expect(await isVisible(loginUpdatePage.saveButton)).to.be.false;
+  /*  it('should create and save Logins', async () => {
+        await loginComponentsPage.createButton.click();
+        await loginUpdatePage.setUserNameInput('userName');
+        expect(await loginUpdatePage.getUserNameInput()).to.match(/userName/);
+        await loginUpdatePage.setPasswordInput('password');
+        expect(await loginUpdatePage.getPasswordInput()).to.match(/password/);
+        await loginUpdatePage.setTypeInput('type');
+        expect(await loginUpdatePage.getTypeInput()).to.match(/type/);
+        await loginUpdatePage.adminEmploySelectLastOption();
+        await waitUntilDisplayed(loginUpdatePage.saveButton);
+        await loginUpdatePage.save();
+        await waitUntilHidden(loginUpdatePage.saveButton);
+        expect(await isVisible(loginUpdatePage.saveButton)).to.be.false;
 
-    expect(await loginComponentsPage.createButton.isEnabled()).to.be.true;
+        expect(await loginComponentsPage.createButton.isEnabled()).to.be.true;
 
-    await waitUntilDisplayed(loginComponentsPage.table);
+        await waitUntilDisplayed(loginComponentsPage.table);
 
-    await waitUntilCount(loginComponentsPage.records, beforeRecordsCount + 1);
-    expect(await loginComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
-  });
+        await waitUntilCount(loginComponentsPage.records, beforeRecordsCount + 1);
+        expect(await loginComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
+    }); */
 
-  it('should delete last Login', async () => {
-    const deleteButton = loginComponentsPage.getDeleteButton(loginComponentsPage.records.last());
-    await click(deleteButton);
+  /*  it('should delete last Login', async () => {
 
-    loginDeleteDialog = new LoginDeleteDialog();
-    await waitUntilDisplayed(loginDeleteDialog.deleteModal);
-    expect(await loginDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/lustPrisionApp.login.delete.question/);
-    await loginDeleteDialog.clickOnConfirmButton();
+        const deleteButton = loginComponentsPage.getDeleteButton(loginComponentsPage.records.last());
+        await click(deleteButton);
 
-    await waitUntilHidden(loginDeleteDialog.deleteModal);
+        loginDeleteDialog = new LoginDeleteDialog();
+        await waitUntilDisplayed(loginDeleteDialog.deleteModal);
+        expect(await loginDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/lustPrisionApp.login.delete.question/);
+        await loginDeleteDialog.clickOnConfirmButton();
 
-    expect(await isVisible(loginDeleteDialog.deleteModal)).to.be.false;
+        await waitUntilHidden(loginDeleteDialog.deleteModal);
 
-    await waitUntilAnyDisplayed([loginComponentsPage.noRecords, loginComponentsPage.table]);
+        expect(await isVisible(loginDeleteDialog.deleteModal)).to.be.false;
 
-    const afterCount = (await isVisible(loginComponentsPage.noRecords)) ? 0 : await getRecordsCount(loginComponentsPage.table);
-    expect(afterCount).to.eq(beforeRecordsCount);
-  });
+        await waitUntilAnyDisplayed([loginComponentsPage.noRecords,
+        loginComponentsPage.table]);
+    
+        const afterCount = await isVisible(loginComponentsPage.noRecords) ? 0 : await getRecordsCount(loginComponentsPage.table);
+        expect(afterCount).to.eq(beforeRecordsCount);
+    }); */
 
   after(async () => {
     await navBarPage.autoSignOut();

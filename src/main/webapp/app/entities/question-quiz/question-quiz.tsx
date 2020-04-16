@@ -37,6 +37,9 @@ export const QuestionQuiz = (props: IQuestionQuizProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lustPrisionApp.questionQuiz.questionAnswer">Question Answer</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lustPrisionApp.questionQuiz.quiz">Quiz</Translate>
                 </th>
                 <th>
@@ -53,6 +56,7 @@ export const QuestionQuiz = (props: IQuestionQuizProps) => {
                       {questionQuiz.id}
                     </Button>
                   </td>
+                  <td>{questionQuiz.questionAnswer}</td>
                   <td>{questionQuiz.quiz ? <Link to={`quiz/${questionQuiz.quiz.id}`}>{questionQuiz.quiz.id}</Link> : ''}</td>
                   <td>
                     {questionQuiz.question ? <Link to={`question/${questionQuiz.question.id}`}>{questionQuiz.question.id}</Link> : ''}

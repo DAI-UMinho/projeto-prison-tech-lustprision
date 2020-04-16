@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
@@ -84,6 +84,12 @@ export const QuestionQuizUpdate = (props: IQuestionQuizUpdateProps) => {
                   <AvInput id="question-quiz-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
+              <AvGroup>
+                <Label id="questionAnswerLabel" for="question-quiz-questionAnswer">
+                  <Translate contentKey="lustPrisionApp.questionQuiz.questionAnswer">Question Answer</Translate>
+                </Label>
+                <AvField id="question-quiz-questionAnswer" type="text" name="questionAnswer" />
+              </AvGroup>
               <AvGroup>
                 <Label for="question-quiz-quiz">
                   <Translate contentKey="lustPrisionApp.questionQuiz.quiz">Quiz</Translate>

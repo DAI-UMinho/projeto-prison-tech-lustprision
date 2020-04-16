@@ -14,6 +14,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
-
-    List<Purchase> findAllByPrisioner (Prisioner prisioner);
+    List<Purchase> findAllByPrisioner(Prisioner prisioner);
 }

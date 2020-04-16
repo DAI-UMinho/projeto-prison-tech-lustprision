@@ -140,6 +140,15 @@ export const deleteEntity: ICrudDeleteAction<IWork> = id => async dispatch => {
   return result;
 };
 
+export const deleteWork: ICrudDeleteAction<IWork> = id => async dispatch => {
+  const requestUrl = `${apiUrl}/${id}`;
+  const result = await dispatch({
+    type: ACTION_TYPES.DELETE_WORK,
+    payload: axios.delete(requestUrl)
+  });
+  return result;
+};
+
 export const reset = () => ({
   type: ACTION_TYPES.RESET
 });

@@ -3,6 +3,7 @@ package com.lustprision.admin.service.dto;
 import com.lustprision.admin.domain.Work;
 
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 public class WorkDTO {
 
@@ -13,7 +14,10 @@ public class WorkDTO {
     private String nameWork;
 
     @Size(max = 38)
-    private Long priceHour;
+    private Long totalCredits;
+
+    @Size()
+    private LocalDate dateWork;
 
 
     public WorkDTO() {
@@ -23,7 +27,8 @@ public class WorkDTO {
     public WorkDTO(Work work) {
         this.id = work.getId();
         this.nameWork = work.getNameWork();
-        this.priceHour = work.getPriceHour();
+        this.totalCredits = work.getTotalCredits();
+        this.dateWork = work.getDate();
     }
 
     public Long getId() {
@@ -38,7 +43,11 @@ public class WorkDTO {
 
     public void setNameWork(String nameWork) { this.nameWork = nameWork;}
 
-    public Long getPriceHour() { return priceHour; }
+    public Long getTotalCredits() { return totalCredits; }
 
-    public void setPriceHour(Long id) { this.priceHour = priceHour; }
+    public void setTotalCredits(Long id) { this.totalCredits = totalCredits; }
+
+    public LocalDate getDateWork() { return dateWork; }
+
+    public void setDateWork(LocalDate dateWork) { this.dateWork = dateWork; }
 }

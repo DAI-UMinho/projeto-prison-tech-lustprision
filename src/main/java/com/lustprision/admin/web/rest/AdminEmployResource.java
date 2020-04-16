@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -47,7 +48,7 @@ public class AdminEmployResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/admin-employs")
-    public ResponseEntity<AdminEmploy> createAdminEmploy(@RequestBody AdminEmploy adminEmploy) throws URISyntaxException {
+    public ResponseEntity<AdminEmploy> createAdminEmploy(@Valid @RequestBody AdminEmploy adminEmploy) throws URISyntaxException {
         log.debug("REST request to save AdminEmploy : {}", adminEmploy);
         if (adminEmploy.getId() != null) {
             throw new BadRequestAlertException("A new adminEmploy cannot already have an ID", ENTITY_NAME, "idexists");
@@ -68,7 +69,7 @@ public class AdminEmployResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/admin-employs")
-    public ResponseEntity<AdminEmploy> updateAdminEmploy(@RequestBody AdminEmploy adminEmploy) throws URISyntaxException {
+    public ResponseEntity<AdminEmploy> updateAdminEmploy(@Valid @RequestBody AdminEmploy adminEmploy) throws URISyntaxException {
         log.debug("REST request to update AdminEmploy : {}", adminEmploy);
         if (adminEmploy.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

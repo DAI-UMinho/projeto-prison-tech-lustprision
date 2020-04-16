@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.lustprision.admin.web.rest.TestUtil.createFormattingConversionService;
@@ -36,8 +38,20 @@ public class AdminEmployResourceIT {
     private static final String DEFAULT_NAME_ADMIN_EMP = "AAAAAAAAAA";
     private static final String UPDATED_NAME_ADMIN_EMP = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
-    private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
+    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
+    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_ACTIVATED = false;
+    private static final Boolean UPDATED_ACTIVATED = true;
+
+    private static final String DEFAULT_ACTITION_KEY = "AAAAAAAAAA";
+    private static final String UPDATED_ACTITION_KEY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_RESET_KEY = "AAAAAAAAAA";
+    private static final String UPDATED_RESET_KEY = "BBBBBBBBBB";
+
+    private static final Instant DEFAULT_RESET_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_RESET_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private AdminEmployRepository adminEmployRepository;
@@ -82,7 +96,11 @@ public class AdminEmployResourceIT {
     public static AdminEmploy createEntity(EntityManager em) {
         AdminEmploy adminEmploy = new AdminEmploy()
             .nameAdminEmp(DEFAULT_NAME_ADMIN_EMP)
-            .password(DEFAULT_PASSWORD);
+            .email(DEFAULT_EMAIL)
+            .activated(DEFAULT_ACTIVATED)
+            .actitionKey(DEFAULT_ACTITION_KEY)
+            .resetKey(DEFAULT_RESET_KEY)
+            .resetDate(DEFAULT_RESET_DATE);
         return adminEmploy;
     }
     /**
@@ -94,7 +112,11 @@ public class AdminEmployResourceIT {
     public static AdminEmploy createUpdatedEntity(EntityManager em) {
         AdminEmploy adminEmploy = new AdminEmploy()
             .nameAdminEmp(UPDATED_NAME_ADMIN_EMP)
-            .password(UPDATED_PASSWORD);
+            .email(UPDATED_EMAIL)
+            .activated(UPDATED_ACTIVATED)
+            .actitionKey(UPDATED_ACTITION_KEY)
+            .resetKey(UPDATED_RESET_KEY)
+            .resetDate(UPDATED_RESET_DATE);
         return adminEmploy;
     }
 
@@ -119,7 +141,11 @@ public class AdminEmployResourceIT {
         assertThat(adminEmployList).hasSize(databaseSizeBeforeCreate + 1);
         AdminEmploy testAdminEmploy = adminEmployList.get(adminEmployList.size() - 1);
         assertThat(testAdminEmploy.getNameAdminEmp()).isEqualTo(DEFAULT_NAME_ADMIN_EMP);
-        assertThat(testAdminEmploy.getPassword()).isEqualTo(DEFAULT_PASSWORD);
+        assertThat(testAdminEmploy.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testAdminEmploy.isActivated()).isEqualTo(DEFAULT_ACTIVATED);
+        assertThat(testAdminEmploy.getActitionKey()).isEqualTo(DEFAULT_ACTITION_KEY);
+        assertThat(testAdminEmploy.getResetKey()).isEqualTo(DEFAULT_RESET_KEY);
+        assertThat(testAdminEmploy.getResetDate()).isEqualTo(DEFAULT_RESET_DATE);
     }
 
     @Test
@@ -144,6 +170,42 @@ public class AdminEmployResourceIT {
 
     @Test
     @Transactional
+    public void checkEmailIsRequired() throws Exception {
+        int databaseSizeBeforeTest = adminEmployRepository.findAll().size();
+        // set the field null
+        adminEmploy.setEmail(null);
+
+        // Create the AdminEmploy, which fails.
+
+        restAdminEmployMockMvc.perform(post("/api/admin-employs")
+            .contentType(TestUtil.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(adminEmploy)))
+            .andExpect(status().isBadRequest());
+
+        List<AdminEmploy> adminEmployList = adminEmployRepository.findAll();
+        assertThat(adminEmployList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkActivatedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = adminEmployRepository.findAll().size();
+        // set the field null
+        adminEmploy.setActivated(null);
+
+        // Create the AdminEmploy, which fails.
+
+        restAdminEmployMockMvc.perform(post("/api/admin-employs")
+            .contentType(TestUtil.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(adminEmploy)))
+            .andExpect(status().isBadRequest());
+
+        List<AdminEmploy> adminEmployList = adminEmployRepository.findAll();
+        assertThat(adminEmployList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllAdminEmploys() throws Exception {
         // Initialize the database
         adminEmployRepository.saveAndFlush(adminEmploy);
@@ -154,7 +216,11 @@ public class AdminEmployResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(adminEmploy.getId().intValue())))
             .andExpect(jsonPath("$.[*].nameAdminEmp").value(hasItem(DEFAULT_NAME_ADMIN_EMP)))
-            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].activated").value(hasItem(DEFAULT_ACTIVATED.booleanValue())))
+            .andExpect(jsonPath("$.[*].actitionKey").value(hasItem(DEFAULT_ACTITION_KEY)))
+            .andExpect(jsonPath("$.[*].resetKey").value(hasItem(DEFAULT_RESET_KEY)))
+            .andExpect(jsonPath("$.[*].resetDate").value(hasItem(DEFAULT_RESET_DATE.toString())));
     }
     
     @Test
@@ -169,7 +235,11 @@ public class AdminEmployResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(adminEmploy.getId().intValue()))
             .andExpect(jsonPath("$.nameAdminEmp").value(DEFAULT_NAME_ADMIN_EMP))
-            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
+            .andExpect(jsonPath("$.activated").value(DEFAULT_ACTIVATED.booleanValue()))
+            .andExpect(jsonPath("$.actitionKey").value(DEFAULT_ACTITION_KEY))
+            .andExpect(jsonPath("$.resetKey").value(DEFAULT_RESET_KEY))
+            .andExpect(jsonPath("$.resetDate").value(DEFAULT_RESET_DATE.toString()));
     }
 
     @Test
@@ -194,7 +264,11 @@ public class AdminEmployResourceIT {
         em.detach(updatedAdminEmploy);
         updatedAdminEmploy
             .nameAdminEmp(UPDATED_NAME_ADMIN_EMP)
-            .password(UPDATED_PASSWORD);
+            .email(UPDATED_EMAIL)
+            .activated(UPDATED_ACTIVATED)
+            .actitionKey(UPDATED_ACTITION_KEY)
+            .resetKey(UPDATED_RESET_KEY)
+            .resetDate(UPDATED_RESET_DATE);
 
         restAdminEmployMockMvc.perform(put("/api/admin-employs")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -206,7 +280,11 @@ public class AdminEmployResourceIT {
         assertThat(adminEmployList).hasSize(databaseSizeBeforeUpdate);
         AdminEmploy testAdminEmploy = adminEmployList.get(adminEmployList.size() - 1);
         assertThat(testAdminEmploy.getNameAdminEmp()).isEqualTo(UPDATED_NAME_ADMIN_EMP);
-        assertThat(testAdminEmploy.getPassword()).isEqualTo(UPDATED_PASSWORD);
+        assertThat(testAdminEmploy.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testAdminEmploy.isActivated()).isEqualTo(UPDATED_ACTIVATED);
+        assertThat(testAdminEmploy.getActitionKey()).isEqualTo(UPDATED_ACTITION_KEY);
+        assertThat(testAdminEmploy.getResetKey()).isEqualTo(UPDATED_RESET_KEY);
+        assertThat(testAdminEmploy.getResetDate()).isEqualTo(UPDATED_RESET_DATE);
     }
 
     @Test

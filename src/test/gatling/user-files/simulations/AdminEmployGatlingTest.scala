@@ -73,7 +73,11 @@ class AdminEmployGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "nameAdminEmp":"SAMPLE_TEXT"
-                , "password":"SAMPLE_TEXT"
+                , "email":"SAMPLE_TEXT"
+                , "activated":null
+                , "actitionKey":"SAMPLE_TEXT"
+                , "resetKey":"SAMPLE_TEXT"
+                , "resetDate":"2020-01-01T00:00:00.000Z"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_adminEmploy_url"))).exitHereIfFailed

@@ -43,6 +43,10 @@ export const LoginDetail = (props: ILoginDetailProps) => {
             </span>
           </dt>
           <dd>{loginEntity.type}</dd>
+          <dt>
+            <Translate contentKey="lustPrisionApp.login.adminEmploy">Admin Employ</Translate>
+          </dt>
+          <dd>{loginEntity.adminEmploy ? loginEntity.adminEmploy.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/login" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

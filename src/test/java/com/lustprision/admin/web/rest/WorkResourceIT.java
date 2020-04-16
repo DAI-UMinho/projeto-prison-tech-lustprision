@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static com.lustprision.admin.web.rest.TestUtil.createFormattingConversionService;
@@ -41,6 +43,9 @@ public class WorkResourceIT {
 
     private static final Integer DEFAULT_NUM_VACANCIES = 1;
     private static final Integer UPDATED_NUM_VACANCIES = 2;
+
+    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private WorkRepository workRepository;
@@ -86,7 +91,8 @@ public class WorkResourceIT {
         Work work = new Work()
             .nameWork(DEFAULT_NAME_WORK)
             .priceHour(DEFAULT_PRICE_HOUR)
-            .numVacancies(DEFAULT_NUM_VACANCIES);
+            .numVacancies(DEFAULT_NUM_VACANCIES)
+            .date(DEFAULT_DATE);
         return work;
     }
     /**
@@ -99,7 +105,8 @@ public class WorkResourceIT {
         Work work = new Work()
             .nameWork(UPDATED_NAME_WORK)
             .priceHour(UPDATED_PRICE_HOUR)
-            .numVacancies(UPDATED_NUM_VACANCIES);
+            .numVacancies(UPDATED_NUM_VACANCIES)
+            .date(UPDATED_DATE);
         return work;
     }
 
@@ -124,8 +131,9 @@ public class WorkResourceIT {
         assertThat(workList).hasSize(databaseSizeBeforeCreate + 1);
         Work testWork = workList.get(workList.size() - 1);
         assertThat(testWork.getNameWork()).isEqualTo(DEFAULT_NAME_WORK);
-        assertThat(testWork.getPriceHour()).isEqualTo(DEFAULT_PRICE_HOUR);
-        assertThat(testWork.getNumVacancies()).isEqualTo(DEFAULT_NUM_VACANCIES);
+        assertThat(testWork.getTotalCredits()).isEqualTo(DEFAULT_PRICE_HOUR);
+        assertThat(testWork.getNumRemainingEntries()).isEqualTo(DEFAULT_NUM_VACANCIES);
+        assertThat(testWork.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
     @Test
@@ -161,9 +169,10 @@ public class WorkResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(work.getId().intValue())))
             .andExpect(jsonPath("$.[*].nameWork").value(hasItem(DEFAULT_NAME_WORK)))
             .andExpect(jsonPath("$.[*].priceHour").value(hasItem(DEFAULT_PRICE_HOUR.intValue())))
-            .andExpect(jsonPath("$.[*].numVacancies").value(hasItem(DEFAULT_NUM_VACANCIES)));
+            .andExpect(jsonPath("$.[*].numVacancies").value(hasItem(DEFAULT_NUM_VACANCIES)))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getWork() throws Exception {
@@ -177,7 +186,8 @@ public class WorkResourceIT {
             .andExpect(jsonPath("$.id").value(work.getId().intValue()))
             .andExpect(jsonPath("$.nameWork").value(DEFAULT_NAME_WORK))
             .andExpect(jsonPath("$.priceHour").value(DEFAULT_PRICE_HOUR.intValue()))
-            .andExpect(jsonPath("$.numVacancies").value(DEFAULT_NUM_VACANCIES));
+            .andExpect(jsonPath("$.numVacancies").value(DEFAULT_NUM_VACANCIES))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
 
     @Test
@@ -203,7 +213,8 @@ public class WorkResourceIT {
         updatedWork
             .nameWork(UPDATED_NAME_WORK)
             .priceHour(UPDATED_PRICE_HOUR)
-            .numVacancies(UPDATED_NUM_VACANCIES);
+            .numVacancies(UPDATED_NUM_VACANCIES)
+            .date(UPDATED_DATE);
 
         restWorkMockMvc.perform(put("/api/works")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -215,8 +226,9 @@ public class WorkResourceIT {
         assertThat(workList).hasSize(databaseSizeBeforeUpdate);
         Work testWork = workList.get(workList.size() - 1);
         assertThat(testWork.getNameWork()).isEqualTo(UPDATED_NAME_WORK);
-        assertThat(testWork.getPriceHour()).isEqualTo(UPDATED_PRICE_HOUR);
-        assertThat(testWork.getNumVacancies()).isEqualTo(UPDATED_NUM_VACANCIES);
+        assertThat(testWork.getTotalCredits()).isEqualTo(UPDATED_PRICE_HOUR);
+        assertThat(testWork.getNumRemainingEntries()).isEqualTo(UPDATED_NUM_VACANCIES);
+        assertThat(testWork.getDate()).isEqualTo(UPDATED_DATE);
     }
 
     @Test
