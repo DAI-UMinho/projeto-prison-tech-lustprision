@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { openFile, byteSize, Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -57,6 +57,9 @@ export const Product = (props: IProductProps) => {
                 <th>
                   <Translate contentKey="lustPrisionApp.product.buyPrice">Buy Price</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.product.image">Image</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -75,6 +78,19 @@ export const Product = (props: IProductProps) => {
                   <td>{product.descriptionProd}</td>
                   <td>{product.quantyInStock}</td>
                   <td>{product.buyPrice}</td>
+                  <td>
+                    {product.image ? (
+                      <div>
+                        <a onClick={openFile(product.imageContentType, product.image)}>
+                          <img src={`data:${product.imageContentType};base64,${product.image}`} style={{ maxHeight: '30px' }} />
+                          &nbsp;
+                        </a>
+                        <span>
+                          {product.imageContentType}, {byteSize(product.image)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${product.id}`} color="info" size="sm">

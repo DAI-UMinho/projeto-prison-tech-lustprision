@@ -2,16 +2,23 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Product;
 import com.lustprision.admin.repository.ProductRepository;
+import com.lustprision.admin.service.dto.UserDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -89,6 +96,45 @@ public class ProductResource {
         log.debug("REST request to get all Products");
         return productRepository.findAll();
     }
+
+    /*@GetMapping("/products/byname")
+    public List<Product> getAllProductsByName(@RequestParam(value = "name") String name) {
+        log.debug("REST request to get all Products with name : {}", name);
+        return productRepository.getAllByNameProdContaining(name);
+    }*/
+
+    @GetMapping("/products/byname")
+    public ResponseEntity<List<Product>> getAllProductsByName(Pageable pageable, @RequestParam(value = "name") String name,
+                                                              @RequestParam(value = "low") Long lower,
+                                                              @RequestParam(value = "high") Long higher) {
+        log.debug("REST request to get all Products with name : {}", name);
+        final Page<Product> page = productRepository.findAllByNameProdContainingAndPriceBetween(name, lower, higher, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/products/bypage")
+    public ResponseEntity<List<Product>> getAllProductsPage(Pageable pageable) {
+        log.debug("REST request to get all Products by PAGE");
+        final Page<Product> page = productRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/products/byrange")
+    public ResponseEntity<List<Product>> getAllProductsByPriceRange(Pageable pageable, @RequestParam(value = "low") Long lower,
+                                                    @RequestParam(value = "high") Long higher) {
+        final Page<Product> page = productRepository.findAllByPriceBetween(lower, higher, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /*@GetMapping("/products/byrange")
+    public List<Product> getAllProductsByPriceRange(@RequestParam(value = "low") Long lower,
+                                                    @RequestParam(value = "high") Long higher) {
+        log.debug("REST request to get all Products with low : {}", lower);
+        return productRepository.getAllByPriceBetween(lower, higher);
+    }*/
 
     /**
      * {@code GET  /products/:id} : get the "id" product.

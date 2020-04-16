@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -67,6 +67,23 @@ export const ProductDetail = (props: IProductDetailProps) => {
             </span>
           </dt>
           <dd>{productEntity.buyPrice}</dd>
+          <dt>
+            <span id="image">
+              <Translate contentKey="lustPrisionApp.product.image">Image</Translate>
+            </span>
+          </dt>
+          <dd>
+            {productEntity.image ? (
+              <div>
+                <a onClick={openFile(productEntity.imageContentType, productEntity.image)}>
+                  <img src={`data:${productEntity.imageContentType};base64,${productEntity.image}`} style={{ maxHeight: '30px' }} />
+                </a>
+                <span>
+                  {productEntity.imageContentType}, {byteSize(productEntity.image)}
+                </span>
+              </div>
+            ) : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/product" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

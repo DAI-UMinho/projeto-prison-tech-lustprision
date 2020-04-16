@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './product.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './product.reducer';
 import { IProduct } from 'app/shared/model/product.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -18,6 +18,8 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
   const { productEntity, loading, updating } = props;
+
+  const { image, imageContentType } = productEntity;
 
   const handleClose = () => {
     props.history.push('/product');
@@ -30,6 +32,14 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -117,6 +127,36 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                 </Label>
                 <AvField id="product-buyPrice" type="string" className="form-control" name="buyPrice" />
               </AvGroup>
+              <AvGroup>
+                <AvGroup>
+                  <Label id="imageLabel" for="image">
+                    <Translate contentKey="lustPrisionApp.product.image">Image</Translate>
+                  </Label>
+                  <br />
+                  {image ? (
+                    <div>
+                      <a onClick={openFile(imageContentType, image)}>
+                        <img src={`data:${imageContentType};base64,${image}`} style={{ maxHeight: '100px' }} />
+                      </a>
+                      <br />
+                      <Row>
+                        <Col md="11">
+                          <span>
+                            {imageContentType}, {byteSize(image)}
+                          </span>
+                        </Col>
+                        <Col md="1">
+                          <Button color="danger" onClick={clearBlob('image')}>
+                            <FontAwesomeIcon icon="times-circle" />
+                          </Button>
+                        </Col>
+                      </Row>
+                    </div>
+                  ) : null}
+                  <input id="file_image" type="file" onChange={onBlobChange(true, 'image')} accept="image/*" />
+                  <AvInput type="hidden" name="image" value={image} />
+                </AvGroup>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/product" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -148,6 +188,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset
 };

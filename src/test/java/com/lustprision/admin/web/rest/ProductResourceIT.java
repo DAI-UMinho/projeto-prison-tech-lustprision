@@ -16,6 +16,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -53,6 +54,11 @@ public class ProductResourceIT {
 
     private static final Long DEFAULT_BUY_PRICE = 1L;
     private static final Long UPDATED_BUY_PRICE = 2L;
+
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     @Autowired
     private ProductRepository productRepository;
@@ -102,7 +108,9 @@ public class ProductResourceIT {
             .seler(DEFAULT_SELER)
             .descriptionProd(DEFAULT_DESCRIPTION_PROD)
             .quantyInStock(DEFAULT_QUANTY_IN_STOCK)
-            .buyPrice(DEFAULT_BUY_PRICE);
+            .buyPrice(DEFAULT_BUY_PRICE)
+            .image(DEFAULT_IMAGE)
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         return product;
     }
     /**
@@ -119,7 +127,9 @@ public class ProductResourceIT {
             .seler(UPDATED_SELER)
             .descriptionProd(UPDATED_DESCRIPTION_PROD)
             .quantyInStock(UPDATED_QUANTY_IN_STOCK)
-            .buyPrice(UPDATED_BUY_PRICE);
+            .buyPrice(UPDATED_BUY_PRICE)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         return product;
     }
 
@@ -150,6 +160,8 @@ public class ProductResourceIT {
         assertThat(testProduct.getDescriptionProd()).isEqualTo(DEFAULT_DESCRIPTION_PROD);
         assertThat(testProduct.getQuantyInStock()).isEqualTo(DEFAULT_QUANTY_IN_STOCK);
         assertThat(testProduct.getBuyPrice()).isEqualTo(DEFAULT_BUY_PRICE);
+        assertThat(testProduct.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testProduct.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -189,7 +201,9 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.[*].seler").value(hasItem(DEFAULT_SELER)))
             .andExpect(jsonPath("$.[*].descriptionProd").value(hasItem(DEFAULT_DESCRIPTION_PROD)))
             .andExpect(jsonPath("$.[*].quantyInStock").value(hasItem(DEFAULT_QUANTY_IN_STOCK)))
-            .andExpect(jsonPath("$.[*].buyPrice").value(hasItem(DEFAULT_BUY_PRICE.intValue())));
+            .andExpect(jsonPath("$.[*].buyPrice").value(hasItem(DEFAULT_BUY_PRICE.intValue())))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
     }
     
     @Test
@@ -209,7 +223,9 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.seler").value(DEFAULT_SELER))
             .andExpect(jsonPath("$.descriptionProd").value(DEFAULT_DESCRIPTION_PROD))
             .andExpect(jsonPath("$.quantyInStock").value(DEFAULT_QUANTY_IN_STOCK))
-            .andExpect(jsonPath("$.buyPrice").value(DEFAULT_BUY_PRICE.intValue()));
+            .andExpect(jsonPath("$.buyPrice").value(DEFAULT_BUY_PRICE.intValue()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
     }
 
     @Test
@@ -239,7 +255,9 @@ public class ProductResourceIT {
             .seler(UPDATED_SELER)
             .descriptionProd(UPDATED_DESCRIPTION_PROD)
             .quantyInStock(UPDATED_QUANTY_IN_STOCK)
-            .buyPrice(UPDATED_BUY_PRICE);
+            .buyPrice(UPDATED_BUY_PRICE)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restProductMockMvc.perform(put("/api/products")
             .contentType(TestUtil.APPLICATION_JSON)
@@ -257,6 +275,8 @@ public class ProductResourceIT {
         assertThat(testProduct.getDescriptionProd()).isEqualTo(UPDATED_DESCRIPTION_PROD);
         assertThat(testProduct.getQuantyInStock()).isEqualTo(UPDATED_QUANTY_IN_STOCK);
         assertThat(testProduct.getBuyPrice()).isEqualTo(UPDATED_BUY_PRICE);
+        assertThat(testProduct.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testProduct.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test
