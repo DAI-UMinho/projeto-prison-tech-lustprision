@@ -50,7 +50,7 @@ public class BD_CONTROLLER {
 
     }
 
-
+   //teste 12 12
     public static int getPrisionerPIN(int ID) {
 
         try {
