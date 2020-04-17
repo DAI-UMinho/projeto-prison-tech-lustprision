@@ -6,7 +6,7 @@ import {Translate, JhiItemCount, JhiPagination, getSortState} from 'react-jhipst
 
 import {IRootState} from 'app/shared/reducers';
 import {getProductsByName, getProductsByPriceRange, getProductsByPage, getProductsByPageName,getProductsByPagePriceRange} from './product.reducer';
-import {Theme, createStyles, makeStyles} from '@material-ui/core/styles';
+import {Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -21,6 +21,7 @@ import Slider from "@material-ui/core/Slider";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {useMediaQuery} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,12 +65,17 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '3px'
     },
     sidebar: {
-      width: '340px',
       display: 'flex',
       flexDirection: 'column',
       flexShrink: 0,
       margin: '0px 30px 0px 0px',
-      transition: 'all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s'
+      transition: 'all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s',
+      [theme.breakpoints.up('lg')]: {
+        width: '240px',
+      },
+      [theme.breakpoints.up('xl')]: {
+        width: '340px',
+      },
     },
     filter: {
       fontSize: '14px',
@@ -85,11 +91,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
 export interface IProductProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
 
 export const ProductOverview = (props: IProductProps) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const mRow = useMediaQuery(theme.breakpoints.up('xl')) ? 2 : 1;
+  const mHeight = useMediaQuery(theme.breakpoints.up('xl')) ? 200 : 256;
 
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
@@ -228,9 +238,9 @@ export const ProductOverview = (props: IProductProps) => {
             <CircularProgress className={classes.loadingSpinner}/>
           </div>) : (
             <div>
-              <GridList cellHeight={200} spacing={3} cols={6} className={classes.gridList}>
+              <GridList cellHeight={mHeight} spacing={3} cols={6} className={classes.gridList}>
                 {productsPage.map((product) => (
-                  <GridListTile key={product.image} cols={2} rows={2} className={classes.gridItem}>
+                  <GridListTile key={product.image} cols={2} rows={mRow} className={classes.gridItem}>
                     <img src={`data:${product.imageContentType};base64,${product.image}`} alt={product.nameProd}/>
                     <GridListTileBar
                       title={product.nameProd}

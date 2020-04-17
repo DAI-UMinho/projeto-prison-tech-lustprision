@@ -12,7 +12,12 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '2px 4px',
       display: 'flex',
       alignItems: 'center',
-      width: 340,
+      [theme.breakpoints.up('lg')]: {
+        width: '240px',
+      },
+      [theme.breakpoints.up('xl')]: {
+        width: '340px',
+      },
     },
     input: {
       marginLeft: theme.spacing(1),

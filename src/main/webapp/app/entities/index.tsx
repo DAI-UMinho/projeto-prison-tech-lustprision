@@ -18,7 +18,6 @@ import Login from './login';
 import Permission from './permission';
 import SystemAdmin from './system-admin';
 import AdminEmploy from './admin-employ';
-import Pressproduct from './pressproduct';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -39,7 +38,6 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}permission`} component={Permission} />
       <ErrorBoundaryRoute path={`${match.url}system-admin`} component={SystemAdmin} />
       <ErrorBoundaryRoute path={`${match.url}admin-employ`} component={AdminEmploy} />
-      <ErrorBoundaryRoute path={`${match.url}pressproduct`} component={Pressproduct} />
       <ErrorBoundaryRoute path={`${match.url}login`} component={Login} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>

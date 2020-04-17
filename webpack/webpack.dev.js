@@ -35,8 +35,6 @@ module.exports = (options) => webpackMerge(commonConfig({env: ENV}), {
         }
         ]
       },
-      {test: /\.js$/ , loader:'babel-loader', exclude: '/node_modules/'},
-      {test: /\.jsx$/ , loader:'babel-loader', exclude: '/node_modules/'}
     ]
   },
   devServer: {
