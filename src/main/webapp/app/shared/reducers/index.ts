@@ -69,9 +69,6 @@ import adminEmploy, {
   AdminEmployState
 } from 'app/entities/admin-employ/admin-employ.reducer';
 // prettier-ignore
-import pressproduct, {
-  PressproductState
-} from 'app/entities/pressproduct/pressproduct.reducer';
 // prettier-ignore
 /*import prisioner, {
   PrisionerState
@@ -104,7 +101,6 @@ export interface IRootState {
   readonly permission: PermissionState;
   readonly systemAdmin: SystemAdminState;
   readonly adminEmploy: AdminEmployState;
-  readonly pressproduct: PressproductState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -134,7 +130,6 @@ const rootReducer = combineReducers<IRootState>({
   permission,
   systemAdmin,
   adminEmploy,
-  pressproduct,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
