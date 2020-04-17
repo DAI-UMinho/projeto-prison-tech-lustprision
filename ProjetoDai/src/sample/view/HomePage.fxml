@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="840.0" style="-fx-background-color: #ffffff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.HomePageController">
+   <children>
+      <AnchorPane prefHeight="48.0" prefWidth="857.0" style="-fx-background-color: #0C39FF;">
+         <children>
+            <Label alignment="CENTER" layoutX="40.0" layoutY="9.0" prefHeight="23.0" prefWidth="51.0" text="SARSP" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="40.0" fitWidth="40.0">
+               <image>
+                  <Image url="@images/favicon-32x32.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnLogout" layoutX="805.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleBtnLogout" style="-fx-background-color: #0C39FF;">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@images/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="textName" layoutX="645.0" layoutY="9.0" prefHeight="31.0" prefWidth="145.0" />
+         </children>
+      </AnchorPane>
+      <Label alignment="CENTER" layoutX="797.0" layoutY="488.0" prefHeight="23.0" prefWidth="60.0" text="UMINHO">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutY="488.0" prefHeight="23.0" prefWidth="80.0" text="DAI-MIEGSI">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn" layoutX="163.0" layoutY="121.0" mnemonicParsing="false" onAction="#handleBtnPerfil" style="-fx-background-color: #ffffff;">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0">
+               <image>
+                  <Image url="@images/perfilazul.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnHistorico" layoutX="164.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleBtnHistorico" style="-fx-background-color: #ffffff;">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0">
+               <image>
+                  <Image url="@images/historicoazul.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnTrabalho" layoutX="356.0" layoutY="121.0" mnemonicParsing="false" onAction="#handleBtnTrabalho" style="-fx-background-color: #ffffff;">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0">
+               <image>
+                  <Image url="@images/trabalhoazul.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnQuiz" layoutX="356.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleBtnQuiz" style="-fx-background-color: #ffffff;">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0">
+               <image>
+                  <Image url="@images/quizazul.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnLoja" layoutX="545.0" layoutY="121.0" mnemonicParsing="false" onAction="#handleBtnLoja" style="-fx-background-color: #ffffff;">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0">
+               <image>
+                  <Image url="@images/lojaazul.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnMais" layoutX="546.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleBtnMais" style="-fx-background-color: #ffffff;">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0">
+               <image>
+                  <Image url="@images/maisazul.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label alignment="CENTER" layoutX="405.0" layoutY="255.0" prefHeight="23.0" prefWidth="80.0" text="Trabalho" textFill="#1273eb">
+         <font>
+            <Font name="Segoe UI Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="195.0" layoutY="255.0" prefHeight="23.0" prefWidth="80.0" text="Perfil" textFill="#1273eb">
+         <font>
+            <Font name="Segoe UI Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="196.0" layoutY="434.0" prefHeight="23.0" prefWidth="80.0" text="Histórico" textFill="#1273eb">
+         <font>
+            <Font name="Segoe UI Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="578.0" layoutY="255.0" prefHeight="23.0" prefWidth="80.0" text="Loja" textFill="#1273eb">
+         <font>
+            <Font name="Segoe UI Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="579.0" layoutY="434.0" prefHeight="23.0" prefWidth="80.0" text="Mais" textFill="#1273eb">
+         <font>
+            <Font name="Segoe UI Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="389.0" layoutY="434.0" prefHeight="23.0" prefWidth="80.0" text="Quiz" textFill="#1273eb">
+         <font>
+            <Font name="Segoe UI Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+  
+</AnchorPane>
