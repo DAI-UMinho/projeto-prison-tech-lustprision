@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.TrabalhoController">
+   <children>
+      <AnchorPane prefHeight="50.0" prefWidth="840.0" style="-fx-background-color: #0C39FF;" stylesheets="@styling/fullpackstyling.css">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutY="4.0">
+               <image>
+                  <Image url="@images/favicon-32x32.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="53.0" layoutY="13.0" prefHeight="23.0" prefWidth="51.0" text="SARSP" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnLogout" layoutX="799.0" layoutY="3.0" mnemonicParsing="false" onAction="#handlebtnLogout" style="-fx-background-color: #0C39FF;">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@images/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnVoltar" layoutX="124.0" mnemonicParsing="false" onAction="#handlebtnVoltar" prefHeight="0.0" prefWidth="23.0" style="-fx-background-color: #0C39FF;">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0">
+                     <image>
+                        <Image url="@images/voltaratras.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField layoutX="591.0" layoutY="10.0" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="41.0" layoutY="87.0" prefHeight="52.0" prefWidth="101.0" text="Trabalho" textFill="#0c39ff">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
