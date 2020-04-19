@@ -5,7 +5,7 @@ import sample.model.Prisioneiro;
 public class SESSION {
     Prisioneiro nowusing;
     SHOPLIST shoplist = new SHOPLIST();
-    int balance=0; // resultado das compras do recluso para no fim da sessão ajustar o valor na BD
+    //int balance=0; // resultado das compras do recluso para no fim da sessão ajustar o valor na BD
     boolean started = false;
 
     public SESSION(Prisioneiro nowusing){
@@ -20,7 +20,12 @@ public class SESSION {
     }
 
     public void removeShopping(PRODUCT_TB x){
-
+        for(int i = 0;i<shoplist.Shoplist.size();i++){
+            if(shoplist.Shoplist.get(i).type.ID == x.type.ID){
+                shoplist.Price-=shoplist.Shoplist.get(i).type.Preco;
+                shoplist.Shoplist.remove(i);
+            }
+        }
     }
 
 
