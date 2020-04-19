@@ -53,7 +53,6 @@ export interface IPrisionerPurchaseProps extends StateProps, DispatchProps, Rout
 }
 
 export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
-  // const classes = useStyles();
   const [selectedID, setSelectedID] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('AMERICA');

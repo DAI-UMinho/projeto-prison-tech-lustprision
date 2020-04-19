@@ -2,6 +2,9 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Product;
 import com.lustprision.admin.repository.ProductRepository;
+import com.lustprision.admin.service.ProductService;
+import com.lustprision.admin.service.dto.PressProductDTO;
+import com.lustprision.admin.service.dto.ProductSaleDTO;
 import com.lustprision.admin.service.dto.UserDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
@@ -42,8 +45,11 @@ public class ProductResource {
 
     private final ProductRepository productRepository;
 
-    public ProductResource(ProductRepository productRepository) {
+    private final ProductService productService;
+
+    public ProductResource(ProductRepository productRepository, ProductService productService) {
         this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     /**
@@ -160,5 +166,11 @@ public class ProductResource {
         log.debug("REST request to delete Product : {}", id);
         productRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/products/{id}/sales")
+    public List<ProductSaleDTO> getProductSales(@PathVariable Long id) {
+        log.debug("REST request to get all Products Sales");
+        return productService.getPressProductFromProduct2(id);
     }
 }

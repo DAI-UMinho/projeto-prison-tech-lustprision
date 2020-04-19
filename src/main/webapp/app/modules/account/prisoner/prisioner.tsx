@@ -8,13 +8,13 @@ import {getEntities, deleteEntity} from './prisioner.reducer';
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import MaterialTable, {MTableToolbar, Column} from 'material-table';
 
-import {withStyles, Theme, createStyles, makeStyles} from '@material-ui/core/styles';
+import {withStyles, Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 import {Moment} from "moment";
 
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Ellipsis } from 'react-spinners-css';
-import {LinearProgress} from "@material-ui/core";
+import {LinearProgress, useMediaQuery} from "@material-ui/core";
 import {Translate} from "react-jhipster";
 
 export interface IPrisionerProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
@@ -25,6 +25,9 @@ interface TableState {
 }
 
 export const Prisioner = (props: IPrisionerProps) => {
+  const theme = useTheme();
+  const mCol = useMediaQuery(theme.breakpoints.up('xl')) ? 10 : 12;
+  const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
   const [data, setData] = useState([]);
   const [state, setState] = React.useState<TableState>({
@@ -92,7 +95,7 @@ export const Prisioner = (props: IPrisionerProps) => {
 
   return (
     <Row className="justify-content-center">
-      <Col lg="3" md="6" sm="6">
+      <Col lg={mStatCol} md="6" sm="6">
         <Card className="card-stats">
           <CardBody>
             <Row>
@@ -112,7 +115,7 @@ export const Prisioner = (props: IPrisionerProps) => {
           </CardBody>
         </Card>
       </Col>
-      <Col lg="3" md="6" sm="6">
+      <Col lg={mStatCol} md="6" sm="6">
         <Card className="card-stats">
           <CardBody>
             <Row>
@@ -132,7 +135,7 @@ export const Prisioner = (props: IPrisionerProps) => {
           </CardBody>
         </Card>
       </Col>
-      <Col lg="3" md="6" sm="6">
+      <Col lg={mStatCol} md="6" sm="6">
         <div className="card-hover" onClick={() => props.history.push(match.url + '/new')}>
           <Card className="card-stats">
             <CardBody style={{backgroundColor: "#6DB65B", borderRadius: '12px'}}>
@@ -155,7 +158,7 @@ export const Prisioner = (props: IPrisionerProps) => {
           </Card>
         </div>
       </Col>
-      <Col md="10">
+      <Col md={mCol}>
         <Card className="card-user">
           <MaterialTable
             title=""

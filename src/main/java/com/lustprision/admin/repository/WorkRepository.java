@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkRepository extends JpaRepository<Work, Long> {
 
+    @Query(value = "SELECT COUNT (ID) FROM WORK_JOB", nativeQuery = true)
+    Integer getTotalWorkNumber();
 }

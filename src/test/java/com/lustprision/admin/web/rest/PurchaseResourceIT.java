@@ -141,7 +141,6 @@ public class PurchaseResourceIT {
             .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(purchase)))
             .andExpect(status().isBadRequest());
-
         // Validate the Purchase in the database
         List<Purchase> purchaseList = purchaseRepository.findAll();
         assertThat(purchaseList).hasSize(databaseSizeBeforeCreate);
