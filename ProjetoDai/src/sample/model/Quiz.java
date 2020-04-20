@@ -25,5 +25,5 @@ public class Quiz {
     public ArrayList getQuestoes() {
         return questoes;
     }
-    
+
 }
