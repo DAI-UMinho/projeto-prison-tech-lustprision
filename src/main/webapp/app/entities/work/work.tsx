@@ -48,6 +48,9 @@ export const Work = (props: IWorkProps) => {
                 <th>
                   <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.work.state">State</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -65,6 +68,7 @@ export const Work = (props: IWorkProps) => {
                   <td>
                     <TextFormat type="date" value={work.date} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
+                  <td>{work.stateId ? <Link to={`state/${work.stateId}`}>{work.stateId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${work.id}`} color="info" size="sm">

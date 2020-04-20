@@ -63,6 +63,7 @@ describe('PressWork e2e test', () => {
     expect(await pressWorkUpdatePage.getWorkDateInput()).to.eq('2001-01-01');
     await pressWorkUpdatePage.prisionerSelectLastOption();
     await pressWorkUpdatePage.workSelectLastOption();
+    await pressWorkUpdatePage.stateSelectLastOption();
     await waitUntilDisplayed(pressWorkUpdatePage.saveButton);
     await pressWorkUpdatePage.save();
     await waitUntilHidden(pressWorkUpdatePage.saveButton);

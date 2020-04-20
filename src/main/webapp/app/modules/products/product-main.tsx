@@ -6,7 +6,7 @@ import {Translate, JhiItemCount, JhiPagination, getSortState} from 'react-jhipst
 
 import {IRootState} from 'app/shared/reducers';
 import {getProductsByName, getProductsByPriceRange, getProductsByPage, getProductsByPageName,getProductsByPagePriceRange} from './product.reducer';
-import {getPurchaseTotalNumber, getProductTotalNumber} from "app/shared/reducers/statistics";
+import {getPurchaseTotalNumber, getProductTotalNumber, getPrisonerCompletedWorks} from "app/shared/reducers/statistics";
 import {Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -308,7 +308,8 @@ const mapDispatchToProps = {
   getProductsByPageName,
   getProductsByPagePriceRange,
   getPurchaseTotalNumber,
-  getProductTotalNumber
+  getProductTotalNumber,
+  getPrisonerCompletedWorks
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

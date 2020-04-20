@@ -67,6 +67,7 @@ describe('Work e2e test', () => {
     expect(await workUpdatePage.getNumVacanciesInput()).to.eq('5');
     await workUpdatePage.setDateInput('01-01-2001');
     expect(await workUpdatePage.getDateInput()).to.eq('2001-01-01');
+    await workUpdatePage.stateSelectLastOption();
     await waitUntilDisplayed(workUpdatePage.saveButton);
     await workUpdatePage.save();
     await waitUntilHidden(workUpdatePage.saveButton);

@@ -2,6 +2,7 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Purchase;
 import com.lustprision.admin.domain.Work;
+import com.lustprision.admin.repository.PressWorkRepository;
 import com.lustprision.admin.repository.ProductRepository;
 import com.lustprision.admin.repository.PurchaseRepository;
 import com.lustprision.admin.repository.WorkRepository;
@@ -33,12 +34,14 @@ public class StatisticResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final PressWorkRepository pressWorkRepository;
     private final WorkRepository workRepository;
     private final ProductRepository productRepository;
     private final PurchaseRepository purchaseRepository;
 
-    public StatisticResource(WorkRepository workRepository, ProductRepository productRepository,
-                             PurchaseRepository purchaseRepository) {
+    public StatisticResource(PressWorkRepository pressWorkRepository, WorkRepository workRepository,
+                             ProductRepository productRepository, PurchaseRepository purchaseRepository) {
+        this.pressWorkRepository = pressWorkRepository;
         this.workRepository = workRepository;
         this.productRepository = productRepository;
         this.purchaseRepository = purchaseRepository;
@@ -61,5 +64,13 @@ public class StatisticResource {
         log.debug("REST request to get all Works");
         return workRepository.getTotalWorkNumber();
     }
+
+    @GetMapping("/completed-works/{id}")
+    public Integer get(@PathVariable Long id) {
+        log.debug("REST request to get all Works");
+        return pressWorkRepository.getTotalCompletedWorks(id);
+    }
+
+
 
 }

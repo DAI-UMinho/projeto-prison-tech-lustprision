@@ -5,13 +5,14 @@ import {Col, Row, Card, CardBody, CardTitle} from 'reactstrap';
 
 import {IRootState} from 'app/shared/reducers';
 import {getPrisionerWorks} from './prisioner.reducer';
-import {deleteWork} from "app/entities/work/work.reducer";
+import {getPrisonerCompletedWorks} from "app/shared/reducers/statistics";
+// import {deleteWork} from "app/entities/work/work.reducer";
+import { cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
 import MaterialTable, {Column} from "material-table";
-import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from "app/config/constants";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import {TextFormat} from "react-jhipster";
+import StateBox from "app/components/StateBox";
 
 const MySwal = withReactContent(Swal);
 
@@ -24,7 +25,7 @@ export interface IPrisionerWorkProps extends StateProps, DispatchProps, RouteCom
 
 export const PrisionerWork = (props: IPrisionerWorkProps) => {
   const [data, setData] = useState([]);
-  const {prisionerWorks, updateSuccess} = props;
+  const {prisionerWorks, updateSuccess, workJob, worksReloading, completedWorks} = props;
 
   const [state, setState] = React.useState<TableState>({
     columns: [
@@ -32,10 +33,37 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
       {title: 'Nome', field: 'nameWork'},
       {title: 'Data', field: 'dateWork', type: 'date'},
       {title: 'Créditos', field: 'totalCredits'},
-      {title: 'Estado', field: 'state', render: rowData => <span className="span-status" style={{border: '1px solid rgb(67, 160, 71)', color: 'rgb(67, 160, 71)'}}>CONCLUIDO</span>},
+      {title: 'Estado', field: 'state', render: rowData => <StateBox boxText={rowData.stateName} stateID={rowData.stateID}/>},
     ]
   });
 
+  const clickCancelWork = (id) => {
+    MySwal.fire({
+      title: <p>Despedir Presidiario?</p>,
+      text: "Não é possivel reverter esta operação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Despedir!'
+    }).then((result) => {
+      if (result.value) {
+        return props.cancelPressProduct(id);
+      }
+    }).then((result: any) => {
+      console.log(result);
+      if(result.value.status === 200){
+        props.getPrisionerWorks(props.match.params.id);
+        // Swal.fire(
+        //   'Sucesso!',
+        //   'O presidiário foi removido deste trabalho',
+        //   'success'
+        // )
+      }
+    })
+  };
+  console.log("HEHE");
+  console.log(completedWorks);
   return (
     <Row className="justify-content-center">
       <Col md="8">
@@ -44,6 +72,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               title="Trabalhos Realizados"
               columns={state.columns}
               data={prisionerWorks}
+              isLoading={worksReloading}
               onRowClick={((evt, selectedRow) => {})}
               options={{
                 headerStyle: {
@@ -63,6 +92,12 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
                 }
               }}
               actions={[
+                rowData => ({
+                  icon: 'cancel',
+                  tooltip: 'Despedir deste trabalho',
+                  onClick: (event, data) => clickCancelWork(data.pressProductId),
+                  disabled: rowData.stateID > 1
+                }),
                 {
                   icon: 'delete',
                   tooltip: 'Remover trabalho',
@@ -77,7 +112,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
                       confirmButtonText: 'Apagar!'
                     }).then((result) => {
                       if (result.value) {
-                        return props.deleteWork(rowData.id);
+                        // return props.deleteWork(rowData.id);
                       }
                     }).then((result: any) => {
                       if(result.value.status === 204){
@@ -125,7 +160,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               <Col md="8" xs="7">
                 <div className="numbers">
                   <p className="card-category">Trabalhos Concluidos</p>
-                  <CardTitle tag="p">0</CardTitle>
+                  <CardTitle tag="p">{completedWorks}</CardTitle>
                   <p/>
                 </div>
               </Col>
@@ -157,10 +192,14 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
 
 const mapStateToProps = (state: IRootState) => ({
   prisionerWorks: state.prisioner.works,
+  worksReloading: state.prisioner.loading,
   updateSuccess: state.work.updateSuccess,
+  workJob: state.pressWork.entity,
+  workUpdating: state.pressWork.updating,
+  completedWorks: state.statistics.nPrisonerCompletedWork
 });
 
-const mapDispatchToProps = {getPrisionerWorks, deleteWork};
+const mapDispatchToProps = {getPrisionerWorks, cancelPressProduct, getPrisonerCompletedWorks};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

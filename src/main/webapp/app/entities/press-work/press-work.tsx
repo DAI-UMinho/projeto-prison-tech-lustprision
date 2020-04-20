@@ -45,6 +45,9 @@ export const PressWork = (props: IPressWorkProps) => {
                 <th>
                   <Translate contentKey="lustPrisionApp.pressWork.work">Work</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.pressWork.state">State</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -61,6 +64,7 @@ export const PressWork = (props: IPressWorkProps) => {
                   </td>
                   <td>{pressWork.prisioner ? <Link to={`prisioner/${pressWork.prisioner.id}`}>{pressWork.prisioner.id}</Link> : ''}</td>
                   <td>{pressWork.work ? <Link to={`work/${pressWork.work.id}`}>{pressWork.work.id}</Link> : ''}</td>
+                  <td>{pressWork.state ? <Link to={`state/${pressWork.state.id}`}>{pressWork.state.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${pressWork.id}`} color="info" size="sm">

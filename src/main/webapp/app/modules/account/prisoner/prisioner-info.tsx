@@ -66,6 +66,12 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   };
 
   useEffect(() => {
+    if (isNew) {
+      props.reset();
+    }
+  }, []);
+
+  useEffect(() => {
     if (props.updateSuccess) {
       handleClose();
     }

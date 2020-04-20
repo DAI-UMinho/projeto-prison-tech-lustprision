@@ -3,6 +3,7 @@ package com.lustprision.admin.web.rest;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.PressWork;
 import com.lustprision.admin.repository.PressWorkRepository;
+import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +43,9 @@ public class PressWorkResourceIT {
     private PressWorkRepository pressWorkRepository;
 
     @Autowired
+    private StateRepository stateRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -63,7 +67,7 @@ public class PressWorkResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PressWorkResource pressWorkResource = new PressWorkResource(pressWorkRepository);
+        final PressWorkResource pressWorkResource = new PressWorkResource(pressWorkRepository, stateRepository);
         this.restPressWorkMockMvc = MockMvcBuilders.standaloneSetup(pressWorkResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -151,7 +155,7 @@ public class PressWorkResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(pressWork.getId().intValue())))
             .andExpect(jsonPath("$.[*].workDate").value(hasItem(DEFAULT_WORK_DATE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getPressWork() throws Exception {

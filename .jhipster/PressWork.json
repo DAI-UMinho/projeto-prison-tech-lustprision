@@ -20,6 +20,15 @@
             "otherEntityRelationshipName": "id",
             "relationshipName": "work",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "state",
+            "otherEntityName": "state",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": false,
+            "otherEntityRelationshipName": "pressWork"
         }
     ],
     "changelogDate": "20200320151400",
@@ -31,5 +40,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

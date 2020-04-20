@@ -34,6 +34,7 @@ public class PrisionerService {
 
     private final PrisQuizRepository prisQuizRepository;
 
+
     public PrisionerService(PrisionerRepository prisionerRepository, PurchaseRepository purchaseRepository,
                             PressWorkRepository pressWorkRepository, PrisQuizRepository prisQuizRepository) {
         this.prisionerRepository = prisionerRepository;
@@ -50,7 +51,6 @@ public class PrisionerService {
                     purchaseList.add(new PurchaseDTO(purchase));
                 });
         });
-        log.debug("REST request purchase list : {}", purchaseList);
         return purchaseList;
     }
 
@@ -58,9 +58,13 @@ public class PrisionerService {
         List<WorkDTO> workList = new ArrayList<>();
         prisionerRepository.findById(id).ifPresent(prisioner -> {
             pressWorkRepository.getAllByPrisioner(prisioner)
-                .stream()
-                .map(PressWork::getWork)
-                .forEach(work -> workList.add(new WorkDTO(work)));
+                .forEach(pressWork -> {
+                        WorkDTO mWork = new WorkDTO(pressWork.getWork());
+                        mWork.setPressProductId(pressWork.getId());
+                        mWork.setStateID(pressWork.getState().getId());
+                        mWork.setStateName(pressWork.getState().getName());
+                        workList.add(mWork);
+                    });
         });
         return workList;
     }

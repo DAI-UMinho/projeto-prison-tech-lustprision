@@ -35,6 +35,10 @@ public class PressWork implements Serializable {
     @JsonIgnoreProperties("ids")
     private Work work;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private State state;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -81,6 +85,19 @@ public class PressWork implements Serializable {
 
     public void setWork(Work work) {
         this.work = work;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public PressWork state(State state) {
+        this.state = state;
+        return this;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

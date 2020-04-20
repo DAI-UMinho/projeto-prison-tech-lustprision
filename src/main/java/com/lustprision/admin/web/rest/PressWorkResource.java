@@ -1,7 +1,9 @@
 package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.PressWork;
+import com.lustprision.admin.domain.State;
 import com.lustprision.admin.repository.PressWorkRepository;
+import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -35,8 +37,11 @@ public class PressWorkResource {
 
     private final PressWorkRepository pressWorkRepository;
 
-    public PressWorkResource(PressWorkRepository pressWorkRepository) {
+    private final StateRepository stateRepository;
+
+    public PressWorkResource(PressWorkRepository pressWorkRepository, StateRepository stateRepository) {
         this.pressWorkRepository = pressWorkRepository;
+        this.stateRepository = stateRepository;
     }
 
     /**
@@ -114,5 +119,16 @@ public class PressWorkResource {
         log.debug("REST request to delete PressWork : {}", id);
         pressWorkRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @PutMapping("/press-works/{id}/cancel")
+    public ResponseEntity<PressWork> cancelPressWork(@PathVariable Long id) {
+        log.debug("REST request to delete PressWork : {}", id);
+        PressWork result = pressWorkRepository.findById(id).get();
+        State mState = stateRepository.getOne(Long.valueOf(3));
+        result.setState(mState);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

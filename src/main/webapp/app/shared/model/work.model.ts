@@ -8,6 +8,7 @@ export interface IWork {
   numVacancies?: number;
   date?: Moment;
   ids?: IPressWork[];
+  stateId?: number;
 }
 
 export const defaultValue: Readonly<IWork> = {};

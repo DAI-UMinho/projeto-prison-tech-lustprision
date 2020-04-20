@@ -10,6 +10,8 @@ public class WorkDTO {
     @Size(max = 38)
     private Long id;
 
+    private Long pressProductId;
+
     @Size(max = 255)
     private String nameWork;
 
@@ -19,6 +21,10 @@ public class WorkDTO {
     @Size()
     private LocalDate dateWork;
 
+    @Size(max = 38)
+    private Long stateID;
+
+    private String stateName;
 
     public WorkDTO() {
         // Empty constructor needed for Jackson.
@@ -29,6 +35,8 @@ public class WorkDTO {
         this.nameWork = work.getNameWork();
         this.totalCredits = work.getTotalCredits();
         this.dateWork = work.getDate();
+        this.stateID = Long.valueOf(1);
+        this.stateName = "";
     }
 
     public Long getId() {
@@ -50,4 +58,16 @@ public class WorkDTO {
     public LocalDate getDateWork() { return dateWork; }
 
     public void setDateWork(LocalDate dateWork) { this.dateWork = dateWork; }
+
+    public Long getStateID(){ return stateID; }
+
+    public void setStateID(Long stateID){ this.stateID = stateID; }
+
+    public String getStateName(){ return stateName; }
+
+    public void setStateName(String stateName){ this.stateName = stateName; }
+
+    public Long getPressProductId(){ return pressProductId; }
+
+    public void setPressProductId(Long pressProductId){ this.pressProductId = pressProductId; }
 }

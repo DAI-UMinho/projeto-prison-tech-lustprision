@@ -8,6 +8,7 @@ export default class WorkUpdatePage {
   priceHourInput: ElementFinder = element(by.css('input#work-priceHour'));
   numVacanciesInput: ElementFinder = element(by.css('input#work-numVacancies'));
   dateInput: ElementFinder = element(by.css('input#work-date'));
+  stateSelect: ElementFinder = element(by.css('select#work-state'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -43,6 +44,25 @@ export default class WorkUpdatePage {
 
   async getDateInput() {
     return this.dateInput.getAttribute('value');
+  }
+
+  async stateSelectLastOption() {
+    await this.stateSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async stateSelectOption(option) {
+    await this.stateSelect.sendKeys(option);
+  }
+
+  getStateSelect() {
+    return this.stateSelect;
+  }
+
+  async getStateSelectedOption() {
+    return this.stateSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

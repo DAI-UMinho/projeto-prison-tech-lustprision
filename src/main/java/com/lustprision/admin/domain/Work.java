@@ -1,14 +1,14 @@
 package com.lustprision.admin.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+    import org.hibernate.annotations.Cache;
+    import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
+    import javax.persistence.*;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+    import java.io.Serializable;
+    import java.time.LocalDate;
+    import java.util.HashSet;
+    import java.util.Set;
 
 /**
  * A Work.
@@ -40,6 +40,10 @@ public class Work implements Serializable {
     @OneToMany(mappedBy = "work")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressWork> ids = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private State state;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -126,6 +130,19 @@ public class Work implements Serializable {
     public void setIds(Set<PressWork> pressWorks) {
         this.ids = pressWorks;
     }
+
+    public State getState() {
+        return state;
+    }
+
+    public Work state(State state) {
+        this.state = state;
+        return this;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -155,3 +172,4 @@ public class Work implements Serializable {
             "}";
     }
 }
+
