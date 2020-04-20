@@ -4,10 +4,27 @@ import java.util.ArrayList;
 
 public class Questoes {
 
-    public int idQuestao;
-    public ArrayList<String> respostas;
-    public String resposta;
-    public int valorQuestao;
+    private int idQuestao;
+    private ArrayList<String> respostas;
+    private String resposta;
+
+    public String getResposta() {
+        return resposta;
+    }
+
+    public ArrayList<String> getRespostas() {
+        return respostas;
+    }
+
+    public int getIdQuestao() {
+        return idQuestao;
+    }
+
+    public int getValorQuestao() {
+        return valorQuestao;
+    }
+
+    private int valorQuestao;
 
     public Questoes(int idQuestao, ArrayList<String> respostas , int valorQuestao, String resposta ){
         this.idQuestao=idQuestao;

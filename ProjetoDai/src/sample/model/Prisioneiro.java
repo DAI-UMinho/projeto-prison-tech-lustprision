@@ -1,10 +1,10 @@
 package sample.model;
 
 public class Prisioneiro {
-    public int ID;
-    public String Nome;
-    public int Saldo;
-    public boolean PermissaoQuiz;
+    private int ID;
+    private String Nome;
+    private int Saldo;
+    private boolean PermissaoQuiz;
 
 
     public Prisioneiro(int ID, String Name, int Balance){
