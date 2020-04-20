@@ -7,9 +7,16 @@ public class Trabalho {
     private String PrecoHora;
     private int Vagas;
 
-    public int getVagas() {
-        return Vagas;
+
+    public Trabalho(int IdTrabalho, String Nome, String Descricao, String PrecoHora, int Vagas){
+        this.IdTrabalho=IdTrabalho;
+        this.Nome=Nome;
+        this.Descricao=Descricao;
+        this.PrecoHora=PrecoHora;
+        this.Vagas=Vagas;
     }
+
+    public int getVagas() { return Vagas;}
 
     public String getPrecoHora() {
         return PrecoHora;
@@ -27,12 +34,5 @@ public class Trabalho {
         return IdTrabalho;
     }
 
-    public Trabalho(int IdTrabalho, String Nome, String Descricao, String PrecoHora, int Vagas){
-        this.IdTrabalho=IdTrabalho;
-        this.Nome=Nome;
-        this.Descricao=Descricao;
-        this.PrecoHora=PrecoHora;
-        this.Vagas=Vagas;
-    }
 }
 
