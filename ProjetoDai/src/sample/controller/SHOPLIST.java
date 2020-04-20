@@ -9,7 +9,7 @@ public class SHOPLIST {
 
     public void addSHOPLIST(PRODUCT_TB product){
         Shoplist.add(product);
-        Price += product.type.Preco;
+        Price += product.type.getPreco();
     }
 
     public void removeSHOPLIST(PRODUCT_TB product){

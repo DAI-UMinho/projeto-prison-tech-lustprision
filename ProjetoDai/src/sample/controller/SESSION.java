@@ -21,8 +21,8 @@ public class SESSION {
 
     public void removeShopping(PRODUCT_TB x){
         for(int i = 0;i<shoplist.Shoplist.size();i++){
-            if(shoplist.Shoplist.get(i).type.ID == x.type.ID){
-                shoplist.Price-=shoplist.Shoplist.get(i).type.Preco;
+            if(shoplist.Shoplist.get(i).type.getID() == x.type.getID()){
+                shoplist.Price-=shoplist.Shoplist.get(i).type.getPreco();
                 shoplist.Shoplist.remove(i);
             }
         }
