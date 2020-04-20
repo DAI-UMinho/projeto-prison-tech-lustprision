@@ -45,7 +45,7 @@ public class LoginController implements Initializable {
         app_stage.show();
 
 
-        Main.sis.LoginTS(5352,Integer.valueOf(txtPassword.getText()));
+
 
     }
 
@@ -55,6 +55,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
