@@ -7,6 +7,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IState } from 'app/shared/model/state.model';
+import { getEntities as getStates } from 'app/entities/state/state.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './work.reducer';
 import { IWork } from 'app/shared/model/work.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,9 +17,10 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IWorkUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const WorkUpdate = (props: IWorkUpdateProps) => {
+  const [stateId, setStateId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { workEntity, loading, updating } = props;
+  const { workEntity, states, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/work');
@@ -29,6 +32,8 @@ export const WorkUpdate = (props: IWorkUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
+
+    props.getStates();
   }, []);
 
   useEffect(() => {
@@ -97,7 +102,22 @@ export const WorkUpdate = (props: IWorkUpdateProps) => {
                 <Label id="dateLabel" for="work-date">
                   <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
                 </Label>
-                <AvField id="work-date" type="date" className="form-control" name="dateWork" />
+                <AvField id="work-date" type="date" className="form-control" name="date" />
+              </AvGroup>
+              <AvGroup>
+                <Label for="work-state">
+                  <Translate contentKey="lustPrisionApp.work.state">State</Translate>
+                </Label>
+                <AvInput id="work-state" type="select" className="form-control" name="state.id">
+                  <option value="" key="0" />
+                  {states
+                    ? states.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/work" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
@@ -121,6 +141,7 @@ export const WorkUpdate = (props: IWorkUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  states: storeState.state.entities,
   workEntity: storeState.work.entity,
   loading: storeState.work.loading,
   updating: storeState.work.updating,
@@ -128,6 +149,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getStates,
   getEntity,
   updateEntity,
   createEntity,

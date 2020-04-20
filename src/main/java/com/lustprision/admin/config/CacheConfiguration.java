@@ -74,6 +74,7 @@ public class CacheConfiguration {
             createCache(cm, com.lustprision.admin.domain.Login.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Permission.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.PressProduct.class.getName());
+            createCache(cm, com.lustprision.admin.domain.State.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

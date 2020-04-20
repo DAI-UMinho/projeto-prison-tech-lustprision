@@ -11,6 +11,8 @@ import { IPrisioner } from 'app/shared/model/prisioner.model';
 import { getEntities as getPrisioners } from 'app/entities/prisioner/prisioner.reducer';
 import { IWork } from 'app/shared/model/work.model';
 import { getEntities as getWorks } from 'app/entities/work/work.reducer';
+import { IState } from 'app/shared/model/state.model';
+import { getEntities as getStates } from 'app/entities/state/state.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './press-work.reducer';
 import { IPressWork } from 'app/shared/model/press-work.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -21,9 +23,10 @@ export interface IPressWorkUpdateProps extends StateProps, DispatchProps, RouteC
 export const PressWorkUpdate = (props: IPressWorkUpdateProps) => {
   const [prisionerId, setPrisionerId] = useState('0');
   const [workId, setWorkId] = useState('0');
+  const [stateId, setStateId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { pressWorkEntity, prisioners, works, loading, updating } = props;
+  const { pressWorkEntity, prisioners, works, states, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/press-work');
@@ -38,6 +41,7 @@ export const PressWorkUpdate = (props: IPressWorkUpdateProps) => {
 
     props.getPrisioners();
     props.getWorks();
+    props.getStates();
   }, []);
 
   useEffect(() => {
@@ -54,7 +58,6 @@ export const PressWorkUpdate = (props: IPressWorkUpdateProps) => {
       };
 
       if (isNew) {
-        console.log(entity);
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -121,6 +124,21 @@ export const PressWorkUpdate = (props: IPressWorkUpdateProps) => {
                     : null}
                 </AvInput>
               </AvGroup>
+              <AvGroup>
+                <Label for="press-work-state">
+                  <Translate contentKey="lustPrisionApp.pressWork.state">State</Translate>
+                </Label>
+                <AvInput id="press-work-state" type="select" className="form-control" name="state.id">
+                  <option value="" key="0" />
+                  {states
+                    ? states.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/press-work" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -145,6 +163,7 @@ export const PressWorkUpdate = (props: IPressWorkUpdateProps) => {
 const mapStateToProps = (storeState: IRootState) => ({
   prisioners: storeState.prisioner.entities,
   works: storeState.work.entities,
+  states: storeState.state.entities,
   pressWorkEntity: storeState.pressWork.entity,
   loading: storeState.pressWork.loading,
   updating: storeState.pressWork.updating,
@@ -154,6 +173,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getPrisioners,
   getWorks,
+  getStates,
   getEntity,
   updateEntity,
   createEntity,

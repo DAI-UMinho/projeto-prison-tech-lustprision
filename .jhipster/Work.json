@@ -24,6 +24,15 @@
             "otherEntityName": "pressWork",
             "otherEntityRelationshipName": "work",
             "relationshipName": "id"
+        },
+        {
+            "relationshipName": "state",
+            "otherEntityName": "state",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": false,
+            "otherEntityRelationshipName": "work"
         }
     ],
     "changelogDate": "20200320151800",

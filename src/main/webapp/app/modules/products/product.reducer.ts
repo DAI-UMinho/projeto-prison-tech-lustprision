@@ -13,6 +13,7 @@ export const ACTION_TYPES = {
   FETCH_PRODUCT_PAGE_LIST: 'product/FETCH_PRODUCT_PAGE_LIST',
   FETCH_PRODUCT_RANGE_LIST: 'product/FETCH_PRODUCT_NAME_LIST',
   FETCH_PRODUCT_NAME_LIST: 'product/FETCH_PRODUCT_NAME_LIST',
+  FETCH_PRODUCT_SALES_LIST: 'product/FETCH_PRODUCT_SALES_LIST',
   FETCH_PRODUCT_LIST: 'product/FETCH_PRODUCT_LIST',
   FETCH_PRODUCT: 'product/FETCH_PRODUCT',
   CREATE_PRODUCT: 'product/CREATE_PRODUCT',
@@ -28,7 +29,8 @@ const initialState = {
   entities: [] as ReadonlyArray<IProduct>,
   productsPage: [] as ReadonlyArray<IProduct>,
   productsByName: [] as ReadonlyArray<IProduct>,
-  entity: defaultValue,
+  productSales: [] as ReadonlyArray<any>,
+  product: defaultValue,
   updating: false,
   updateSuccess: false,
   totalItems: 0
@@ -40,6 +42,7 @@ export type ProductState = Readonly<typeof initialState>;
 
 export default (state: ProductState = initialState, action): ProductState => {
   switch (action.type) {
+    case REQUEST(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRODUCT_PAGE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRODUCT_RANGE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRODUCT_NAME_LIST):
@@ -60,6 +63,8 @@ export default (state: ProductState = initialState, action): ProductState => {
         updateSuccess: false,
         updating: true
       };
+
+    case FAILURE(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRODUCT_PAGE_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRODUCT_RANGE_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRODUCT_NAME_LIST):
@@ -74,6 +79,13 @@ export default (state: ProductState = initialState, action): ProductState => {
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
+      return {
+        ...state,
+        loading: false,
+        productSales: action.payload.data,
+        totalItems: parseInt(action.payload.headers['x-total-count'], 10)
       };
     case SUCCESS(ACTION_TYPES.FETCH_PRODUCT_PAGE_LIST):
       return {
@@ -99,7 +111,7 @@ export default (state: ProductState = initialState, action): ProductState => {
       return {
         ...state,
         loading: false,
-        entity: action.payload.data
+        product: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.CREATE_PRODUCT):
     case SUCCESS(ACTION_TYPES.UPDATE_PRODUCT):
@@ -107,21 +119,21 @@ export default (state: ProductState = initialState, action): ProductState => {
         ...state,
         updating: false,
         updateSuccess: true,
-        entity: action.payload.data
+        product: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.DELETE_PRODUCT):
       return {
         ...state,
         updating: false,
         updateSuccess: true,
-        entity: {}
+        product: {}
       };
     case ACTION_TYPES.SET_BLOB: {
       const { name, data, contentType } = action.payload;
       return {
         ...state,
-        entity: {
-          ...state.entity,
+        product: {
+          ...state.product,
           [name]: data,
           [name + 'ContentType']: contentType
         }
@@ -144,6 +156,14 @@ export const getEntities: ICrudGetAllAction<IProduct> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_PRODUCT_LIST,
   payload: axios.get<IProduct>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
+
+export const getProductSales: ICrudGetAllAction<any> = id => {
+  const requestUrl = `${apiUrl}/${id}/sales`;
+  return {
+    type: ACTION_TYPES.FETCH_PRODUCT_SALES_LIST,
+    payload: axios.get<IProduct>(requestUrl)
+  };
+};
 
 export const getProductsByPage: ICrudGetAllAction<IProduct> = (page, size, sort) => {
   const requestUrl = `${apiUrl}/bypage${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;

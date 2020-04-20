@@ -24,4 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByNameProdContainingAndPriceBetween(String name, Number lower, Number higher, Pageable pageable);
 
     Page<Product> findAllByPriceBetween(Number lower, Number higher, Pageable pageable);
+
+    @Query(value = "SELECT COUNT (ID) FROM PRODUCT", nativeQuery = true)
+    Integer getTotalProductNumber();
 }

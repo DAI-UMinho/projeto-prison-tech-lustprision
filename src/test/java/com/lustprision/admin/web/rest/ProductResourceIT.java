@@ -3,6 +3,7 @@ package com.lustprision.admin.web.rest;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Product;
 import com.lustprision.admin.repository.ProductRepository;
+import com.lustprision.admin.service.ProductService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -64,6 +65,9 @@ public class ProductResourceIT {
     private ProductRepository productRepository;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -85,7 +89,7 @@ public class ProductResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProductResource productResource = new ProductResource(productRepository);
+        final ProductResource productResource = new ProductResource(productRepository, productService);
         this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -205,7 +209,7 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
     }
-    
+
     @Test
     @Transactional
     public void getProduct() throws Exception {

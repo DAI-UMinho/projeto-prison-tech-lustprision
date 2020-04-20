@@ -1,0 +1,22 @@
+{
+  "lustPrisionApp": {
+    "state": {
+      "home": {
+        "title": "States",
+        "createLabel": "Criar novo(a) State",
+        "createOrEditLabel": "Criar ou editar State",
+        "notFound": "Nenhum States encontrado"
+      },
+      "created": "Um novo State foi criado com o identificador {{ param }}",
+      "updated": "State com identificador {{ param }} foi actualizado",
+      "deleted": "State com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) State {{ id }}?"
+      },
+      "detail": {
+        "title": "State"
+      },
+      "name": "Name"
+    }
+  }
+}

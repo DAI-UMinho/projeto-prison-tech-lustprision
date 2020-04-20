@@ -6,6 +6,7 @@ import {Translate, JhiItemCount, JhiPagination, getSortState} from 'react-jhipst
 
 import {IRootState} from 'app/shared/reducers';
 import {getProductsByName, getProductsByPriceRange, getProductsByPage, getProductsByPageName,getProductsByPagePriceRange} from './product.reducer';
+import {getPurchaseTotalNumber, getProductTotalNumber, getPrisonerCompletedWorks} from "app/shared/reducers/statistics";
 import {Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -36,15 +37,19 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 'auto',
       overflow: 'hidden'
     },
-    icon: {
-      color: 'rgba(255, 255, 255, 0.54)',
+    gridPrice: {
+      color: 'rgb(255,255,255)',
+      margin: '10px'
     },
     productWrapper: {
       width: '100%',
       display: 'flex'
     },
     gridItem: {
-      borderRadius: 10
+      borderRadius: 10,
+      '&:hover': {
+        cursor: 'pointer'
+      }
     },
     loadingSpinner:{
       position: 'absolute',
@@ -106,11 +111,21 @@ export const ProductOverview = (props: IProductProps) => {
   const [sliderValue, setSliderValue] = React.useState<number[]>([0, 200]);
 
   useEffect(() => {
+    console.log(pagination);
     props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
     props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
-  const {totalItems, productsPage, match, loading} = props;
+  useEffect(() => {
+    props.getPurchaseTotalNumber();
+    props.getProductTotalNumber();
+  }, []);
+
+  const {totalItems, productsPage, match, loading, nSales, nProducts, statLoading} = props;
+
+  const purchaseSelect = (id) => {
+    console.log(id);
+    props.history.push(`${match.url}/${id}`);}
 
   const handlePagination = currentPage =>
     setPagination({
@@ -146,8 +161,8 @@ export const ProductOverview = (props: IProductProps) => {
                 <Col md="8" xs="7">
                   <div className="numbers">
                     <p className="card-category">Número de Produtos</p>
-                    {loading ? (<Ellipsis color="#99c3ff" size={40}/>)
-                      : (<CardTitle tag="p">{productsPage.length}</CardTitle>)}
+                    {statLoading ? (<Ellipsis color="#99c3ff" size={40}/>)
+                      : (<CardTitle tag="p">{nProducts}</CardTitle>)}
                   </div>
                 </Col>
               </Row>
@@ -166,8 +181,8 @@ export const ProductOverview = (props: IProductProps) => {
                 <Col md="8" xs="7">
                   <div className="numbers">
                     <p className="card-category">Número de Vendas</p>
-                    {loading ? (<Ellipsis color="#99c3ff" size={40}/>)
-                      : (<CardTitle tag="p"></CardTitle>)}
+                    {statLoading ? (<Ellipsis color="#99c3ff" size={40}/>)
+                      : (<CardTitle tag="p">{nSales}</CardTitle>)}
                   </div>
                 </Col>
               </Row>
@@ -240,15 +255,16 @@ export const ProductOverview = (props: IProductProps) => {
             <div>
               <GridList cellHeight={mHeight} spacing={3} cols={6} className={classes.gridList}>
                 {productsPage.map((product) => (
-                  <GridListTile key={product.image} cols={2} rows={mRow} className={classes.gridItem}>
+                  <GridListTile key={product.image} cols={2} rows={mRow} className={classes.gridItem} onClick={() => purchaseSelect(product.id)}>
                     <img src={`data:${product.imageContentType};base64,${product.image}`} alt={product.nameProd}/>
                     <GridListTileBar
                       title={product.nameProd}
                       subtitle={<span>by: {product.seler}</span>}
                       actionIcon={
-                        <IconButton aria-label={`info about ${product.nameProd}`} className={classes.icon}>
+                        /*<IconButton aria-label={`info about ${product.nameProd}`} className={classes.icon}>
                           <InfoIcon/>
-                        </IconButton>
+                        </IconButton>*/
+                        <h3 className={classes.gridPrice}>{product.price}</h3>
                       }
                     />
                   </GridListTile>
@@ -275,10 +291,14 @@ export const ProductOverview = (props: IProductProps) => {
   );
 };
 
-const mapStateToProps = ({product}: IRootState) => ({
+const mapStateToProps = ({product, statistics}: IRootState) => ({
   productsPage: product.productsPage,
   totalItems: product.totalItems,
-  loading: product.loading
+  loading: product.loading,
+  nProducts: statistics.nProducts,
+  nSales: statistics.nSales,
+  statLoading: statistics.loading,
+  statError: statistics.errorMessage
 });
 
 const mapDispatchToProps = {
@@ -286,7 +306,10 @@ const mapDispatchToProps = {
   getProductsByPriceRange,
   getProductsByPage,
   getProductsByPageName,
-  getProductsByPagePriceRange
+  getProductsByPagePriceRange,
+  getPurchaseTotalNumber,
+  getProductTotalNumber,
+  getPrisonerCompletedWorks
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

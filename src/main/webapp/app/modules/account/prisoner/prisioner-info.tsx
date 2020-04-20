@@ -10,6 +10,8 @@ import {IRootState} from 'app/shared/reducers';
 import {createEntity, getEntity, reset, setBlob, updateEntity} from './prisioner.reducer';
 import {CircularProgress} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 export interface IPrisionerInfoProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string  }> {
 }
@@ -21,6 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)'
+    },
+    eyeButton:{
+      margin: '8px',
+      '&:hover': {
+        color: "#141415",
+        cursor: 'pointer'
+      }
     }
   }));
 
@@ -28,11 +37,21 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   const classes = useStyles();
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const [password, setPassword] = useState('');
+  const [eyeActive, setEyeActive] = useState(false);
 
   const {prisionerEntity, loading, updating} = props;
   const {profileImage, profileImageContentType} = prisionerEntity;
 
+  const [nfcCode, setNfcCode] = useState(prisionerEntity.nfcCode);
+
   const updatePassword = event => setPassword(event.target.value);
+
+  const passwordType = eyeActive ? "text" : "password";
+  const eyeColor = eyeActive ? 'inherit' : 'action';
+
+  const eyeClick = () => setEyeActive(!eyeActive);
+
+  const generateNFC = () => setNfcCode(Math.random().toString().slice(2,12));
 
   const handleClose = () => {
     props.history.push('/dashboard/prisoners');
@@ -45,6 +64,12 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   const clearBlob = name => () => {
     props.setBlob(name, undefined, undefined);
   };
+
+  useEffect(() => {
+    if (isNew) {
+      props.reset();
+    }
+  }, []);
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -189,43 +214,53 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                 </AvGroup>
                 <AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.nfcCode">NFC Code</Translate>
-                  <AvField id="prisioner-bi" type="text" className="form-control" name="nfcCode"
-                           value={prisionerEntity.nfcCode}
-                           validate={{
-                             number: true,
-                             required: {
-                               value: true,
-                               errorMessage: translate('lustPrisionApp.prisioner.validation.bi.required')
-                             },
-                             minLength: {
-                               value: 10,
-                               errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
-                             },
-                             maxLength: {
-                               value: 12,
-                               errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
-                             }
-                           }}/>
+                  <Row>
+                    <Col xs="12" sm="11">
+                      <AvField id="prisioner-bi" type="text" className="form-control" name="nfcCode"
+                               value={nfcCode}
+                               validate={{
+                                 number: true,
+                                 required: {
+                                   value: true,
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.bi.required')
+                                 },
+                                 minLength: {
+                                   value: 10,
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
+                                 },
+                                 maxLength: {
+                                   value: 12,
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
+                                 }
+                               }}/>
+                    </Col>
+                    <RefreshIcon onClick={generateNFC} className={classes.eyeButton} />
+                  </Row>
                 </AvGroup>
                 <AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.pinCode">PIN</Translate>
-                  <AvField id="prisioner-password" type="password" name="codigoCartao"
-                           value={prisionerEntity.codigoCartao}
-                           validate={{
-                             number: true,
-                             required: {
-                               value: true,
-                               errorMessage: translate('global.messages.validate.newpassword.required')
-                             },
-                             minLength: {
-                               value: 4,
-                               errorMessage: translate('global.messages.validate.newpassword.minlength')
-                             },
-                             maxLength: {
-                               value: 4,
-                               errorMessage: translate('global.messages.validate.newpassword.maxlength')
-                             }
-                           }}/>
+                  <Row>
+                    <Col xs="12" sm="11">
+                      <AvField id="prisioner-password" type={passwordType} name="codigoCartao"
+                               value={prisionerEntity.codigoCartao}
+                               validate={{
+                                 number: true,
+                                 required: {
+                                   value: true,
+                                   errorMessage: translate('global.messages.validate.newpassword.required')
+                                 },
+                                 minLength: {
+                                   value: 4,
+                                   errorMessage: translate('global.messages.validate.newpassword.minlength')
+                                 },
+                                 maxLength: {
+                                   value: 4,
+                                   errorMessage: translate('global.messages.validate.newpassword.maxlength')
+                                 }
+                               }}/>
+                    </Col>
+                    <VisibilityIcon onClick={eyeClick} className={classes.eyeButton} color={eyeColor}/>
+                  </Row>
                 </AvGroup>
                 <AvField id="prisioner-password" type="hidden" name="balance" value="0"/>
                 <Button tag={Link} id="cancel-save" to="/dashboard/prisoners" replace color="info">

@@ -51,6 +51,10 @@ export const WorkDetail = (props: IWorkDetailProps) => {
           <dd>
             <TextFormat value={workEntity.date} type="date" format={APP_LOCAL_DATE_FORMAT} />
           </dd>
+          <dt>
+            <Translate contentKey="lustPrisionApp.work.state">State</Translate>
+          </dt>
+          <dd>{workEntity.stateId ? workEntity.stateId : ''}</dd>
         </dl>
         <Button tag={Link} to="/work" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

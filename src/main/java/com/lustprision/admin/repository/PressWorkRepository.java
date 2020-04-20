@@ -4,6 +4,7 @@ import com.lustprision.admin.domain.PressWork;
 
 import com.lustprision.admin.domain.Prisioner;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,7 @@ import java.util.List;
 public interface PressWorkRepository extends JpaRepository<PressWork, Long> {
 
     List<PressWork> getAllByPrisioner(Prisioner prisioner);
+
+    @Query(value = "SELECT COUNT (*) FROM PRESS_WORK WHERE STATE_ID = 2 AND PRISIONER_ID = ?1", nativeQuery = true)
+    Integer getTotalCompletedWorks(Long prisonerID);
 }

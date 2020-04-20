@@ -24,6 +24,9 @@
             <column name="work_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="state_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_press_work_state_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
     </changeSet>

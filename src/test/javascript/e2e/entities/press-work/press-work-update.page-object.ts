@@ -7,6 +7,7 @@ export default class PressWorkUpdatePage {
   workDateInput: ElementFinder = element(by.css('input#press-work-workDate'));
   prisionerSelect: ElementFinder = element(by.css('select#press-work-prisioner'));
   workSelect: ElementFinder = element(by.css('select#press-work-work'));
+  stateSelect: ElementFinder = element(by.css('select#press-work-state'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -56,6 +57,25 @@ export default class PressWorkUpdatePage {
 
   async getWorkSelectedOption() {
     return this.workSelect.element(by.css('option:checked')).getText();
+  }
+
+  async stateSelectLastOption() {
+    await this.stateSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async stateSelectOption(option) {
+    await this.stateSelect.sendKeys(option);
+  }
+
+  getStateSelect() {
+    return this.stateSelect;
+  }
+
+  async getStateSelectedOption() {
+    return this.stateSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

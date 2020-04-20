@@ -22,7 +22,7 @@ export const RegisterPage = (props: IRegisterProps) => {
   const handleValidSubmit = (event, values) => {
     props.handleRegister(values.username, values.email, values.firstPassword, props.currentLocale);
     event.preventDefault();
-    window.location.replace("/login");
+    // window.location.replace("/login");
   };
 
   const updatePassword = event => setPassword(event.target.value);

@@ -15,4 +15,7 @@ import java.util.List;
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     List<Purchase> findAllByPrisioner(Prisioner prisioner);
+
+    @Query(value = "SELECT COUNT (ID) FROM PURCHASE", nativeQuery = true)
+    Integer getTotalPurchaseNumber();
 }

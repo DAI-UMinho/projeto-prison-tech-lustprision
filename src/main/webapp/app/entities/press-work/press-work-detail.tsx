@@ -41,6 +41,10 @@ export const PressWorkDetail = (props: IPressWorkDetailProps) => {
             <Translate contentKey="lustPrisionApp.pressWork.work">Work</Translate>
           </dt>
           <dd>{pressWorkEntity.work ? pressWorkEntity.work.id : ''}</dd>
+          <dt>
+            <Translate contentKey="lustPrisionApp.pressWork.state">State</Translate>
+          </dt>
+          <dd>{pressWorkEntity.state ? pressWorkEntity.state.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/press-work" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

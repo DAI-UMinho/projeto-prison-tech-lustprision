@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import {IRootState} from "app/shared/reducers";
 
 import {getPrisonerPurchases, getEntity, getPrisionerWorks, getPrisionerQuizs} from "./prisioner.reducer";
-import {deleteWork} from "app/entities/work/work.reducer";
+import {cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
 import {connect} from "react-redux";
 import PrisionerInfo from "app/modules/account/prisoner/prisioner-info";
 import PrivateRoute from "app/shared/auth/private-route";
@@ -17,6 +17,7 @@ import {PrisionerDetail} from "app/entities/prisioner/prisioner-detail";
 import {PrisionerWork} from "app/modules/account/prisoner/prisioner-work";
 import {PrisionerPurchase} from "app/modules/account/prisoner/prisioner-purchase";
 import {PrisionerQuiz} from "app/modules/account/prisoner/prisioner-quiz";
+import {getPrisonerCompletedWorks} from "app/shared/reducers/statistics";
 
 interface TabPanelProps {
   children?: any;
@@ -87,6 +88,7 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
     props.getPrisionerWorks(props.match.params.id);
     props.getPrisonerPurchases(props.match.params.id);
     props.getPrisionerQuizs(props.match.params.id);
+    props.getPrisonerCompletedWorks(props.match.params.id);
   }, []);
 
   function TabPanel(props: TabPanelProps) {
@@ -141,6 +143,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   prisionerEntity: storeState.prisioner.entity,
   prisionerWorks: storeState.prisioner.works,
   prisionerQuizs: storeState.prisioner.quizs,
+  completedWorks: storeState.statistics.nPrisonerCompletedWork,
   loading: storeState.prisioner.loading,
   updating: storeState.prisioner.updating,
   updateSuccess: storeState.prisioner.updateSuccess
@@ -151,7 +154,8 @@ const mapDispatchToProps = {
   getPrisonerPurchases,
   getPrisionerWorks,
   getPrisionerQuizs,
-  deleteWork
+  getPrisonerCompletedWorks,
+  cancelPressProduct
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -132,7 +132,7 @@ public class WorkResourceIT {
         Work testWork = workList.get(workList.size() - 1);
         assertThat(testWork.getNameWork()).isEqualTo(DEFAULT_NAME_WORK);
         assertThat(testWork.getTotalCredits()).isEqualTo(DEFAULT_PRICE_HOUR);
-        assertThat(testWork.getNumRemainingEntries()).isEqualTo(DEFAULT_NUM_VACANCIES);
+        assertThat(testWork.getTotalCredits()).isEqualTo(DEFAULT_NUM_VACANCIES);
         assertThat(testWork.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
@@ -227,7 +227,7 @@ public class WorkResourceIT {
         Work testWork = workList.get(workList.size() - 1);
         assertThat(testWork.getNameWork()).isEqualTo(UPDATED_NAME_WORK);
         assertThat(testWork.getTotalCredits()).isEqualTo(UPDATED_PRICE_HOUR);
-        assertThat(testWork.getNumRemainingEntries()).isEqualTo(UPDATED_NUM_VACANCIES);
+        assertThat(testWork.getTotalCredits()).isEqualTo(UPDATED_NUM_VACANCIES);
         assertThat(testWork.getDate()).isEqualTo(UPDATED_DATE);
     }
 
