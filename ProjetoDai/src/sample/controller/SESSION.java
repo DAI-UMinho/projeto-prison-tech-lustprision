@@ -58,13 +58,10 @@ public class SESSION {
         //reset shoplist
         shoplist.resetSHOPLIST();
 
-
+        return "finished";
     }
 
     public void finishSession() {
-        //resetar a session no sistema
-        
         //reset frontend
-
     }
 }
