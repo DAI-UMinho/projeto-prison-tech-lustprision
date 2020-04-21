@@ -6,6 +6,7 @@ import com.lustprision.admin.repository.PressWorkRepository;
 import com.lustprision.admin.repository.ProductRepository;
 import com.lustprision.admin.repository.PurchaseRepository;
 import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.service.dto.WorkStatDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -69,6 +70,15 @@ public class StatisticResource {
     public Integer get(@PathVariable Long id) {
         log.debug("REST request to get all Works");
         return pressWorkRepository.getTotalCompletedWorks(id);
+    }
+
+    @GetMapping("/prisoner/{id}/work-stat")
+    public WorkStatDTO getPrisonerWorkStats(@PathVariable Long id) {
+        WorkStatDTO stat = new WorkStatDTO();
+        stat.setCompleted(pressWorkRepository.getTotalCompletedWorks(id));
+        stat.setCanceled(pressWorkRepository.getTotalCanceledWorks(id));
+        stat.setCreditsEarned(pressWorkRepository.getTotalCreditsFromWork(id));
+        return stat;
     }
 
 

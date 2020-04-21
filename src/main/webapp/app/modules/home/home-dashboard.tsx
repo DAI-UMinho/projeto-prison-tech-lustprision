@@ -30,7 +30,7 @@ import {
   Col
 } from "reactstrap";
 
-const test = {labels: [
+export const test = {labels: [
     "Jan",
     "Feb",
     "Mar",
@@ -81,7 +81,7 @@ const test2 = {
     }
   ]
 };
-const test3 = {
+export const test3 = {
   labels: [
     "Jan",
     "Feb",

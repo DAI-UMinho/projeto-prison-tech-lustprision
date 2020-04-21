@@ -17,7 +17,7 @@ import {PrisionerDetail} from "app/entities/prisioner/prisioner-detail";
 import {PrisionerWork} from "app/modules/account/prisoner/prisioner-work";
 import {PrisionerPurchase} from "app/modules/account/prisoner/prisioner-purchase";
 import {PrisionerQuiz} from "app/modules/account/prisoner/prisioner-quiz";
-import {getPrisonerCompletedWorks} from "app/shared/reducers/statistics";
+import {getPrisonerCompletedWorks, getPrisonerWorkStates} from "app/shared/reducers/statistics";
 
 interface TabPanelProps {
   children?: any;
@@ -74,6 +74,7 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
     if (props.prisionerWorks && props.prisionerWorks.length > 0) {
       setWorkData(props.prisionerWorks);
     }
+    props.getPrisonerWorkStates(props.match.params.id);
   }, [props.prisionerWorks]);
 
 
@@ -88,7 +89,7 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
     props.getPrisionerWorks(props.match.params.id);
     props.getPrisonerPurchases(props.match.params.id);
     props.getPrisionerQuizs(props.match.params.id);
-    props.getPrisonerCompletedWorks(props.match.params.id);
+    props.getPrisonerWorkStates(props.match.params.id);
   }, []);
 
   function TabPanel(props: TabPanelProps) {
@@ -143,7 +144,8 @@ const mapStateToProps = (storeState: IRootState) => ({
   prisionerEntity: storeState.prisioner.entity,
   prisionerWorks: storeState.prisioner.works,
   prisionerQuizs: storeState.prisioner.quizs,
-  completedWorks: storeState.statistics.nPrisonerCompletedWork,
+  // completedWorks: storeState.statistics.nPrisonerCompletedWork,
+  workStats: storeState.statistics.prisonerWorkStats,
   loading: storeState.prisioner.loading,
   updating: storeState.prisioner.updating,
   updateSuccess: storeState.prisioner.updateSuccess
@@ -154,8 +156,8 @@ const mapDispatchToProps = {
   getPrisonerPurchases,
   getPrisionerWorks,
   getPrisionerQuizs,
-  getPrisonerCompletedWorks,
-  cancelPressProduct
+  cancelPressProduct,
+  getPrisonerWorkStates
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

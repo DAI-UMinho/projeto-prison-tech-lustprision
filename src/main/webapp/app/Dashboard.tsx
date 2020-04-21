@@ -13,6 +13,7 @@ import HDashboard from "app/modules/home/home-dashboard";
 import PrivateRoute from "app/shared/auth/private-route";
 import Prisioner from "app/modules/account/prisoner/";
 import Products from "app/modules/products/";
+import Works from "app/modules/works/";
 
 export interface IDashboardProps {
   isAuthenticated: boolean;
@@ -41,6 +42,7 @@ const Dashboard = (props: IDashboardProps) => {
         <div className="content content-padding">
           <Switch>
             <PrivateRoute path={`${currentRoute.url}/profile`} component={User} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
+            <PrivateRoute path={`${currentRoute.url}/works`} component={Works} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/products`} component={Products} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/home`} component={HDashboard} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/prisoners`} component={Prisioner} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>

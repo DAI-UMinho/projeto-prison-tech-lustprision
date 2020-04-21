@@ -2,6 +2,7 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Work;
+import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.repository.WorkRepository;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -51,6 +52,9 @@ public class WorkResourceIT {
     private WorkRepository workRepository;
 
     @Autowired
+    private StateRepository stateRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -72,7 +76,7 @@ public class WorkResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WorkResource workResource = new WorkResource(workRepository);
+        final WorkResource workResource = new WorkResource(workRepository, stateRepository);
         this.restWorkMockMvc = MockMvcBuilders.standaloneSetup(workResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

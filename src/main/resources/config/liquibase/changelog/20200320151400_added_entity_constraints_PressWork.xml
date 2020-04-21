@@ -7,7 +7,7 @@
         Added the constraints for entity PressWork.
     -->
     <changeSet id="20200320151400-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="prisioner_id"
                                  baseTableName="press_work"
                                  constraintName="fk_press_work_prisioner_id"
@@ -18,7 +18,7 @@
                                  baseTableName="press_work"
                                  constraintName="fk_press_work_work_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_work"/>
+                                 referencedTableName="work_job"/>
 
         <addForeignKeyConstraint baseColumnNames="state_id"
                                  baseTableName="press_work"
