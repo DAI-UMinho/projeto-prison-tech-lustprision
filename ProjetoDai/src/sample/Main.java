@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.controller.*;
 
+//amfçlmwrgl
 public class Main extends Application {
     public static SYSTEM sis = new SYSTEM();
 
@@ -19,12 +20,7 @@ public class Main extends Application {
         stage.show();
     }
 
-
     public static void main(String[] args) {
-        
         launch(args);
-
-
-
     }
 }
