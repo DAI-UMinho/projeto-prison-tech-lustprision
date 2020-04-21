@@ -1,5 +1,6 @@
 package sample.controller;
 
+import sample.Main;
 import sample.model.Prisioneiro;
 
 public class SESSION {
@@ -11,6 +12,8 @@ public class SESSION {
     public SESSION(Prisioneiro nowusing){
         this.nowusing=nowusing;
         this.started = true;
+        Main.sis.loadProductsTS();
+        Main.sis.loadWorksTS();
     }
 
     //teste teste

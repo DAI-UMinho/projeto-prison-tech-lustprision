@@ -3,27 +3,21 @@ package sample.model;
 public class Trabalho {
     private int IdTrabalho;
     private String Nome;
-    private String Descricao;
-    private String PrecoHora;
+    private int PrecoHora;
     private int Vagas;
 
 
-    public Trabalho(int IdTrabalho, String Nome, String Descricao, String PrecoHora, int Vagas){
+    public Trabalho(int IdTrabalho, String Nome,  int PrecoHora, int Vagas){
         this.IdTrabalho=IdTrabalho;
         this.Nome=Nome;
-        this.Descricao=Descricao;
         this.PrecoHora=PrecoHora;
         this.Vagas=Vagas;
     }
 
     public int getVagas() { return Vagas;}
 
-    public String getPrecoHora() {
+    public int getPrecoHora() {
         return PrecoHora;
-    }
-
-    public String getDescricao() {
-        return Descricao;
     }
 
     public String getNome() {
