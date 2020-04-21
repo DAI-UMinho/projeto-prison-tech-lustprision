@@ -37,7 +37,7 @@ public class HomePageController implements Initializable {
 
     public void handleBtnLogout(javafx.event.ActionEvent actionEvent) throws IOException {
         System.out.println("Botão Logout");
-        Parent logout_parent = FXMLLoader.load(getClass().getResource("/sample/view/Login.fxml"));
+        Parent logout_parent = FXMLLoader.load(getClass().getResource("/sample/view/teste.fxml"));
 
         JOptionPane.showConfirmDialog(null, "Deseja fazer logout?", "Confirmação de Logout", JOptionPane.YES_NO_OPTION);
 
