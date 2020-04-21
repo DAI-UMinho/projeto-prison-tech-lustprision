@@ -13,7 +13,7 @@ public class SESSION {
         this.started = true;
     }
 
-
+    //teste teste
     public void addShopping(PRODUCT_TB x) {
         shoplist.addSHOPLIST(x);
 
