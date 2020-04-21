@@ -9,14 +9,14 @@
 
 <AnchorPane prefHeight="482.0" prefWidth="728.0" style="-fx-background-color: #E5FBFA;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LoginController">
    <children>
-      <Pane layoutY="-3.0" prefHeight="491.0" prefWidth="242.0" style="-fx-background-color: #3E5BFD;">
+      <Pane layoutY="-3.0" prefHeight="491.0" prefWidth="236.0" style="-fx-background-color: #3E5BFD;">
          <children>
             <Label layoutX="30.0" layoutY="57.0" text="Lust Prision" textFill="WHITE">
                <font>
                   <Font name="Agency FB" size="38.0" />
                </font>
             </Label>
-            <Label layoutX="187.0" layoutY="65.0" text="DEV" textFill="#aaabb2">
+            <Label layoutX="185.0" layoutY="65.0" text="DEV" textFill="#aaabb2">
                <font>
                   <Font name="Agency FB Bold" size="26.0" />
                </font>
@@ -74,7 +74,7 @@
                   <Font name="Agency FB" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="71.0" layoutY="127.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="74.0" style="-fx-background-color: #3E5BFD;" text="APAGAR" textFill="WHITE">
+            <Button layoutX="71.0" layoutY="127.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="68.0" style="-fx-background-color: #3E5BFD;" text="APAGAR" textFill="WHITE">
                <font>
                   <Font name="Agency FB" size="16.0" />
                </font>
