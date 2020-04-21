@@ -164,6 +164,51 @@ public class BD_CONTROLLER {
 
     }
 
+    public static int getProductStock(int id){
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            String query = "SELECT ID,QUANTY_IN_STOCK FROM PRODUCT WHERE ID = '"+id+"'";
+            ResultSet rs = st.executeQuery(query);
+            con.close();
+            return rs.getInt(2);
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+            System.out.println(e);
+            System.out.println("Stock indisponivel");
+            return 0;
+
+        }
+
+
+    }
+
+    public static boolean removeCredits(int id, int amount){
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            String query = "UPDATE Prisioner SET BALANCE = BALANCE - " + Integer.toString(amount) +" WHERE ID = " + Integer.toString(id);
+            ResultSet rs = st.executeQuery(query);
+            con.close();
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+            System.out.println(e);
+            System.out.println("Stock indisponivel");
+            return false;
+
+        }
+
+
+    }
 
 
 

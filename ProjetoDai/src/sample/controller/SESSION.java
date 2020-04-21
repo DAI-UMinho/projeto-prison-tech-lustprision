@@ -31,19 +31,39 @@ public class SESSION {
     }
 
 
-    public void finishShopping() {
+    public String finishShopping() {
+        //checkar se há stock para vender
+        for(int i=0;i < shoplist.Shoplist.size();i++){
+            if(BD_CONTROLLER.getProductStock(shoplist.Shoplist.get(i).type.getID())>=0){}
+            else return shoplist.Shoplist.get(i).type.getNome();
+        }
+
         //atualizar a bd dos produtos
+        for(int i=0;i < shoplist.Shoplist.size();i++){
+            BD_CONTROLLER.removeProduct(shoplist.Shoplist.get(i).type.getID(),1);
+        }
+
+        //descontar o valor pago na bd
+        int payprice =0;
+        for(int i=0;i < shoplist.Shoplist.size();i++){
+           payprice += shoplist.Shoplist.get(i).type.getPreco();
+        }
+
+        BD_CONTROLLER.removeCredits(nowusing.getID(),payprice);
 
         //criar e adicionar uma transaction ao user na bd
-        //mudar o balance
+
         //atualizar o frontend
+
         //reset shoplist
+        shoplist.resetSHOPLIST();
 
 
     }
 
     public void finishSession() {
-        //atualizar o balance na bd
+        //resetar a session no sistema
+        
         //reset frontend
 
     }
