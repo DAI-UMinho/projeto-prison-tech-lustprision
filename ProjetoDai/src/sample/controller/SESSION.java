@@ -19,7 +19,6 @@ public class SESSION {
     //teste teste
     public void addShopping(PRODUCT_TB x) {
         shoplist.addSHOPLIST(x);
-
     }
 
     public void removeShopping(PRODUCT_TB x){
