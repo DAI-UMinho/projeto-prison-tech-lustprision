@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import sample.controller.*;
 
 //amfçlmwrgl
+//adwdawdawd
 public class Main extends Application {
     public static SYSTEM sis = new SYSTEM();
 
