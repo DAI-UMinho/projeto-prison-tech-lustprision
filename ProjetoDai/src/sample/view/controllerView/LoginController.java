@@ -37,13 +37,16 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-        System.out.println("Botão Login");
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/HomePage.fxml"));
-        Scene home_page_scene = new Scene(home_page_parent);
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.setScene(home_page_scene);
-        app_stage.show();
+            System.out.println("Botão Login");
 
+
+            Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/HomePage.fxml"));
+            Scene home_page_scene = new Scene(home_page_parent);
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app_stage.setScene(home_page_scene);
+            app_stage.show();
+
+            //Main.sis.LoginTS(1234,Integer.parseInt(txtPassword.getText()))
 
 
 

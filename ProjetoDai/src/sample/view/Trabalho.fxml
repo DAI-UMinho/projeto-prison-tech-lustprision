@@ -40,7 +40,7 @@
             <TextField layoutX="591.0" layoutY="10.0" />
          </children>
       </AnchorPane>
-      <Label layoutX="41.0" layoutY="87.0" prefHeight="52.0" prefWidth="101.0" text="Trabalho" textFill="#0c39ff">
+      <Label layoutX="37.0" layoutY="57.0" prefHeight="52.0" prefWidth="101.0" text="Trabalho" textFill="#0c39ff">
          <font>
             <Font size="24.0" />
          </font>
