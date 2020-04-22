@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="511.0" spacing="70.0" style="-fx-background-radius: 10; -fx-background-color: E2ECEF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefHeight="24.0" prefWidth="190.0" text="Nome do Produto" textFill="#4d44a2">
+         <font>
+            <Font name="Agency FB" size="20.0" />
+         </font>
+      </Label>
+      <Label prefHeight="24.0" prefWidth="41.0" text="Preço" textFill="#4d44a2">
+         <font>
+            <Font name="Agency FB" size="20.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" style="-fx-background-color: #3E5BFD;" text="Adicionar" textFill="WHITE">
+         <font>
+            <Font name="Agency FB Bold" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</HBox>
