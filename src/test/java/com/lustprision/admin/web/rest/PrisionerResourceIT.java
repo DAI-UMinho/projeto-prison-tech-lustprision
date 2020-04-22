@@ -1,9 +1,18 @@
 package com.lustprision.admin.web.rest;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lustprision.admin.LustPrisionApp;
+import com.lustprision.admin.domain.PressWork;
 import com.lustprision.admin.domain.Prisioner;
+import com.lustprision.admin.domain.Purchase;
+import com.lustprision.admin.domain.Work;
+import com.lustprision.admin.repository.PressWorkRepository;
 import com.lustprision.admin.repository.PrisionerRepository;
+import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.repository.WorkRepository;
 import com.lustprision.admin.service.PrisionerService;
+import com.lustprision.admin.service.dto.PurchaseDTO;
+import com.lustprision.admin.service.dto.WorkDTO;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -38,16 +47,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class PrisionerResourceIT {
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_NAME = "Paulo";
+    private static final String UPDATED_NAME = "Pauloo";
 
-    private static final Integer DEFAULT_BI = 1;
-    private static final Integer UPDATED_BI = 2;
+    private static final Integer DEFAULT_BI = 637873453;
+    private static final Integer UPDATED_BI = 234354673;
 
-    private static final String DEFAULT_IMAGE = "AAAAAAAAAA";
-    private static final String UPDATED_IMAGE = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_NUM_PRISIONER = 1;
+
+    private static final Integer DEFAULT_NUM_PRISIONER = 30;
     private static final Integer UPDATED_NUM_PRISIONER = 2;
 
     private static final Integer DEFAULT_NUM_CELL = 1;
@@ -56,7 +64,7 @@ public class PrisionerResourceIT {
     private static final LocalDate DEFAULT_DATA_NASCIMENTO = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATA_NASCIMENTO = LocalDate.now(ZoneId.systemDefault());
 
-    private static final Double DEFAULT_BALANCE = 1D;
+    private static final Double DEFAULT_BALANCE = 5D;
     private static final Double UPDATED_BALANCE = 2D;
 
     private static final Integer DEFAULT_WORKING = 1;
@@ -75,7 +83,12 @@ public class PrisionerResourceIT {
 
     @Autowired
     private PrisionerRepository prisionerRepository;
-
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+    @Autowired
+    private WorkRepository workRepository;
+    @Autowired
+    private PressWorkRepository pressworkRepository;
     @Autowired
     private PrisionerService prisionerService;
 
@@ -90,14 +103,15 @@ public class PrisionerResourceIT {
 
     @Autowired
     private EntityManager em;
-
+    @Autowired
+    private EntityManager Em;
     @Autowired
     private Validator validator;
 
     private MockMvc restPrisionerMockMvc;
 
     private Prisioner prisioner;
-
+    private Work workk;
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -131,6 +145,7 @@ public class PrisionerResourceIT {
             .codigoCartao(DEFAULT_CODIGO_CARTAO);
         return prisioner;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -184,6 +199,7 @@ public class PrisionerResourceIT {
         assertThat(testPrisioner.getProfileImageContentType()).isEqualTo(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE);
 //        assertThat(testPrisioner.getNfcCode()).isEqualTo(DEFAULT_NFC_CODE);
 //        assertThat(testPrisioner.getCodigoCartao()).isEqualTo(DEFAULT_CODIGO_CARTAO);
+        System.out.println(prisioner.toString());
     }
 
     @Test
@@ -228,6 +244,7 @@ public class PrisionerResourceIT {
             .andExpect(jsonPath("$.[*].profileImage").value(hasItem(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE))))
             .andExpect(jsonPath("$.[*].nfcCode").value(hasItem(DEFAULT_NFC_CODE)))
             .andExpect(jsonPath("$.[*].codigoCartao").value(hasItem(DEFAULT_CODIGO_CARTAO)));
+        System.out.println(prisionerRepository.findAll());
     }
 
     @Test
@@ -252,6 +269,7 @@ public class PrisionerResourceIT {
             .andExpect(jsonPath("$.profileImage").value(Base64Utils.encodeToString(DEFAULT_PROFILE_IMAGE)))
             .andExpect(jsonPath("$.nfcCode").value(DEFAULT_NFC_CODE))
             .andExpect(jsonPath("$.codigoCartao").value(DEFAULT_CODIGO_CARTAO));
+        System.out.println(prisionerRepository.findById(prisioner.getId()));
     }
 
     @Test
@@ -269,10 +287,10 @@ public class PrisionerResourceIT {
         prisionerRepository.saveAndFlush(prisioner);
 
         int databaseSizeBeforeUpdate = prisionerRepository.findAll().size();
-
+  System.out.println(prisioner.toString());
         // Update the prisioner
         Prisioner updatedPrisioner = prisionerRepository.findById(prisioner.getId()).get();
-        // Disconnect from session so that the updates on updatedPrisioner are not directly saved in db
+        // Remover informaçoes do prisioneiro e dar-lhe novas
         em.detach(updatedPrisioner);
         updatedPrisioner
             .name(UPDATED_NAME)
@@ -307,22 +325,25 @@ public class PrisionerResourceIT {
         assertThat(testPrisioner.getProfileImageContentType()).isEqualTo(UPDATED_PROFILE_IMAGE_CONTENT_TYPE);
 //        assertThat(testPrisioner.getNfcCode()).isEqualTo(UPDATED_NFC_CODE);
 //        assertThat(testPrisioner.getCodigoCartao()).isEqualTo(UPDATED_CODIGO_CARTAO);
+        System.out.println(prisioner.toString());
     }
 
     @Test
     @Transactional
     public void updateNonExistingPrisioner() throws Exception {
         int databaseSizeBeforeUpdate = prisionerRepository.findAll().size();
+        System.out.println("base de dados "+databaseSizeBeforeUpdate);
 
-        // Create the Prisioner
 
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+
+
         restPrisionerMockMvc.perform(put("/api/prisioners")
             .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(prisioner)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Prisioner in the database
+
+
         List<Prisioner> prisionerList = prisionerRepository.findAll();
         assertThat(prisionerList).hasSize(databaseSizeBeforeUpdate);
     }
@@ -334,14 +355,69 @@ public class PrisionerResourceIT {
         prisionerRepository.saveAndFlush(prisioner);
 
         int databaseSizeBeforeDelete = prisionerRepository.findAll().size();
+        System.out.println("Numeros de prisioneiros antes do teste:"+databaseSizeBeforeDelete);
 
         // Delete the prisioner
         restPrisionerMockMvc.perform(delete("/api/prisioners/{id}", prisioner.getId())
             .accept(TestUtil.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
+
         // Validate the database contains one less item
         List<Prisioner> prisionerList = prisionerRepository.findAll();
         assertThat(prisionerList).hasSize(databaseSizeBeforeDelete - 1);
+        System.out.println("Numero de prisioneiros depois teste: "+prisionerList.size());
+    }
+    @Test
+    @Transactional
+    public void  getPrisionerPurchases() throws Exception {
+        // Initialize the database
+        prisionerRepository.saveAndFlush(prisioner);
+        Purchase Teste =  PurchaseResourceIT.createEntity(em);
+        Purchase Testee =  PurchaseResourceIT.createEntity(em);
+        Teste.setPurchaseTotal((double) 12l);
+        Teste.setPrisioner(prisioner);
+        List<PurchaseDTO> purchaseList = new ArrayList<>();
+        purchaseList.add(new PurchaseDTO(Teste));
+        purchaseList.add(new PurchaseDTO(Testee));
+        purchaseRepository.saveAndFlush(Teste);
+        restPrisionerMockMvc.perform(get("/api/prisioners/{id}/purchases", prisioner.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(Teste.getId().intValue())));
+        assertThat(Teste.getPurchaseTotal()).isNotEqualTo(12.50d);
+        System.out.println(purchaseList.isEmpty());
+        System.out.println(prisioner.getId());
+        System.out.println(Teste.getId());
+        System.out.println(purchaseList.size());
+        System.out.println(purchaseList.contains(Teste));
+        System.out.println(prisionerService.getPrisionerPurchases(prisioner.getId()));
+    }
+
+
+
+    @Test
+    @Transactional
+    public void  getPrisionerWork() throws Exception {
+        // Initialize the database
+        prisionerRepository.saveAndFlush(prisioner);
+        PressWork nome = PressWorkResourceIT.createEntity(em);
+        Work trabalho =  WorkResourceIT.createEntity(em);
+      List<WorkDTO> workList = new ArrayList<>();
+
+        workList.add(new WorkDTO(trabalho));
+        nome.setPrisioner(prisioner);
+        nome.setWork(trabalho);
+        workRepository.saveAndFlush(trabalho);
+        pressworkRepository.saveAndFlush(nome);
+
+        restPrisionerMockMvc.perform(get("/api/prisioners/{id}/work", prisioner.getId()))
+
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(trabalho.getId().intValue())));
+        System.out.println(prisionerService.getPrisionerWork((long) 1001));
+
     }
 }
+

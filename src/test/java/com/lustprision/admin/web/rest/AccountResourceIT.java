@@ -12,25 +12,29 @@ import com.lustprision.admin.service.dto.UserDTO;
 import com.lustprision.admin.web.rest.vm.KeyAndPasswordVM;
 import com.lustprision.admin.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static com.lustprision.admin.web.rest.AccountResourceIT.TEST_USER_LOGIN;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static java.lang.Boolean.TRUE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -85,25 +89,31 @@ public class AccountResourceIT {
 
         UserDTO user = new UserDTO();
         user.setLogin(TEST_USER_LOGIN);
-        user.setFirstName("john");
-        user.setLastName("doe");
-        user.setEmail("john.doe@jhipster.com");
+        user.setFirstName("Jair");
+        user.setLastName("Bolsonaro");
+        user.setEmail("brasil@gmail.com");
         user.setImageUrl("http://placehold.it/50x50");
-        user.setLangKey("en");
+        user.setLangKey("pt");
         user.setAuthorities(authorities);
-        userService.createUser(user);
+        user.setActivated(TRUE);
+
+            userService.createUser(user);
+
 
         restAccountMockMvc.perform(get("/api/account")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.login").value(TEST_USER_LOGIN))
-            .andExpect(jsonPath("$.firstName").value("john"))
-            .andExpect(jsonPath("$.lastName").value("doe"))
-            .andExpect(jsonPath("$.email").value("john.doe@jhipster.com"))
+            .andExpect(jsonPath("$.firstName").value("Jair"))
+            .andExpect(jsonPath("$.lastName").value("Bolsonaro"))
+            .andExpect(jsonPath("$.email").value("brasil@gmail.com"))
             .andExpect(jsonPath("$.imageUrl").value("http://placehold.it/50x50"))
-            .andExpect(jsonPath("$.langKey").value("en"))
-            .andExpect(jsonPath("$.authorities").value(AuthoritiesConstants.ADMIN));
+            .andExpect(jsonPath("$.langKey").value("pt"))
+            .andExpect(jsonPath("$.authorities").value(AuthoritiesConstants.ADMIN))
+        .andExpect(jsonPath("$.activated").value(true));
+
+        System.out.println(user.toString());
     }
 
     @Test
@@ -140,11 +150,11 @@ public class AccountResourceIT {
     @Transactional
     public void testRegisterInvalidLogin() throws Exception {
         ManagedUserVM invalidUser = new ManagedUserVM();
-        invalidUser.setLogin("funky-log!n");// <-- invalid
+        invalidUser.setLogin("funky-log?n");
         invalidUser.setPassword("password");
         invalidUser.setFirstName("Funky");
         invalidUser.setLastName("One");
-        invalidUser.setEmail("funky@example.com");
+        invalidUser.setEmail("example@eef.com");
         invalidUser.setActivated(true);
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
@@ -156,7 +166,7 @@ public class AccountResourceIT {
                 .content(TestUtil.convertObjectToJsonBytes(invalidUser)))
             .andExpect(status().isBadRequest());
 
-        Optional<User> user = userRepository.findOneByEmailIgnoreCase("funky@example.com");
+        Optional<User> user = userRepository.findOneByEmailIgnoreCase("example@eef.com");
         assertThat(user.isPresent()).isFalse();
     }
 
