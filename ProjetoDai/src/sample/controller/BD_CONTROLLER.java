@@ -142,6 +142,7 @@ public class BD_CONTROLLER {
 
 
     public static boolean removeProduct(int id, int qnty){
+
         try {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
