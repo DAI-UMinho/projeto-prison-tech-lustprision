@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -37,7 +36,7 @@ public class HomePageController implements Initializable {
 
     public void handleBtnLogout(javafx.event.ActionEvent actionEvent) throws IOException {
         System.out.println("Botão Logout");
-        Parent logout_parent = FXMLLoader.load(getClass().getResource("/sample/view/teste.fxml"));
+        Parent logout_parent = FXMLLoader.load(getClass().getResource("/sample/view/Login1.fxml"));
 
         JOptionPane.showConfirmDialog(null, "Deseja fazer logout?", "Confirmação de Logout", JOptionPane.YES_NO_OPTION);
 

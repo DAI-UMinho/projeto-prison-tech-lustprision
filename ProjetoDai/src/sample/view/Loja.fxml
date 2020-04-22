@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LojaController">
+<AnchorPane prefHeight="500.0" prefWidth="840.0" style="-fx-background-color: #E5FBFA;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LojaController">
    <children>
       <AnchorPane prefHeight="50.0" prefWidth="840.0" style="-fx-background-color: #0C39FF;" stylesheets="@styling/fullpackstyling.css">
          <children>
@@ -40,9 +40,9 @@
             <TextField layoutX="591.0" layoutY="10.0" />
          </children>
       </AnchorPane>
-      <Label layoutX="31.0" layoutY="77.0" prefHeight="52.0" prefWidth="54.0" text="Loja" textFill="#0c39ff">
+      <Label layoutX="370.0" layoutY="71.0" prefHeight="52.0" prefWidth="81.0" text="Loja" textFill="#0c39ff">
          <font>
-            <Font size="24.0" />
+            <Font name="Arial" size="40.0" />
          </font>
       </Label>
    </children>
