@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void onClick(ActionEvent event) throws IOException {
-            System.out.println("Botão Login");
+
 
             Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
             Scene home_page_scene = new Scene(home_page_parent);

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LoginController">
+<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LoginController">
    <children>
       <Label layoutX="875.0" layoutY="13.0" text="DEV" textFill="#928c8c">
          <font>
@@ -104,5 +108,10 @@
             <Font name="Agency FB" size="19.0" />
          </font>
       </Button>
+      <Label fx:id="badloginlbl" alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="189.0" prefHeight="18.0" prefWidth="122.0" text="PIN Incorreto" textFill="#d70808">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

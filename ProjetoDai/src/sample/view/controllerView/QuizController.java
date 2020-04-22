@@ -48,4 +48,13 @@ public class QuizController implements Initializable {
         iniciar_stage.setScene(iniciar_scene);
         iniciar_stage.show();
     }
+
+    public void handlebuttonSair(ActionEvent actionEvent) throws IOException {
+        System.out.println("Botão Iniciar");
+        Parent iniciar_parent = FXMLLoader.load(getClass().getResource("/sample/view/login.fxml"));
+        Scene iniciar_scene = new Scene(iniciar_parent);
+        Stage iniciar_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        iniciar_stage.setScene(iniciar_scene);
+        iniciar_stage.show();
+    }
 }
