@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class WorkController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
