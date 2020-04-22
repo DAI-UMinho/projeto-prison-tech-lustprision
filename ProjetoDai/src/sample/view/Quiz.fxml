@@ -33,7 +33,7 @@
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Button layoutX="355.0" layoutY="367.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="119.0" style="-fx-background-color: #3E5BFD;" text="Iniciar" textFill="#fffafa">
+      <Button layoutX="355.0" layoutY="367.0" mnemonicParsing="false" onAction="#handlebuttonIniciar" prefHeight="64.0" prefWidth="119.0" style="-fx-background-color: #3E5BFD;" text="Iniciar" textFill="#fffafa">
          <font>
             <Font name="Arial" size="17.0" />
          </font>
