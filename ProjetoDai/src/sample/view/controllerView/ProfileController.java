@@ -1,4 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sample.view.controllerView;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +18,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ShopController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author shenr
+ */
+public class ProfileController implements Initializable {
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
         System.out.println("Botão Loja");

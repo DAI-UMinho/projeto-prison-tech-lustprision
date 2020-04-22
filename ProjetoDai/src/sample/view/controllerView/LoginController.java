@@ -58,4 +58,37 @@ public class LoginController implements Initializable {
         // TODO
     }
 
+    public void oneBtn(ActionEvent actionEvent) {
+
+    }
+
+    public void twoBtn(ActionEvent actionEvent) {
+    }
+
+    public void threeBtn(ActionEvent actionEvent) {
+    }
+
+    public void fiveBtn(ActionEvent actionEvent) {
+    }
+
+    public void nineBtn(ActionEvent actionEvent) {
+    }
+
+    public void zeroBtn(ActionEvent actionEvent) {
+    }
+
+    public void eightBtn(ActionEvent actionEvent) {
+    }
+
+    public void sevenBtn(ActionEvent actionEvent) {
+    }
+
+    public void sixBtn(ActionEvent actionEvent) {
+    }
+
+    public void fourBtn(ActionEvent actionEvent) {
+    }
+
+    public void clearBtn(ActionEvent actionEvent) {
+    }
 }

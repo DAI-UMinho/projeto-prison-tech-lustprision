@@ -13,12 +13,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ShopController implements Initializable {
+public class WorkController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
         System.out.println("Botão Loja");
