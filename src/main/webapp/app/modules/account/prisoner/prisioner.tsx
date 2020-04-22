@@ -116,26 +116,6 @@ export const Prisioner = (props: IPrisionerProps) => {
         </Card>
       </Col>
       <Col lg={mStatCol} md="6" sm="6">
-        <Card className="card-stats">
-          <CardBody>
-            <Row>
-              <Col md="4" xs="5">
-                <div className="icon-big text-center icon-warning">
-                  <i className="nc-icon nc-delivery-fast text-info"/>
-                </div>
-              </Col>
-              <Col md="8" xs="7">
-                <div className="numbers">
-                  <p className="card-category">Trabalhos Realizados</p>
-                  {loading ? (<Ellipsis color="#99c3ff" size={40}/> )
-                    : (<CardTitle tag="p">0</CardTitle>)}
-                </div>
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
-      </Col>
-      <Col lg={mStatCol} md="6" sm="6">
         <div className="card-hover" onClick={() => props.history.push(match.url + '/new')}>
           <Card className="card-stats">
             <CardBody style={{backgroundColor: "#6DB65B", borderRadius: '12px'}}>

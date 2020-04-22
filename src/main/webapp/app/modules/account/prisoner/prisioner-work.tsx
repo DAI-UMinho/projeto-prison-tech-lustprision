@@ -5,7 +5,7 @@ import {Col, Row, Card, CardBody, CardTitle} from 'reactstrap';
 
 import {IRootState} from 'app/shared/reducers';
 import {getPrisionerWorks} from './prisioner.reducer';
-import {getPrisonerCompletedWorks} from "app/shared/reducers/statistics";
+import {getPrisonerWorkStates} from "app/shared/reducers/statistics";
 // import {deleteWork} from "app/entities/work/work.reducer";
 import { cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
 import MaterialTable, {Column} from "material-table";
@@ -25,7 +25,7 @@ export interface IPrisionerWorkProps extends StateProps, DispatchProps, RouteCom
 
 export const PrisionerWork = (props: IPrisionerWorkProps) => {
   const [data, setData] = useState([]);
-  const {prisionerWorks, updateSuccess, workJob, worksReloading, completedWorks} = props;
+  const {prisionerWorks, updateSuccess, workJob, worksReloading, workStats} = props;
 
   const [state, setState] = React.useState<TableState>({
     columns: [
@@ -62,8 +62,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
       }
     })
   };
-  console.log("HEHE");
-  console.log(completedWorks);
+
   return (
     <Row className="justify-content-center">
       <Col md="8">
@@ -142,7 +141,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               <Col md="8" xs="7">
                 <div className="numbers">
                   <p className="card-category">Créditos Ganhos</p>
-                  <CardTitle tag="p">0</CardTitle>
+                  <CardTitle tag="p">{workStats.creditsEarned}</CardTitle>
                   <p/>
                 </div>
               </Col>
@@ -160,7 +159,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               <Col md="8" xs="7">
                 <div className="numbers">
                   <p className="card-category">Trabalhos Concluidos</p>
-                  <CardTitle tag="p">{completedWorks}</CardTitle>
+                  <CardTitle tag="p">{workStats.completed}</CardTitle>
                   <p/>
                 </div>
               </Col>
@@ -178,7 +177,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               <Col md="8" xs="7">
                 <div className="numbers">
                   <p className="card-category">Trabalhos Cancelados</p>
-                  <CardTitle tag="p">0</CardTitle>
+                  <CardTitle tag="p">{workStats.canceled}</CardTitle>
                   <p/>
                 </div>
               </Col>
@@ -196,10 +195,11 @@ const mapStateToProps = (state: IRootState) => ({
   updateSuccess: state.work.updateSuccess,
   workJob: state.pressWork.entity,
   workUpdating: state.pressWork.updating,
-  completedWorks: state.statistics.nPrisonerCompletedWork
+  workStats: state.statistics.prisonerWorkStats
+  // completedWorks: state.statistics.nPrisonerCompletedWork
 });
 
-const mapDispatchToProps = {getPrisionerWorks, cancelPressProduct, getPrisonerCompletedWorks};
+const mapDispatchToProps = {getPrisionerWorks, cancelPressProduct, getPrisonerWorkStates};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

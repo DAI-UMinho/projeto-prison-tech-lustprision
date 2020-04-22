@@ -27,7 +27,7 @@
             <column name="date_work" type="date">
                 <constraints nullable="true" />
             </column>
-            <column name="state" type="bigint">
+            <column name="state_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_jhi_work_state_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -57,7 +57,7 @@
             <column name="total_credits" type="numeric"/>
             <column name="num_remaining_entries" type="numeric"/>
             <column name="date_work" type="date"/>
-            <column name="state" type="numeric"/>
+            <column name="state_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

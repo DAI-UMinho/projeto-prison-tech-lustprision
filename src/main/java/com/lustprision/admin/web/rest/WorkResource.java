@@ -1,6 +1,9 @@
 package com.lustprision.admin.web.rest;
 
+import com.lustprision.admin.domain.PressWork;
+import com.lustprision.admin.domain.State;
 import com.lustprision.admin.domain.Work;
+import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.repository.WorkRepository;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
@@ -35,8 +38,11 @@ public class WorkResource {
 
     private final WorkRepository workRepository;
 
-    public WorkResource(WorkRepository workRepository) {
+    private final StateRepository stateRepository;
+
+    public WorkResource(WorkRepository workRepository, StateRepository stateRepository) {
         this.workRepository = workRepository;
+        this.stateRepository = stateRepository;
     }
 
     /**
@@ -114,5 +120,16 @@ public class WorkResource {
         log.debug("REST request to delete Work : {}", id);
         workRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @PutMapping("/works/{id}/cancel")
+    public ResponseEntity<Work> cancelPressWork(@PathVariable Long id) {
+        log.debug("REST request to delete PressWork : {}", id);
+        Work result = workRepository.findById(id).get();
+        State mState = stateRepository.getOne(Long.valueOf(3));
+        result.setState(mState);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

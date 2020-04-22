@@ -3,12 +3,20 @@ package sample.controller;
 import java.util.*;
 
 public class SYSTEM {
+
     ArrayList<PRODUCT_TB> products = new ArrayList();
+    ArrayList<WORK_TB> works = new ArrayList<>();
+
     public SESSION sessionatual;
 
     public void loadProductsTS() {
         if (BD_CONTROLLER.getPRODUCTS() == null) {
         } else this.products = BD_CONTROLLER.getPRODUCTS();
+    }
+
+    public void loadWorksTS() {
+        if (BD_CONTROLLER.getWORKS() == null) {
+        } else this.works = BD_CONTROLLER.getWORKS();
     }
 
     public boolean LoginTS(int ID, int PIN) {
@@ -20,6 +28,7 @@ public class SYSTEM {
         } else System.out.println("Sem LOGIN");
         return false;
     }
+
 
 
 }

@@ -1,6 +1,7 @@
 package sample.controller;
 import sample.model.Prisioneiro;
 import sample.model.Produto;
+import sample.model.Trabalho;
 
 import java.sql.*;
 import java.util.*;
@@ -34,6 +35,40 @@ public class BD_CONTROLLER {
                 System.out.println(rs.getInt(1) + "|||" + rs.getString(3) + "|||" + rs.getString(6) + "|||" + rs.getInt(4) + "|||" + rs.getInt(7));
                 // -----
                 PRODUCT_TB y = new PRODUCT_TB(x);
+                output.add(y);
+            }
+            con.close();
+
+            return output;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+
+            return null;
+        }
+
+
+    }
+
+    public static ArrayList<WORK_TB> getWORKS() {
+
+        ArrayList<WORK_TB> output = new ArrayList();
+
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Work ");
+
+            while (rs.next()) {
+
+                Trabalho x = new Trabalho(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
+
+
+                WORK_TB y= new WORK_TB(x);
                 output.add(y);
             }
             con.close();
@@ -129,6 +164,51 @@ public class BD_CONTROLLER {
 
     }
 
+    public static int getProductStock(int id){
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            String query = "SELECT ID,QUANTY_IN_STOCK FROM PRODUCT WHERE ID = '"+id+"'";
+            ResultSet rs = st.executeQuery(query);
+            con.close();
+            return rs.getInt(2);
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+            System.out.println(e);
+            System.out.println("Stock indisponivel");
+            return 0;
+
+        }
+
+
+    }
+
+    public static boolean removeCredits(int id, int amount){
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            String query = "UPDATE Prisioner SET BALANCE = BALANCE - " + Integer.toString(amount) +" WHERE ID = " + Integer.toString(id);
+            ResultSet rs = st.executeQuery(query);
+            con.close();
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+            System.out.println(e);
+            System.out.println("Stock indisponivel");
+            return false;
+
+        }
+
+
+    }
 
 
 

@@ -7,7 +7,6 @@
         Added the constraints for entity PressWork.
     -->
     <changeSet id="20200320000000-2" author="jhipster">
-        
         <addForeignKeyConstraint baseColumnNames="id_work_id"
                                  baseTableName="press_work"
                                  constraintName="fk_press_work_id_work_id"

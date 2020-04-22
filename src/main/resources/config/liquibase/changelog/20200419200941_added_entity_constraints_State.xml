@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity State.
     -->
-    <changeSet id="20200419200941-2" author="jhipster">
+<!--    <changeSet id="20200419200941-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="id"
                                  baseTableName="state"
@@ -14,5 +14,5 @@
                                  referencedColumnNames="state_id"
                                  referencedTableName="work_job"/>
 
-    </changeSet>
+    </changeSet>-->
 </databaseChangeLog>

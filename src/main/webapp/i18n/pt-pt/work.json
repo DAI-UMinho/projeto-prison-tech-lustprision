@@ -1,11 +1,26 @@
 {
   "lustPrisionApp": {
     "work": {
+      "validation": {
+        "credits": {
+          "required": "O número de créditos é obrigatório",
+          "length": "Insira um número de créditos válido"
+        },
+        "entries": {
+          "required": "O número de vagas é obrigatório",
+          "minLength": "Insira um número de vagas válido",
+          "maxLength": "O número de vagas foi excedido"
+        },
+        "date": {
+          "required": "A data da realização do trabalho é obrigatória"
+        }
+      },
       "home": {
         "title": "Works",
         "createLabel": "Criar novo(a) Work",
         "createOrEditLabel": "Criar ou editar Work",
-        "notFound": "Nenhum Works encontrado"
+        "notFound": "Nenhum Works encontrado",
+        "newCard": "Trabalho"
       },
       "created": "Um novo Work foi criado com o identificador {{ param }}",
       "updated": "Work com identificador {{ param }} foi actualizado",
@@ -16,10 +31,10 @@
       "detail": {
         "title": "Work"
       },
-      "nameWork": "Name Work",
-      "priceHour": "Price Hour",
-      "numVacancies": "Num Vacancies",
-      "date": "Date",
+      "nameWork": "Nome do Trabalho",
+      "priceHour": "Recompensa",
+      "numVacancies": "Numero de Vagas",
+      "date": "Data",
       "id": "Id"
     }
   }
