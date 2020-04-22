@@ -62,6 +62,7 @@ public class LoginController implements Initializable {
     }
 
 
+    @FXML
     private void onClickbtn1(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
