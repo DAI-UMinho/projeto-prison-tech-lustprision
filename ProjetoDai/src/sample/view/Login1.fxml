@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="482.0" prefWidth="728.0" style="-fx-background-color: #E5FBFA;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LoginController">
    <children>
-      <Pane layoutY="-3.0" prefHeight="491.0" prefWidth="236.0" style="-fx-background-color: #3E5BFD;">
+      <Pane layoutY="-3.0" prefHeight="491.0" prefWidth="252.0" style="-fx-background-color: #3E5BFD;">
          <children>
             <Label layoutX="22.0" layoutY="74.0" text="Lust Prision" textFill="WHITE">
                <font>
