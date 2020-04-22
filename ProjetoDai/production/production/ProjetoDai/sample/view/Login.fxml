@@ -1,84 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="482.0" prefWidth="728.0" style="-fx-background-color: #E5FBFA;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LoginController">
+<AnchorPane prefHeight="578.0" prefWidth="899.0" style="-fx-background-color: #E5FBFA;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.LoginController">
    <children>
-      <Pane layoutY="-3.0" prefHeight="491.0" prefWidth="252.0" style="-fx-background-color: #3E5BFD;">
+      <Pane prefHeight="592.0" prefWidth="378.0" style="-fx-background-color: #3E5BFD;">
          <children>
-            <Label layoutX="22.0" layoutY="74.0" text="Lust Prision" textFill="WHITE">
+            <Label layoutX="43.0" layoutY="74.0" prefHeight="73.0" prefWidth="244.0" text="Lust Prision" textFill="WHITE">
                <font>
-                  <Font size="40.0" />
+                  <Font name="Agency FB" size="61.0" />
+               </font>
+            </Label>
+            <Label layoutX="287.0" layoutY="83.0" text="DEV" textFill="#d2cfcf">
+               <font>
+                  <Font name="Agency FB" size="45.0" />
+               </font>
+            </Label>
+            <Label layoutX="98.0" layoutY="477.0" prefHeight="27.0" prefWidth="155.0" text="Aproxime o dispositivo NFC" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="17.0" />
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="389.0" layoutY="183.0" prefHeight="182.0" prefWidth="182.0">
-         <children>
-            <Button layoutX="110.0" layoutY="28.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="3" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="71.0" layoutY="28.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="2" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="34.0" layoutY="27.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="1" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="71.0" layoutY="61.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="5" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="110.0" layoutY="93.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="9" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="34.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="0" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="71.0" layoutY="93.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="8" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="34.0" layoutY="93.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="7" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="110.0" layoutY="61.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="6" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="34.0" layoutY="61.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="4" textFill="#ededed">
-               <font>
-                  <Font name="Agency FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="68.0" layoutY="127.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #3E5BFD;" text="APAGAR" textFill="WHITE">
-               <font>
-                  <Font name="Arial" size="13.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-      <Label layoutX="362.0" layoutY="75.0" text="Introduza PIN" textFill="#3e5bfd">
+      <Pane layoutX="389.0" layoutY="183.0" prefHeight="182.0" prefWidth="182.0" />
+      <Label layoutX="523.0" layoutY="78.0" prefHeight="56.0" prefWidth="235.0" text="Introduza PIN" textFill="#3e5bfd">
          <font>
-            <Font name="Arial" size="40.0" />
+            <Font name="Agency FB" size="54.0" />
          </font>
       </Label>
-      <Pane layoutX="409.0" layoutY="121.0" prefHeight="62.0" prefWidth="142.0">
+      <Pane layoutX="569.0" layoutY="154.0" prefHeight="57.0" prefWidth="142.0">
          <children>
             <PasswordField layoutX="115.0" layoutY="22.0" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #E5FBFA; -fx-border-color: #3E5BFD;" />
             <PasswordField layoutX="78.0" layoutY="22.0" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #E5FBFA; -fx-border-color: #3E5BFD;" />
@@ -86,10 +41,113 @@
             <PasswordField layoutX="44.0" layoutY="22.0" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #E5FBFA; -fx-border-color: #3E5BFD;" />
          </children>
       </Pane>
-      <Button layoutX="434.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="39.0" prefWidth="92.0" style="-fx-background-color: #3E5BFD;" text="ENTRAR" textFill="WHITE">
+      <Button layoutX="577.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="127.0" style="-fx-background-color: #3E5BFD;" text="ENTRAR" textFill="WHITE">
          <font>
-            <Font name="Arial" size="14.0" />
+            <Font name="Arial" size="19.0" />
          </font>
       </Button>
+      <Pane layoutX="563.0" layoutY="217.0" prefHeight="202.0" prefWidth="155.0">
+         <children>
+<<<<<<< HEAD
+            <Button layoutX="110.0" layoutY="28.0" mnemonicParsing="false" onAction="#threeBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="3" textFill="#ededed">
+=======
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="1" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="71.0" layoutY="28.0" mnemonicParsing="false" onAction="#twoBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="2" textFill="#ededed">
+=======
+            <Button layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="4" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="34.0" layoutY="27.0" mnemonicParsing="false" onAction="#oneBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="1" textFill="#ededed">
+=======
+            <Button layoutX="60.0" layoutY="57.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="5" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="71.0" layoutY="61.0" mnemonicParsing="false" onAction="#fiveBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="5" textFill="#ededed">
+=======
+            <Button layoutX="105.0" layoutY="57.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="6" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="110.0" layoutY="93.0" mnemonicParsing="false" onAction="#nineBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="9" textFill="#ededed">
+=======
+            <Button layoutX="105.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="3" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="34.0" layoutY="127.0" mnemonicParsing="false" onAction="#zeroBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="0" textFill="#ededed">
+=======
+            <Button layoutX="60.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="2" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="71.0" layoutY="93.0" mnemonicParsing="false" onAction="#eightBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="8" textFill="#ededed">
+=======
+            <Button layoutX="14.0" layoutY="100.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="7" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="34.0" layoutY="93.0" mnemonicParsing="false" onAction="#sevenBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="7" textFill="#ededed">
+=======
+            <Button layoutX="60.0" layoutY="100.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="8" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="110.0" layoutY="61.0" mnemonicParsing="false" onAction="#sixBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="6" textFill="#ededed">
+=======
+            <Button layoutX="105.0" layoutY="100.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="9" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="34.0" layoutY="61.0" mnemonicParsing="false" onAction="#fourBtn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #3E5BFD;" text="4" textFill="#ededed">
+=======
+            <Button layoutX="60.0" layoutY="143.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="80.0" style="-fx-background-color: #3E5BFD;" text="Apagar" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+<<<<<<< HEAD
+            <Button layoutX="68.0" layoutY="127.0" mnemonicParsing="false" onAction="#clearBtn" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #3E5BFD;" text="APAGAR" textFill="WHITE">
+=======
+            <Button layoutX="14.0" layoutY="143.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #3E5BFD;" text="0" textFill="WHITE">
+>>>>>>> d32e4817c49ddeb51a4853596e6d39507f0b78b9
+               <font>
+                  <Font name="Agency FB Bold" size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
