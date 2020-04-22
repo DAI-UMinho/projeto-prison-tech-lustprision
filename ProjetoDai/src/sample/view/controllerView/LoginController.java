@@ -61,7 +61,7 @@ public class LoginController implements Initializable {
             app_stage.show();
     }
 
-
+    @FXML
     private void onClickbtn1(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -69,6 +69,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);}
 
     }
+    @FXML
     private void onClickbtn2(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -76,6 +77,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);}
 
     }
+    @FXML
     private void onClickbtn3(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else {
             String txt = pwd1.getText();
@@ -83,7 +85,7 @@ public class LoginController implements Initializable {
             pwd1.setText(newtxt);
         }
     }
-
+    @FXML
     private void onClickbtn4(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -91,7 +93,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);
         }
     }
-
+    @FXML
     private void onClickbtn5(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -99,6 +101,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);
         }
     }
+    @FXML
     private void onClickbtn6(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -106,7 +109,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);
         }
     }
-
+    @FXML
     private void onClickbtn7(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -114,7 +117,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);
         }
     }
-
+    @FXML
     private void onClickbtn8(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -122,6 +125,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);
         }
     }
+    @FXML
     private void onClickbtn9(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -129,6 +133,7 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);
         }
     }
+    @FXML
     private void onClickbtn0(ActionEvent event) throws IOException {
         if(pwd1.getText().length()==4){}else{
         String txt = pwd1.getText();
@@ -136,9 +141,8 @@ public class LoginController implements Initializable {
         pwd1.setText(newtxt);
         }
     }
+    @FXML
     private void onClickbtndelete(ActionEvent event) throws IOException {
-        String txt = pwd1.getText();
-        String newtxt = txt.substring(0,txt.length()-1);
         pwd1.setText("");
 
     }
