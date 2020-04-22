@@ -1,8 +1,14 @@
 package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.LustPrisionApp;
+import com.lustprision.admin.domain.PressWork;
 import com.lustprision.admin.domain.Prisioner;
+import com.lustprision.admin.domain.Purchase;
+import com.lustprision.admin.domain.Work;
+import com.lustprision.admin.repository.PressWorkRepository;
 import com.lustprision.admin.repository.PrisionerRepository;
+import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.repository.WorkRepository;
 import com.lustprision.admin.service.PrisionerService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -75,7 +81,12 @@ public class PrisionerResourceIT {
 
     @Autowired
     private PrisionerRepository prisionerRepository;
-
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+    @Autowired
+    private WorkRepository workRepository;
+    @Autowired
+    private PressWorkRepository pressworkRepository;
     @Autowired
     private PrisionerService prisionerService;
 
@@ -344,4 +355,40 @@ public class PrisionerResourceIT {
         List<Prisioner> prisionerList = prisionerRepository.findAll();
         assertThat(prisionerList).hasSize(databaseSizeBeforeDelete - 1);
     }
+    @Test
+    @Transactional
+    public void  getPrisionerPurchases() throws Exception {
+        // Initialize the database
+        prisionerRepository.saveAndFlush(prisioner);
+        Purchase Teste =  PurchaseResourceIT.createEntity(em);
+        Teste.setPrisioner(prisioner);
+
+        purchaseRepository.saveAndFlush(Teste);
+        restPrisionerMockMvc.perform(get("/api/prisioners/{id}/purchases", prisioner.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(Teste.getId().intValue())));
+    }
+
+
+
+    @Test
+    @Transactional
+    public void  getPrisionerWork() throws Exception {
+        // Initialize the database
+        prisionerRepository.saveAndFlush(prisioner);
+        PressWork nome = PressWorkResourceIT.createEntity(em);
+        Work trabalho =  WorkResourceIT.createEntity(em);
+        nome.setPrisioner(prisioner);
+        nome.setWork(trabalho);
+        workRepository.saveAndFlush(trabalho);
+        pressworkRepository.saveAndFlush(nome);
+        restPrisionerMockMvc.perform(get("/api/prisioners/{id}/work", prisioner.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(trabalho.getId().intValue())));
+        nome.
+
+    }
 }
+
