@@ -38,8 +38,6 @@ public class LoginController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
             System.out.println("Botão Login");
-
-
             Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/HomePage.fxml"));
             Scene home_page_scene = new Scene(home_page_parent);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -60,4 +58,37 @@ public class LoginController implements Initializable {
         // TODO
     }
 
+    public void oneBtn(ActionEvent actionEvent) {
+
+    }
+
+    public void twoBtn(ActionEvent actionEvent) {
+    }
+
+    public void threeBtn(ActionEvent actionEvent) {
+    }
+
+    public void fiveBtn(ActionEvent actionEvent) {
+    }
+
+    public void nineBtn(ActionEvent actionEvent) {
+    }
+
+    public void zeroBtn(ActionEvent actionEvent) {
+    }
+
+    public void eightBtn(ActionEvent actionEvent) {
+    }
+
+    public void sevenBtn(ActionEvent actionEvent) {
+    }
+
+    public void sixBtn(ActionEvent actionEvent) {
+    }
+
+    public void fourBtn(ActionEvent actionEvent) {
+    }
+
+    public void clearBtn(ActionEvent actionEvent) {
+    }
 }

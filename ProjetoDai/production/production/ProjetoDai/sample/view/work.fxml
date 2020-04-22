@@ -6,26 +6,26 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.WorkController">
+<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.Sample">
    <children>
       <VBox alignment="CENTER_RIGHT" layoutY="-1.0" prefHeight="600.0" prefWidth="208.0" spacing="25.0" style="-fx-background-color: #3E5BFD;">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleBtnLoja" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="LOJA" textFill="#fffdfd">
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="LOJA" textFill="#fffdfd">
                <font>
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleBtnTrabalho" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="TRABALHO" textFill="#fffdfd">
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="TRABALHO" textFill="#fffdfd">
                <font>
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleBtnQuiz" prefHeight="26.0" prefWidth="312.0" style="-fx-background-color: #3E5BFD;" text="QUIZ" textFill="#fffdfd">
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="312.0" style="-fx-background-color: #3E5BFD;" text="QUIZ" textFill="#fffdfd">
                <font>
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleBtnPerfil" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="PERFIL" textFill="#fffdfd">
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="PERFIL" textFill="#fffdfd">
                <font>
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
