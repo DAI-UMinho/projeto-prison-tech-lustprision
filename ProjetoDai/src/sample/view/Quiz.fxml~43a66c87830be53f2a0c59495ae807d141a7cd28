@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="505.0" prefWidth="840.0" style="-fx-background-color: #E5FBFA;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.QuizController">
+   <children>
+      <AnchorPane prefHeight="50.0" prefWidth="840.0" style="-fx-background-color: #3E5BFD;" stylesheets="@styling/fullpackstyling.css">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="5.0">
+               <image>
+                  <Image url="@images/favicon-32x32.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnLogout" layoutX="792.0" layoutY="12.0" mnemonicParsing="false" onAction="#handlebtnLogout" style="-fx-background-color: #0C39FF;" />
+            <Button fx:id="btnVoltar" layoutX="124.0" layoutY="5.0" mnemonicParsing="false" onAction="#handlebtnVoltar" prefHeight="40.0" prefWidth="54.0" style="-fx-background-color: #0C39FF;" />
+            <ImageView fitHeight="32.0" fitWidth="26.0" layoutX="791.0" layoutY="7.0">
+               <image>
+                  <Image url="@images/logout.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="136.0" layoutY="9.0">
+               <image>
+                  <Image url="@images/voltaratras.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="370.0" layoutY="58.0" prefHeight="64.0" prefWidth="88.0" text="Quiz" textFill="#3e5bfd">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Button layoutX="355.0" layoutY="367.0" mnemonicParsing="false" onAction="#handlebuttonIniciar" prefHeight="64.0" prefWidth="119.0" style="-fx-background-color: #3E5BFD;" text="Iniciar" textFill="#fffafa">
+         <font>
+            <Font name="Arial" size="17.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="467.0" layoutY="141.0" prefHeight="218.0" prefWidth="296.0">
+         <children>
+            <Label layoutX="7.0" layoutY="6.0" prefHeight="40.0" prefWidth="283.0" text="Resultado do úlltimo questionário:" textFill="#3e5bfd">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="75.0" layoutY="46.0" prefHeight="40.0" prefWidth="157.0" />
+            <Label layoutX="9.0" layoutY="89.0" prefHeight="40.0" prefWidth="283.0" text="Total de pontos obtidos:" textFill="#3e5bfd">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="75.0" layoutY="138.0" prefHeight="40.0" prefWidth="157.0" />
+         </children>
+      </AnchorPane>
+      <TextArea layoutX="68.0" layoutY="148.0" prefHeight="145.0" prefWidth="206.0" style="-fx-background-color: #E5FBFA;" text="&#10;Informação:&#10;&#10;Responda às 5 questões seguintes&#10;e obtenha pontos consuante o seu&#10;resultado.">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>
