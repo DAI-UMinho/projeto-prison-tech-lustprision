@@ -19,12 +19,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.controller.SYSTEM;
-
+import java.util.*;
 import sample.Main;
 import sample.*;
 /**
@@ -33,7 +34,21 @@ import sample.*;
  * @author shenr
  */
 public class LoginController implements Initializable {
-    public PasswordField txtPassword;
+
+    public PasswordField pwd1;
+
+    public Button btn1;
+    public Button btn4;
+    public Button btn3;
+    public Button btn2;
+    public Button btn8;
+    public Button btn6;
+    public Button btn5;
+    public Button btn9;
+    public Button btn7;
+    public Button btndelete;
+    public Button btn0;
+
 
     @FXML
     private void onClick(ActionEvent event) throws IOException {
@@ -44,12 +59,91 @@ public class LoginController implements Initializable {
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(home_page_scene);
             app_stage.show();
+    }
 
 
-
-
+    private void onClickbtn1(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"1";
+        pwd1.setText(newtxt);}
 
     }
+    private void onClickbtn2(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"2";
+        pwd1.setText(newtxt);}
+
+    }
+    private void onClickbtn3(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else {
+            String txt = pwd1.getText();
+            String newtxt = txt + "3";
+            pwd1.setText(newtxt);
+        }
+    }
+
+    private void onClickbtn4(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"4";
+        pwd1.setText(newtxt);
+        }
+    }
+
+    private void onClickbtn5(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"5";
+        pwd1.setText(newtxt);
+        }
+    }
+    private void onClickbtn6(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"6";
+        pwd1.setText(newtxt);
+        }
+    }
+
+    private void onClickbtn7(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"7";
+        pwd1.setText(newtxt);
+        }
+    }
+
+    private void onClickbtn8(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"8";
+        pwd1.setText(newtxt);
+        }
+    }
+    private void onClickbtn9(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"9";
+        pwd1.setText(newtxt);
+        }
+    }
+    private void onClickbtn0(ActionEvent event) throws IOException {
+        if(pwd1.getText().length()==4){}else{
+        String txt = pwd1.getText();
+        String newtxt = txt +"0";
+        pwd1.setText(newtxt);
+        }
+    }
+    private void onClickbtndelete(ActionEvent event) throws IOException {
+        String txt = pwd1.getText();
+        String newtxt = txt.substring(0,txt.length()-1);
+        pwd1.setText("");
+
+    }
+
+
 
     /**
      * Initializes the controller class.
@@ -59,37 +153,5 @@ public class LoginController implements Initializable {
         // TODO
     }
 
-    public void oneBtn(ActionEvent actionEvent) {
 
-    }
-
-    public void twoBtn(ActionEvent actionEvent) {
-    }
-
-    public void threeBtn(ActionEvent actionEvent) {
-    }
-
-    public void fiveBtn(ActionEvent actionEvent) {
-    }
-
-    public void nineBtn(ActionEvent actionEvent) {
-    }
-
-    public void zeroBtn(ActionEvent actionEvent) {
-    }
-
-    public void eightBtn(ActionEvent actionEvent) {
-    }
-
-    public void sevenBtn(ActionEvent actionEvent) {
-    }
-
-    public void sixBtn(ActionEvent actionEvent) {
-    }
-
-    public void fourBtn(ActionEvent actionEvent) {
-    }
-
-    public void clearBtn(ActionEvent actionEvent) {
-    }
 }
