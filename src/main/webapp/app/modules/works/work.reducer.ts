@@ -7,6 +7,7 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { IWork, defaultValue } from 'app/shared/model/work.model';
 
 export const ACTION_TYPES = {
+  FETCH_WORK_SUBS: 'work/FETCH_WORK_SUBS',
   FETCH_WORK_LIST: 'work/FETCH_WORK_LIST',
   FETCH_WORK: 'work/FETCH_WORK',
   CREATE_WORK: 'work/CREATE_WORK',
@@ -20,6 +21,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IWork>,
   entity: defaultValue,
+  workSubs: [] as ReadonlyArray<any>,
   updating: false,
   updateSuccess: false
 };
@@ -30,6 +32,7 @@ export type WorkState = Readonly<typeof initialState>;
 
 export default (state: WorkState = initialState, action): WorkState => {
   switch (action.type) {
+    case REQUEST(ACTION_TYPES.FETCH_WORK_SUBS):
     case REQUEST(ACTION_TYPES.FETCH_WORK_LIST):
     case REQUEST(ACTION_TYPES.FETCH_WORK):
       return {
@@ -47,6 +50,8 @@ export default (state: WorkState = initialState, action): WorkState => {
         updateSuccess: false,
         updating: true
       };
+
+    case FAILURE(ACTION_TYPES.FETCH_WORK_SUBS):
     case FAILURE(ACTION_TYPES.FETCH_WORK_LIST):
     case FAILURE(ACTION_TYPES.FETCH_WORK):
     case FAILURE(ACTION_TYPES.CREATE_WORK):
@@ -58,6 +63,12 @@ export default (state: WorkState = initialState, action): WorkState => {
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_WORK_SUBS):
+      return {
+        ...state,
+        loading: false,
+        workSubs: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_WORK_LIST):
       return {
@@ -109,6 +120,14 @@ export const getEntity: ICrudGetAction<IWork> = id => {
   return {
     type: ACTION_TYPES.FETCH_WORK,
     payload: axios.get<IWork>(requestUrl)
+  };
+};
+
+export const getWorkSubs: ICrudGetAction<any> = id => {
+  const requestUrl = `${apiUrl}/${id}/subs`;
+  return {
+    type: ACTION_TYPES.FETCH_WORK_SUBS,
+    payload: axios.get<any>(requestUrl)
   };
 };
 

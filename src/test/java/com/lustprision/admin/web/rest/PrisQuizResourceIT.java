@@ -3,27 +3,21 @@ package com.lustprision.admin.web.rest;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.PrisQuiz;
 import com.lustprision.admin.repository.PrisQuizRepository;
-import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static com.lustprision.admin.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -33,44 +27,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link PrisQuizResource} REST controller.
  */
 @SpringBootTest(classes = LustPrisionApp.class)
+
+@AutoConfigureMockMvc
+@WithMockUser
 public class PrisQuizResourceIT {
 
     private static final LocalDate DEFAULT_QUIZ_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_QUIZ_DATE = LocalDate.now(ZoneId.systemDefault());
 
+    private static final Integer DEFAULT_APPROVAL = 1;
+    private static final Integer UPDATED_APPROVAL = 0;
+
     @Autowired
     private PrisQuizRepository prisQuizRepository;
-
-    @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
 
     @Autowired
     private EntityManager em;
 
     @Autowired
-    private Validator validator;
-
     private MockMvc restPrisQuizMockMvc;
 
     private PrisQuiz prisQuiz;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final PrisQuizResource prisQuizResource = new PrisQuizResource(prisQuizRepository);
-        this.restPrisQuizMockMvc = MockMvcBuilders.standaloneSetup(prisQuizResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.
@@ -80,7 +57,8 @@ public class PrisQuizResourceIT {
      */
     public static PrisQuiz createEntity(EntityManager em) {
         PrisQuiz prisQuiz = new PrisQuiz()
-            .quizDate(DEFAULT_QUIZ_DATE);
+            .quizDate(DEFAULT_QUIZ_DATE)
+            .approval(DEFAULT_APPROVAL);
         return prisQuiz;
     }
     /**
@@ -91,7 +69,8 @@ public class PrisQuizResourceIT {
      */
     public static PrisQuiz createUpdatedEntity(EntityManager em) {
         PrisQuiz prisQuiz = new PrisQuiz()
-            .quizDate(UPDATED_QUIZ_DATE);
+            .quizDate(UPDATED_QUIZ_DATE)
+            .approval(UPDATED_APPROVAL);
         return prisQuiz;
     }
 
@@ -107,7 +86,7 @@ public class PrisQuizResourceIT {
 
         // Create the PrisQuiz
         restPrisQuizMockMvc.perform(post("/api/pris-quizs")
-            .contentType(TestUtil.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(prisQuiz)))
             .andExpect(status().isCreated());
 
@@ -116,6 +95,7 @@ public class PrisQuizResourceIT {
         assertThat(prisQuizList).hasSize(databaseSizeBeforeCreate + 1);
         PrisQuiz testPrisQuiz = prisQuizList.get(prisQuizList.size() - 1);
         assertThat(testPrisQuiz.getQuizDate()).isEqualTo(DEFAULT_QUIZ_DATE);
+        assertThat(testPrisQuiz.getApproval()).isEqualTo(DEFAULT_APPROVAL);
     }
 
     @Test
@@ -128,7 +108,7 @@ public class PrisQuizResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPrisQuizMockMvc.perform(post("/api/pris-quizs")
-            .contentType(TestUtil.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(prisQuiz)))
             .andExpect(status().isBadRequest());
 
@@ -149,7 +129,8 @@ public class PrisQuizResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(prisQuiz.getId().intValue())))
-            .andExpect(jsonPath("$.[*].quizDate").value(hasItem(DEFAULT_QUIZ_DATE.toString())));
+            .andExpect(jsonPath("$.[*].quizDate").value(hasItem(DEFAULT_QUIZ_DATE.toString())))
+            .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL)));
     }
     
     @Test
@@ -163,7 +144,8 @@ public class PrisQuizResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(prisQuiz.getId().intValue()))
-            .andExpect(jsonPath("$.quizDate").value(DEFAULT_QUIZ_DATE.toString()));
+            .andExpect(jsonPath("$.quizDate").value(DEFAULT_QUIZ_DATE.toString()))
+            .andExpect(jsonPath("$.approval").value(DEFAULT_APPROVAL));
     }
 
     @Test
@@ -187,10 +169,11 @@ public class PrisQuizResourceIT {
         // Disconnect from session so that the updates on updatedPrisQuiz are not directly saved in db
         em.detach(updatedPrisQuiz);
         updatedPrisQuiz
-            .quizDate(UPDATED_QUIZ_DATE);
+            .quizDate(UPDATED_QUIZ_DATE)
+            .approval(UPDATED_APPROVAL);
 
         restPrisQuizMockMvc.perform(put("/api/pris-quizs")
-            .contentType(TestUtil.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedPrisQuiz)))
             .andExpect(status().isOk());
 
@@ -199,6 +182,7 @@ public class PrisQuizResourceIT {
         assertThat(prisQuizList).hasSize(databaseSizeBeforeUpdate);
         PrisQuiz testPrisQuiz = prisQuizList.get(prisQuizList.size() - 1);
         assertThat(testPrisQuiz.getQuizDate()).isEqualTo(UPDATED_QUIZ_DATE);
+        assertThat(testPrisQuiz.getApproval()).isEqualTo(UPDATED_APPROVAL);
     }
 
     @Test
@@ -210,7 +194,7 @@ public class PrisQuizResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPrisQuizMockMvc.perform(put("/api/pris-quizs")
-            .contentType(TestUtil.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(prisQuiz)))
             .andExpect(status().isBadRequest());
 
@@ -229,7 +213,7 @@ public class PrisQuizResourceIT {
 
         // Delete the prisQuiz
         restPrisQuizMockMvc.perform(delete("/api/pris-quizs/{id}", prisQuiz.getId())
-            .accept(TestUtil.APPLICATION_JSON))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

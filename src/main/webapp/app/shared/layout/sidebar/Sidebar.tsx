@@ -1,37 +1,21 @@
-/*!
-
-=========================================================
-* Paper Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import './Sidebar.css'
 
 import React, {useState} from "react";
 import {NavLink, useRouteMatch} from "react-router-dom";
 import {Nav} from "reactstrap";
+import adminRoutes from "app/shared/layout/sidebar/routes";
 
 const Sidebar = props => {
   const currentRoute = useRouteMatch();
-  const [sidebar, setSideBar] = useState(React.createRef());
+  const [sidebar, setSideBar] = useState();
+
+  console.log(props.perm);
 
   return (
     <div
       className="sidebar"
       data-color={props.bgColor}
-      data-active-color={props.activeColor}
-    >
+      data-active-color={props.activeColor}>
       <div className="logo">
         <a
           href={currentRoute.path}
@@ -61,6 +45,23 @@ const Sidebar = props => {
             );
           })}
         </Nav>
+        {props.adminRights ? (
+          <Nav>
+            {props.admin.map((prop, key) => {
+              return (
+                <NavLink
+                  to={prop.layout + prop.path}
+                  className="justatest"
+                  activeClassName="active"
+                  key={key}
+                >
+                  <i className={prop.icon}/>
+                  <p>{prop.name}</p>
+                </NavLink>
+              );
+            })}
+          </Nav>
+        ) : null}
       </div>
     </div>
   );

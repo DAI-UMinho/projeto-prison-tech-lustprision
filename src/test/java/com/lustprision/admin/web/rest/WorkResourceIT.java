@@ -4,6 +4,7 @@ import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Work;
 import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.service.WorkService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +50,9 @@ public class WorkResourceIT {
     private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
+    private WorkService workService;
+
+    @Autowired
     private WorkRepository workRepository;
 
     @Autowired
@@ -76,7 +80,7 @@ public class WorkResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WorkResource workResource = new WorkResource(workRepository, stateRepository);
+        final WorkResource workResource = new WorkResource(workRepository, stateRepository, workService);
         this.restWorkMockMvc = MockMvcBuilders.standaloneSetup(workResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

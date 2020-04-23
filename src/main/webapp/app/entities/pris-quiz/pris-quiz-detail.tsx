@@ -34,6 +34,12 @@ export const PrisQuizDetail = (props: IPrisQuizDetailProps) => {
             <TextFormat value={prisQuizEntity.quizDate} type="date" format={APP_LOCAL_DATE_FORMAT} />
           </dd>
           <dt>
+            <span id="approval">
+              <Translate contentKey="lustPrisionApp.prisQuiz.approval">Approval</Translate>
+            </span>
+          </dt>
+          <dd>{prisQuizEntity.approval}</dd>
+          <dt>
             <Translate contentKey="lustPrisionApp.prisQuiz.prisioner">Prisioner</Translate>
           </dt>
           <dd>{prisQuizEntity.prisioner ? prisQuizEntity.prisioner.id : ''}</dd>

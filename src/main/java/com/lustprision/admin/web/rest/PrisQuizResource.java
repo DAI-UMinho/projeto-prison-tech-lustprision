@@ -2,6 +2,7 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.PrisQuiz;
 import com.lustprision.admin.repository.PrisQuizRepository;
+import com.lustprision.admin.service.dto.PrisQuizDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -13,10 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing {@link com.lustprision.admin.domain.PrisQuiz}.
@@ -47,7 +51,7 @@ public class PrisQuizResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/pris-quizs")
-    public ResponseEntity<PrisQuiz> createPrisQuiz(@RequestBody PrisQuiz prisQuiz) throws URISyntaxException {
+    public ResponseEntity<PrisQuiz> createPrisQuiz(@Valid @RequestBody PrisQuiz prisQuiz) throws URISyntaxException {
         log.debug("REST request to save PrisQuiz : {}", prisQuiz);
         if (prisQuiz.getId() != null) {
             throw new BadRequestAlertException("A new prisQuiz cannot already have an ID", ENTITY_NAME, "idexists");
@@ -68,7 +72,7 @@ public class PrisQuizResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/pris-quizs")
-    public ResponseEntity<PrisQuiz> updatePrisQuiz(@RequestBody PrisQuiz prisQuiz) throws URISyntaxException {
+    public ResponseEntity<PrisQuiz> updatePrisQuiz(@Valid @RequestBody PrisQuiz prisQuiz) throws URISyntaxException {
         log.debug("REST request to update PrisQuiz : {}", prisQuiz);
         if (prisQuiz.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -114,5 +118,23 @@ public class PrisQuizResource {
         log.debug("REST request to delete PrisQuiz : {}", id);
         prisQuizRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/pris-quizs/pending")
+    public List<PrisQuizDTO> getPendingApprovalQuiz() {
+        log.debug("REST request to get PrisQuiz ");
+        return prisQuizRepository.getAllByApproval(0).stream()
+            .map(PrisQuizDTO::new)
+            .collect(Collectors.toList());
+    }
+
+    @PutMapping("/pris-quizs/{id}/authorize")
+    public ResponseEntity<PrisQuiz> getPendingApprovalQuiz(@PathVariable Long id) {
+        log.debug("REST request to authorize quiz of the prisoner");
+        PrisQuiz pendingQuiz = prisQuizRepository.getOne(id);
+        pendingQuiz.setApproval(1);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, pendingQuiz.getId().toString()))
+            .body(pendingQuiz);
     }
 }

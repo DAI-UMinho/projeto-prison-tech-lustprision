@@ -23,7 +23,7 @@ import pressWork, {
 // prettier-ignore
 import prisQuiz, {
   PrisQuizState
-} from 'app/entities/pris-quiz/pris-quiz.reducer';
+} from 'app/modules/quizs/pris-quiz.reducer';
 // prettier-ignore
 import questionQuiz, {
   QuestionQuizState
@@ -35,7 +35,7 @@ import pressProduct, {
 // prettier-ignore
 import work, {
   WorkState
-} from 'app/entities/work/work.reducer';
+} from 'app/modules/works/work.reducer';
 // prettier-ignore
 import quiz, {
   QuizState

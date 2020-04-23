@@ -7,9 +7,11 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { IPrisQuiz, defaultValue } from 'app/shared/model/pris-quiz.model';
 
 export const ACTION_TYPES = {
+  FETCH_PRISQUIZ_WAITING_LIST: 'prisQuiz/FETCH_PRISQUIZ_WAITING_LIST',
   FETCH_PRISQUIZ_LIST: 'prisQuiz/FETCH_PRISQUIZ_LIST',
   FETCH_PRISQUIZ: 'prisQuiz/FETCH_PRISQUIZ',
   CREATE_PRISQUIZ: 'prisQuiz/CREATE_PRISQUIZ',
+  UPDATE_PRISQUIZ_AUTHORIZATION: 'prisQuiz/UPDATE_PRISQUIZ_AUTHORIZATION',
   UPDATE_PRISQUIZ: 'prisQuiz/UPDATE_PRISQUIZ',
   DELETE_PRISQUIZ: 'prisQuiz/DELETE_PRISQUIZ',
   RESET: 'prisQuiz/RESET'
@@ -19,6 +21,7 @@ const initialState = {
   loading: false,
   errorMessage: null,
   entities: [] as ReadonlyArray<IPrisQuiz>,
+  waiting: [] as ReadonlyArray<IPrisQuiz>,
   entity: defaultValue,
   updating: false,
   updateSuccess: false
@@ -30,6 +33,7 @@ export type PrisQuizState = Readonly<typeof initialState>;
 
 export default (state: PrisQuizState = initialState, action): PrisQuizState => {
   switch (action.type) {
+    case REQUEST(ACTION_TYPES.FETCH_PRISQUIZ_WAITING_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRISQUIZ_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRISQUIZ):
       return {
@@ -38,6 +42,7 @@ export default (state: PrisQuizState = initialState, action): PrisQuizState => {
         updateSuccess: false,
         loading: true
       };
+    case REQUEST(ACTION_TYPES.UPDATE_PRISQUIZ_AUTHORIZATION):
     case REQUEST(ACTION_TYPES.CREATE_PRISQUIZ):
     case REQUEST(ACTION_TYPES.UPDATE_PRISQUIZ):
     case REQUEST(ACTION_TYPES.DELETE_PRISQUIZ):
@@ -47,6 +52,8 @@ export default (state: PrisQuizState = initialState, action): PrisQuizState => {
         updateSuccess: false,
         updating: true
       };
+    case FAILURE(ACTION_TYPES.UPDATE_PRISQUIZ_AUTHORIZATION):
+    case FAILURE(ACTION_TYPES.FETCH_PRISQUIZ_WAITING_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRISQUIZ_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRISQUIZ):
     case FAILURE(ACTION_TYPES.CREATE_PRISQUIZ):
@@ -58,6 +65,12 @@ export default (state: PrisQuizState = initialState, action): PrisQuizState => {
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_PRISQUIZ_WAITING_LIST):
+      return {
+        ...state,
+        loading: false,
+        waiting: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PRISQUIZ_LIST):
       return {
@@ -71,6 +84,7 @@ export default (state: PrisQuizState = initialState, action): PrisQuizState => {
         loading: false,
         entity: action.payload.data
       };
+    case SUCCESS(ACTION_TYPES.UPDATE_PRISQUIZ_AUTHORIZATION):
     case SUCCESS(ACTION_TYPES.CREATE_PRISQUIZ):
     case SUCCESS(ACTION_TYPES.UPDATE_PRISQUIZ):
       return {
@@ -104,6 +118,11 @@ export const getEntities: ICrudGetAllAction<IPrisQuiz> = (page, size, sort) => (
   payload: axios.get<IPrisQuiz>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
+export const getWaitingList: ICrudGetAllAction<IPrisQuiz> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_PRISQUIZ_WAITING_LIST,
+  payload: axios.get<IPrisQuiz>(`${apiUrl}/pending`)
+});
+
 export const getEntity: ICrudGetAction<IPrisQuiz> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
@@ -121,11 +140,21 @@ export const createEntity: ICrudPutAction<IPrisQuiz> = entity => async dispatch 
   return result;
 };
 
+export const updateQuizAuthorization: ICrudPutAction<IPrisQuiz> = id => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.UPDATE_PRISQUIZ_AUTHORIZATION,
+    payload: axios.put(`${apiUrl}/${id}/authorize`)
+  });
+  dispatch(getWaitingList());
+  return result;
+};
+
 export const updateEntity: ICrudPutAction<IPrisQuiz> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_PRISQUIZ,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
+  dispatch(getEntities());
   return result;
 };
 
@@ -135,6 +164,7 @@ export const deleteEntity: ICrudDeleteAction<IPrisQuiz> = id => async dispatch =
     type: ACTION_TYPES.DELETE_PRISQUIZ,
     payload: axios.delete(requestUrl)
   });
+  dispatch(getEntities());
   return result;
 };
 

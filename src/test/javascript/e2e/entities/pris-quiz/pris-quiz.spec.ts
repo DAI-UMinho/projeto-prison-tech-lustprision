@@ -61,6 +61,8 @@ describe('PrisQuiz e2e test', () => {
     await prisQuizComponentsPage.createButton.click();
     await prisQuizUpdatePage.setQuizDateInput('01-01-2001');
     expect(await prisQuizUpdatePage.getQuizDateInput()).to.eq('2001-01-01');
+    await prisQuizUpdatePage.setApprovalInput('5');
+    expect(await prisQuizUpdatePage.getApprovalInput()).to.eq('5');
     await prisQuizUpdatePage.prisionerSelectLastOption();
     await prisQuizUpdatePage.quizSelectLastOption();
     await waitUntilDisplayed(prisQuizUpdatePage.saveButton);

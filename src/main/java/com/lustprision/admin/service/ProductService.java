@@ -39,15 +39,7 @@ public class ProductService {
         this.purchaseRepository = purchaseRepository;
     }
 
-    public List<PressProductDTO> getPressProductFromProduct(Long id){
-        Product product = productRepository.findById(id).get();
-        return pressProductRepository.findAllByProduct(product)
-            .stream()
-            .map(PressProductDTO::new)
-            .collect(Collectors.toList());
-    }
-
-    public List<ProductSaleDTO> getPressProductFromProduct2(Long id){
+    public List<ProductSaleDTO> getPressProductFromProduct(Long id){
         Product product = productRepository.findById(id).get();
         List<ProductSaleDTO> sales = pressProductRepository.findAllByProduct(product)
             .stream()

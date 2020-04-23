@@ -73,6 +73,7 @@ class PrisQuizGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "quizDate":"2020-01-01T00:00:00.000Z"
+                , "approval":"0"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_prisQuiz_url"))).exitHereIfFailed

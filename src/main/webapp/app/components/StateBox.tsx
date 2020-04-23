@@ -53,6 +53,7 @@ const StateBox = (props: StateBoxState) => {
 
   const getColorByState = (id) => {
     switch (id) {
+      case 0:
       case 1:
         return classes.pending;
       case 2:

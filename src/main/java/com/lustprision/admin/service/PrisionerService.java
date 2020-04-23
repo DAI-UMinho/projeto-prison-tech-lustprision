@@ -74,8 +74,8 @@ public class PrisionerService {
         prisionerRepository.findById(id).ifPresent(prisioner -> {
             prisQuizRepository.getAllByPrisioner(prisioner)
                 .forEach(prisQuiz -> {
-                    LocalDate quizDate = prisQuiz.getQuizDate();
                     QuizDTO mQuiz = new QuizDTO(prisQuiz.getQuiz());
+                    LocalDate quizDate = prisQuiz.getQuizDate();
                     mQuiz.setQuizDate(quizDate);
                     quizList.add(mQuiz);
                 });

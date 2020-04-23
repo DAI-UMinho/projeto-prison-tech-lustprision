@@ -5,8 +5,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.time.LocalDate;
 
 /**
@@ -26,6 +28,10 @@ public class PrisQuiz implements Serializable {
 
     @Column(name = "quiz_date")
     private LocalDate quizDate;
+
+    @Max(value = 1)
+    @Column(name = "approval")
+    private Integer approval;
 
     @ManyToOne
     @JsonIgnoreProperties("ids")
@@ -55,6 +61,19 @@ public class PrisQuiz implements Serializable {
 
     public void setQuizDate(LocalDate quizDate) {
         this.quizDate = quizDate;
+    }
+
+    public Integer getApproval() {
+        return approval;
+    }
+
+    public PrisQuiz approval(Integer approval) {
+        this.approval = approval;
+        return this;
+    }
+
+    public void setApproval(Integer approval) {
+        this.approval = approval;
     }
 
     public Prisioner getPrisioner() {
@@ -105,6 +124,7 @@ public class PrisQuiz implements Serializable {
         return "PrisQuiz{" +
             "id=" + getId() +
             ", quizDate='" + getQuizDate() + "'" +
+            ", approval=" + getApproval() +
             "}";
     }
 }

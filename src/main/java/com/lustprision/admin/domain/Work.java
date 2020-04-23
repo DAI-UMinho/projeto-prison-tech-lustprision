@@ -167,7 +167,7 @@ public class Work implements Serializable {
             "id=" + getId() +
             ", nameWork='" + getNameWork() + "'" +
             ", priceHour=" + getTotalCredits() +
-            ", numVacancies=" + getNumRemainingEntries() +
+            ", numRemainingEntries=" + getNumRemainingEntries() +
             ", date='" + getDate() + "'" +
             "}";
     }

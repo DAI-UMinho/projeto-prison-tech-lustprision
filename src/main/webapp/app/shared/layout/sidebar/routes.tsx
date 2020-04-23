@@ -1,5 +1,14 @@
 import Sidebar from "app/shared/layout/sidebar/Sidebar";
 
+export const adminRoutes = [
+  {
+    path: "/employees",
+    name: "Funcionários",
+    icon: "nc-icon nc-shop",
+    layout: "/dashboard"
+  },
+];
+
 const routes = [
   {
     path: "/home",
