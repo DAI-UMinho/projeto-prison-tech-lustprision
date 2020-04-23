@@ -40,7 +40,11 @@ public class ProfileController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        nometxt.setText(Main.sis.sessionatual.nowusing.getNome());
+        nreclusotxt.setText(Main.sis.sessionatual.nowusing.getNumRecluso());
+        datanasctxt.setText(String.valueOf(Main.sis.sessionatual.nowusing.getDataNascim()));
+        saldotxt.setText(Main.sis.sessionatual.nowusing.getSaldo());
+
     }
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
