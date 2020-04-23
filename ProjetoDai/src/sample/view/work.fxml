@@ -30,6 +30,11 @@
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnSair" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="SAIR" textFill="#00000080">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
       <Label layoutX="272.0" layoutY="34.0" text="Trabalhos" textFill="#3e5bfd">
@@ -102,7 +107,11 @@
             </Label>
          </children>
       </HBox>
-      <ScrollPane layoutX="240.0" layoutY="233.0" prefHeight="346.0" prefWidth="634.0" vbarPolicy="NEVER" />
       <Line endX="533.4000244140625" endY="0.1999969482421875" layoutX="340.0" layoutY="216.0" startX="-100.0" stroke="#bfbfbf" />
+      <ScrollPane layoutX="242.0" layoutY="223.0" prefHeight="370.0" prefWidth="646.0">
+         <content>
+            <VBox fx:id="workvbox" prefHeight="364.0" prefWidth="631.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

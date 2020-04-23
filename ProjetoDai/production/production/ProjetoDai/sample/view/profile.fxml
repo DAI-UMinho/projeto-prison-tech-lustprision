@@ -29,9 +29,14 @@
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnSair" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="SAIR" textFill="#00000080">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
-      <Label layoutX="270.0" layoutY="61.0" text="Perfil" textFill="#3e5bfd">
+      <Label layoutX="254.0" layoutY="34.0" text="Perfil" textFill="#3e5bfd">
          <font>
             <Font name="Agency FB Bold" size="61.0" />
          </font>
@@ -74,22 +79,22 @@
             </VBox>
             <VBox layoutX="253.0" prefHeight="166.0" prefWidth="208.0">
                <children>
-                  <Label text="Nome" textFill="#2c3044">
+                  <Label fx:id="nometxt" text="Nome" textFill="#2c3044">
                      <font>
                         <Font name="Agency FB" size="29.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" text="Nº Recluso" textFill="#2c3044">
+                  <Label fx:id="nreclusotxt" layoutX="10.0" layoutY="10.0" text="Nº Recluso" textFill="#2c3044">
                      <font>
                         <Font name="Agency FB" size="29.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="85.0" text="Data de Nascimento" textFill="#2c3044">
+                  <Label fx:id="datanasctxt" layoutX="10.0" layoutY="85.0" text="Data de Nascimento" textFill="#2c3044">
                      <font>
                         <Font name="Agency FB" size="29.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="160.0" text="Trabalho" textFill="#2c3044">
+                  <Label fx:id="trabalhotxt" layoutX="10.0" layoutY="160.0" text="Trabalho" textFill="#2c3044">
                      <font>
                         <Font name="Agency FB" size="29.0" />
                      </font>
@@ -98,7 +103,7 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="494.0" layoutY="-4.0" prefHeight="75.0" prefWidth="80.0">
                <children>
-                  <Label text="000000" textFill="#02ff74">
+                  <Label fx:id="saldotxt" text="000000" textFill="#02ff74">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -113,7 +118,7 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="494.0" layoutY="71.0" prefHeight="75.0" prefWidth="80.0">
                <children>
-                  <Label text="000000" textFill="#ffb003">
+                  <Label fx:id="pontostxt" text="000000" textFill="#ffb003">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>

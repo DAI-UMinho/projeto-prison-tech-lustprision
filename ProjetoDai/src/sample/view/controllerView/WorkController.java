@@ -1,23 +1,53 @@
 package sample.view.controllerView;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.Main;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.ResourceBundle;
 
 public class WorkController implements Initializable {
+
+    @FXML
+    public VBox workvbox = null;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+
+        int sz = Main.sis.works.size();
+        System.out.println(sz);
+        Node[] nodes = new Node[sz];
+
+            for(int i = 0 ; i< sz; i++){
+                try{
+
+                    WorkLineController.name = Main.sis.works.get(i).type.getNome();
+                    WorkLineController.remun= Main.sis.works.get(i).type.getVagas();
+                    WorkLineController.remun=Main.sis.works.get(i).type.getPrecoHora();
+                    nodes[i] = FXMLLoader.load(getClass().getResource("/sample/view/work_line.fxml"));
+
+                    workvbox.getChildren().add(nodes[i]);
+
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
         System.out.println("Botão Loja");
@@ -54,4 +84,15 @@ public class WorkController implements Initializable {
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
     }
+
+    public void handleBtnSair(ActionEvent actionEvent) throws IOException {
+        System.out.println("Botão Perfil");
+        Parent perfil_parent = FXMLLoader.load(getClass().getResource("/sample/view/login.fxml"));
+        Scene perfil_scene = new Scene(perfil_parent);
+        Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        perfil_stage.setScene(perfil_scene);
+        perfil_stage.show();
+    }
+
+
 }

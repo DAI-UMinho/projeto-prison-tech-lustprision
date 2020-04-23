@@ -4,8 +4,8 @@ import java.util.*;
 
 public class SYSTEM {
 
-    ArrayList<PRODUCT_TB> products = new ArrayList();
-    ArrayList<WORK_TB> works = new ArrayList<>();
+    public ArrayList<PRODUCT_TB> products = new ArrayList<>();
+    public ArrayList<WORK_TB> works = new ArrayList<>();
 
     public SESSION sessionatual;
 
@@ -16,7 +16,9 @@ public class SYSTEM {
 
     public void loadWorksTS() {
         if (BD_CONTROLLER.getWORKS() == null) {
-        } else this.works = BD_CONTROLLER.getWORKS();
+        } else {this.works = BD_CONTROLLER.getWORKS();
+            System.out.println("Produtos carregados no sistema");
+        };
     }
 
     public boolean LoginTS(int ID, int PIN) {
@@ -29,6 +31,10 @@ public class SYSTEM {
         return false;
     }
 
+    public void reset() {
+        this.products= new ArrayList<>();
+        this.works = new ArrayList<>();
+    }
 
 
 }

@@ -31,9 +31,7 @@ public class BD_CONTROLLER {
                 //coisas que faltem ir buscar à bd adicionar ao construtor de produtos e ir buscar ao ResultSet
                 Produto x = new Produto(rs.getInt(1), rs.getString(3), rs.getString(6), rs.getInt(4), rs.getInt(7));
 
-                //só para ver o que sai da bd no terminal depois apagar
-                System.out.println(rs.getInt(1) + "|||" + rs.getString(3) + "|||" + rs.getString(6) + "|||" + rs.getInt(4) + "|||" + rs.getInt(7));
-                // -----
+
                 PRODUCT_TB y = new PRODUCT_TB(x);
                 output.add(y);
             }
@@ -61,7 +59,7 @@ public class BD_CONTROLLER {
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Work ");
+            ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB");
 
             while (rs.next()) {
 
@@ -72,7 +70,7 @@ public class BD_CONTROLLER {
                 output.add(y);
             }
             con.close();
-
+            System.out.println("Trabalhos sairam da BD");
             return output;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -123,8 +121,8 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {
-                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(7));
-                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(7));
+                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
+                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(4) + rs.getDate(6 ) + rs.getInt(7));
                     return user;
                 }
             }

@@ -15,7 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import sample.Main;
 
 import javax.swing.*;
 
@@ -26,12 +28,23 @@ import javax.swing.*;
  */
 public class ProfileController implements Initializable {
 
+    public Label saldotxt;
+    public Label nometxt;
+    public Label nreclusotxt;
+    public Label datanasctxt;
+    public Label trabalhotxt;
+    public Label pontostxt;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        nometxt.setText(Main.sis.sessionatual.nowusing.getNome());
+        nreclusotxt.setText(Main.sis.sessionatual.nowusing.getNumRecluso());
+        datanasctxt.setText(String.valueOf(Main.sis.sessionatual.nowusing.getDataNascim()));
+        saldotxt.setText(Main.sis.sessionatual.nowusing.getSaldo());
+
     }
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
@@ -69,4 +82,15 @@ public class ProfileController implements Initializable {
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
     }
+
+    public void handleBtnSair(ActionEvent actionEvent) throws IOException {
+        System.out.println("Botão Perfil");
+        Parent perfil_parent = FXMLLoader.load(getClass().getResource("/sample/view/login.fxml"));
+        Scene perfil_scene = new Scene(perfil_parent);
+        Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        perfil_stage.setScene(perfil_scene);
+        perfil_stage.show();
+    }
+
+
 }

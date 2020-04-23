@@ -55,4 +55,14 @@ public class ShopController implements Initializable {
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
     }
+
+    public void handleBtnSair(ActionEvent actionEvent) throws IOException {
+        System.out.println("Botão Perfil");
+        Parent perfil_parent = FXMLLoader.load(getClass().getResource("/sample/view/login.fxml"));
+        Scene perfil_scene = new Scene(perfil_parent);
+        Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        perfil_stage.setScene(perfil_scene);
+        perfil_stage.show();
+
+    }
 }

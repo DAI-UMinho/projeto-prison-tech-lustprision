@@ -30,6 +30,11 @@
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnSair" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="SAIR" textFill="#00000080">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
       <Label layoutX="272.0" layoutY="34.0" text="Trabalhos" textFill="#3e5bfd">
