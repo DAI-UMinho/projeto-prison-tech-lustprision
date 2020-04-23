@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -24,6 +25,8 @@ import javax.swing.*;
  * @author shenr
  */
 public class SampleController implements Initializable {
+
+    public Label valortxt;
 
     /**
      * Initializes the controller class.
@@ -77,5 +80,17 @@ public class SampleController implements Initializable {
         Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
+    }
+
+    public void onClickA1(ActionEvent actionEvent) {
+    }
+
+    public void onClickA3(ActionEvent actionEvent) {
+    }
+
+    public void onClickA2(ActionEvent actionEvent) {
+    }
+
+    public void onClickA4(ActionEvent actionEvent) {
     }
 }

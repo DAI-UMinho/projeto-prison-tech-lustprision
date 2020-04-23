@@ -103,7 +103,7 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="494.0" layoutY="-4.0" prefHeight="75.0" prefWidth="80.0">
                <children>
-                  <Label text="000000" textFill="#02ff74">
+                  <Label fx:id="saldotxt" text="000000" textFill="#02ff74">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -118,7 +118,7 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="494.0" layoutY="71.0" prefHeight="75.0" prefWidth="80.0">
                <children>
-                  <Label text="000000" textFill="#ffb003">
+                  <Label fx:id="pontostxt" text="000000" textFill="#ffb003">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>

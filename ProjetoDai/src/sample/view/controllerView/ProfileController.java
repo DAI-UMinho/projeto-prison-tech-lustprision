@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -25,6 +26,13 @@ import javax.swing.*;
  * @author shenr
  */
 public class ProfileController implements Initializable {
+
+    public Label saldotxt;
+    public Label nometxt;
+    public Label nreclusotxt;
+    public Label datanasctxt;
+    public Label trabalhotxt;
+    public Label pontostxt;
 
     /**
      * Initializes the controller class.
