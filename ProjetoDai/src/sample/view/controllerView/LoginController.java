@@ -54,11 +54,19 @@ public class LoginController implements Initializable {
     private void onClick(ActionEvent event) throws IOException {
 
 
-            Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
-            Scene home_page_scene = new Scene(home_page_parent);
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            app_stage.setScene(home_page_scene);
-            app_stage.show();
+
+            if(Main.sis.LoginTS(5453,Integer.valueOf(pwd1.getText()))){
+                Main.sis.loadWorksTS();
+                Main.sis.loadProductsTS();
+
+                Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
+                Scene home_page_scene = new Scene(home_page_parent);
+                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                app_stage.setScene(home_page_scene);
+                app_stage.show();
+            }else System.out.println("login nao feito");
+
+
     }
 
     @FXML

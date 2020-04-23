@@ -29,6 +29,10 @@ public class SYSTEM {
         return false;
     }
 
+    public void reset() {
+        this.products= new ArrayList<>();
+        this.works = new ArrayList<>();
+    }
 
 
 }
