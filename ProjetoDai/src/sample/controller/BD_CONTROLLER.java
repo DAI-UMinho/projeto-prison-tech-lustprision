@@ -123,8 +123,8 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {
-                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(7));
-                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(7));
+                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
+                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(4) + rs.getDate(6 ) + rs.getInt(7));
                     return user;
                 }
             }
