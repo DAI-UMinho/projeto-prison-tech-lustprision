@@ -4,27 +4,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="634.0" spacing="70.0" style="-fx-background-radius: 10; -fx-background-color: E2ECEF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="workpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.WorkLineController">
    <children>
-      <Label fx:id="workname" prefHeight="24.0" prefWidth="190.0" text="Nome do Trabalho" textFill="#4d44a2">
+      <Button layoutX="540.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #66ff99;" text="Candidatar" textFill="WHITE">
          <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="workvagas" prefHeight="24.0" prefWidth="41.0" text="12" textFill="#4d44a2">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="workpagamento" text="13" textFill="#4d44a2">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Label>
-      <Button mnemonicParsing="false" style="-fx-background-color: #3E5BFD;" text="Candidatar" textFill="WHITE">
-         <font>
-            <Font name="Agency FB Bold" size="15.0" />
+            <Font name="Agency FB Bold" size="14.0" />
          </font>
       </Button>
+      <Label fx:id="worknamelbl" layoutX="7.0" layoutY="14.0" prefHeight="17.0" prefWidth="176.0" text="Label" textFill="#2d2b36">
+         <font>
+            <Font name="Agency FB" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="workvagaslbl" layoutX="225.0" layoutY="14.0" text="Label" textFill="#2f09ebba">
+         <font>
+            <Font name="Agency FB" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="workremunlbl" layoutX="388.0" layoutY="14.0" text="Label" textFill="#2f09ebb4">
+         <font>
+            <Font name="Agency FB" size="21.0" />
+         </font>
+      </Label>
    </children>
-</HBox>
+</Pane>

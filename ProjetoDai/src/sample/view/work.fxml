@@ -108,9 +108,9 @@
          </children>
       </HBox>
       <Line endX="533.4000244140625" endY="0.1999969482421875" layoutX="340.0" layoutY="216.0" startX="-100.0" stroke="#bfbfbf" />
-      <ScrollPane hbarPolicy="NEVER" layoutX="239.0" layoutY="229.0" prefHeight="354.0" prefWidth="634.0">
+      <ScrollPane layoutX="242.0" layoutY="223.0" prefHeight="370.0" prefWidth="646.0">
          <content>
-            <VBox prefHeight="353.0" prefWidth="634.0" />
+            <VBox fx:id="workvbox" prefHeight="364.0" prefWidth="631.0" />
          </content>
       </ScrollPane>
    </children>
