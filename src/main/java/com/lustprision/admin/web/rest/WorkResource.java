@@ -129,10 +129,21 @@ public class WorkResource {
     }
 
     @PutMapping("/works/{id}/cancel")
-    public ResponseEntity<Work> cancelPressWork(@PathVariable Long id) {
+    public ResponseEntity<Work> cancelWork(@PathVariable Long id) {
         log.debug("REST request to delete PressWork : {}", id);
         Work result = workRepository.findById(id).get();
         State mState = stateRepository.getOne(Long.valueOf(3));
+        result.setState(mState);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/works/{id}/complete")
+    public ResponseEntity<Work> completeWork(@PathVariable Long id) {
+        log.debug("REST request to change the status to complete of the work : {}", id);
+        Work result = workRepository.findById(id).get();
+        State mState = stateRepository.getOne(2L);
         result.setState(mState);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

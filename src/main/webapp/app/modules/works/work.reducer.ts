@@ -11,6 +11,8 @@ export const ACTION_TYPES = {
   FETCH_WORK_LIST: 'work/FETCH_WORK_LIST',
   FETCH_WORK: 'work/FETCH_WORK',
   CREATE_WORK: 'work/CREATE_WORK',
+  UPDATE_COMPLETE_WORK: 'work/UPDATE_CANCEL_WORK',
+  UPDATE_CANCEL_WORK: 'work/UPDATE_CANCEL_WORK',
   UPDATE_WORK: 'work/UPDATE_WORK',
   DELETE_WORK: 'work/DELETE_WORK',
   RESET: 'work/RESET'
@@ -42,6 +44,8 @@ export default (state: WorkState = initialState, action): WorkState => {
         loading: true
       };
     case REQUEST(ACTION_TYPES.CREATE_WORK):
+    case REQUEST(ACTION_TYPES.UPDATE_COMPLETE_WORK):
+    case REQUEST(ACTION_TYPES.UPDATE_CANCEL_WORK):
     case REQUEST(ACTION_TYPES.UPDATE_WORK):
     case REQUEST(ACTION_TYPES.DELETE_WORK):
       return {
@@ -50,7 +54,8 @@ export default (state: WorkState = initialState, action): WorkState => {
         updateSuccess: false,
         updating: true
       };
-
+    case FAILURE(ACTION_TYPES.UPDATE_COMPLETE_WORK):
+    case FAILURE(ACTION_TYPES.UPDATE_CANCEL_WORK):
     case FAILURE(ACTION_TYPES.FETCH_WORK_SUBS):
     case FAILURE(ACTION_TYPES.FETCH_WORK_LIST):
     case FAILURE(ACTION_TYPES.FETCH_WORK):
@@ -83,6 +88,8 @@ export default (state: WorkState = initialState, action): WorkState => {
         entity: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.CREATE_WORK):
+    case SUCCESS(ACTION_TYPES.UPDATE_COMPLETE_WORK):
+    case SUCCESS(ACTION_TYPES.UPDATE_CANCEL_WORK):
     case SUCCESS(ACTION_TYPES.UPDATE_WORK):
       return {
         ...state,
@@ -135,6 +142,24 @@ export const createEntity: ICrudPutAction<IWork> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_WORK,
     payload: axios.post(apiUrl, cleanEntity(entity))
+  });
+  dispatch(getEntities());
+  return result;
+};
+
+export const updateCompleteWork: ICrudPutAction<IWork> = id => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.UPDATE_WORK,
+    payload: axios.put(`${apiUrl}/${id}/complete`)
+  });
+  dispatch(getEntities());
+  return result;
+};
+
+export const updateCancelWork: ICrudPutAction<IWork> = id => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.UPDATE_WORK,
+    payload: axios.put(`${apiUrl}/${id}/cancel`)
   });
   dispatch(getEntities());
   return result;

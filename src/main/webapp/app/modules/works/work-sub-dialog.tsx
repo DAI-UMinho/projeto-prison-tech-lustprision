@@ -38,7 +38,7 @@ const WorkSubDialog = (props: SimpleDialogProps) => {
     onClose();
   };
 
-  const handleListItemClick = (value: string) => {
+  const handleListItemClick = (value: any) => {
     onClose(value);
   };
 

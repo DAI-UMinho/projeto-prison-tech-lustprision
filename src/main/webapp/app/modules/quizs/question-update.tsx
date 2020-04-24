@@ -106,8 +106,8 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
   const [items, setItems] = useState([]);
   const {onClose, question, open} = props;
 
-  const [isNew, setIsNew] = useState(question ? false : true);
-  console.log("ID: " + question);
+  const [isNew, setIsNew] = useState(question.answer ? false : true);
+
   const handleClose = () => {
     onClose('a');
   };

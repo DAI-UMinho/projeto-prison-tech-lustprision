@@ -34,7 +34,7 @@ export const Question = (props: IQuizProps) => {
 
   const [open, setOpen] = useState(false);
   const [questionList, setQuestionList] = useState([]);
-  const [selQuestion, setSelQuestion] = useState(1);
+  const [selQuestion, setSelQuestion] = React.useState<any>(1);
 
   const [state, setState] = React.useState<TableState>({
     questions: [

@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Button, Row, Col, Card, CardHeader, CardBody, CardTitle, CardFooter, Label} from 'reactstrap';
 import {IRootState} from 'app/shared/reducers';
 
-import {getEntity, updateEntity, getWorkSubs} from './work.reducer';
+import {getEntity, updateEntity, getWorkSubs, updateCancelWork, updateCompleteWork} from './work.reducer';
 import { getEntities } from 'app/modules/account/prisoner/prisioner.reducer';
 import {cancelPressProduct, createEntity} from "app/modules/account/prisoner/press-work.reducer";
 import {IWork} from 'app/shared/model/work.model';
@@ -62,9 +62,20 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
   const createPW = (prisoner: IPrisioner) => {
     const mPressWork = { work: workEntity, prisioner: prisoner};
 
-    props.createEntity(mPressWork);
-    props.getWorkSubs(props.match.params.id);
+    asyncAction(mPressWork).then(function(success) {
+      props.getWorkSubs(props.match.params.id)
+    });
   };
+
+  function asyncAction(mPressWork) {
+    let promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("Async is done!");
+        resolve(props.createEntity(mPressWork));
+      }, 3000);
+    });
+    return promise;
+  }
 
   const handleClose = () => {
     props.history.push('/dashboard/works');
@@ -121,6 +132,48 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
   };
 
   const clickCancelWork = (id) => {
+    MySwal.fire({
+      title: <p>Cancelar Trabalho?</p>,
+      text: "Não é possivel reverter esta operação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Despedir!'
+    }).then((result) => {
+      if (result.value) {
+        return props.updateCancelWork(id);
+      }
+    }).then((result: any) => {
+      console.log(result);
+      if(result.value.status === 200){
+
+      }
+    })
+  };
+
+  const clickCompleteWork = (id) => {
+    MySwal.fire({
+      title: <p>Concluir Trabalho?</p>,
+      text: "Não é possivel reverter esta operação!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Concluir!'
+    }).then((result) => {
+      if (result.value) {
+        return props.updateCompleteWork(id);
+      }
+    }).then((result: any) => {
+      console.log(result);
+      if(result.value.status === 200){
+
+      }
+    })
+  };
+
+  const clickCancelPressWork = (id) => {
     MySwal.fire({
       title: <p>Despedir Presidiario?</p>,
       text: "Não é possivel reverter esta operação!",
@@ -202,46 +255,48 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
           </Card>
         </Col>
         {workEntity.state ? (
-        <Col md="4">
-          <Card className="card-user justify-content-center">
-            <div className="image">
-              <img
-                alt="..."
-                src={userBack}
-              />
-            </div>
-            <CardBody>
-              <div className="author">
-                <a onClick={e => e.preventDefault()}>
-                  <img
-                    alt="..."
-                    className="avatar border-gray"
-                    src={stateImg}
-                  />
-                  <h5 className="title">Trabalho {getStateName(workEntity.state.id)}</h5>
-                </a>
-                <Button onClick={dialogOpen} disabled={allowNewSub}>Adicionar Prisidiário</Button>
-                <p className="description">5/10 Vagas Restantes</p>
-                <div>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    disabled={allowWorkActions}
-                    // className={classes.button}
-                    startIcon={<DoneIcon />}
-                  >Concluir</Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    disabled={allowWorkActions}
-                    // className={classes.button}
-                    startIcon={<CancelIcon />}
-                  >Cancelar</Button>
-                </div>
+          <Col md="4">
+            <Card className="card-user justify-content-center">
+              <div className="image">
+                <img
+                  alt="..."
+                  src={userBack}
+                />
               </div>
-            </CardBody>
-          </Card>
-        </Col>
+              <CardBody>
+                <div className="author">
+                  <a onClick={e => e.preventDefault()}>
+                    <img
+                      alt="..."
+                      className="avatar border-gray"
+                      src={stateImg}
+                    />
+                    <h5 className="title">Trabalho {getStateName(workEntity.state.id)}</h5>
+                  </a>
+                  <Button onClick={dialogOpen} disabled={allowNewSub}>Adicionar Prisidiário</Button>
+                  <p className="description">5/10 Vagas Restantes</p>
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      disabled={allowWorkActions}
+                      onClick={() => clickCompleteWork(workEntity.id)}
+                      // className={classes.button}
+                      startIcon={<DoneIcon />}
+                    >Concluir</Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      disabled={allowWorkActions}
+                      onClick={() => clickCancelWork(workEntity.id)}
+                      // className={classes.button}
+                      startIcon={<CancelIcon />}
+                    >Cancelar</Button>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
         ) : null}
       </Row>
       <Row>
@@ -269,7 +324,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                 rowData => ({
                   icon: 'cancel',
                   tooltip: 'Despedir prisidiário',
-                  onClick: (event, row) => clickCancelWork(row.pressID),
+                  onClick: (event, row) => clickCancelPressWork(row.pressID),
                   disabled: rowData.pressState > 1
                 })
               ]}
@@ -317,6 +372,8 @@ const mapDispatchToProps = {
   getEntity,
   updateEntity,
   getWorkSubs,
+  updateCancelWork,
+  updateCompleteWork,
   cancelPressProduct,
   createEntity
 };
