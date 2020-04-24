@@ -4,7 +4,7 @@ import {Link, RouteComponentProps} from 'react-router-dom';
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle, CardFooter} from 'reactstrap';
 
 import {IRootState} from 'app/shared/reducers';
-import {getEntities, deleteEntity} from './work.reducer';
+import {getEntities, deleteEntity, updateCancelWork} from './work.reducer';
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import MaterialTable, {MTableToolbar, Column} from 'material-table';
 import {Line, Pie} from "react-chartjs-2";
@@ -105,7 +105,7 @@ export const Works = (props: IWorkProps) => {
 
   const clickCancelWork = (id) => {
     MySwal.fire({
-      title: <p>Despedir Presidiario?</p>,
+      title: <p>Cancelar Trabalho?</p>,
       text: "Não é possivel reverter esta operação!",
       icon: 'warning',
       showCancelButton: true,
@@ -114,12 +114,12 @@ export const Works = (props: IWorkProps) => {
       confirmButtonText: 'Despedir!'
     }).then((result) => {
       if (result.value) {
-        // return props.cancelPressProduct(id);
+        return props.updateCancelWork(id);
       }
     }).then((result: any) => {
       console.log(result);
       if(result.value.status === 200){
-        // props.getPrisionerWorks(props.match.params.id);
+
       }
     })
   };
@@ -136,11 +136,10 @@ export const Works = (props: IWorkProps) => {
         confirmButtonText: 'Eliminar!'
       }).then((result) => {
         if (result.value) {
-          // return props.deleteWork(rowData.id);
+          return props.deleteEntity(id);
         }
       }).then((result: any) => {
         if(result.value.status === 204){
-          // props.getPrisionerWorks(props.match.params.id);
           Swal.fire(
             'Sucesso!',
             'O trabalho foi removido com sucesso.',
@@ -150,6 +149,9 @@ export const Works = (props: IWorkProps) => {
       })
     }
   };
+
+  const pendingNumber = workList.filter(pending => {return pending.state.id === 1}).length;
+  const completedNumber = workList.filter(done => {return done.state.id === 2}).length;
 
   return (
     <div>
@@ -167,7 +169,7 @@ export const Works = (props: IWorkProps) => {
                 <div className="numbers">
                   <p className="card-category">Trabalhos a Realizar</p>
                   {loading ? (<Ellipsis color="#99c3ff" size={40}/> )
-                    : (<CardTitle tag="p">{workList.length}</CardTitle>)}
+                    : (<CardTitle tag="p">{pendingNumber}</CardTitle>)}
                 </div>
               </Col>
             </Row>
@@ -187,7 +189,7 @@ export const Works = (props: IWorkProps) => {
                 <div className="numbers">
                   <p className="card-category">Trabalhos Realizados</p>
                   {loading ? (<Ellipsis color="#99c3ff" size={40}/> )
-                    : (<CardTitle tag="p">0</CardTitle>)}
+                    : (<CardTitle tag="p">{completedNumber}</CardTitle>)}
                 </div>
               </Col>
             </Row>
@@ -305,7 +307,7 @@ const mapStateToProps = ({work}: IRootState) => ({
   loading: work.loading,
 });
 
-const mapDispatchToProps = {getEntities, deleteEntity};
+const mapDispatchToProps = {getEntities, deleteEntity, updateCancelWork};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

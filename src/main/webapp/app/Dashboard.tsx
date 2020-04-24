@@ -1,5 +1,6 @@
 import Sidebar from "app/shared/layout/sidebar/Sidebar";
 import routes from "app/shared/layout/sidebar/routes";
+import {adminRoutes} from "app/shared/layout/sidebar/routes";
 import {Switch, Redirect, useRouteMatch} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
@@ -14,6 +15,8 @@ import PrivateRoute from "app/shared/auth/private-route";
 import Prisioner from "app/modules/account/prisoner/";
 import Products from "app/modules/products/";
 import Works from "app/modules/works/";
+import Employees from "app/modules/administration/employees/";
+import Quiz from "app/modules/quizs"
 
 export interface IDashboardProps {
   isAuthenticated: boolean;
@@ -35,10 +38,12 @@ const Dashboard = (props: IDashboardProps) => {
         bgColor='black'
         activeColor='info'
         routes={routes}
+        admin={adminRoutes}
+        adminRights={props.isAuthenticated && props.isAdmin}
       />
      <Scrollbars>
       <div className="main-panel ps" style={{paddingTop}}>
-        <Header/>
+        <Header />
         <div className="content content-padding">
           <Switch>
             <PrivateRoute path={`${currentRoute.url}/profile`} component={User} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
@@ -46,6 +51,8 @@ const Dashboard = (props: IDashboardProps) => {
             <PrivateRoute path={`${currentRoute.url}/products`} component={Products} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/home`} component={HDashboard} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/prisoners`} component={Prisioner} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
+            <PrivateRoute path={`${currentRoute.url}/quizs`} component={Quiz} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
+            <PrivateRoute path={`${currentRoute.url}/employees`} component={Employees} hasAnyAuthorities={[AUTHORITIES.ADMIN]}/>
             <ErrorBoundary>
               <Redirect to={`${currentRoute.url}/home`}/>
             </ErrorBoundary>

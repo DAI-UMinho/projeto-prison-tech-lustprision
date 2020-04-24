@@ -57,6 +57,9 @@ public class PressWorkResource {
         if (pressWork.getId() != null) {
             throw new BadRequestAlertException("A new pressWork cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (pressWork.getState() == null) {
+            pressWork.setState(stateRepository.getOne(1L));
+        }
         PressWork result = pressWorkRepository.save(pressWork);
         return ResponseEntity.created(new URI("/api/press-works/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -78,6 +81,7 @@ public class PressWorkResource {
         if (pressWork.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
         PressWork result = pressWorkRepository.save(pressWork);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, pressWork.getId().toString()))
@@ -125,7 +129,7 @@ public class PressWorkResource {
     public ResponseEntity<PressWork> cancelPressWork(@PathVariable Long id) {
         log.debug("REST request to delete PressWork : {}", id);
         PressWork result = pressWorkRepository.findById(id).get();
-        State mState = stateRepository.getOne(Long.valueOf(3));
+        State mState = stateRepository.getOne(3L);
         result.setState(mState);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

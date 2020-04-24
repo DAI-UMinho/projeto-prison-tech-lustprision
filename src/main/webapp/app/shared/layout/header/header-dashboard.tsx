@@ -2,15 +2,32 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,Dropdown,DropdownToggle,DropdownMenu,
        DropdownItem,Container,InputGroup,InputGroupText,InputGroupAddon,Input} from "reactstrap"
 import routes from "app/shared/layout/sidebar/routes";
+import {Button} from "@material-ui/core";
 
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
   const [color, setColor] = useState("transparent");
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleLogout = (exit?: boolean) => {
+    setOpen(false);
+    if(exit){ window.location.replace('/logout'); }
+  };
 
   const toggle = () => {
     if (isOpen) {
@@ -124,12 +141,33 @@ const Header = (props) => {
                   </DropdownMenu>
                 </Dropdown>
                 <NavItem>
-                  <Link to="/logout" className="nav-link btn-magnify">
+                  <Link onClick={handleClickOpen} className="nav-link btn-magnify">
                     <ExitToAppIcon />
                   </Link>
                 </NavItem>
               </Nav>
             </Collapse>
+            <Dialog
+              open={open}
+              onClose={handleLogout}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{"Quer fazer Logout?"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  A sua sessão irá ser terminada
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => handleLogout(false)} color="primary">
+                  Cancelar
+                </Button>
+                <Button onClick={() => handleLogout(true)} color="primary" autoFocus>
+                  Sair
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Container>
         </Navbar>
   );

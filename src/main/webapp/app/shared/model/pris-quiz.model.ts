@@ -5,6 +5,7 @@ import { IQuiz } from 'app/shared/model/quiz.model';
 export interface IPrisQuiz {
   id?: number;
   quizDate?: Moment;
+  approval?: number;
   prisioner?: IPrisioner;
   quiz?: IQuiz;
 }

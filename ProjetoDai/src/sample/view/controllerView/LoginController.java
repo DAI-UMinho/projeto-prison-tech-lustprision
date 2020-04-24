@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sample.controller.SYSTEM;
 import java.util.*;
@@ -48,23 +49,31 @@ public class LoginController implements Initializable {
     public Button btn7;
     public Button btndelete;
     public Button btn0;
+    public Label badloginlbl;
+
 
 
     @FXML
     private void onClick(ActionEvent event) throws IOException {
 
 
+            try {
 
-            if(Main.sis.LoginTS(5453,Integer.valueOf(pwd1.getText()))){
-                Main.sis.loadWorksTS();
-                Main.sis.loadProductsTS();
+                if (Main.sis.LoginTS(5453, Integer.valueOf(pwd1.getText()))) {
 
-                Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
-                Scene home_page_scene = new Scene(home_page_parent);
-                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                app_stage.setScene(home_page_scene);
-                app_stage.show();
-            }else System.out.println("login nao feito");
+
+
+                    Main.sis.loadWorksTS();
+                    Main.sis.loadProductsTS();
+
+                    Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
+                    Scene home_page_scene = new Scene(home_page_parent);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.setScene(home_page_scene);
+                    app_stage.show();
+                } else badloginlbl.setVisible(true);
+            }catch (Exception e ){};
+
 
 
     }
@@ -162,7 +171,8 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        badloginlbl.setVisible(false);
+        
     }
 
 

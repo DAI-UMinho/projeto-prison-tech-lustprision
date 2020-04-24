@@ -16,4 +16,6 @@ import java.util.List;
 public interface PrisQuizRepository extends JpaRepository<PrisQuiz, Long> {
 
     List<PrisQuiz> getAllByPrisioner(Prisioner prisioner);
+
+    List<PrisQuiz> getAllByApproval(int approval);
 }

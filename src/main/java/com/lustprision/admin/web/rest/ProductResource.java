@@ -171,6 +171,6 @@ public class ProductResource {
     @GetMapping("/products/{id}/sales")
     public List<ProductSaleDTO> getProductSales(@PathVariable Long id) {
         log.debug("REST request to get all Products Sales");
-        return productService.getPressProductFromProduct2(id);
+        return productService.getPressProductFromProduct(id);
     }
 }

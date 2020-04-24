@@ -91,6 +91,21 @@ export const PrisQuizUpdate = (props: IPrisQuizUpdateProps) => {
                 <AvField id="pris-quiz-quizDate" type="date" className="form-control" name="quizDate" />
               </AvGroup>
               <AvGroup>
+                <Label id="approvalLabel" for="pris-quiz-approval">
+                  <Translate contentKey="lustPrisionApp.prisQuiz.approval">Approval</Translate>
+                </Label>
+                <AvField
+                  id="pris-quiz-approval"
+                  type="string"
+                  className="form-control"
+                  name="approval"
+                  validate={{
+                    max: { value: 1, errorMessage: translate('entity.validation.max', { max: 1 }) },
+                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
                 <Label for="pris-quiz-prisioner">
                   <Translate contentKey="lustPrisionApp.prisQuiz.prisioner">Prisioner</Translate>
                 </Label>

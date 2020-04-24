@@ -5,6 +5,7 @@ export default class PrisQuizUpdatePage {
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   quizDateInput: ElementFinder = element(by.css('input#pris-quiz-quizDate'));
+  approvalInput: ElementFinder = element(by.css('input#pris-quiz-approval'));
   prisionerSelect: ElementFinder = element(by.css('select#pris-quiz-prisioner'));
   quizSelect: ElementFinder = element(by.css('select#pris-quiz-quiz'));
 
@@ -18,6 +19,14 @@ export default class PrisQuizUpdatePage {
 
   async getQuizDateInput() {
     return this.quizDateInput.getAttribute('value');
+  }
+
+  async setApprovalInput(approval) {
+    await this.approvalInput.sendKeys(approval);
+  }
+
+  async getApprovalInput() {
+    return this.approvalInput.getAttribute('value');
   }
 
   async prisionerSelectLastOption() {

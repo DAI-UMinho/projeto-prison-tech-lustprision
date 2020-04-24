@@ -7,7 +7,7 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { createEntity } from './work.reducer';
+import { createEntity, reset} from './work.reducer';
 import { IWork } from 'app/shared/model/work.model';
 
 export interface IWorkUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
@@ -18,6 +18,10 @@ export const WorkCreate = (props: IWorkUpdateProps) => {
   const handleClose = () => {
     props.history.push('/dashboard/works');
   };
+
+  useEffect(() => {
+    props.reset();
+  }, []);
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -151,7 +155,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   updateSuccess: storeState.work.updateSuccess
 });
 
-const mapDispatchToProps = {createEntity};
+const mapDispatchToProps = {createEntity , reset};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

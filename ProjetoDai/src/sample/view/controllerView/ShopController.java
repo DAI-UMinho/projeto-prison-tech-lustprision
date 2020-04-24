@@ -6,7 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.Main;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -14,9 +17,35 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ShopController implements Initializable {
+    public VBox productvbox;
+    public Label saldo;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        saldo.setText(Main.sis.sessionatual.nowusing.getSaldo());
+
+        int sz = Main.sis.products.size();
+        System.out.println(sz);
+        Node[] nodes = new Node[sz];
+
+        for(int i = 0 ; i< sz; i++){
+            try{
+
+                ProductLineController.name=Main.sis.products.get(i).type.getNome();
+                ProductLineController.price=Main.sis.products.get(i).type.getPreco();
+
+                nodes[i] = FXMLLoader.load(getClass().getResource("/sample/view/product_line.fxml"));
+                productvbox.getChildren().add(nodes[i]);
+
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }
+
+
+
     }
 
 

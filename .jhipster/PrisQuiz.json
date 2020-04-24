@@ -4,6 +4,14 @@
         {
             "fieldName": "quizDate",
             "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "approval",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "max"
+            ],
+            "fieldValidateRulesMax": "1"
         }
     ],
     "relationships": [
@@ -31,5 +39,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

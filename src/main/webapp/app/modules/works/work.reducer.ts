@@ -7,9 +7,12 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { IWork, defaultValue } from 'app/shared/model/work.model';
 
 export const ACTION_TYPES = {
+  FETCH_WORK_SUBS: 'work/FETCH_WORK_SUBS',
   FETCH_WORK_LIST: 'work/FETCH_WORK_LIST',
   FETCH_WORK: 'work/FETCH_WORK',
   CREATE_WORK: 'work/CREATE_WORK',
+  UPDATE_COMPLETE_WORK: 'work/UPDATE_CANCEL_WORK',
+  UPDATE_CANCEL_WORK: 'work/UPDATE_CANCEL_WORK',
   UPDATE_WORK: 'work/UPDATE_WORK',
   DELETE_WORK: 'work/DELETE_WORK',
   RESET: 'work/RESET'
@@ -20,6 +23,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IWork>,
   entity: defaultValue,
+  workSubs: [] as ReadonlyArray<any>,
   updating: false,
   updateSuccess: false
 };
@@ -30,6 +34,7 @@ export type WorkState = Readonly<typeof initialState>;
 
 export default (state: WorkState = initialState, action): WorkState => {
   switch (action.type) {
+    case REQUEST(ACTION_TYPES.FETCH_WORK_SUBS):
     case REQUEST(ACTION_TYPES.FETCH_WORK_LIST):
     case REQUEST(ACTION_TYPES.FETCH_WORK):
       return {
@@ -39,6 +44,8 @@ export default (state: WorkState = initialState, action): WorkState => {
         loading: true
       };
     case REQUEST(ACTION_TYPES.CREATE_WORK):
+    case REQUEST(ACTION_TYPES.UPDATE_COMPLETE_WORK):
+    case REQUEST(ACTION_TYPES.UPDATE_CANCEL_WORK):
     case REQUEST(ACTION_TYPES.UPDATE_WORK):
     case REQUEST(ACTION_TYPES.DELETE_WORK):
       return {
@@ -47,6 +54,9 @@ export default (state: WorkState = initialState, action): WorkState => {
         updateSuccess: false,
         updating: true
       };
+    case FAILURE(ACTION_TYPES.UPDATE_COMPLETE_WORK):
+    case FAILURE(ACTION_TYPES.UPDATE_CANCEL_WORK):
+    case FAILURE(ACTION_TYPES.FETCH_WORK_SUBS):
     case FAILURE(ACTION_TYPES.FETCH_WORK_LIST):
     case FAILURE(ACTION_TYPES.FETCH_WORK):
     case FAILURE(ACTION_TYPES.CREATE_WORK):
@@ -58,6 +68,12 @@ export default (state: WorkState = initialState, action): WorkState => {
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_WORK_SUBS):
+      return {
+        ...state,
+        loading: false,
+        workSubs: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_WORK_LIST):
       return {
@@ -72,6 +88,8 @@ export default (state: WorkState = initialState, action): WorkState => {
         entity: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.CREATE_WORK):
+    case SUCCESS(ACTION_TYPES.UPDATE_COMPLETE_WORK):
+    case SUCCESS(ACTION_TYPES.UPDATE_CANCEL_WORK):
     case SUCCESS(ACTION_TYPES.UPDATE_WORK):
       return {
         ...state,
@@ -112,10 +130,36 @@ export const getEntity: ICrudGetAction<IWork> = id => {
   };
 };
 
+export const getWorkSubs: ICrudGetAction<any> = id => {
+  const requestUrl = `${apiUrl}/${id}/subs`;
+  return {
+    type: ACTION_TYPES.FETCH_WORK_SUBS,
+    payload: axios.get<any>(requestUrl)
+  };
+};
+
 export const createEntity: ICrudPutAction<IWork> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_WORK,
     payload: axios.post(apiUrl, cleanEntity(entity))
+  });
+  dispatch(getEntities());
+  return result;
+};
+
+export const updateCompleteWork: ICrudPutAction<IWork> = id => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.UPDATE_WORK,
+    payload: axios.put(`${apiUrl}/${id}/complete`)
+  });
+  dispatch(getEntities());
+  return result;
+};
+
+export const updateCancelWork: ICrudPutAction<IWork> = id => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.UPDATE_WORK,
+    payload: axios.put(`${apiUrl}/${id}/cancel`)
   });
   dispatch(getEntities());
   return result;

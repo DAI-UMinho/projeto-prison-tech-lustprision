@@ -5,6 +5,9 @@ import com.lustprision.admin.domain.State;
 import com.lustprision.admin.domain.Work;
 import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.service.WorkService;
+import com.lustprision.admin.service.dto.ProductSaleDTO;
+import com.lustprision.admin.service.dto.WorkSubsDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -38,11 +41,14 @@ public class WorkResource {
 
     private final WorkRepository workRepository;
 
+    private final WorkService workService;
+
     private final StateRepository stateRepository;
 
-    public WorkResource(WorkRepository workRepository, StateRepository stateRepository) {
+    public WorkResource(WorkRepository workRepository, StateRepository stateRepository, WorkService workService) {
         this.workRepository = workRepository;
         this.stateRepository = stateRepository;
+        this.workService = workService;
     }
 
     /**
@@ -123,7 +129,7 @@ public class WorkResource {
     }
 
     @PutMapping("/works/{id}/cancel")
-    public ResponseEntity<Work> cancelPressWork(@PathVariable Long id) {
+    public ResponseEntity<Work> cancelWork(@PathVariable Long id) {
         log.debug("REST request to delete PressWork : {}", id);
         Work result = workRepository.findById(id).get();
         State mState = stateRepository.getOne(Long.valueOf(3));
@@ -131,5 +137,22 @@ public class WorkResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PutMapping("/works/{id}/complete")
+    public ResponseEntity<Work> completeWork(@PathVariable Long id) {
+        log.debug("REST request to change the status to complete of the work : {}", id);
+        Work result = workRepository.findById(id).get();
+        State mState = stateRepository.getOne(2L);
+        result.setState(mState);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @GetMapping("/works/{id}/subs")
+    public List<WorkSubsDTO> getWorkSubs(@PathVariable Long id) {
+        log.debug("REST request to get all Products Sales");
+        return workService.getCurrentWorkSubs(id);
     }
 }

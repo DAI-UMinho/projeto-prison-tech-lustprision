@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     
@@ -16,6 +16,9 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="quiz_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="approval" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="prisioner_id" type="bigint">
@@ -48,6 +51,7 @@
                   tableName="pris_quiz">
             <column name="id" type="numeric"/>
             <column name="quiz_date" type="date"/>
+            <column name="approval" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>
