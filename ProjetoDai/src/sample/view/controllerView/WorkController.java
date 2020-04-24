@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Main;
@@ -23,22 +24,22 @@ public class WorkController implements Initializable {
 
     @FXML
     public VBox workvbox = null;
+    public Label vagastotallbl;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        int totalvagas=0;
         int sz = Main.sis.works.size();
         System.out.println(sz);
         Node[] nodes = new Node[sz];
 
             for(int i = 0 ; i< sz; i++){
                 try{
-
+                    totalvagas+=Main.sis.works.get(i).type.getVagas();
                     WorkLineController.name = Main.sis.works.get(i).type.getNome();
-                    WorkLineController.remun= Main.sis.works.get(i).type.getVagas();
+                    WorkLineController.vagas= Main.sis.works.get(i).type.getVagas();
                     WorkLineController.remun=Main.sis.works.get(i).type.getPrecoHora();
                     nodes[i] = FXMLLoader.load(getClass().getResource("/sample/view/work_line.fxml"));
-
                     workvbox.getChildren().add(nodes[i]);
 
                 } catch (IOException e){
@@ -46,6 +47,8 @@ public class WorkController implements Initializable {
                 }
 
             }
+
+            vagastotallbl.setText(Integer.toString(totalvagas));
         }
 
 

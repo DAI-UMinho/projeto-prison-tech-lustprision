@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -28,13 +29,14 @@ public class QuizController implements Initializable {
 
     public Label valortxt;
 
+
     /**
      * Initializes the controller class.
      */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
