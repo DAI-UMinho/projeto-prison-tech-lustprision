@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sample.controller.SYSTEM;
 import java.util.*;
@@ -51,6 +52,7 @@ public class LoginController implements Initializable {
     public Label badloginlbl;
 
 
+
     @FXML
     private void onClick(ActionEvent event) throws IOException {
 
@@ -58,6 +60,9 @@ public class LoginController implements Initializable {
             try {
 
                 if (Main.sis.LoginTS(5453, Integer.valueOf(pwd1.getText()))) {
+
+
+
                     Main.sis.loadWorksTS();
                     Main.sis.loadProductsTS();
 
@@ -68,6 +73,8 @@ public class LoginController implements Initializable {
                     app_stage.show();
                 } else badloginlbl.setVisible(true);
             }catch (Exception e ){};
+
+
 
     }
 
@@ -165,6 +172,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         badloginlbl.setVisible(false);
+        
     }
 
 
