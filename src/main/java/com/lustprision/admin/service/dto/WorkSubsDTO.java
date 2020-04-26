@@ -1,5 +1,7 @@
 package com.lustprision.admin.service.dto;
 
+import com.lustprision.admin.domain.PressWork;
+
 public class WorkSubsDTO {
 
     private Long pressID;
@@ -14,7 +16,13 @@ public class WorkSubsDTO {
 
     private String prisonerImageContentType;
 
-    public WorkSubsDTO(){
+    public WorkSubsDTO(PressWork pressWork){
+        this.pressID = pressWork.getId();
+        this.pressState = pressWork.getState().getId();
+        this.stateName = pressWork.getState().getName();
+        this.prisonerName = pressWork.getPrisioner().getName();
+        this.prisonerImage = pressWork.getPrisioner().getProfileImage();
+        this.prisonerImageContentType = pressWork.getPrisioner().getProfileImageContentType();
     }
 
     public Long getPressID() {

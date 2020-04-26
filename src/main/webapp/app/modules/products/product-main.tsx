@@ -23,6 +23,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import {useMediaQuery} from "@material-ui/core";
+import CardNewButton from "app/components/CardNewButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,6 +106,7 @@ export const ProductOverview = (props: IProductProps) => {
   const theme = useTheme();
   const mRow = useMediaQuery(theme.breakpoints.up('xl')) ? 2 : 1;
   const mHeight = useMediaQuery(theme.breakpoints.up('xl')) ? 200 : 256;
+  const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
@@ -149,7 +151,7 @@ export const ProductOverview = (props: IProductProps) => {
   return (
     <>
       <Row >
-        <Col lg="3" md="6" sm="6">
+        <Col lg={mStatCol} md="6" sm="6">
           <Card className="card-stats">
             <CardBody>
               <Row>
@@ -169,7 +171,7 @@ export const ProductOverview = (props: IProductProps) => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg="3" md="6" sm="6">
+        <Col lg={mStatCol} md="6" sm="6">
           <Card className="card-stats">
             <CardBody>
               <Row>
@@ -189,7 +191,7 @@ export const ProductOverview = (props: IProductProps) => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg="3" md="6" sm="6">
+        {/*<Col lg="3" md="6" sm="6">
           <div className="card-hover" onClick={() => props.history.push(match.url + '/new')}>
             <Card className="card-stats">
               <CardBody style={{backgroundColor: "#6DB65B", borderRadius: '12px'}}>
@@ -211,7 +213,8 @@ export const ProductOverview = (props: IProductProps) => {
               </CardBody>
             </Card>
           </div>
-        </Col>
+        </Col>*/}
+        <CardNewButton cardClick={() => props.history.push(match.url + '/new')} cardTitle={"Produto"}/>
       </Row>
       <hr/>
       <div className={classes.productWrapper}>

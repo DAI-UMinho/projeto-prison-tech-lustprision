@@ -19,6 +19,7 @@ import StateBox from "app/components/StateBox";
 import Swal from "sweetalert2";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import QuestionUpdate from "app/modules/quizs/question-update";
+import CardNewButton from "app/components/CardNewButton";
 
 export interface IQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
@@ -92,27 +93,7 @@ export const Question = (props: IQuizProps) => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg={mStatCol} md="6" sm="6">
-          <div className="card-hover" onClick={() => setOpen(true)}>
-            <Card className="card-stats">
-              <CardBody style={{backgroundColor: "#6DB65B", borderRadius: '12px'}}>
-                <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center">
-                      <FontAwesomeIcon style={{color: "#284a25"}} icon={faPlusCircle}/>
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <CardTitle tag="p" style={{color: '#ffffff'}}>Questão</CardTitle>
-                      <p/>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </div>
-        </Col>
+        <CardNewButton cardClick={() => setOpen(true)} cardTitle={"Questão"}/>
       </Row>
       <Row className="justify-content-center">
         <Col md={mCol}>

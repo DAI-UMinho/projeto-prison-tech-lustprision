@@ -20,7 +20,7 @@ import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import WorkSubDialog from "app/modules/works/work-sub-dialog";
 import { IPressWork } from "app/shared/model/press-work.model"
 import {IPrisioner} from "app/shared/model/prisioner.model";
-import userBack from "app/assets/img/damir-bosnjak.jpg";
+import workBack from "app/assets/img/trabalhos.jpg";
 import pending from "app/assets/img/pending.png";
 import completed from "app/assets/img/completed-icon.png";
 import canceled from "app/assets/img/cancel-icon.png";
@@ -259,8 +259,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
             <Card className="card-user justify-content-center">
               <div className="image">
                 <img
-                  alt="..."
-                  src={userBack}
+                  src={workBack}
                 />
               </div>
               <CardBody>
