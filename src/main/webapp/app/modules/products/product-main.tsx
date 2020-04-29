@@ -35,8 +35,11 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
     },
     gridList: {
-      width: 'auto',
-      overflow: 'hidden'
+      width: '100%',
+      overflow: 'hidden',
+      [theme.breakpoints.down('md')]: {
+        marginTop: '20px'
+      },
     },
     gridPrice: {
       color: 'rgb(255,255,255)',
@@ -44,7 +47,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     productWrapper: {
       width: '100%',
-      display: 'flex'
+      [theme.breakpoints.up('xs')]: {
+        display: 'grid'
+      },
+      [theme.breakpoints.up('lg')]: {
+        display: 'flex'
+      },
     },
     gridItem: {
       borderRadius: 10,
@@ -74,12 +82,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       flexShrink: 0,
-      margin: '0px 30px 0px 0px',
       transition: 'all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s',
       [theme.breakpoints.up('lg')]: {
+        margin: '0px 30px 0px 0px',
         width: '240px',
       },
       [theme.breakpoints.up('xl')]: {
+        margin: '0px 30px 0px 0px',
         width: '340px',
       },
     },
@@ -93,6 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     pagination: {
       marginTop: '10px'
+    },
+    sliderLabel:{
+      marginLeft: '60px'
     }
   }),
 );
@@ -108,26 +120,29 @@ export const ProductOverview = (props: IProductProps) => {
   const mHeight = useMediaQuery(theme.breakpoints.up('xl')) ? 200 : 256;
   const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
+  const lowGrid = useMediaQuery(theme.breakpoints.up('sm')) ? 4 : 2;
+  const gridNumber = useMediaQuery(theme.breakpoints.up('lg')) ? 6 : lowGrid;
+
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
   const [sliderValue, setSliderValue] = React.useState<number[]>([0, 200]);
 
   useEffect(() => {
     console.log(pagination);
-    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
-    props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
+    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], (pagination.activePage | 1)  - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+    props.history.push(`${props.location.pathname}?page=${pagination.activePage | 1}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
   useEffect(() => {
-    props.getPurchaseTotalNumber();
-    props.getProductTotalNumber();
+    props.getPurchaseTotalNumber(null);
+    props.getProductTotalNumber(null);
   }, []);
 
   const {totalItems, productsPage, match, loading, nSales, nProducts, statLoading} = props;
 
   const purchaseSelect = (id) => {
     console.log(id);
-    props.history.push(`${match.url}/${id}`);}
+    props.history.push(`${match.url}/${id}`)};
 
   const handlePagination = currentPage =>
     setPagination({
@@ -222,7 +237,10 @@ export const ProductOverview = (props: IProductProps) => {
           <SearchBar onSearchChange={searchChange}/>
           &nbsp;
           <div className={classes.sidebarFilter}>
-            <h3 className={classes.filter}>Multi Range</h3>
+            <Row>
+              <h3 className={classes.filter}>Multi Range</h3>
+              <p className={classes.sliderLabel}>{`${sliderValue[0]}-${sliderValue[1]}`}</p>
+            </Row>
             <Slider
               value={sliderValue}
               onChangeCommitted={handleChange}
@@ -235,8 +253,8 @@ export const ProductOverview = (props: IProductProps) => {
           <div className={classes.gridList}>
             <CircularProgress className={classes.loadingSpinner}/>
           </div>) : (
-            <div>
-              <GridList cellHeight={mHeight} spacing={3} cols={6} className={classes.gridList}>
+            <div className={classes.gridList}>
+              <GridList cellHeight={mHeight} spacing={3} cols={gridNumber} className={classes.gridList}>
                 {productsPage.map((product) => (
                   <GridListTile key={product.image} cols={2} rows={mRow} className={classes.gridItem} onClick={() => purchaseSelect(product.id)}>
                     <img src={`data:${product.imageContentType};base64,${product.image}`} alt={product.nameProd}/>

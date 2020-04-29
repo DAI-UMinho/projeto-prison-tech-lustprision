@@ -1,24 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
-import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap-validation';
-import {TextFormat, Translate} from 'react-jhipster';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Button, Row, Col, Card, CardHeader, CardBody, CardTitle, CardFooter, Label} from 'reactstrap';
+import {Button, Card, CardBody, CardHeader, CardTitle, Col, Label, Row} from 'reactstrap';
 import {IRootState} from 'app/shared/reducers';
 
-import {getEntity, updateEntity, getWorkSubs, updateCancelWork, updateCompleteWork} from './work.reducer';
-import { getEntities } from 'app/modules/account/prisoner/prisioner.reducer';
+import {getEntity, getWorkSubs, updateCancelWork, updateCompleteWork, updateEntity} from './work.reducer';
+import {getEntities} from 'app/modules/account/prisoner/prisioner.reducer';
 import {cancelPressProduct, createEntity} from "app/modules/account/prisoner/press-work.reducer";
-import {IWork} from 'app/shared/model/work.model';
 import MaterialTable, {Column} from "material-table";
-import {APP_DATE_FORMAT} from "app/config/constants";
 import StateBox from "app/components/StateBox";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import WorkSubDialog from "app/modules/works/work-sub-dialog";
-import { IPressWork } from "app/shared/model/press-work.model"
 import {IPrisioner} from "app/shared/model/prisioner.model";
 import workBack from "app/assets/img/trabalhos.jpg";
 import pending from "app/assets/img/pending.png";
@@ -38,7 +34,7 @@ interface TableState {
 
 export const WorkInfo = (props: IWorkUpdateProps) => {
 
-  const {workEntity, loading, updating, workSubs, prisoners} = props;
+  const {workEntity, loading, updating, workSubs, prisoners, prisonersLoading} = props;
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [stateID, setStateID] = useState(0);
@@ -57,7 +53,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
   });
 
   const allowWorkActions = stateID !== 1;
-  const allowNewSub = allowWorkActions && workEntity.numRemainingEntries !== 0;
+  const allowNewSub = allowWorkActions || workEntity.numRemainingEntries === 0;
 
   const createPW = (prisoner: IPrisioner) => {
     const mPressWork = { work: workEntity, prisioner: prisoner};
@@ -68,13 +64,12 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
   };
 
   function asyncAction(mPressWork) {
-    let promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         console.log("Async is done!");
         resolve(props.createEntity(mPressWork));
       }, 3000);
     });
-    return promise;
   }
 
   const handleClose = () => {
@@ -272,9 +267,11 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     />
                     <h5 className="title">Trabalho {getStateName(workEntity.state.id)}</h5>
                   </a>
-                  <Button onClick={dialogOpen} disabled={allowNewSub}>Adicionar Prisidiário</Button>
-                  <p className="description">5/10 Vagas Restantes</p>
-                  <div>
+                  <div className="new-sub">
+                    <Button onClick={dialogOpen} disabled={allowNewSub}>Adicionar Prisidiário</Button>
+                    <p className="description">5/10 Vagas Restantes</p>
+                  </div>
+                  <div className="complete-cancel">
                     <Button
                       variant="contained"
                       color="primary"
@@ -352,7 +349,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
           </Card>
         </Col>
       </Row>
-      <WorkSubDialog open={open} onClose={handleDialogClose} data={prisoners}/>
+      <WorkSubDialog open={open} onClose={handleDialogClose} data={prisoners} loading={prisonersLoading}/>
     </div>
   );
 };
@@ -363,7 +360,8 @@ const mapStateToProps = (state: IRootState) => ({
   loading: state.work.loading,
   updating: state.work.updating,
   updateSuccess: state.work.updateSuccess,
-  prisoners: state.prisioner.entities
+  prisoners: state.prisioner.entities,
+  prisonersLoading: state.prisioner.loading
 });
 
 const mapDispatchToProps = {

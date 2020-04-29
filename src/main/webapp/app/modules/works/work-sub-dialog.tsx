@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
+import {makeStyles, useTheme, Theme, createStyles} from '@material-ui/core/styles';
 import MaterialTable, {Column} from "material-table";
 import {Dialog, DialogContent, DialogTitle} from "@material-ui/core";
 
 export interface SimpleDialogProps {
   open: boolean,
+  loading: boolean,
   data: any,
   onClose: (value?: any) => void;
 }
@@ -18,7 +19,7 @@ const WorkSubDialog = (props: SimpleDialogProps) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const {onClose, open, data} = props;
+  const {onClose, open, data, loading} = props;
 
   const [state, setState] = React.useState<TableState>({
     columns: [
@@ -44,35 +45,33 @@ const WorkSubDialog = (props: SimpleDialogProps) => {
 
   return (
     <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        >
-        <DialogTitle id="alert-dialog-title">{"Subscrever novo Presidiário"}</DialogTitle>
-        <DialogContent>
-          <MaterialTable
-            title=""
-            columns={state.columns}
-            data={data}
-            isLoading={!setIsLoaded}
-            options={{
-              headerStyle: {
-                fontWeight: 'bold'
-              },
-              actionsColumnIndex: -1
-            }}
-            localization={{
-              body: {
-                emptyDataSourceMessage: "Não existem presidiários",
-              }
-            }}
-            onRowClick={((evt, selectedRow) =>{
-              handleListItemClick(selectedRow);
-            })}
-          />
-        </DialogContent>
-      </Dialog>)
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <MaterialTable
+        title=""
+        columns={state.columns}
+        data={data}
+        isLoading={loading}
+        options={{
+          headerStyle: {
+            fontWeight: 'bold'
+          },
+          actionsColumnIndex: -1
+        }}
+        localization={{
+          body: {
+            emptyDataSourceMessage: "Não existem presidiários",
+          }
+        }}
+        onRowClick={((evt, selectedRow) => {
+          handleListItemClick(selectedRow);
+        })}
+      />
+    </Dialog>
+  )
 };
 
 export default WorkSubDialog;

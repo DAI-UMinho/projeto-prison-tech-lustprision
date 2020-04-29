@@ -5290,6 +5290,14 @@ License - nucleoapp.com/license/
   padding-top: 0;
 }
 
+.card-user .card-body .complete-cancel {
+  margin-top: 30px;
+}
+
+.card-user .card-body .new-sub {
+  margin-top: 15px;
+}
+
 .card-user .card-footer h5 {
   font-size: 1.25em;
   margin-bottom: 0;

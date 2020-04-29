@@ -4,20 +4,17 @@ import {Link, RouteComponentProps} from 'react-router-dom';
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle, CardFooter} from 'reactstrap';
 
 import {IRootState} from 'app/shared/reducers';
-import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import MaterialTable, {MTableToolbar, Column} from 'material-table';
 
 import {withStyles, Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Ellipsis} from 'react-spinners-css';
-import {LinearProgress, useMediaQuery} from "@material-ui/core";
+import {useMediaQuery} from "@material-ui/core";
 import {Translate} from "react-jhipster";
 import {getWaitingList} from "app/modules/quizs/pris-quiz.reducer";
-import {getEntities, createEntity, updateEntity} from "app/modules/quizs/question.reducer";
-import StateBox from "app/components/StateBox";
+import {getEntities, createEntity, updateEntity, deleteEntity} from "app/modules/quizs/question.reducer";
 import Swal from "sweetalert2";
-import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import QuestionUpdate from "app/modules/quizs/question-update";
 import CardNewButton from "app/components/CardNewButton";
 
@@ -50,8 +47,14 @@ export const Question = (props: IQuizProps) => {
     setOpen(false);
   };
 
-  const questionClick = id => {
-    setSelQuestion(id);
+  const questionClick = (id?: number) => {
+    if(id){
+      console.log("ID: " + id);
+      setSelQuestion(id)
+    }else{
+      setSelQuestion(undefined);
+    }
+    // id ? setSelQuestion(id) : setSelQuestion(undefined);
     setOpen(true);
   };
 
@@ -93,7 +96,7 @@ export const Question = (props: IQuizProps) => {
             </CardBody>
           </Card>
         </Col>
-        <CardNewButton cardClick={() => setOpen(true)} cardTitle={"Questão"}/>
+        <CardNewButton cardClick={() => questionClick()} cardTitle={"Questão"}/>
       </Row>
       <Row className="justify-content-center">
         <Col md={mCol}>
@@ -110,13 +113,13 @@ export const Question = (props: IQuizProps) => {
                 },
                 actionsColumnIndex: -1
               }}
-              localization={{
-                body: {
-                  editRow: {
-                    deleteText: "Tem a certeza que quer eliminar este presidiário?!"
-                  }
+              actions={[
+                {
+                  icon: 'delete',
+                  tooltip: 'Eliminar trabalho',
+                  onClick: (event, rowData) => props.deleteEntity(rowData.id),
                 }
-              }}
+              ]}
             />
           </Card>
         </Col>
@@ -132,7 +135,7 @@ export const Question = (props: IQuizProps) => {
     updateSuccess: question.updateSuccess
 });
 
-const mapDispatchToProps = {getWaitingList, getEntities, createEntity, updateEntity};
+const mapDispatchToProps = {getWaitingList, getEntities, createEntity, updateEntity, deleteEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
