@@ -1,21 +1,11 @@
 import "app/assets/css/paper-dashboard.css"
 import React, {useEffect, useState} from "react";
-import {AvForm, AvField} from 'availity-reactstrap-validation';
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col
-} from "reactstrap";
+import {AvForm, AvField, AvInput} from 'availity-reactstrap-validation';
+import {Button as RButton, Card, CardHeader, CardBody, CardFooter, CardTitle, Row, Col} from "reactstrap";
+import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
 import {IRootState} from "app/shared/reducers";
-import {getSession} from "app/shared/reducers/authentication";
+import {getSession, setBlob} from "app/shared/reducers/authentication";
 import {reset, saveAccountSettings} from "app/modules/account/settings/settings.reducer";
 import {savePassword} from "app/modules/account/password/password.reducer";
 import {connect} from "react-redux";
@@ -25,12 +15,13 @@ export interface IUserSettingsProps extends StateProps, DispatchProps {
 
 import userProfile from "app/assets/img/mike.jpg";
 import userBack from "app/assets/img/damir-bosnjak.jpg";
-import {Translate, translate} from "react-jhipster";
+import {setFileData, Translate, translate} from "react-jhipster";
 import PasswordStrengthBar from "app/shared/layout/password/password-strength-bar";
 import {languages, locales} from "app/config/translation";
 
 const User = (props: IUserSettingsProps) => {
 
+  const { profileImage, profileImageContentType } = props.account;
   const [password, setPassword] = useState('');
 
   useEffect(() => {
@@ -40,6 +31,15 @@ const User = (props: IUserSettingsProps) => {
     };
   }, []);
 
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
+
   const handleValidPasswordSubmit = (event, values) => {
     props.savePassword(values.currentPassword, values.newPassword);
   };
@@ -47,7 +47,7 @@ const User = (props: IUserSettingsProps) => {
   const handleValidPerfilSubmit = (event, values) => {
     const account = {
       ...props.account,
-      ...values
+      ...values,
     };
     console.log(values);
     console.log(account);
@@ -56,7 +56,7 @@ const User = (props: IUserSettingsProps) => {
   };
 
   const updatePassword = event => setPassword(event.target.value);
-
+  console.log(profileImage);
   return (
       <Row>
         <Col md="4">
@@ -70,16 +70,28 @@ const User = (props: IUserSettingsProps) => {
             <CardBody>
               <div className="author">
                 <a href="#pablo" onClick={e => e.preventDefault()}>
-                  <img
-                    alt="..."
-                    className="avatar border-gray"
-                    src={userProfile}
-                  />
+                  {profileImage ? (
+                    <img src={`data:${profileImageContentType};base64,${profileImage}`}
+                                        className="avatar border-gray"/>)
+                    :
+                    (<img className="avatar border-gray"/>)}
                   <h5 className="title">{props.account.firstName} {props.account.lastName}</h5>
                 </a>
                 <p className="description">@{props.account.login}</p>
               </div>
             </CardBody>
+            <CardFooter>
+              <Row className="row justify-content-center">
+                {!profileImage ? (
+                  <div className="file-drop-area">
+                    <span className="fake-btn">Choose files</span>
+                    <span className="file-msg">or drag and drop files here</span>
+                    <input className="file-input" id="file_profileImage" type="file"
+                           onChange={onBlobChange(true, 'profileImage')} accept="image/*"/>
+                  </div>) : (<Button variant="contained" color="secondary" startIcon={<CloseIcon />}
+                                      onClick={clearBlob('profileImage')}>Remover Imagem</Button>)}
+              </Row>
+            </CardFooter>
           </Card>
         </Col>
         <Col md="8">
@@ -173,9 +185,10 @@ const User = (props: IUserSettingsProps) => {
                   </div>
                 </div>
                 <div className="update ml-auto mr-auto form-button-center">
-                  <Button className="btn-round" color="primary" type="submit">
+                  <AvInput type="hidden" name="profileImage" value={profileImage}/>
+                  <RButton className="btn-round" color="primary" type="submit">
                     <Translate contentKey="settings.form.button">Save</Translate>
-                  </Button>
+                  </RButton>
                 </div>
               </AvForm>
             </CardBody>
@@ -233,9 +246,9 @@ const User = (props: IUserSettingsProps) => {
                   }}
                 />
                 <div className="update ml-auto mr-auto form-button-center">
-                  <Button className="btn-round" color="primary" type="submit">
+                  <RButton className="btn-round" color="primary" type="submit">
                     <Translate contentKey="password.form.button">Save</Translate>
-                  </Button>
+                  </RButton>
                 </div>
               </AvForm>
             </CardBody>
@@ -250,7 +263,7 @@ const mapStateToProps = ({authentication}: IRootState) => ({
   isAuthenticated: authentication.isAuthenticated
 });
 
-const mapDispatchToProps = {getSession, saveAccountSettings, savePassword, reset};
+const mapDispatchToProps = {getSession, saveAccountSettings, savePassword, reset, setBlob};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

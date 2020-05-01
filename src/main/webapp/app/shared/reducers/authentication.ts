@@ -9,6 +9,7 @@ export const ACTION_TYPES = {
   GET_SESSION: 'authentication/GET_SESSION',
   LOGOUT: 'authentication/LOGOUT',
   CLEAR_AUTH: 'authentication/CLEAR_AUTH',
+  SET_BLOB: 'authentication/SET_BLOB',
   ERROR_MESSAGE: 'authentication/ERROR_MESSAGE'
 };
 
@@ -92,6 +93,17 @@ export default (state: AuthenticationState = initialState, action): Authenticati
         showModalLogin: true,
         isAuthenticated: false
       };
+    case ACTION_TYPES.SET_BLOB: {
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        account: {
+          ...state.account,
+          [name]: data,
+          [name + 'ContentType']: contentType
+        }
+      };
+    }
     default:
       return state;
   }
@@ -145,6 +157,15 @@ export const logout = () => dispatch => {
     type: ACTION_TYPES.LOGOUT
   });
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType
+  }
+});
 
 export const clearAuthentication = messageKey => (dispatch, getState) => {
   clearAuthToken();

@@ -5,6 +5,9 @@ export interface IQuestion {
   question?: string;
   value?: number;
   answer?: string;
+  wrongAnswer1?: string;
+  wrongAnswer2?: string;
+  wrongAnswer3?: string;
   ids?: IQuestionQuiz[];
 }
 

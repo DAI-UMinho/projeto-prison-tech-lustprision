@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     
@@ -22,6 +22,15 @@
                 <constraints nullable="true" />
             </column>
             <column name="answer" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="wrong_answer_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="wrong_answer_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="wrong_answer_3" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -50,6 +59,9 @@
             <column name="question" type="string"/>
             <column name="jhi_value" type="numeric"/>
             <column name="answer" type="string"/>
+            <column name="wrong_answer_1" type="string"/>
+            <column name="wrong_answer_2" type="string"/>
+            <column name="wrong_answer_3" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

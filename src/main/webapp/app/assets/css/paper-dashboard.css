@@ -4417,7 +4417,7 @@ License - nucleoapp.com/license/
   line-height: 30px;
   width: 34px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(0, 0, 0);
   position: relative;
 }
 .sidebar .nav p,
@@ -4552,6 +4552,12 @@ License - nucleoapp.com/license/
 .off-canvas-sidebar[data-color='white']:after {
   background: #ffffff;
 }
+
+.sidebar[data-color='blue']:after,
+.off-canvas-sidebar[data-color='blue']:after {
+  background: #0068cf;
+}
+
 .sidebar[data-color='white'] .nav li a,
 .sidebar[data-color='white'] .nav li a i,
 .sidebar[data-color='white'] .nav li a[data-toggle='collapse'],

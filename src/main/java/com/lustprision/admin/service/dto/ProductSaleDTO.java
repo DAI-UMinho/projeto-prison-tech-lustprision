@@ -1,12 +1,15 @@
 package com.lustprision.admin.service.dto;
 import com.lustprision.admin.domain.PressProduct;
-import com.lustprision.admin.domain.Prisioner;
+
+import java.time.Instant;
 
 public class ProductSaleDTO extends PressProductDTO {
 
     private String prisonerName;
 
     private Long purchaseID;
+
+    private Instant purchaseDate;
 
     private byte[] prisonerImage;
 
@@ -15,11 +18,9 @@ public class ProductSaleDTO extends PressProductDTO {
     public ProductSaleDTO(){}
 
     public ProductSaleDTO(PressProduct pressProduct){
-        setId(pressProduct.getId());
-        setPriceTotal(pressProduct.getPriceTotal());
-        setProductID(pressProduct.getProduct());
-        setQty(pressProduct.getQty());
+        super(pressProduct);
         this.purchaseID = pressProduct.getPurchase().getId();
+        this.purchaseDate = pressProduct.getPurchase().getDate();
     }
 
     public String getPrisonerName(){ return prisonerName; }
@@ -44,5 +45,13 @@ public class ProductSaleDTO extends PressProductDTO {
 
     public void setPrisonerImageContentType(String prisonerImageContentType) {
         this.prisonerImageContentType = prisonerImageContentType;
+    }
+
+    public Instant getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(Instant purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 }

@@ -65,6 +65,12 @@ describe('Question e2e test', () => {
     expect(await questionUpdatePage.getValueInput()).to.eq('5');
     await questionUpdatePage.setAnswerInput('answer');
     expect(await questionUpdatePage.getAnswerInput()).to.match(/answer/);
+    await questionUpdatePage.setWrongAnswer1Input('wrongAnswer1');
+    expect(await questionUpdatePage.getWrongAnswer1Input()).to.match(/wrongAnswer1/);
+    await questionUpdatePage.setWrongAnswer2Input('wrongAnswer2');
+    expect(await questionUpdatePage.getWrongAnswer2Input()).to.match(/wrongAnswer2/);
+    await questionUpdatePage.setWrongAnswer3Input('wrongAnswer3');
+    expect(await questionUpdatePage.getWrongAnswer3Input()).to.match(/wrongAnswer3/);
     await waitUntilDisplayed(questionUpdatePage.saveButton);
     await questionUpdatePage.save();
     await waitUntilHidden(questionUpdatePage.saveButton);

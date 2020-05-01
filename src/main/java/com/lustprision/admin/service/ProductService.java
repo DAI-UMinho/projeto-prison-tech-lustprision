@@ -23,8 +23,6 @@ public class ProductService {
 
     private final Logger log = LoggerFactory.getLogger(PrisionerService.class);
 
-    private final PrisionerRepository prisionerRepository;
-
     private final PurchaseRepository purchaseRepository;
 
     private final PressProductRepository pressProductRepository;
@@ -32,10 +30,9 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public ProductService(PressProductRepository pressProductRepository, ProductRepository productRepository,
-                            PrisionerRepository prisionerRepository, PurchaseRepository purchaseRepository){
+                          PurchaseRepository purchaseRepository){
         this.pressProductRepository = pressProductRepository;
         this.productRepository = productRepository;
-        this.prisionerRepository = prisionerRepository;
         this.purchaseRepository = purchaseRepository;
     }
 

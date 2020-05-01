@@ -5,6 +5,7 @@ import com.lustprision.admin.config.Constants;
 import com.lustprision.admin.domain.Authority;
 import com.lustprision.admin.domain.User;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
@@ -34,6 +35,10 @@ public class UserDTO {
 
     @Size(max = 256)
     private String imageUrl;
+
+    private byte[] profileImage;
+
+    private String profileImageContentType;
 
     private boolean activated = false;
 
@@ -67,6 +72,8 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
+        this.profileImage = user.getProfileImage();
+        this.profileImageContentType = user.getProfileImageContentType();
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
@@ -114,6 +121,22 @@ public class UserDTO {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public String getProfileImageContentType() {
+        return profileImageContentType;
+    }
+
+    public void setProfileImageContentType(String profileImageContentType) {
+        this.profileImageContentType = profileImageContentType;
     }
 
     public void setImageUrl(String imageUrl) {

@@ -35,7 +35,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                  style={{width: 50, borderRadius: '50%', float: 'left', marginRight: 10}}/>
             <p style={{paddingTop: 15}}>{rowData.prisonerName}</p>
           </div>},
-      {title: 'Data', field: 'date', type: 'datetime', render: rowData => <TextFormat value={rowData.date} type="date" format={APP_DATE_FORMAT} blankOnInvalid />},
+      {title: 'Data', field: 'purchaseDate', type: 'datetime', render: rowData => <TextFormat value={rowData.purchaseDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />},
       {title: 'Quantidade Vendida', field: 'qty'},
       {title: 'Valor Total', field: 'priceTotal'},
     ]

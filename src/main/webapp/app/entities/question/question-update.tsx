@@ -93,6 +93,24 @@ export const QuestionUpdate = (props: IQuestionUpdateProps) => {
                 </Label>
                 <AvField id="question-answer" type="text" name="answer" />
               </AvGroup>
+              <AvGroup>
+                <Label id="wrongAnswer1Label" for="question-wrongAnswer1">
+                  <Translate contentKey="lustPrisionApp.question.wrongAnswer1">Wrong Answer 1</Translate>
+                </Label>
+                <AvField id="question-wrongAnswer1" type="text" name="wrongAnswer1" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="wrongAnswer2Label" for="question-wrongAnswer2">
+                  <Translate contentKey="lustPrisionApp.question.wrongAnswer2">Wrong Answer 2</Translate>
+                </Label>
+                <AvField id="question-wrongAnswer2" type="text" name="wrongAnswer2" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="wrongAnswer3Label" for="question-wrongAnswer3">
+                  <Translate contentKey="lustPrisionApp.question.wrongAnswer3">Wrong Answer 3</Translate>
+                </Label>
+                <AvField id="question-wrongAnswer3" type="text" name="wrongAnswer3" />
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/question" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

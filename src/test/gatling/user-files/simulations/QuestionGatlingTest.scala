@@ -75,6 +75,9 @@ class QuestionGatlingTest extends Simulation {
                 , "question":"SAMPLE_TEXT"
                 , "value":null
                 , "answer":"SAMPLE_TEXT"
+                , "wrongAnswer1":"SAMPLE_TEXT"
+                , "wrongAnswer2":"SAMPLE_TEXT"
+                , "wrongAnswer3":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_question_url"))).exitHereIfFailed

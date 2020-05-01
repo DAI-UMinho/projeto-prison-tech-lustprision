@@ -5,6 +5,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 
 export const ACTION_TYPES = {
   UPDATE_ACCOUNT: 'account/UPDATE_ACCOUNT',
+  SET_BLOB: 'account/SET_BLOB',
   RESET: 'account/RESET'
 };
 

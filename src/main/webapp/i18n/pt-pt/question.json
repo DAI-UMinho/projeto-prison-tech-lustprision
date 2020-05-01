@@ -19,6 +19,9 @@
       "question": "Question",
       "value": "Value",
       "answer": "Answer",
+      "wrongAnswer1": "Wrong Answer 1",
+      "wrongAnswer2": "Wrong Answer 2",
+      "wrongAnswer3": "Wrong Answer 3",
       "id": "Id"
     }
   }

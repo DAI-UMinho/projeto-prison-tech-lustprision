@@ -43,6 +43,24 @@ export const QuestionDetail = (props: IQuestionDetailProps) => {
             </span>
           </dt>
           <dd>{questionEntity.answer}</dd>
+          <dt>
+            <span id="wrongAnswer1">
+              <Translate contentKey="lustPrisionApp.question.wrongAnswer1">Wrong Answer 1</Translate>
+            </span>
+          </dt>
+          <dd>{questionEntity.wrongAnswer1}</dd>
+          <dt>
+            <span id="wrongAnswer2">
+              <Translate contentKey="lustPrisionApp.question.wrongAnswer2">Wrong Answer 2</Translate>
+            </span>
+          </dt>
+          <dd>{questionEntity.wrongAnswer2}</dd>
+          <dt>
+            <span id="wrongAnswer3">
+              <Translate contentKey="lustPrisionApp.question.wrongAnswer3">Wrong Answer 3</Translate>
+            </span>
+          </dt>
+          <dd>{questionEntity.wrongAnswer3}</dd>
         </dl>
         <Button tag={Link} to="/question" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}
