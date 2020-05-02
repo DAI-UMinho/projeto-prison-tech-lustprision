@@ -112,12 +112,11 @@ public class BD_CONTROLLER {
 
     public static Prisioneiro loadUser(int ID) {
         try {
-
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Prisioner ");
+            ResultSet rs = st.executeQuery("SELECT * FROM Prisioner");
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {

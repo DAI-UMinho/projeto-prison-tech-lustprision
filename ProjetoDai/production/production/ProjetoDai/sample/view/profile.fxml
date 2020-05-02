@@ -51,7 +51,7 @@
             <Font name="Agency FB Bold" size="18.0" />
          </font>
       </Label>
-      <Pane layoutX="245.0" layoutY="299.0" prefHeight="166.0" prefWidth="620.0">
+      <Pane layoutX="254.0" layoutY="306.0" prefHeight="166.0" prefWidth="466.0">
          <children>
             <VBox layoutX="6.0" prefHeight="166.0" prefWidth="236.0">
                <children>
@@ -101,37 +101,37 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" layoutX="494.0" layoutY="-4.0" prefHeight="75.0" prefWidth="80.0">
-               <children>
-                  <Label fx:id="saldotxt" text="000000" textFill="#02ff74">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
-                  <Line endX="60.0" startX="-20.0" stroke="#00000074" />
-                  <Label text="Saldo" textFill="#3e5bfd">
-                     <font>
-                        <Font name="Agency FB" size="21.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="494.0" layoutY="71.0" prefHeight="75.0" prefWidth="80.0">
-               <children>
-                  <Label fx:id="pontostxt" text="000000" textFill="#ffb003">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
-                  <Line endX="60.0" startX="-20.0" stroke="#00000074" />
-                  <Label text="Pontos" textFill="#3e5bfd">
-                     <font>
-                        <Font name="Agency FB" size="21.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
          </children>
       </Pane>
+      <VBox alignment="CENTER" layoutX="254.0" layoutY="137.0" prefHeight="75.0" prefWidth="80.0">
+         <children>
+            <Label fx:id="saldotxt" text="000000" textFill="#02ff74">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="60.0" startX="-20.0" stroke="#00000074" />
+            <Label text="Saldo" textFill="#3e5bfd">
+               <font>
+                  <Font name="Agency FB" size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="521.0" layoutY="137.0" prefHeight="75.0" prefWidth="80.0">
+         <children>
+            <Label fx:id="pontostxt" text="000000" textFill="#ffb003">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="60.0" startX="-20.0" stroke="#00000074" />
+            <Label text="Pontos" textFill="#3e5bfd">
+               <font>
+                  <Font name="Agency FB" size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
