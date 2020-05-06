@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.WorkController">
+   <children>
+      <VBox alignment="CENTER_RIGHT" layoutY="-1.0" prefHeight="600.0" prefWidth="208.0" spacing="25.0" style="-fx-background-color: #3E5BFD;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleBtnLoja" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="LOJA" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnTrabalho" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="TRABALHO" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnQuiz" prefHeight="26.0" prefWidth="312.0" style="-fx-background-color: #3E5BFD;" text="QUIZ" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnPerfil" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="PERFIL" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnSair" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="SAIR" textFill="#00000080">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="272.0" layoutY="34.0" text="Trabalhos" textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="61.0" />
+         </font>
+      </Label>
+      <Label layoutX="875.0" layoutY="13.0" text="DEV" textFill="#928c8c">
+         <font>
+            <Font name="Agency FB" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="805.0" layoutY="12.0" text="LustPrision" textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="18.0" />
+         </font>
+      </Label>
+      <VBox layoutX="745.0" layoutY="76.0" prefHeight="66.0" prefWidth="94.0">
+         <children>
+            <Label fx:id="vagastotallbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="85.0" text="0000" textFill="#5eea4e">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="99.0" text="Vagas Disponiveis" textFill="#142167">
+               <font>
+                  <Font name="Agency FB" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="240.0" layoutY="173.0" prefHeight="43.0" prefWidth="634.0" spacing="100.0" style="-fx-border-radius: 5;">
+         <children>
+            <Label prefHeight="24.0" prefWidth="160.0" text="Trabalho" textFill="#1b1a71">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label prefHeight="24.0" prefWidth="97.0" text="Vagas" textFill="#1b1a71">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="24.0" prefWidth="138.0" text="Remuneração" textFill="#1b1a71">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="24.0" prefWidth="141.0" text="Candidatar-se" textFill="#1b1a71">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Line endX="533.4000244140625" endY="0.1999969482421875" layoutX="340.0" layoutY="216.0" startX="-100.0" stroke="#bfbfbf" />
+      <ScrollPane layoutX="242.0" layoutY="223.0" prefHeight="370.0" prefWidth="646.0">
+         <content>
+            <VBox fx:id="workvbox" prefHeight="364.0" prefWidth="631.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

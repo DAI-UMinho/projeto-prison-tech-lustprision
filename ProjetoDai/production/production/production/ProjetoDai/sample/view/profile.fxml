@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.ProfileController">
+   <children>
+      <VBox alignment="CENTER_RIGHT" layoutY="-1.0" prefHeight="600.0" prefWidth="208.0" spacing="25.0" style="-fx-background-color: #3E5BFD;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleBtnLoja" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="LOJA" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnTrabalho" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="TRABALHO" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnQuiz" prefHeight="26.0" prefWidth="312.0" style="-fx-background-color: #3E5BFD;" text="QUIZ" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnPerfil" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="PERFIL" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnSair" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="SAIR" textFill="#00000080">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="254.0" layoutY="34.0" text="Perfil" textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="61.0" />
+         </font>
+      </Label>
+      <Label layoutX="875.0" layoutY="13.0" text="DEV" textFill="#928c8c">
+         <font>
+            <Font name="Agency FB" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="805.0" layoutY="12.0" text="LustPrision" textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="18.0" />
+         </font>
+      </Label>
+      <Pane layoutX="254.0" layoutY="306.0" prefHeight="166.0" prefWidth="466.0">
+         <children>
+            <VBox layoutX="6.0" prefHeight="166.0" prefWidth="236.0">
+               <children>
+                  <Label text="Nome" textFill="#3e5bfd">
+                     <font>
+                        <Font name="Agency FB Bold" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="10.0" text="Nº Recluso" textFill="#3e5bfd">
+                     <font>
+                        <Font name="Agency FB Bold" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="85.0" text="Data de Nascimento" textFill="#3e5bfd">
+                     <font>
+                        <Font name="Agency FB Bold" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="160.0" text="Trabalho" textFill="#3e5bfd">
+                     <font>
+                        <Font name="Agency FB Bold" size="29.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox layoutX="253.0" prefHeight="166.0" prefWidth="208.0">
+               <children>
+                  <Label fx:id="nometxt" text="Nome" textFill="#2c3044">
+                     <font>
+                        <Font name="Agency FB" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nreclusotxt" layoutX="10.0" layoutY="10.0" text="Nº Recluso" textFill="#2c3044">
+                     <font>
+                        <Font name="Agency FB" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="datanasctxt" layoutX="10.0" layoutY="85.0" text="Data de Nascimento" textFill="#2c3044">
+                     <font>
+                        <Font name="Agency FB" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="trabalhotxt" layoutX="10.0" layoutY="160.0" text="Trabalho" textFill="#2c3044">
+                     <font>
+                        <Font name="Agency FB" size="29.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <VBox alignment="CENTER" layoutX="254.0" layoutY="137.0" prefHeight="75.0" prefWidth="80.0">
+         <children>
+            <Label fx:id="saldotxt" text="000000" textFill="#02ff74">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="60.0" startX="-20.0" stroke="#00000074" />
+            <Label text="Saldo" textFill="#3e5bfd">
+               <font>
+                  <Font name="Agency FB" size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="521.0" layoutY="137.0" prefHeight="75.0" prefWidth="80.0">
+         <children>
+            <Label fx:id="pontostxt" text="000000" textFill="#ffb003">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="60.0" startX="-20.0" stroke="#00000074" />
+            <Label text="Pontos" textFill="#3e5bfd">
+               <font>
+                  <Font name="Agency FB" size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

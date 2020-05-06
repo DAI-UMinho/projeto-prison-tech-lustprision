@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.QuizController">
+   <children>
+      <VBox alignment="CENTER_RIGHT" layoutY="-1.0" prefHeight="600.0" prefWidth="208.0" spacing="25.0" style="-fx-background-color: #3E5BFD;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleBtnLoja" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="LOJA" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnTrabalho" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #3E5BFD;" text="TRABALHO" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnQuiz" prefHeight="26.0" prefWidth="312.0" style="-fx-background-color: #3E5BFD;" text="QUIZ" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnPerfil" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="PERFIL" textFill="#fffdfd">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBtnSair" prefHeight="26.0" prefWidth="253.0" style="-fx-background-color: #3E5BFD;" text="SAIR" textFill="#00000080">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="272.0" layoutY="34.0" text="QUIZ" textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="61.0" />
+         </font>
+      </Label>
+      <Label layoutX="875.0" layoutY="13.0" text="DEV" textFill="#928c8c">
+         <font>
+            <Font name="Agency FB" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="805.0" layoutY="12.0" text="LustPrision" textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="18.0" />
+         </font>
+      </Label>
+      <Pane layoutX="259.0" layoutY="175.0" prefHeight="283.0" prefWidth="399.0">
+         <children>
+            <Button layoutX="14.0" layoutY="71.0" mnemonicParsing="false" onAction="#onClickA1" prefHeight="75.0" prefWidth="136.0" style="-fx-background-color: #3E5BFD;" text="ANSWER 1" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="14.0" layoutY="155.0" mnemonicParsing="false" onAction="#onClickA3" prefHeight="75.0" prefWidth="136.0" style="-fx-background-color: #3E5BFD;" text="ANSWER 1" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="162.0" layoutY="71.0" mnemonicParsing="false" onAction="#onClickA2" prefHeight="75.0" prefWidth="136.0" style="-fx-background-color: #3E5BFD;" text="ANSWER 1" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="162.0" layoutY="155.0" mnemonicParsing="false" onAction="#onClickA4" prefHeight="75.0" prefWidth="136.0" style="-fx-background-color: #3E5BFD;" text="ANSWER 1" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="18.0" />
+               </font>
+            </Button>
+            <VBox layoutX="317.0" layoutY="166.0" prefHeight="54.0" prefWidth="56.0">
+               <children>
+                  <Label fx:id="valortxt" alignment="CENTER" prefHeight="22.0" prefWidth="56.0" text="000" textFill="#ca2d2d">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Line endX="-13.507156372070312" endY="-231.99774169921875" startX="44.185699462890625" startY="-231.29185485839844" />
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="58.0" text="Valor">
+                     <font>
+                        <Font name="Agency FB" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="373.0" text="QUESTION">
+               <font>
+                  <Font name="Agency FB" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

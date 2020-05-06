@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.ProductLineController">
+   <children>
+      <Label fx:id="prodstock" layoutX="231.0" layoutY="19.0" text="QNTY">
+         <font>
+            <Font name="Agency FB" size="22.0" />
+         </font>
+      </Label>
+      <Button layoutX="323.0" layoutY="16.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="92.0" style="-fx-background-color: #5FEC74;" text="Adicionar" textFill="WHITE">
+         <font>
+            <Font name="Agency FB" size="17.0" />
+         </font>
+      </Button>
+      <Label fx:id="prodname" layoutX="23.0" layoutY="19.0" text="PRODUCTNAME">
+         <font>
+            <Font name="Agency FB" size="22.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
