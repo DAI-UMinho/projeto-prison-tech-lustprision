@@ -4,14 +4,15 @@ import {Link, RouteComponentProps} from 'react-router-dom';
 import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
 import {Translate} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Button, Card, CardBody, CardHeader, CardTitle, Col, Label, Row} from 'reactstrap';
+import {Button as RButton, Card, CardBody, CardHeader, CardTitle, Col, Label, Row} from 'reactstrap';
+import {Button, CircularProgress} from "@material-ui/core";
 import {IRootState} from 'app/shared/reducers';
 
 import {getEntity, getWorkSubs, updateCancelWork, updateCompleteWork, updateEntity} from './work.reducer';
 import {getEntities} from 'app/modules/account/prisoner/prisioner.reducer';
 import {cancelPressProduct, createEntity} from "app/modules/account/prisoner/press-work.reducer";
 import MaterialTable, {Column} from "material-table";
-import StateBox from "app/components/StateBox";
+import {StateBox} from "app/components/StateBox";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import WorkSubDialog from "app/modules/works/work-sub-dialog";
@@ -34,7 +35,7 @@ interface TableState {
 
 export const WorkInfo = (props: IWorkUpdateProps) => {
 
-  const {workEntity, loading, updating, workSubs, prisoners, prisonersLoading} = props;
+  const {workEntity, loading, updating, workSubs, prisoners, prisonersLoading, pressUpdating} = props;
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [stateID, setStateID] = useState(0);
@@ -68,7 +69,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
       setTimeout(() => {
         console.log("Async is done!");
         resolve(props.createEntity(mPressWork));
-      }, 3000);
+      }, 1000);
     });
   }
 
@@ -231,19 +232,19 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     </Label>
                     <AvField id="work-date" type="date" className="form-control" name="date"/>
                   </AvGroup>
-                  <Button tag={Link} id="cancel-save" onClick={handleClose} replace color="info">
+                  <RButton tag={Link} id="cancel-save" onClick={handleClose} replace color="info">
                     <FontAwesomeIcon icon="arrow-left"/>
                     &nbsp;
                     <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
-                  </Button>
+                  </RButton>
                   &nbsp;
-                  <Button color="primary" id="save-entity" type="submit" disabled={updating}>
+                  <RButton color="primary" id="save-entity" type="submit" disabled={updating}>
                     <FontAwesomeIcon icon="save"/>
                     &nbsp;
                     <Translate contentKey="entity.action.save">Save</Translate>
-                  </Button>
+                  </RButton>
                 </AvForm>
               )}
             </CardBody>
@@ -268,26 +269,18 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     <h5 className="title">Trabalho {getStateName(workEntity.state.id)}</h5>
                   </a>
                   <div className="new-sub">
-                    <Button onClick={dialogOpen} disabled={allowNewSub}>Adicionar Prisidiário</Button>
+                    <Button variant="contained" color="primary" onClick={dialogOpen}
+                            disabled={allowNewSub || pressUpdating}>Adicionar Prisidiário</Button>
+                    {pressUpdating && <CircularProgress size={24} />}
                     <p className="description">5/10 Vagas Restantes</p>
                   </div>
                   <div className="complete-cancel">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      disabled={allowWorkActions}
+                    <RButton variant="contained" color="primary" disabled={allowWorkActions}
                       onClick={() => clickCompleteWork(workEntity.id)}
-                      // className={classes.button}
-                      startIcon={<DoneIcon />}
-                    >Concluir</Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      disabled={allowWorkActions}
+                    >Concluir</RButton>
+                    <RButton variant="contained" color="secondary" disabled={allowWorkActions}
                       onClick={() => clickCancelWork(workEntity.id)}
-                      // className={classes.button}
-                      startIcon={<CancelIcon />}
-                    >Cancelar</Button>
+                    >Cancelar</RButton>
                   </div>
                 </div>
               </CardBody>
@@ -361,7 +354,8 @@ const mapStateToProps = (state: IRootState) => ({
   updating: state.work.updating,
   updateSuccess: state.work.updateSuccess,
   prisoners: state.prisioner.entities,
-  prisonersLoading: state.prisioner.loading
+  prisonersLoading: state.prisioner.loading,
+  pressUpdating: state.pressWork.updating
 });
 
 const mapDispatchToProps = {

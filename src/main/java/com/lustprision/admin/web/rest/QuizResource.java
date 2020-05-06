@@ -2,6 +2,9 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Quiz;
 import com.lustprision.admin.repository.QuizRepository;
+import com.lustprision.admin.service.QuizService;
+import com.lustprision.admin.service.dto.CompletedQuizDTO;
+import com.lustprision.admin.service.dto.QuestionResultDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -35,8 +38,11 @@ public class QuizResource {
 
     private final QuizRepository quizRepository;
 
-    public QuizResource(QuizRepository quizRepository) {
+    private final QuizService quizService;
+
+    public QuizResource(QuizRepository quizRepository, QuizService quizService) {
         this.quizRepository = quizRepository;
+        this.quizService = quizService;
     }
 
     /**
@@ -90,6 +96,12 @@ public class QuizResource {
         return quizRepository.findAll();
     }
 
+    @GetMapping("/quizzes/completed")
+    public List<CompletedQuizDTO> getAllCompletedQuizzes() {
+        log.debug("REST request to get all Quizzes");
+        return quizService.getCompletedQuizzes();
+    }
+
     /**
      * {@code GET  /quizzes/:id} : get the "id" quiz.
      *
@@ -101,6 +113,12 @@ public class QuizResource {
         log.debug("REST request to get Quiz : {}", id);
         Optional<Quiz> quiz = quizRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(quiz);
+    }
+
+    @GetMapping("/quizzes/{id}/results")
+    public List<QuestionResultDTO> getQuizResults(@PathVariable Long id) {
+        log.debug("REST request to get Quiz : {} results", id);
+        return quizService.getQuizResult(id);
     }
 
     /**

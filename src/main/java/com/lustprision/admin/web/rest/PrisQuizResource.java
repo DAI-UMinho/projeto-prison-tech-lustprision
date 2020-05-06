@@ -2,6 +2,8 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.PrisQuiz;
 import com.lustprision.admin.repository.PrisQuizRepository;
+import com.lustprision.admin.service.dto.CompletedQuizDTO;
+import com.lustprision.admin.service.dto.PendingQuizDTO;
 import com.lustprision.admin.service.dto.PrisQuizDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
@@ -121,10 +123,10 @@ public class PrisQuizResource {
     }
 
     @GetMapping("/pris-quizs/pending")
-    public List<PrisQuizDTO> getPendingApprovalQuiz() {
+    public List<PendingQuizDTO> getPendingApprovalQuiz() {
         log.debug("REST request to get PrisQuiz ");
         return prisQuizRepository.getAllByApproval(0).stream()
-            .map(PrisQuizDTO::new)
+            .map(PendingQuizDTO::new)
             .collect(Collectors.toList());
     }
 

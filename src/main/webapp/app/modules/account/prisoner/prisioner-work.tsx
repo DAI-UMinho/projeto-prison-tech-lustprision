@@ -12,7 +12,7 @@ import MaterialTable, {Column} from "material-table";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import StateBox from "app/components/StateBox";
+import {StateBox} from "app/components/StateBox";
 import {useTheme} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
 
@@ -77,7 +77,8 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               columns={state.columns}
               data={prisionerWorks}
               isLoading={worksReloading}
-              onRowClick={((evt, selectedRow) => {})}
+              onRowClick={((evt, selectedRow) =>
+                window.location.replace(`dashboard/works/${selectedRow.id}`))}
               options={{
                 headerStyle: {
                   backgroundColor: '#8a8a8a',

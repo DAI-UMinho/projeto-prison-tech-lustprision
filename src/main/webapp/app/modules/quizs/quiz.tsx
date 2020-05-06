@@ -14,14 +14,17 @@ import {Ellipsis} from 'react-spinners-css';
 import {LinearProgress, useMediaQuery} from "@material-ui/core";
 import {Translate} from "react-jhipster";
 import {getWaitingList, updateQuizAuthorization} from "app/modules/quizs/pris-quiz.reducer";
-import StateBox from "app/components/StateBox";
+import {getCompletedQuizzes, getQuizResults} from "./quiz.reducer"
+import {StateBox, QuizBox} from "app/components/StateBox";
 import Swal from "sweetalert2";
+import QuizDetailDialog from "app/modules/quizs/quiz-details";
 
 export interface IQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
 
 interface TableState {
-  columns: Array<Column<any>>;
+  pending: Array<Column<any>>;
+  quizzes: Array<Column<any>>;
 }
 
 export const Quiz = (props: IQuizProps) => {
@@ -29,10 +32,11 @@ export const Quiz = (props: IQuizProps) => {
   const mCol = useMediaQuery(theme.breakpoints.up('xl')) ? 7 : 10;
   const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
+  const [open, setOpen] = React.useState(false);
   const [approvalList, setApprovalList] = useState([]);
 
   const [state, setState] = React.useState<TableState>({
-    columns: [
+    pending: [
       {
         title: 'Name', field: 'name',
         render: rowData =>
@@ -48,17 +52,39 @@ export const Quiz = (props: IQuizProps) => {
         field: 'approval',
         render: rowData => <StateBox boxText={"PENDENTE"} stateID={rowData.approval}/>
       },
+    ],
+    quizzes: [
+      {title: 'Identificação', field: 'id', render: rowData => <i>#{rowData.quizID}</i>},
+      {
+        title: 'Presidiário', field: 'name',
+        render: rowData =>
+          <div>
+            <img src={`data:${rowData.prisonerImageContentType};base64,${rowData.prisonerImage}`}
+                 style={{width: 50, borderRadius: '50%', float: 'left', marginRight: 10}}/>
+            <p style={{paddingTop: 15}}>{rowData.prisonerName}</p>
+          </div>
+      },
+      {title: 'Data', field: 'quizDate', type: 'date'},
+      {
+        title: 'Score', field: 'score',
+        render: rowData => <QuizBox correctAnswers={rowData.correctAnswers} nQuestions={rowData.qtyQuestion}/>
+      },
     ]
   });
 
-  const {waitingList, match, loading} = props;
+  const {waitingList, completedQuizzes, match, loading} = props;
 
   useEffect(() => {
     props.getWaitingList();
+    props.getCompletedQuizzes();
   }, []);
 
   const updateTable = () => {
     setApprovalList([...waitingList]);
+  };
+
+  const handleDialogClose = (value: string) => {
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -139,11 +165,49 @@ export const Quiz = (props: IQuizProps) => {
         </Col>
       </Row>
       <Row className="justify-content-center">
+        <Col md="8">
+          <Card className="card-user">
+            <MaterialTable
+              title="Quizzes Completados"
+              columns={state.quizzes}
+              data={completedQuizzes}
+              isLoading={loading}
+              onRowClick={((evt, selectedRow) => {
+                  props.getQuizResults(selectedRow.quizID);
+                  setOpen(true);
+              })}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#01579b',
+                  color: '#FFF',
+                  fontWeight: 'bold'
+                },
+                actionsColumnIndex: -1
+              }}
+              localization={{
+                body: {
+                  editRow: {
+                    deleteText: "Tem a certeza que quer eliminar este presidiário?!"
+                  }
+                }
+              }}
+              actions={[
+                {
+                  icon: 'delete',
+                  tooltip: 'Eliminar Quiz',
+                  onClick: (event, rowData) => null
+                }
+              ]}
+            />
+          </Card>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
         <Col md={mCol}>
           <Card className="card-user">
             <MaterialTable
               title="Aprovação Pendente"
-              columns={state.columns}
+              columns={state.pending}
               data={approvalList}
               isLoading={loading}
               onRowClick={((evt, selectedRow) => {
@@ -151,8 +215,7 @@ export const Quiz = (props: IQuizProps) => {
               })}
               options={{
                 headerStyle: {
-                  backgroundColor: '#01579b',
-                  color: '#FFF',
+                  color: '#000',
                   fontWeight: 'bold'
                 },
                 actionsColumnIndex: -1
@@ -175,17 +238,20 @@ export const Quiz = (props: IQuizProps) => {
           </Card>
         </Col>
       </Row>
+      <QuizDetailDialog open={open} onClose={handleDialogClose} results={props.quizResults}/>
     </div>
   );
 };
 
 const mapStateToProps = (state: IRootState) => ({
   waitingList: state.prisQuiz.waiting,
+  completedQuizzes: state.quiz.completed,
+  quizResults: state.quiz.quizResults,
   loading: state.prisQuiz.loading,
   updateSuccess: state.prisQuiz.updateSuccess
 });
 
-const mapDispatchToProps = {getWaitingList, updateQuizAuthorization};
+const mapDispatchToProps = {getWaitingList, updateQuizAuthorization, getCompletedQuizzes, getQuizResults};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

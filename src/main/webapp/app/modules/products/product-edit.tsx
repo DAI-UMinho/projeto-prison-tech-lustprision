@@ -216,7 +216,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                   data={productSales}
                   options={{
                     headerStyle: {
-                      backgroundColor: '#8a8a8a',
+                      backgroundColor: '#01579b',
                       color: '#FFF',
                       fontWeight: 'bold'
                     },

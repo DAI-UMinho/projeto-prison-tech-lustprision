@@ -16,7 +16,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Ellipsis } from 'react-spinners-css';
 import {LinearProgress, useMediaQuery} from "@material-ui/core";
 import {TextFormat, Translate} from "react-jhipster";
-import StateBox from "app/components/StateBox";
+import {StateBox} from "app/components/StateBox";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content'
 import CardNewButton from "app/components/CardNewButton";

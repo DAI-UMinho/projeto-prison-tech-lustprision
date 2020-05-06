@@ -14,12 +14,6 @@ public class PrisQuizDTO {
 
     private int approval;
 
-    private String prisonerName;
-
-    private byte[] prisonerImage;
-
-    private String prisonerImageContentType;
-
     public Long getId() {
         return id;
     }
@@ -30,9 +24,6 @@ public class PrisQuizDTO {
         this.id = prisQuiz.getId();
         this.quizDate = prisQuiz.getQuizDate();
         this.approval = prisQuiz.getApproval();
-        this.prisonerName = prisQuiz.getPrisioner().getName();
-        this.prisonerImage = prisQuiz.getPrisioner().getProfileImage();
-        this.prisonerImageContentType = prisQuiz.getPrisioner().getProfileImageContentType();
     }
 
     public void setId(Long id) {
@@ -53,29 +44,5 @@ public class PrisQuizDTO {
 
     public void setApproval(int approval) {
         this.approval = approval;
-    }
-
-    public byte[] getPrisonerImage() {
-        return prisonerImage;
-    }
-
-    public void setPrisonerImage(byte[] prisonerImage) {
-        this.prisonerImage = prisonerImage;
-    }
-
-    public String getPrisonerImageContentType() {
-        return prisonerImageContentType;
-    }
-
-    public void setPrisonerImageContentType(String prisonerImageContentType) {
-        this.prisonerImageContentType = prisonerImageContentType;
-    }
-
-    public String getPrisonerName() {
-        return prisonerName;
-    }
-
-    public void setPrisonerName(String prisonerName) {
-        this.prisonerName = prisonerName;
     }
 }
