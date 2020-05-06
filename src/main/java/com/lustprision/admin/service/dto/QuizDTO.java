@@ -37,4 +37,8 @@ public class QuizDTO {
     public LocalDate getQuizDate(){ return quizDate; }
 
     public void setQuizDate(LocalDate quizDate){ this.quizDate = quizDate; }
+
+    public String toString() {
+        return "id: " + id + " Quantidade de Questões: " + qtyQuestion;
+    }
 }

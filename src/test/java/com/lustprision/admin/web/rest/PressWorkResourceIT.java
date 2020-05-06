@@ -2,8 +2,14 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.PressWork;
+import com.lustprision.admin.domain.Prisioner;
+import com.lustprision.admin.domain.State;
+import com.lustprision.admin.domain.Work;
 import com.lustprision.admin.repository.PressWorkRepository;
+import com.lustprision.admin.repository.PrisionerRepository;
 import com.lustprision.admin.repository.StateRepository;
+import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.service.dto.WorkDTO;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -22,6 +29,7 @@ import org.springframework.validation.Validator;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.lustprision.admin.web.rest.TestUtil.createFormattingConversionService;
@@ -41,9 +49,13 @@ public class PressWorkResourceIT {
 
     @Autowired
     private PressWorkRepository pressWorkRepository;
-
+    @Autowired
+    private PrisionerRepository prisionerRepository;
+    @Autowired
+    private WorkRepository workRepository;
     @Autowired
     private StateRepository stateRepository;
+
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -60,9 +72,12 @@ public class PressWorkResourceIT {
     @Autowired
     private Validator validator;
 
+
     private MockMvc restPressWorkMockMvc;
 
     private PressWork pressWork;
+    private Prisioner prisioner;
+    private Work work;
 
     @BeforeEach
     public void setup() {
@@ -103,6 +118,55 @@ public class PressWorkResourceIT {
     public void initTest() {
         pressWork = createEntity(em);
     }
+
+    @Test
+    @Transactional
+    public void cancelWorkPres() throws Exception {
+        pressWorkRepository.saveAndFlush(pressWork);
+        int databaseSizeBeforeCreate = pressWorkRepository.findAll().size();
+        System.out.println(pressWork.getState());
+
+        System.out.println(pressWork.getWork()); //null
+
+        restPressWorkMockMvc.perform(put("/press-works/{id}/cancel", pressWork.getId())
+            .accept(TestUtil.APPLICATION_JSON));
+
+        // Validate the Prisioner in the database
+        List<PressWork> pressWorkList = pressWorkRepository.findAll();
+        System.out.println(pressWorkList.get(0).getWork());
+
+        //assertThat(pressWorkList).hasSize(databaseSizeBeforeCreate-1);
+    }
+
+    @Test
+    @Transactional
+    public void  despedir() throws Exception {
+
+        Prisioner nome = PrisionerResourceIT.createEntity(em);
+        Work trabalho =  WorkResourceIT.createEntity(em);
+        State mState = stateRepository.getOne(1L);
+        List<Work> workList = new ArrayList<>();
+        pressWork.setState(mState);
+        workList.add(trabalho);
+        pressWork.setWork(trabalho);
+        pressWork.setPrisioner(nome);
+        System.out.println(pressWork);
+        workRepository.saveAndFlush(trabalho);
+        prisionerRepository.saveAndFlush(nome);
+        pressWorkRepository.saveAndFlush(pressWork);
+
+        System.out.println(pressWork.getState());
+
+        restPressWorkMockMvc.perform(put("/api/press-works/{id}/cancel", pressWork.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(pressWork.getId().intValue())));
+        //System.out.println(prisionerService.getPrisionerWork((long) 1001));
+
+        List<PressWork> pressWorkList = pressWorkRepository.findAll();
+
+    }
+
 
     @Test
     @Transactional
@@ -161,6 +225,7 @@ public class PressWorkResourceIT {
     public void getPressWork() throws Exception {
         // Initialize the database
         pressWorkRepository.saveAndFlush(pressWork);
+
 
         // Get the pressWork
         restPressWorkMockMvc.perform(get("/api/press-works/{id}", pressWork.getId()))
