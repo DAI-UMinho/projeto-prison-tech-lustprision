@@ -54,4 +54,7 @@ public class ProductSaleDTO extends PressProductDTO {
     public void setPurchaseDate(Instant purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
+    public String toString() {
+        return "ID da compra: " + purchaseID + " Data: " + purchaseDate + " Nome do prisioneiro:" + prisonerName;
+    }
 }

@@ -47,4 +47,8 @@ public class PurchaseDTO {
     public void setPrisionerId(Long prisionerId) {
         this.prisionerId = prisionerId;
     }*/
+public String toString() {
+    return "id: " + id + " Data: " + date+ "Total de Compras:" +purchaseTotal;
 }
+}
+
