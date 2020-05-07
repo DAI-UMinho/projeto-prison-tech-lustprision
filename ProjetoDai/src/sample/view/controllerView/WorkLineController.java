@@ -1,4 +1,5 @@
 package sample.view.controllerView;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,8 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import sample.Main;
+
+import javax.swing.*;
 
 
 public class WorkLineController implements Initializable{
@@ -28,7 +32,7 @@ public class WorkLineController implements Initializable{
     public static int vagas;
     public static int remun;
     public static int id;
-    public Button candidatarbtn;
+
 
 
     @Override
@@ -39,11 +43,8 @@ public class WorkLineController implements Initializable{
     }
 
     public void handleCandidatar(ActionEvent actionEvent) throws IOException {
-        WorkController.notificationlabel.setText("Candidatura com sucesso");
-        Main.sis.sessionatual.applyJOB(Main.sis.sessionatual.nowusing.getID(),id);
-        WorkController.workvbox.getChildren().clear();
-    }
 
+        Main.sis.sessionatual.applyJOB(Main.sis.sessionatual.nowusing.getID(), id);
+        
 
-
-}
+}}

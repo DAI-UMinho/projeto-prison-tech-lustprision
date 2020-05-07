@@ -23,17 +23,18 @@ import java.util.ResourceBundle;
 public class WorkController implements Initializable {
 
     @FXML
-    public static VBox workvbox = null;
+    public  VBox workvbox = null;
     public Label vagastotallbl;
-    public static Label notificationlabel;
+    public  Label notificationlabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         int totalvagas=0;
-        //notificationlabel.setText("");
+
         int sz = Main.sis.works.size();
         System.out.println(sz);
         Node[] nodes = new Node[sz];
+
 
             for(int i = 0 ; i< sz; i++){
                 try{
@@ -54,6 +55,8 @@ public class WorkController implements Initializable {
 
             vagastotallbl.setText(Integer.toString(totalvagas));
         }
+
+
 
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {

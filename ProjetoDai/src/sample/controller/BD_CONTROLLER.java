@@ -250,17 +250,18 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+
             Statement st = con.createStatement();
-            String query = "INSERT INTO PRESS_WORK (ID, PRISIONER_ID, WORK_ID) VALUES (1,"+id+","+idjob+");";
+            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID) VALUES ("+id+","+id+", "+idjob+")";
             ResultSet rs = st.executeQuery(query);
+            System.out.println("CANDIDATURA");
             con.close();
 
 
         } catch (SQLException | ClassNotFoundException e) {
 
             System.out.println(e);
-            System.out.println("Stock indisponivel");
+            System.out.println("Candidatura errada");
 
 
         }
