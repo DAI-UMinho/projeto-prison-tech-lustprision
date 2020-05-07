@@ -1,5 +1,6 @@
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,16 +10,26 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,Dropdown,DropdownToggle,DropdownMenu,
        DropdownItem,Container,InputGroup,InputGroupText,InputGroupAddon,Input} from "reactstrap"
-import routes from "app/shared/layout/sidebar/routes";
+import routes, {adminRoutes} from "app/shared/layout/sidebar/routes";
 import {Button} from "@material-ui/core";
+import {IRootState} from "app/shared/reducers";
+import {getSession, } from "app/shared/reducers/authentication";
 
+export interface IUserHeader extends StateProps, DispatchProps {
+}
 
-const Header = (props) => {
+const Header = (props: IUserHeader) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
   const [color, setColor] = useState("transparent");
 
   const [open, setOpen] = React.useState(false);
+
+  const { account, isAuthenticated } = props;
+
+  useEffect(() => {
+    props.getSession();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,8 +54,15 @@ const Header = (props) => {
   };
 
   const getBrand = () => {
-    let brandName = "Default Brand";
+    let brandName = "";
     routes.map((prop, key) => {
+      if (window.location.href.includes(prop.layout + prop.path)) {
+        brandName = prop.name;
+      }
+      return null;
+    });
+
+    adminRoutes.map((prop, key) => {
       if (window.location.href.includes(prop.layout + prop.path)) {
         brandName = prop.name;
       }
@@ -123,11 +141,7 @@ const Header = (props) => {
             >
 
               <Nav navbar>
-                <Dropdown
-                  nav
-                  isOpen={dropdownOpen}
-                  toggle={e => dropdownToggle(e)}
-                >
+  {/*              <Dropdown nav isOpen={dropdownOpen} toggle={e => dropdownToggle(e)}>
                   <DropdownToggle caret nav>
                     <i className="nc-icon nc-bell-55"/>
                     <p>
@@ -139,7 +153,12 @@ const Header = (props) => {
                     <DropdownItem tag="a">Another Action</DropdownItem>
                     <DropdownItem tag="a">Something else here</DropdownItem>
                   </DropdownMenu>
-                </Dropdown>
+                </Dropdown>*/}
+                {account && isAuthenticated ? (<NavItem style={{marginTop: '6px'}} onClick={() => window.location.replace('dashboard/profile')}>
+                  <img src={`data:${account.profileImageContentType};base64,${account.profileImage}`}
+                       style={{width: 32, borderRadius: '50%', float: 'left', marginRight: 10}}/>
+                  <p style={{marginTop: '3px'}}>{`${account.firstName} ${account.lastName}`}</p>
+                </NavItem>) : null}
                 <NavItem>
                   <Link onClick={handleClickOpen} className="nav-link btn-magnify">
                     <ExitToAppIcon />
@@ -173,4 +192,14 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+const mapStateToProps = ({authentication}: IRootState) => ({
+  account: authentication.account,
+  isAuthenticated: authentication.isAuthenticated
+});
+
+const mapDispatchToProps = {getSession};
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

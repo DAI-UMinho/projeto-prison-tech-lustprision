@@ -2,6 +2,7 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.QuestionQuiz;
 import com.lustprision.admin.repository.QuestionQuizRepository;
+import com.lustprision.admin.service.dto.QuestionResultDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;

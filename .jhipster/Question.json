@@ -12,6 +12,18 @@
         {
             "fieldName": "answer",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "wrongAnswer1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "wrongAnswer2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "wrongAnswer3",
+            "fieldType": "String"
         }
     ],
     "relationships": [
@@ -31,5 +43,7 @@
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

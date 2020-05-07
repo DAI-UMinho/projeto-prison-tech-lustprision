@@ -4157,6 +4157,15 @@ License - nucleoapp.com/license/
   cursor: pointer;
 }
 
+.card-hover .card-new .card-body:hover {
+  background-color: #70c05c;
+  border-radius: 12px;
+}
+
+.card-hover .card-new .card-body:hover svg {
+  color: #ffffff;
+}
+
 .card-tasks .card-body .table > thead > tr > th,
 .card-tasks .card-body .table > tbody > tr > th,
 .card-tasks .card-body .table > tfoot > tr > th,
@@ -4408,7 +4417,7 @@ License - nucleoapp.com/license/
   line-height: 30px;
   width: 34px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(0, 0, 0);
   position: relative;
 }
 .sidebar .nav p,
@@ -4543,6 +4552,12 @@ License - nucleoapp.com/license/
 .off-canvas-sidebar[data-color='white']:after {
   background: #ffffff;
 }
+
+.sidebar[data-color='blue']:after,
+.off-canvas-sidebar[data-color='blue']:after {
+  background: #0068cf;
+}
+
 .sidebar[data-color='white'] .nav li a,
 .sidebar[data-color='white'] .nav li a i,
 .sidebar[data-color='white'] .nav li a[data-toggle='collapse'],
@@ -5281,6 +5296,14 @@ License - nucleoapp.com/license/
   padding-top: 0;
 }
 
+.card-user .card-body .complete-cancel {
+  margin-top: 30px;
+}
+
+.card-user .card-body .new-sub {
+  margin-top: 15px;
+}
+
 .card-user .card-footer h5 {
   font-size: 1.25em;
   margin-bottom: 0;
@@ -5327,6 +5350,43 @@ License - nucleoapp.com/license/
   min-height: 64px;
 }
 .card-stats .icon-big i {
+  line-height: 59px;
+}
+
+.card-new .card-body {
+  padding: 15px 15px 0px;
+  border-radius: 12px;
+  background-color: #6db65b;
+}
+.card-new .card-body .numbers {
+  text-align: right;
+  font-size: 2em;
+}
+.card-new .card-body .numbers p {
+  margin-bottom: 0;
+}
+.card-new .card-body .numbers .card-category {
+  color: #9a9a9a;
+  font-size: 16px;
+  line-height: 1.4em;
+}
+
+.card-new .card-footer {
+  padding: 0px 15px 15px;
+}
+.card-new .card-footer .stats {
+  color: #9a9a9a;
+}
+.card-new .card-footer hr {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.card-new .icon-big {
+  font-size: 3em;
+  min-height: 64px;
+}
+.card-new .icon-big i {
   line-height: 59px;
 }
 

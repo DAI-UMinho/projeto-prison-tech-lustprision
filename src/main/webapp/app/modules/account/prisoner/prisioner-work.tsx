@@ -12,7 +12,9 @@ import MaterialTable, {Column} from "material-table";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import StateBox from "app/components/StateBox";
+import {StateBox} from "app/components/StateBox";
+import {useTheme} from "@material-ui/core/styles";
+import {useMediaQuery} from "@material-ui/core";
 
 const MySwal = withReactContent(Swal);
 
@@ -24,6 +26,9 @@ export interface IPrisionerWorkProps extends StateProps, DispatchProps, RouteCom
 }
 
 export const PrisionerWork = (props: IPrisionerWorkProps) => {
+  const theme = useTheme();
+  const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 8;
+
   const [data, setData] = useState([]);
   const {prisionerWorks, updateSuccess, workJob, worksReloading, workStats} = props;
 
@@ -65,14 +70,15 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
 
   return (
     <Row className="justify-content-center">
-      <Col md="8">
+      <Col md={colN}>
         <Card className="card-user justify-content-center">
             <MaterialTable
               title="Trabalhos Realizados"
               columns={state.columns}
               data={prisionerWorks}
               isLoading={worksReloading}
-              onRowClick={((evt, selectedRow) => {})}
+              onRowClick={((evt, selectedRow) =>
+                window.location.replace(`dashboard/works/${selectedRow.id}`))}
               options={{
                 headerStyle: {
                   backgroundColor: '#8a8a8a',

@@ -45,6 +45,15 @@ export const Question = (props: IQuestionProps) => {
                 <th>
                   <Translate contentKey="lustPrisionApp.question.answer">Answer</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.question.wrongAnswer1">Wrong Answer 1</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.question.wrongAnswer2">Wrong Answer 2</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lustPrisionApp.question.wrongAnswer3">Wrong Answer 3</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -59,6 +68,9 @@ export const Question = (props: IQuestionProps) => {
                   <td>{question.question}</td>
                   <td>{question.value}</td>
                   <td>{question.answer}</td>
+                  <td>{question.wrongAnswer1}</td>
+                  <td>{question.wrongAnswer2}</td>
+                  <td>{question.wrongAnswer3}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${question.id}`} color="info" size="sm">

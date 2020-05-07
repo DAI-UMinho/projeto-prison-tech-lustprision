@@ -16,9 +16,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Ellipsis } from 'react-spinners-css';
 import {LinearProgress, useMediaQuery} from "@material-ui/core";
 import {TextFormat, Translate} from "react-jhipster";
-import StateBox from "app/components/StateBox";
+import {StateBox} from "app/components/StateBox";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content'
+import CardNewButton from "app/components/CardNewButton";
 
 const MySwal = withReactContent(Swal);
 
@@ -196,29 +197,7 @@ export const Works = (props: IWorkProps) => {
           </CardBody>
         </Card>
       </Col>
-      <Col lg={mStatCol} md="6" sm="6">
-        <div className="card-hover" onClick={() => props.history.push(match.url + '/new')}>
-          <Card className="card-stats">
-            <CardBody style={{backgroundColor: "#6DB65B", borderRadius: '12px'}}>
-              <Row>
-                <Col md="4" xs="5">
-                  <div className="icon-big text-center">
-                    <FontAwesomeIcon style={{color: "#284a25"}} icon={faPlusCircle}/>
-                  </div>
-                </Col>
-                <Col md="8" xs="7">
-                  <div className="numbers">
-                    <CardTitle tag="p" style={{color: '#ffffff'}}>
-                      <Translate contentKey="lustPrisionApp.work.home.newCard">Work</Translate>
-                    </CardTitle>
-                    <p/>
-                  </div>
-                </Col>
-              </Row>
-            </CardBody>
-          </Card>
-        </div>
-      </Col>
+      <CardNewButton cardClick={() => props.history.push(match.url + '/new')} cardTitle={"Trabalho"}/>
     </Row>
       <hr/>
     <Row className="justify-content-center">

@@ -6,6 +6,7 @@ import sample.model.Prisioneiro;
 public class SESSION {
     public Prisioneiro nowusing;
     SHOPLIST shoplist = new SHOPLIST();
+
     //int balance=0; // resultado das compras do recluso para no fim da sessão ajustar o valor na BD
     boolean started = false;
 
@@ -30,6 +31,9 @@ public class SESSION {
         }
     }
 
+    public void applyJOB(int id, int idjob){
+        BD_CONTROLLER.applyjob(id,idjob);
+    }
 
     public String finishShopping() {
         //checkar se há stock para vender

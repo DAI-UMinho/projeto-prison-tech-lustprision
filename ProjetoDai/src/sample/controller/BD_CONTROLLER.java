@@ -83,6 +83,41 @@ public class BD_CONTROLLER {
 
     }
 
+    //ADICIONAMOS ESTA FUNCAO PARA OS TESTES
+    public static ArrayList<Prisioneiro> getPrisioners() {
+
+        ArrayList<Prisioneiro> output = new ArrayList();
+
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM PRISIONER");
+
+            while (rs.next()) {
+
+                Prisioneiro x = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
+
+
+
+                output.add(x);
+            }
+            con.close();
+            //System.out.println("Trabalhos sairam da BD");
+            return output;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            //System.out.println("Conexão sem sucesso");
+
+            return null;
+        }
+
+
+    }
+
    //teste 12 12
     public static int getPrisionerPIN(int ID) {
 
@@ -208,6 +243,33 @@ public class BD_CONTROLLER {
 
 
     }
+
+    //return void pendente
+    public static void applyjob(int id, int idjob){
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            String query = "INSERT INTO PRESS_WORK (ID, PRISIONER_ID, WORK_ID) VALUES (1,"+id+","+idjob+");";
+            ResultSet rs = st.executeQuery(query);
+            con.close();
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+            System.out.println(e);
+            System.out.println("Stock indisponivel");
+
+
+        }
+
+
+    }
+
+
+
 
 
 

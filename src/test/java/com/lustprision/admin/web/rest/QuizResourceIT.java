@@ -3,6 +3,7 @@ package com.lustprision.admin.web.rest;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.Quiz;
 import com.lustprision.admin.repository.QuizRepository;
+import com.lustprision.admin.service.QuizService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,9 @@ public class QuizResourceIT {
     private QuizRepository quizRepository;
 
     @Autowired
+    private QuizService quizService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -61,7 +65,7 @@ public class QuizResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final QuizResource quizResource = new QuizResource(quizRepository);
+        final QuizResource quizResource = new QuizResource(quizRepository, quizService);
         this.restQuizMockMvc = MockMvcBuilders.standaloneSetup(quizResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -149,7 +153,7 @@ public class QuizResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(quiz.getId().intValue())))
             .andExpect(jsonPath("$.[*].qtyQuestion").value(hasItem(DEFAULT_QTY_QUESTION)));
     }
-    
+
     @Test
     @Transactional
     public void getQuiz() throws Exception {

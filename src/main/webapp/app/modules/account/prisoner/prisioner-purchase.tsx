@@ -12,37 +12,15 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import {makeStyles, useTheme, withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import MaterialTable, {Column} from "material-table";
 import PurchaseDetailDialog from "app/modules/account/prisoner/prisioner-purchase-details";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {TextFormat} from "react-jhipster";
+import {useMediaQuery} from "@material-ui/core";
 
-/*const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-}))(TableRow);
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-});*/
 interface TableState {
   columns: Array<Column<any>>;
 }
@@ -53,6 +31,9 @@ export interface IPrisionerPurchaseProps extends StateProps, DispatchProps, Rout
 }
 
 export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
+  const theme = useTheme();
+  const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 8;
+
   const [selectedID, setSelectedID] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('AMERICA');
@@ -98,7 +79,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
 
   return (
     <Row className="justify-content-center">
-      <Col md="8">
+      <Col md={colN}>
         <Card className="card-user justify-content-center">
           <MaterialTable
             title="Compras Efetuadas"

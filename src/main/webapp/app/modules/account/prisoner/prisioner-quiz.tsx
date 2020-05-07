@@ -9,6 +9,8 @@ import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {useTheme} from "@material-ui/core/styles";
+import {useMediaQuery} from "@material-ui/core";
 
 const MySwal = withReactContent(Swal);
 
@@ -20,6 +22,9 @@ interface TableState {
 }
 
 export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
+  const theme = useTheme();
+  const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 8;
+
   const { prisionerQuizs } = props;
   const [state, setState] = React.useState<TableState>({
     columns: [
@@ -34,7 +39,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
 
   return (
     <Row className="justify-content-center">
-      <Col md="8">
+      <Col md={colN}>
         <Card className="card-user justify-content-center">
           <MaterialTable
             title="Todos os Quizs"

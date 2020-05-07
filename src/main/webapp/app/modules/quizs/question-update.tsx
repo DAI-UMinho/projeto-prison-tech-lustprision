@@ -24,6 +24,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {createEntity, updateEntity} from "app/modules/quizs/question.reducer";
 import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
+import {instanceOf, number} from "prop-types";
 
 
 const styles = (theme: Theme) =>
@@ -106,11 +107,17 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
   const [items, setItems] = useState([]);
   const {onClose, question, open} = props;
 
-  const [isNew, setIsNew] = useState(question.answer ? false : true);
+  const [isNew, setIsNew] = useState();
 
   const handleClose = () => {
     onClose('a');
   };
+
+  useEffect(() => {
+    if(open){
+      setIsNew(question === undefined);
+    }
+  }, [open]);
 
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
@@ -120,7 +127,6 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
       };
 
       if (isNew) {
-        console.log("Creating...");
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -131,8 +137,6 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
   const handleListItemClick = (value: string) => {
     onClose(value);
   };
-
-  console.log(isNew);
 
   return (
       <Dialog onClose={handleClose} maxWidth={false} aria-labelledby="customized-dialog-title" open={open}>
@@ -160,6 +164,24 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
                 <Translate contentKey="lustPrisionApp.question.answer">Answer</Translate>
               </Label>
               <AvField id="question-answer" type="text" name="answer" />
+            </AvGroup>
+            <AvGroup>
+              <Label id="wrongAnswer1Label" for="question-wrongAnswer1">
+                <Translate contentKey="lustPrisionApp.question.wrongAnswer1">Wrong Answer 1</Translate>
+              </Label>
+              <AvField id="question-wrongAnswer1" type="text" name="wrongAnswer1" />
+            </AvGroup>
+            <AvGroup>
+              <Label id="wrongAnswer2Label" for="question-wrongAnswer2">
+                <Translate contentKey="lustPrisionApp.question.wrongAnswer2">Wrong Answer 2</Translate>
+              </Label>
+              <AvField id="question-wrongAnswer2" type="text" name="wrongAnswer2" />
+            </AvGroup>
+            <AvGroup>
+              <Label id="wrongAnswer3Label" for="question-wrongAnswer3">
+                <Translate contentKey="lustPrisionApp.question.wrongAnswer3">Wrong Answer 3</Translate>
+              </Label>
+              <AvField id="question-wrongAnswer3" type="text" name="wrongAnswer3" />
             </AvGroup>
             &nbsp;
             <Button color="primary" id="save-entity" type="submit">

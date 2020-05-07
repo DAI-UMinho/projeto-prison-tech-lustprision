@@ -26,6 +26,22 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       fontWeight: 700
     },
+    quizBase:{
+      height:' 28px',
+      display: 'inline-flex',
+      padding: '4px 8px',
+      flexGrow: 0,
+      fontSize: '14px',
+      minWidth: '20px',
+      alignItems: 'center',
+      flexShrink: 0,
+      lineHeight: '10px',
+      whiteSpace: 'nowrap',
+      borderRadius: '2px',
+      justifyContent: 'center',
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 700
+    },
     pending: {
       border: '1px solid rgb(227,167,67)',
       color: 'rgb(227,167,67)',
@@ -47,7 +63,12 @@ interface StateBoxState{
   stateID: number
 }
 
-const StateBox = (props: StateBoxState) => {
+interface QuizBoxState{
+  correctAnswers: number
+  nQuestions: number
+}
+
+export const StateBox = (props: StateBoxState) => {
   const classes = useStyles();
   const { boxText, stateID } = props;
 
@@ -70,4 +91,28 @@ const StateBox = (props: StateBoxState) => {
   );
 };
 
-export default StateBox;
+export const QuizBox = (props: QuizBoxState) => {
+  const classes = useStyles();
+  const { correctAnswers, nQuestions } = props;
+
+  const getColorByCorrectAnswers = (id) => {
+    switch (id) {
+      case 0:
+      case 1:
+      case 2:
+        return classes.canceled;
+      case 2:
+      case 3:
+      case 4:
+        return classes.pending;
+      case 5:
+        return classes.completed;
+    }
+  };
+
+  return (
+    <span className={`${classes.quizBase} ${getColorByCorrectAnswers(correctAnswers)}`}>
+      {`${correctAnswers}  /  ${nQuestions}`}
+    </span>
+  );
+};

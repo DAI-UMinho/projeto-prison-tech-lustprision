@@ -39,7 +39,7 @@ import work, {
 // prettier-ignore
 import quiz, {
   QuizState
-} from 'app/entities/quiz/quiz.reducer';
+} from 'app/modules/quizs/quiz.reducer';
 // prettier-ignore
 import question, {
   QuestionState

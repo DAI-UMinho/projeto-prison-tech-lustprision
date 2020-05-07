@@ -2,16 +2,11 @@ package com.lustprision.admin.web.rest;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lustprision.admin.LustPrisionApp;
-import com.lustprision.admin.domain.PressWork;
-import com.lustprision.admin.domain.Prisioner;
-import com.lustprision.admin.domain.Purchase;
-import com.lustprision.admin.domain.Work;
-import com.lustprision.admin.repository.PressWorkRepository;
-import com.lustprision.admin.repository.PrisionerRepository;
-import com.lustprision.admin.repository.PurchaseRepository;
-import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.domain.*;
+import com.lustprision.admin.repository.*;
 import com.lustprision.admin.service.PrisionerService;
 import com.lustprision.admin.service.dto.PurchaseDTO;
+import com.lustprision.admin.service.dto.QuizDTO;
 import com.lustprision.admin.service.dto.WorkDTO;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -89,6 +84,10 @@ public class PrisionerResourceIT {
     private WorkRepository workRepository;
     @Autowired
     private PressWorkRepository pressworkRepository;
+    @Autowired
+    private QuizRepository quizRepository;
+    @Autowired
+    private PrisQuizRepository presQuizRepository;
     @Autowired
     private PrisionerService prisionerService;
 
@@ -199,8 +198,9 @@ public class PrisionerResourceIT {
         assertThat(testPrisioner.getProfileImageContentType()).isEqualTo(DEFAULT_PROFILE_IMAGE_CONTENT_TYPE);
 //        assertThat(testPrisioner.getNfcCode()).isEqualTo(DEFAULT_NFC_CODE);
 //        assertThat(testPrisioner.getCodigoCartao()).isEqualTo(DEFAULT_CODIGO_CARTAO);
-        System.out.println(prisioner.toString());
+        System.out.println(testPrisioner.toString());
     }
+
 
     @Test
     @Transactional
@@ -377,21 +377,17 @@ public class PrisionerResourceIT {
         Purchase Testee =  PurchaseResourceIT.createEntity(em);
         Teste.setPurchaseTotal((double) 12l);
         Teste.setPrisioner(prisioner);
-        List<PurchaseDTO> purchaseList = new ArrayList<>();
-        purchaseList.add(new PurchaseDTO(Teste));
-        purchaseList.add(new PurchaseDTO(Testee));
+
         purchaseRepository.saveAndFlush(Teste);
         restPrisionerMockMvc.perform(get("/api/prisioners/{id}/purchases", prisioner.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(Teste.getId().intValue())));
         assertThat(Teste.getPurchaseTotal()).isNotEqualTo(12.50d);
-        System.out.println(purchaseList.isEmpty());
         System.out.println(prisioner.getId());
         System.out.println(Teste.getId());
-        System.out.println(purchaseList.size());
-        System.out.println(purchaseList.contains(Teste));
-        System.out.println(prisionerService.getPrisionerPurchases(prisioner.getId()));
+
+        System.out.println(prisionerService.getPrisionerPurchases(prisioner.getId()).toString());
     }
 
 
@@ -403,13 +399,12 @@ public class PrisionerResourceIT {
         prisionerRepository.saveAndFlush(prisioner);
         PressWork nome = PressWorkResourceIT.createEntity(em);
         Work trabalho =  WorkResourceIT.createEntity(em);
-      List<WorkDTO> workList = new ArrayList<>();
 
-        workList.add(new WorkDTO(trabalho));
         nome.setPrisioner(prisioner);
         nome.setWork(trabalho);
         workRepository.saveAndFlush(trabalho);
         pressworkRepository.saveAndFlush(nome);
+        System.out.println(nome.getWork());
 
         restPrisionerMockMvc.perform(get("/api/prisioners/{id}/work", prisioner.getId()))
 
@@ -419,5 +414,31 @@ public class PrisionerResourceIT {
         System.out.println(prisionerService.getPrisionerWork((long) 1001));
 
     }
+    @Test
+    @Transactional
+    public void getPrisionerQuiz() throws Exception {
+        // Initialize the database
+        prisionerRepository.saveAndFlush(prisioner);
+        Quiz quiz = QuizResourceIT.createEntity(em);
+        PrisQuiz prizQuiz =  PrisQuizResourceIT.createEntity(em);
+        prizQuiz.setQuiz(quiz);
+        prizQuiz.setPrisioner(prisioner);
+
+
+        quizRepository.saveAndFlush(quiz);
+        presQuizRepository.saveAndFlush(prizQuiz);
+
+        System.out.println(prizQuiz.getQuiz());
+
+        restPrisionerMockMvc.perform(get("/api/prisioners/{id}/quizs", prisioner.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(quiz.getId().intValue())))
+            .andExpect(jsonPath("$.[*].qtyQuestion").value(hasItem(quiz.getQtyQuestion().intValue())));
+
+               System.out.println(prisionerService.getPrisionerQuizs(prisioner.getId()).toString());
+
+    }
+
 }
 

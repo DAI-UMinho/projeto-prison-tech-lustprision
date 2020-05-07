@@ -177,7 +177,8 @@ public class UserService {
      * @param langKey   language key.
      * @param imageUrl  image URL of user.
      */
-    public void updateUser(String firstName, String lastName, String email, String login, String langKey, String imageUrl) {
+    public void updateUser(String firstName, String lastName, String email, String login, String langKey, String imageUrl,
+                           byte[] profileImage, String profileImageContentType) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
@@ -189,6 +190,8 @@ public class UserService {
                 user.setLogin(login);
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
+                user.setProfileImage(profileImage);
+                user.setProfileImageContentType(profileImageContentType);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });

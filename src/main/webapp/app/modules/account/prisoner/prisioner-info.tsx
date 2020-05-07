@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
 import {AvForm, AvField, AvGroup, AvInput} from 'availity-reactstrap-validation';
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle} from 'reactstrap';
-import {Translate, ICrudGetAllAction, TextFormat, translate, setFileData, openFile} from 'react-jhipster';
+import {Translate, translate, setFileData, openFile} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import {IRootState} from 'app/shared/reducers';
@@ -42,7 +42,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   const {prisionerEntity, loading, updating} = props;
   const {profileImage, profileImageContentType} = prisionerEntity;
 
-  const [nfcCode, setNfcCode] = useState(prisionerEntity.nfcCode);
+  const [nfcCode, setNfcCode] = useState(isNew? '' : prisionerEntity.nfcCode);
 
   const updatePassword = event => setPassword(event.target.value);
 
@@ -194,8 +194,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                 </AvGroup>
                 <AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.bi">Bi</Translate>
-                  <AvField id="prisioner-bi" type="text" className="form-control" name="bi"
-                           value={prisionerEntity.bi}
+                  <AvField id="prisioner-bi" type="number" className="form-control" name="bi"
                            validate={{
                              number: true,
                              required: {
@@ -216,7 +215,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                   <Translate contentKey="lustPrisionApp.prisioner.nfcCode">NFC Code</Translate>
                   <Row>
                     <Col xs="12" sm="11">
-                      <AvField id="prisioner-bi" type="text" className="form-control" name="nfcCode"
+                      <AvField id="prisioner-nfcCode" type="text" className="form-control" name="nfcCode"
                                value={nfcCode}
                                validate={{
                                  number: true,
@@ -241,8 +240,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                   <Translate contentKey="lustPrisionApp.prisioner.pinCode">PIN</Translate>
                   <Row>
                     <Col xs="12" sm="11">
-                      <AvField id="prisioner-password" type={passwordType} name="codigoCartao"
-                               value={prisionerEntity.codigoCartao}
+                      <AvField id="prisioner-pin" type={passwordType} name="codigoCartao"
                                validate={{
                                  number: true,
                                  required: {
@@ -262,7 +260,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                     <VisibilityIcon onClick={eyeClick} className={classes.eyeButton} color={eyeColor}/>
                   </Row>
                 </AvGroup>
-                <AvField id="prisioner-password" type="hidden" name="balance" value="0"/>
+                <AvField id="prisioner-balance" type="hidden" name="balance" value="0"/>
                 <Button tag={Link} id="cancel-save" to="/dashboard/prisoners" replace color="info">
                   <FontAwesomeIcon icon="arrow-left"/>
                   &nbsp;
@@ -285,11 +283,11 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   );
 };
 
-const mapStateToProps = (storeState: IRootState) => ({
-  prisionerEntity: storeState.prisioner.entity,
-  loading: storeState.prisioner.loading,
-  updating: storeState.prisioner.updating,
-  updateSuccess: storeState.prisioner.updateSuccess
+const mapStateToProps = ({prisioner}: IRootState) => ({
+  prisionerEntity: prisioner.entity,
+  loading: prisioner.loading,
+  updating: prisioner.updating,
+  updateSuccess: prisioner.updateSuccess
 });
 
 const mapDispatchToProps = {reset, setBlob, updateEntity, createEntity};

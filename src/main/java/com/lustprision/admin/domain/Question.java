@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,15 @@ public class Question implements Serializable {
 
     @Column(name = "answer")
     private String answer;
+
+    @Column(name = "wrong_answer_1")
+    private String wrongAnswer1;
+
+    @Column(name = "wrong_answer_2")
+    private String wrongAnswer2;
+
+    @Column(name = "wrong_answer_3")
+    private String wrongAnswer3;
 
     @OneToMany(mappedBy = "question")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -85,6 +95,45 @@ public class Question implements Serializable {
         this.answer = answer;
     }
 
+    public String getWrongAnswer1() {
+        return wrongAnswer1;
+    }
+
+    public Question wrongAnswer1(String wrongAnswer1) {
+        this.wrongAnswer1 = wrongAnswer1;
+        return this;
+    }
+
+    public void setWrongAnswer1(String wrongAnswer1) {
+        this.wrongAnswer1 = wrongAnswer1;
+    }
+
+    public String getWrongAnswer2() {
+        return wrongAnswer2;
+    }
+
+    public Question wrongAnswer2(String wrongAnswer2) {
+        this.wrongAnswer2 = wrongAnswer2;
+        return this;
+    }
+
+    public void setWrongAnswer2(String wrongAnswer2) {
+        this.wrongAnswer2 = wrongAnswer2;
+    }
+
+    public String getWrongAnswer3() {
+        return wrongAnswer3;
+    }
+
+    public Question wrongAnswer3(String wrongAnswer3) {
+        this.wrongAnswer3 = wrongAnswer3;
+        return this;
+    }
+
+    public void setWrongAnswer3(String wrongAnswer3) {
+        this.wrongAnswer3 = wrongAnswer3;
+    }
+
     public Set<QuestionQuiz> getIds() {
         return ids;
     }
@@ -134,6 +183,9 @@ public class Question implements Serializable {
             ", question='" + getQuestion() + "'" +
             ", value=" + getValue() +
             ", answer='" + getAnswer() + "'" +
+            ", wrongAnswer1='" + getWrongAnswer1() + "'" +
+            ", wrongAnswer2='" + getWrongAnswer2() + "'" +
+            ", wrongAnswer3='" + getWrongAnswer3() + "'" +
             "}";
     }
 }

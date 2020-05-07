@@ -33,16 +33,9 @@ public class WorkService {
         List<WorkSubsDTO> subs = new ArrayList<>();
         workRepository.findById(id).ifPresent(work ->
             pressWorkRepository.getAllByWork(work).forEach(pressWork -> {
-                WorkSubsDTO sub = new WorkSubsDTO();
-                sub.setPressID(pressWork.getId());
-                sub.setPressState(pressWork.getState().getId());
-                sub.setStateName(pressWork.getState().getName());
-                sub.setPrisonerName(pressWork.getPrisioner().getName());
-                sub.setPrisonerImage(pressWork.getPrisioner().getProfileImage());
-                sub.setPrisonerImageContentType(pressWork.getPrisioner().getProfileImageContentType());
+                WorkSubsDTO sub = new WorkSubsDTO(pressWork);
                 subs.add(sub);
             }));
-
         return subs;
     }
 }

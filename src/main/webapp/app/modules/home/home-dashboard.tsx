@@ -16,7 +16,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import {AiOutlineUser} from "react-icons/ai";
 // react plugin used to create charts
 import { Line, Pie } from "react-chartjs-2";
 // reactstrap components
@@ -29,6 +30,8 @@ import {
   Row,
   Col
 } from "reactstrap";
+import axios from "axios";
+import {IPrisioner} from "app/shared/model/prisioner.model";
 
 export const test = {labels: [
     "Jan",
@@ -118,9 +121,42 @@ export const test3 = {
       pointBorderWidth: 8
     }]
 }
+const apiUrl = 'api/prisioners';
+const apiUrlTrabalho = 'api/works';
+const apiUrlProdutos = 'api/products';
+const apiUrlVendas = 'api/purchases';
 
 const HDashboard = (props) => {
-    return (
+
+  const [countainerPrisioneiros, setCount] = useState(0);
+  useEffect(() => {
+    const comp = axios.get(`${apiUrl}`);
+    comp.then(result => setCount(result.data.length));
+  },[]);
+
+  const [countainerTrabalhos, setCount1] = useState(0);
+  useEffect(() => {
+    const comp1 = axios.get(`${apiUrlTrabalho}`);
+    comp1.then(result => setCount1(result.data.length));
+  },[]);
+
+  const [countainerProdutos, setCount2] = useState(0);
+  useEffect(() => {
+    const comp2 = axios.get(`${apiUrlProdutos}`);
+    comp2.then(result => {setCount2(result.data.length)
+    //console.log(result) //ver (daniel)
+      });
+  },[]);
+
+  const [countainerVendas, setCount3] = useState(0);
+  useEffect(() => {
+    const comp3 = axios.get(`${apiUrlVendas}`);
+    comp3.then(result => {setCount3(result.data.length)
+      //console.log(result) //ver (daniel)
+    });
+  },[]);
+
+  return (
         <div>
           <Row>
             <Col lg="3" md="6" sm="6">
@@ -129,13 +165,13 @@ const HDashboard = (props) => {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-globe text-warning" />
+                        <i className="nc-icon nc-user-run text-warning" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">Capacity</p>
-                        <CardTitle tag="p">150GB</CardTitle>
+                        <p className="card-category">Presidiários no Estabelecimento:</p>
+                        <CardTitle tag="p">{countainerPrisioneiros}</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -144,7 +180,7 @@ const HDashboard = (props) => {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update Now
+                    <i className="fas fa-sync-alt" />Numero de presidiários detidos neste establecimento prisional
                   </div>
                 </CardFooter>
               </Card>
@@ -155,13 +191,13 @@ const HDashboard = (props) => {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-money-coins text-success" />
+                        <i className="nc-icon nc-badge text-success" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">Revenue</p>
-                        <CardTitle tag="p">$ 1,345</CardTitle>
+                        <p className="card-category">Trabalhos disponiveis:</p>
+                        <CardTitle tag="p">{countainerTrabalhos}</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -170,7 +206,7 @@ const HDashboard = (props) => {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="far fa-calendar" /> Last day
+                    <i className="fas fa-sync-alt" />Quantidade de trabalhos para os presidiários realizarem
                   </div>
                 </CardFooter>
               </Card>
@@ -181,13 +217,13 @@ const HDashboard = (props) => {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-vector text-danger" />
+                        <i className="nc-icon nc-cart-simple text-danger" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">Errors</p>
-                        <CardTitle tag="p">23</CardTitle>
+                        <p className="card-category">Produtos na loja:</p>
+                        <CardTitle tag="p">{countainerProdutos}</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -196,7 +232,7 @@ const HDashboard = (props) => {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="far fa-clock" /> In the last hour
+                    <i className="fas fa-sync-alt" />Quantidade de produtos disponiveis para venda
                   </div>
                 </CardFooter>
               </Card>
@@ -207,13 +243,13 @@ const HDashboard = (props) => {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-favourite-28 text-primary" />
+                        <i className="nc-icon nc-bag-16 text-primary" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">Followers</p>
-                        <CardTitle tag="p">+45K</CardTitle>
+                        <p className="card-category">Vendas:</p>
+                        <CardTitle tag="p">{countainerVendas}</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -222,7 +258,7 @@ const HDashboard = (props) => {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update now
+                    <i className="fas fa-sync-alt" />Total de produtos vendidos na loja virtual deste estabelecimento prisional
                   </div>
                 </CardFooter>
               </Card>

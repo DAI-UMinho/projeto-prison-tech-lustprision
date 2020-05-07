@@ -35,7 +35,7 @@ const Dashboard = (props: IDashboardProps) => {
   return (
     <div className="wrapper">
       <Sidebar
-        bgColor='black'
+        bgColor='blue'
         activeColor='info'
         routes={routes}
         admin={adminRoutes}
@@ -43,7 +43,7 @@ const Dashboard = (props: IDashboardProps) => {
       />
      <Scrollbars>
       <div className="main-panel ps" style={{paddingTop}}>
-        <Header />
+        <Header {...props}/>
         <div className="content content-padding">
           <Switch>
             <PrivateRoute path={`${currentRoute.url}/profile`} component={User} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
