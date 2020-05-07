@@ -5,13 +5,16 @@ import sample.Main;
 import sample.controller.BD_CONTROLLER;
 import sample.controller.WORK_TB;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrabalhoTest {
+
+    static String dburl = "jdbc:oracle:thin:@//193.136.11.147:1521/lustdb2";
+    static String dbusername = "system";
+    static String dbpassword = "DBpassword#1";
 
     @Test
     void getVagasTrabalhos() {
@@ -66,8 +69,36 @@ class TrabalhoTest {
     }
 
     @Test
-    void escolherTrabalho() {
-        //FAZER DEPOIS, ASSOCIAR PRISIONEIRO A TRABALHO
-    }
+    void inscricaoTrabalho() {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            String query1 = "Select ID FROM PRISIONER WHERE ROWNUM <= 1";
+            ResultSet rs = st.executeQuery(query1);
+            rs.next();
+            System.out.println(rs.getInt("ID"));
 
+            String query2 = "Select ID, NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE ROWNUM <= 1";
+            ResultSet result = st.executeQuery(query2);
+            result.next();
+            int vagas = result.getInt("NUM_REMAINING_ENTRIES");
+            System.out.println(vagas);
+            System.out.println(result.getInt("ID"));
+
+            BD_CONTROLLER.applyjob(rs.getInt("ID"),result.getInt("ID"));
+
+            String query3 = "Select NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE  ID = " + Integer.toString(result.getInt("NUM_REMAINING_ENTRIES"));
+            ResultSet result2 = st.executeQuery(query2);
+            result2.next();
+            int vagas2 = result.getInt("NUM_REMAINING_ENTRIES");
+            System.out.println(vagas2);
+
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+        }
+    }
 }
