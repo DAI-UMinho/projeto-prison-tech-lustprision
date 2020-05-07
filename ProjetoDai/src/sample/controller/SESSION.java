@@ -31,10 +31,8 @@ public class SESSION {
         }
     }
 
-    public void applyJOB(){
-
-
-
+    public void applyJOB(int id, int idjob){
+        BD_CONTROLLER.applyjob(id,idjob);
     }
 
     public String finishShopping() {
