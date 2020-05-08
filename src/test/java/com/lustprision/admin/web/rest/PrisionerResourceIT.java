@@ -34,6 +34,7 @@ import static com.lustprision.admin.web.rest.TestUtil.createFormattingConversion
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -377,13 +378,15 @@ public class PrisionerResourceIT {
         Purchase Testee =  PurchaseResourceIT.createEntity(em);
         Teste.setPurchaseTotal((double) 12l);
         Teste.setPrisioner(prisioner);
-
+        Testee.setPrisioner(prisioner);
         purchaseRepository.saveAndFlush(Teste);
+        purchaseRepository.saveAndFlush(Testee);
         restPrisionerMockMvc.perform(get("/api/prisioners/{id}/purchases", prisioner.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(Teste.getId().intValue())));
-        assertThat(Teste.getPurchaseTotal()).isNotEqualTo(12.50d);
+            .andExpect(jsonPath("$.[*].id").value(hasItem(Teste.getId().intValue())))
+            .andExpect(jsonPath("$.[*].purchaseTotal").value(hasItem(Teste.getPurchaseTotal().doubleValue())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(Teste.getDate().toString())));
         System.out.println(prisioner.getId());
         System.out.println(Teste.getId());
 
@@ -397,21 +400,25 @@ public class PrisionerResourceIT {
     public void  getPrisionerWork() throws Exception {
         // Initialize the database
         prisionerRepository.saveAndFlush(prisioner);
-        PressWork nome = PressWorkResourceIT.createEntity(em);
         Work trabalho =  WorkResourceIT.createEntity(em);
+        PressWork pressWork = PressWorkResourceIT.createEntity(em);
 
-        nome.setPrisioner(prisioner);
-        nome.setWork(trabalho);
+        pressWork .setWork(trabalho);
+        pressWork .setPrisioner(prisioner);
+
+
         workRepository.saveAndFlush(trabalho);
-        pressworkRepository.saveAndFlush(nome);
-        System.out.println(nome.getWork());
+        pressworkRepository.saveAndFlush(pressWork );
+        System.out.println(pressWork.getWork());
+
 
         restPrisionerMockMvc.perform(get("/api/prisioners/{id}/work", prisioner.getId()))
 
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(trabalho.getId().intValue())));
-        System.out.println(prisionerService.getPrisionerWork((long) 1001));
+        System.out.println(prisionerService.getPrisionerWork(prisioner.getId()).toString());
+
 
     }
     @Test

@@ -1,8 +1,14 @@
 package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.LustPrisionApp;
+import com.lustprision.admin.domain.PressProduct;
+import com.lustprision.admin.domain.Prisioner;
 import com.lustprision.admin.domain.Product;
+import com.lustprision.admin.domain.Purchase;
+import com.lustprision.admin.repository.PressProductRepository;
+import com.lustprision.admin.repository.PrisionerRepository;
 import com.lustprision.admin.repository.ProductRepository;
+import com.lustprision.admin.repository.PurchaseRepository;
 import com.lustprision.admin.service.ProductService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -63,7 +69,12 @@ public class ProductResourceIT {
 
     @Autowired
     private ProductRepository productRepository;
-
+    @Autowired
+    private PrisionerRepository prisionerRepository;
+    @Autowired
+    private PurchaseRepository purchasetRepository;
+    @Autowired
+    private PressProductRepository pressProductRepository;
     @Autowired
     private ProductService productService;
 
@@ -319,6 +330,35 @@ public class ProductResourceIT {
         // Validate the database contains one less item
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+    @Test
+    @Transactional
+    public void getProductSales() throws Exception {
+        // Initialize the database
+        productRepository.saveAndFlush(product);
+        Prisioner prisioner =PrisionerResourceIT.createEntity(em);
+        Purchase purchase =PurchaseResourceIT.createEntity(em);
+
+        purchase.setPrisioner(prisioner);
+        prisionerRepository.saveAndFlush(prisioner);
+
+        purchasetRepository.saveAndFlush(purchase);
+        PressProduct nome =PressProductResourceIT.createEntity(em);
+        nome.setPurchase(purchase);
+        nome.setProduct(product);
+        pressProductRepository.saveAndFlush(nome);
+
+
+
+
+        // Get the product
+        restProductMockMvc.perform(get("/api/products/{id}/sales", product.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].purchaseID").value(hasItem(nome.getPurchase().getId().intValue())))
+        .andExpect(jsonPath("$.[*].purchaseDate").value(hasItem(nome.getPurchase().getDate().toString())))
+            .andExpect(jsonPath("$.[*].prisonerName").value(hasItem(nome.getPurchase().getPrisioner().getName())));
+            System.out.println(productService.getPressProductFromProduct(product.getId()));
     }
 
 }

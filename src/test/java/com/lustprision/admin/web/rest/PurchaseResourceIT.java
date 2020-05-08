@@ -248,6 +248,7 @@ public class PurchaseResourceIT {
         Purchase testPurchase = purchaseList.get(purchaseList.size() - 1);
         assertThat(testPurchase.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testPurchase.getPurchaseTotal()).isEqualTo(UPDATED_PURCHASE_TOTAL);
+        assertThat(testPurchase.getPurchaseTotal()).isEqualTo(UPDATED_PURCHASE_TOTAL);
     }
 
     @Test

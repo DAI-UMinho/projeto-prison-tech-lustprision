@@ -23,22 +23,27 @@ import java.util.ResourceBundle;
 public class WorkController implements Initializable {
 
     @FXML
-    public VBox workvbox = null;
+    public  VBox workvbox = null;
     public Label vagastotallbl;
+    public  Label notificationlabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         int totalvagas=0;
+
         int sz = Main.sis.works.size();
         System.out.println(sz);
         Node[] nodes = new Node[sz];
 
+
             for(int i = 0 ; i< sz; i++){
                 try{
+
                     totalvagas+=Main.sis.works.get(i).type.getVagas();
                     WorkLineController.name = Main.sis.works.get(i).type.getNome();
                     WorkLineController.vagas= Main.sis.works.get(i).type.getVagas();
                     WorkLineController.remun=Main.sis.works.get(i).type.getPrecoHora();
+                    WorkLineController.id=Main.sis.works.get(i).type.getIdTrabalho();
                     nodes[i] = FXMLLoader.load(getClass().getResource("/sample/view/work_line.fxml"));
                     workvbox.getChildren().add(nodes[i]);
 
@@ -50,6 +55,8 @@ public class WorkController implements Initializable {
 
             vagastotallbl.setText(Integer.toString(totalvagas));
         }
+
+
 
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {

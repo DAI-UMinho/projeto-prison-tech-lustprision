@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.controller.BD_CONTROLLER;
 import sample.controller.SYSTEM;
 
 
@@ -23,5 +24,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        BD_CONTROLLER.applyjob(4545,4545);
     }
 }

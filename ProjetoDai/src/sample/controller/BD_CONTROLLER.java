@@ -244,6 +244,34 @@ public class BD_CONTROLLER {
 
     }
 
+    //return void pendente
+    public static void applyjob(int id, int idjob){
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+
+            Statement st = con.createStatement();
+            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID) VALUES ("+id+","+id+", "+idjob+")";
+            ResultSet rs = st.executeQuery(query);
+            System.out.println("CANDIDATURA");
+            con.close();
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+            System.out.println(e);
+            System.out.println("Candidatura errada");
+
+
+        }
+
+
+    }
+
+
+
+
 
 
 }
