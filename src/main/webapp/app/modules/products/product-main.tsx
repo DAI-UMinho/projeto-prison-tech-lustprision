@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle, CardFooter, Table} from 'reactstrap';
 import {Translate, JhiItemCount, JhiPagination, getSortState} from 'react-jhipster';
-
 import {IRootState} from 'app/shared/reducers';
 import {getProductsByName, getProductsByPriceRange, getProductsByPage, getProductsByPageName,getProductsByPagePriceRange} from './product.reducer';
 import {getPurchaseTotalNumber, getProductTotalNumber, getPrisonerCompletedWorks} from "app/shared/reducers/statistics";

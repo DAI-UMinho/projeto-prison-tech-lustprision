@@ -7,13 +7,12 @@ import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap
 import {Translate, translate, setFileData, openFile, byteSize, TextFormat,} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IRootState} from 'app/shared/reducers';
-
 import {getEntity, updateEntity, createEntity, setBlob, reset, getProductSales} from './product.reducer';
-import {IProduct} from 'app/shared/model/product.model';
-import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
+//import {IProduct} from 'app/shared/model/product.model';
+//import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
 import CloseIcon from '@material-ui/icons/Close';
 import MaterialTable, {Column} from "material-table";
-import PurchaseDetailDialog from "app/modules/account/prisoner/prisioner-purchase-details";
+//import PurchaseDetailDialog from "app/modules/account/prisoner/prisioner-purchase-details";
 import {APP_DATE_FORMAT} from "app/config/constants";
 
 export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {

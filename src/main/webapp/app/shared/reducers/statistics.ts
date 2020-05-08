@@ -94,3 +94,5 @@ export const getPrisonerWorkStates: ICrudGetAction<number> = id => ({
   type: ACTION_TYPES.FETCH_PRISONER_WORK_STATES,
   payload: axios.get<number>(`${apiUrl}/prisoner/${id}/work-stat`)
 });
+
+export class getPrisonerCompletedWorks {}
