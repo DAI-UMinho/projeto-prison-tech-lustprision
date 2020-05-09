@@ -2,6 +2,10 @@
   "lustPrisionApp": {
     "work": {
       "validation": {
+        "name": {
+          "required": "O nome do trabalho é obrigatório",
+          "minLength": "Insira um nome mais descritivo"
+        },
         "credits": {
           "required": "O número de créditos é obrigatório",
           "length": "Insira um número de créditos válido"

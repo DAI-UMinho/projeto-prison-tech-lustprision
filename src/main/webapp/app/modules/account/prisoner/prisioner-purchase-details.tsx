@@ -125,7 +125,7 @@ const PurchaseDetailDialog = (props: SimpleDialogProps) => {
             setItems(result)
           },
           (error) => {
-            console.log("ERRRRO");
+            console.log("ERRO");
             setIsLoaded(true);
             setError(error);
           })

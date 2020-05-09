@@ -25,7 +25,30 @@
       "quantyInStock": "Quantidade em Stock",
       "buyPrice": "Buy Price",
       "image": "Image",
-      "id": "Id"
+      "id": "Id",
+      "validation": {
+        "price": {
+          "required": "O preço de um produto é obrigatorio",
+          "length": "Introduza um preço válido"
+        },
+        "seller": {
+          "required": "O vendedor do produto é obrigatório",
+          "length": "Introduza um nome de vendedor válido"
+        },
+        "seller": {
+          "required": "O vendedor do produto é obrigatório",
+          "length": "Introduza um nome de vendedor válido"
+        },
+        "stock": {
+          "required": "O stock inicial do produto é obrigatório",
+          "minLength": "Introduza um valor de stock válido",
+          "maxLength": "Introduza um valor de stock inferior a 1000 unidades"
+        },
+        "description": {
+          "required": "A descrição do produto é obrigatória",
+          "length": "A descrição ultrapassa o limite definido"
+        }
+      }
     }
   }
 }

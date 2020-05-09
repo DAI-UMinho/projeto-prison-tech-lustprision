@@ -27,7 +27,6 @@ export type StatisticsState = Readonly<typeof initialState>;
 export default (state: StatisticsState = initialState, action): StatisticsState => {
   switch (action.type) {
     case REQUEST(ACTION_TYPES.FETCH_PRISONER_WORK_STATES):
-    // case REQUEST(ACTION_TYPES.FETCH_PRISONER_COMPLETED_WORKS):
     case REQUEST(ACTION_TYPES.FETCH_PRODUCT_NUMBER):
     case REQUEST(ACTION_TYPES.FETCH_PURCHASE_NUMBER):
       return {
@@ -36,7 +35,6 @@ export default (state: StatisticsState = initialState, action): StatisticsState 
         loading: true
       };
     case FAILURE(ACTION_TYPES.FETCH_PRISONER_WORK_STATES):
-    // case FAILURE(ACTION_TYPES.FETCH_PRISONER_COMPLETED_WORKS):
     case FAILURE(ACTION_TYPES.FETCH_PRODUCT_NUMBER):
     case FAILURE(ACTION_TYPES.FETCH_PURCHASE_NUMBER):
       return {
@@ -50,12 +48,6 @@ export default (state: StatisticsState = initialState, action): StatisticsState 
         loading: false,
         prisonerWorkStats: action.payload.data
       };
-    /*case SUCCESS(ACTION_TYPES.FETCH_PRISONER_COMPLETED_WORKS):
-      return {
-        ...state,
-        loading: false,
-        nPrisonerCompletedWork: action.payload.data
-      };*/
     case SUCCESS(ACTION_TYPES.FETCH_PRODUCT_NUMBER):
       return {
         ...state,
@@ -84,11 +76,6 @@ export const getPurchaseTotalNumber: ICrudGetAction<number> = () => ({
   type: ACTION_TYPES.FETCH_PURCHASE_NUMBER,
   payload: axios.get<number>(`${apiUrl}/purchases-total`)
 });
-
-/*export const getPrisonerCompletedWorks: ICrudGetAction<number> = id => ({
-  type: ACTION_TYPES.FETCH_PRISONER_COMPLETED_WORKS,
-  payload: axios.get<number>(`${apiUrl}/completed-works/${id}`)
-});*/
 
 export const getPrisonerWorkStates: ICrudGetAction<number> = id => ({
   type: ACTION_TYPES.FETCH_PRISONER_WORK_STATES,

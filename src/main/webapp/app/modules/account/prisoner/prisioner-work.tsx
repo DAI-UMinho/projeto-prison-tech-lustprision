@@ -32,6 +32,10 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
   const [data, setData] = useState([]);
   const {prisionerWorks, updateSuccess, workJob, worksReloading, workStats} = props;
 
+  const creditsEarned: number = prisionerWorks.filter(completed => {return completed.stateID === 2})
+                                      .reduce((accumulator, completed) => accumulator + completed.totalCredits, 0);
+
+
   const [state, setState] = React.useState<TableState>({
     columns: [
       {title: 'Identificação', field: 'id', render: rowData => <i>#{rowData.id}</i>},
@@ -81,7 +85,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
                 window.location.replace(`dashboard/works/${selectedRow.id}`))}
               options={{
                 headerStyle: {
-                  backgroundColor: '#8a8a8a',
+                  backgroundColor: '#01579b',
                   color: '#FFF',
                   fontWeight: 'bold'
                 },
@@ -147,7 +151,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               <Col md="8" xs="7">
                 <div className="numbers">
                   <p className="card-category">Créditos Ganhos</p>
-                  <CardTitle tag="p">{workStats.creditsEarned}</CardTitle>
+                  <CardTitle tag="p">{creditsEarned}</CardTitle>
                   <p/>
                 </div>
               </Col>

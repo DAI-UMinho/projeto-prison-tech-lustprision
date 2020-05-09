@@ -1,5 +1,8 @@
 package com.lustprision.admin.service;
 
+import com.lustprision.admin.domain.Prisioner;
+import com.lustprision.admin.domain.QuestionQuiz;
+import com.lustprision.admin.domain.Quiz;
 import com.lustprision.admin.repository.*;
 import com.lustprision.admin.service.dto.CompletedQuizDTO;
 import com.lustprision.admin.service.dto.PressProductDTO;
@@ -50,6 +53,24 @@ public class QuizService {
         return quizList;
     }
 
+    public  List<CompletedQuizDTO> getPrisonerCompletedQuizzes(Prisioner prisioner){
+        List<CompletedQuizDTO> quizList = prisQuizRepository.getAllByPrisionerAndAndApproval(prisioner,1)
+            .stream()
+            .map(CompletedQuizDTO::new)
+            .collect(Collectors.toList());
+
+        quizList.forEach(completedQuizDTO -> {
+            quizRepository.findById(completedQuizDTO.getQuizID()).ifPresent(quiz -> {
+                questionQuizRepository.findAllByQuiz(quiz).forEach(questionQuiz -> {
+                    if(questionQuiz.getQuestionAnswer().equals(questionQuiz.getQuestion().getAnswer())){
+                        completedQuizDTO.setCorrectAnswers(completedQuizDTO.getCorrectAnswers() + 1);
+                    }
+                });
+            });
+        });
+        return quizList;
+    }
+
     public List<QuestionResultDTO> getQuizResult(Long id){
         List<QuestionResultDTO> results = new ArrayList<>();
         quizRepository.findById(id).ifPresent(quiz ->
@@ -65,6 +86,23 @@ public class QuizService {
                 }
                 results.add(mResult);
             }));
+        return results;
+    }
+
+    public List<QuestionResultDTO> getQuestionQuizResult(Quiz quiz){
+        List<QuestionResultDTO> results = new ArrayList<>();
+        questionQuizRepository.findAllByQuiz(quiz).forEach(questionQuiz -> {
+            QuestionResultDTO mResult = new QuestionResultDTO();
+            mResult.setQuestion(questionQuiz.getQuestion().getQuestion());
+            mResult.setQuestionAnswer(questionQuiz.getQuestion().getAnswer());
+            mResult.setUserAnswer(questionQuiz.getQuestionAnswer());
+            if (questionQuiz.getQuestionAnswer().equals(questionQuiz.getQuestion().getAnswer())) {
+                mResult.setCorrect(true);
+            } else {
+                mResult.setCorrect(false);
+            }
+            results.add(mResult);
+        });
         return results;
     }
 }

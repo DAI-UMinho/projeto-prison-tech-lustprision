@@ -35,6 +35,8 @@ public class StateResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_PENDING = "PENDING";
+    private static final String UPDATED_CANCELLED = "CANCELED";
 
     @Autowired
     private StateRepository stateRepository;
@@ -81,6 +83,12 @@ public class StateResourceIT {
             .name(DEFAULT_NAME);
         return state;
     }
+
+    public static State createPendingState(EntityManager em) {
+        State state = new State()
+            .name(DEFAULT_PENDING);
+        return state;
+    }
     /**
      * Create an updated entity for this test.
      *
@@ -111,7 +119,7 @@ public class StateResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(state.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
-    
+
     @Test
     @Transactional
     public void getState() throws Exception {

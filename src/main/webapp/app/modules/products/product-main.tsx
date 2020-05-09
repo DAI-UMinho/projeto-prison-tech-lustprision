@@ -5,7 +5,7 @@ import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle, CardFooter, Tab
 import {Translate, JhiItemCount, JhiPagination, getSortState} from 'react-jhipster';
 import {IRootState} from 'app/shared/reducers';
 import {getProductsByName, getProductsByPriceRange, getProductsByPage, getProductsByPageName,getProductsByPagePriceRange} from './product.reducer';
-import {getPurchaseTotalNumber, getProductTotalNumber, getPrisonerCompletedWorks} from "app/shared/reducers/statistics";
+import {getPurchaseTotalNumber, getProductTotalNumber} from "app/shared/reducers/statistics";
 import {Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -124,12 +124,12 @@ export const ProductOverview = (props: IProductProps) => {
 
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
-  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 200]);
+  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 1000]);
 
   useEffect(() => {
     console.log(pagination);
-    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], (pagination.activePage | 1)  - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
-    props.history.push(`${props.location.pathname}?page=${pagination.activePage | 1}&sort=${pagination.sort},${pagination.order}`);
+    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], (pagination.activePage)  - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+    props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
   useEffect(() => {
@@ -309,7 +309,6 @@ const mapDispatchToProps = {
   getProductsByPagePriceRange,
   getPurchaseTotalNumber,
   getProductTotalNumber,
-  getPrisonerCompletedWorks
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

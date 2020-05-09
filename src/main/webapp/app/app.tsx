@@ -24,6 +24,7 @@ import Register from "app/modules/account/register/register";
 import ActivatePage from "app/modules/account/activate/activate";
 import PasswordResetInit from "app/modules/account/password-reset/init/password-reset-init";
 import Dashboard from "app/Dashboard";
+import PasswordResetFinish from "app/modules/account/password-reset/finish/password-reset-finish";
 
 const baseHref = document
   .querySelector('base')
@@ -70,6 +71,7 @@ export const App = (props: IAppProps) => {
               <ErrorBoundaryRoute path="/login" exact={true} component={Login}/>
               <ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
               <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
+              <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
               <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />
               <div className="container-fluid view-container" id="app-view-container">
                 <Card className="jh-card">

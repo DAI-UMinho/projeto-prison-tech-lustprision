@@ -145,6 +145,10 @@
     "emailexists": "E-mail em uso!",
     "idexists": "Um novo {{entityName}} não pode ter um ID",
     "idnull": "ID inválido",
+    "prisonerNum": "O numero de prisioneiro já está em uso",
+    "prisonerCellNum": "O numero de cela já está em uso",
+    "prisonerNfcCode": "O código NFC já está a ser usado",
+    "prisonerBi": "Este bi está associado a outro prisioneiro",
     "file": {
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""

@@ -1,16 +1,11 @@
 package com.lustprision.admin.service;
 
-import com.lustprision.admin.domain.PressWork;
-import com.lustprision.admin.domain.PrisQuiz;
-import com.lustprision.admin.domain.Purchase;
-import com.lustprision.admin.domain.Work;
+import com.lustprision.admin.domain.*;
 import com.lustprision.admin.repository.*;
-import com.lustprision.admin.service.dto.PurchaseDTO;
-import com.lustprision.admin.service.dto.QuizDTO;
-import com.lustprision.admin.service.dto.UserDTO;
-import com.lustprision.admin.service.dto.WorkDTO;
+import com.lustprision.admin.service.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +29,7 @@ public class PrisionerService {
 
     private final PrisQuizRepository prisQuizRepository;
 
+    private QuizService quizService;
 
     public PrisionerService(PrisionerRepository prisionerRepository, PurchaseRepository purchaseRepository,
                             PressWorkRepository pressWorkRepository, PrisQuizRepository prisQuizRepository) {
@@ -42,6 +38,12 @@ public class PrisionerService {
         this.pressWorkRepository = pressWorkRepository;
         this.prisQuizRepository = prisQuizRepository;
     }
+
+    @Autowired
+    public void setQuizService(QuizService quizService){
+        this.quizService = quizService;
+    }
+
 
     public List<PurchaseDTO> getPrisionerPurchases(Long id) {
         List<PurchaseDTO> purchaseList = new ArrayList<>();
@@ -69,17 +71,9 @@ public class PrisionerService {
         return workList;
     }
 
-    public List<QuizDTO> getPrisionerQuizs(Long id){
-        List<QuizDTO> quizList = new ArrayList<>();
-        prisionerRepository.findById(id).ifPresent(prisioner -> {
-            prisQuizRepository.getAllByPrisioner(prisioner)
-                .forEach(prisQuiz -> {
-                    QuizDTO mQuiz = new QuizDTO(prisQuiz.getQuiz());
-                    LocalDate quizDate = prisQuiz.getQuizDate();
-                    mQuiz.setQuizDate(quizDate);
-                    quizList.add(mQuiz);
-                });
-        });
-        return quizList;
+    public List<CompletedQuizDTO> getPrisionerQuizs(Long id){
+        final List<CompletedQuizDTO>[] quizList = new List[]{new ArrayList<>()};
+        prisionerRepository.findById(id).ifPresent(prisioner -> quizList[0] = quizService.getPrisonerCompletedQuizzes(prisioner));
+        return quizList[0];
     }
 }

@@ -18,4 +18,6 @@ public interface PrisQuizRepository extends JpaRepository<PrisQuiz, Long> {
     List<PrisQuiz> getAllByPrisioner(Prisioner prisioner);
 
     List<PrisQuiz> getAllByApproval(int approval);
+
+    List<PrisQuiz> getAllByPrisionerAndAndApproval(Prisioner prisioner, int approval);
 }

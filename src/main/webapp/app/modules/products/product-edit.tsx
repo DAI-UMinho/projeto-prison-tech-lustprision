@@ -7,12 +7,10 @@ import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap
 import {Translate, translate, setFileData, openFile, byteSize, TextFormat,} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IRootState} from 'app/shared/reducers';
-import {getEntity, updateEntity, createEntity, setBlob, reset, getProductSales} from './product.reducer';
-//import {IProduct} from 'app/shared/model/product.model';
-//import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
+
+import {getEntity, updateEntity, createEntity, setBlob, reset, getProductSales, deleteEntity} from './product.reducer';
 import CloseIcon from '@material-ui/icons/Close';
 import MaterialTable, {Column} from "material-table";
-//import PurchaseDetailDialog from "app/modules/account/prisoner/prisioner-purchase-details";
 import {APP_DATE_FORMAT} from "app/config/constants";
 
 export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
@@ -27,14 +25,22 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const [state, setState] = React.useState<TableState>({
     columns: [
-      {title: 'Prisioneiro', field: 'prisonerName',
+      {
+        title: 'Prisioneiro', field: 'prisonerName',
         render: rowData =>
           <div>
             <img src={`data:${rowData.prisonerImageContentType};base64,${rowData.prisonerImage}`}
                  style={{width: 50, borderRadius: '50%', float: 'left', marginRight: 10}}/>
             <p style={{paddingTop: 15}}>{rowData.prisonerName}</p>
-          </div>},
-      {title: 'Data', field: 'purchaseDate', type: 'datetime', render: rowData => <TextFormat value={rowData.purchaseDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />},
+          </div>
+      },
+      {
+        title: 'Data',
+        field: 'purchaseDate',
+        type: 'datetime',
+        render: rowData => <TextFormat value={rowData.purchaseDate} type="date" format={APP_DATE_FORMAT}
+                                       blankOnInvalid/>
+      },
       {title: 'Quantidade Vendida', field: 'qty'},
       {title: 'Valor Total', field: 'priceTotal'},
     ]
@@ -84,6 +90,10 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
     }
   };
 
+  const deleteProduct = () => {
+    props.deleteEntity(productEntity.id);
+  };
+
   return (
     <div>
       <Row className="justify-content-center">
@@ -108,13 +118,13 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
               <hr/>
               <Row className="row justify-content-center">
                 {!image ? (
-                  <div className="file-drop-area">
-                    <span className="fake-btn">Choose files</span>
-                    <span className="file-msg">or drag and drop files here</span>
-                    <input className="file-input" id="file_profileImage" type="file"
-                           onChange={onBlobChange(true, 'image')} accept="image/*"/>
-                  </div>) :
-                  (<Button variant="contained" color="secondary" startIcon={<CloseIcon />}
+                    <div className="file-drop-area">
+                      <span className="fake-btn">Choose files</span>
+                      <span className="file-msg">or drag and drop files here</span>
+                      <input className="file-input" id="file_profileImage" type="file"
+                             onChange={onBlobChange(true, 'image')} accept="image/*"/>
+                    </div>) :
+                  (<Button variant="contained" color="secondary" startIcon={<CloseIcon/>}
                            onClick={clearBlob('image')}>Remover Imagem</Button>)}
               </Row>
             </CardFooter>
@@ -144,9 +154,23 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                     <div className="pr-1 col-md-6">
                       <AvGroup>
                         <Label id="nameProdLabel" for="product-nameProd">
-                          <Translate contentKey="lustPrisionApp.product.nameProd">Name Prod</Translate>
+                          <Translate contentKey="lustPrisionApp.product.nameProd">Name Produdct</Translate>
                         </Label>
-                        <AvField id="product-nameProd" type="text" name="nameProd"/>
+                        <AvField id="product-nameProd" type="text" name="nameProd"
+                                 validate={{
+                                   required: {
+                                     value: true,
+                                     errorMessage: translate('settings.messages.validate.firstname.required')
+                                   },
+                                   minLength: {
+                                     value: 2,
+                                     errorMessage: translate('settings.messages.validate.firstname.minlength')
+                                   },
+                                   maxLength: {
+                                     value: 50,
+                                     errorMessage: translate('settings.messages.validate.firstname.maxlength')
+                                   }
+                                 }}/>
                       </AvGroup>
                     </div>
                     <div className="pr-1 col-md-6">
@@ -154,7 +178,22 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                         <Label id="priceLabel" for="product-price">
                           <Translate contentKey="lustPrisionApp.product.price">Price</Translate>
                         </Label>
-                        <AvField id="product-price" type="string" className="form-control" name="price"/>
+                        <AvField id="product-price" type="string" className="form-control" name="price"
+                                 validate={{
+                                   number: true,
+                                   required: {
+                                     value: true,
+                                     errorMessage: translate('lustPrisionApp.product.validation.price.required')
+                                   },
+                                   minLength: {
+                                     value: 1,
+                                     errorMessage: translate('lustPrisionApp.product.validation.price.length')
+                                   },
+                                   maxLength: {
+                                     value: 3,
+                                     errorMessage: translate('lustPrisionApp.product.validation.price.length')
+                                   }
+                                 }}/>
                       </AvGroup>
                     </div>
                   </div>
@@ -164,7 +203,20 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                         <Label id="selerLabel" for="product-seler">
                           <Translate contentKey="lustPrisionApp.product.seler">Seller</Translate>
                         </Label>
-                        <AvField id="product-seler" type="text" name="seler"/>
+                        <AvField id="product-seler" type="text" name="seler" validate={{
+                          required: {
+                            value: true,
+                            errorMessage: translate('lustPrisionApp.product.validation.seller.required')
+                          },
+                          minLength: {
+                            value: 2,
+                            errorMessage: translate('lustPrisionApp.product.validation.seller.length')
+                          },
+                          maxLength: {
+                            value: 40,
+                            errorMessage: translate('lustPrisionApp.product.validation.seller.length')
+                          }
+                        }}/>
                       </AvGroup>
                     </div>
                     <div className="pr-1 col-md-6">
@@ -173,7 +225,21 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                           <Translate contentKey="lustPrisionApp.product.quantyInStock">Quanty In Stock</Translate>
                         </Label>
                         <AvField id="product-quantyInStock" type="string" className="form-control"
-                                 name="quantyInStock"/>
+                                 name="quantyInStock" validate={{
+                          number: true,
+                          required: {
+                            value: true,
+                            errorMessage: translate('lustPrisionApp.product.validation.stock.required')
+                          },
+                          minLength: {
+                            value: 1,
+                            errorMessage: translate('lustPrisionApp.product.validation.stock.minlength')
+                          },
+                          maxLength: {
+                            value: 3,
+                            errorMessage: translate('lustPrisionApp.product.validation.stock.maxLength')
+                          }
+                        }}/>
                       </AvGroup>
                     </div>
                   </div>
@@ -181,22 +247,40 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                     <Label id="descriptionProdLabel" for="product-descriptionProd">
                       <Translate contentKey="lustPrisionApp.product.descriptionProd">Description Prod</Translate>
                     </Label>
-                    <AvField id="product-descriptionProd" type="text" name="descriptionProd"/>
+                    <AvField id="product-descriptionProd" type="text" name="descriptionProd"
+                             validate={{
+                               required: {
+                                 value: true,
+                                 errorMessage: translate('lustPrisionApp.product.validation.description.required')
+                               },
+                               maxLength: {
+                                 value: 255,
+                                 errorMessage: translate('lustPrisionApp.product.validation.description.length')
+                               }
+                             }}/>
                   </AvGroup>
                   <AvInput type="hidden" name="image" value={image}/>
-                  <RButton tag={Link} id="cancel-save" onClick={handleClose} replace color="info">
-                    <FontAwesomeIcon icon="arrow-left"/>
-                    &nbsp;
-                    <span className="d-none d-md-inline">
+                  <AvGroup>
+                    <RButton tag={Link} id="cancel-save" onClick={handleClose} replace color="info">
+                      <FontAwesomeIcon icon="arrow-left"/>
+                      &nbsp;
+                      <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
-                  </RButton>
-                  &nbsp;
-                  <RButton color="primary" id="save-entity" type="submit" disabled={updating}>
-                    <FontAwesomeIcon icon="save"/>
+                    </RButton>
                     &nbsp;
-                    <Translate contentKey="entity.action.save">Save</Translate>
-                  </RButton>
+                    <RButton color="primary" id="save-entity" type="submit" disabled={updating}>
+                      <FontAwesomeIcon icon="save"/>
+                      &nbsp;
+                      <Translate contentKey="entity.action.save">Save</Translate>
+                    </RButton>
+                    {!isNew &&
+                    <RButton color="secondary" id="delete-entity" style={{float: 'right'}} onClick={deleteProduct} disabled={updating}>
+                      <FontAwesomeIcon icon="trash"/>
+                      &nbsp;
+                      <Translate contentKey="entity.action.delete">Delete</Translate>
+                    </RButton>}
+                  </AvGroup>
                 </AvForm>
               )}
             </CardBody>
@@ -251,7 +335,8 @@ const mapDispatchToProps = {
   updateEntity,
   setBlob,
   createEntity,
-  reset
+  reset,
+  deleteEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

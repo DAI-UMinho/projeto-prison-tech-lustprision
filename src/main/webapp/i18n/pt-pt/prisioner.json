@@ -43,6 +43,18 @@
         "bi": {
           "required": "O bilhete de identidade é obrigatório",
           "length": "O bi é constituido por 9 digitos"
+        },
+        "pinCode": {
+          "required": "O pin é obrigatório",
+          "length": "O pin é constituido por 4 digitos"
+        },
+        "nfc": {
+          "required": "O código NFC é obrigatório",
+          "minLength": "O pin é constituido por no minímo 9 digitos",
+          "maxLength": "O pin é constituido por no máximo 12 digitos"
+        },
+        "data": {
+          "required": "A data de nascimento é obrigatória"
         }
       }
     }

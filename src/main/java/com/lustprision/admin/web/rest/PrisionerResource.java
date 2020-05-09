@@ -5,11 +5,10 @@ import com.lustprision.admin.domain.Purchase;
 import com.lustprision.admin.repository.PrisionerRepository;
 import com.lustprision.admin.repository.PurchaseRepository;
 import com.lustprision.admin.service.PrisionerService;
-import com.lustprision.admin.service.dto.PurchaseDTO;
-import com.lustprision.admin.service.dto.QuizDTO;
-import com.lustprision.admin.service.dto.WorkDTO;
+import com.lustprision.admin.service.dto.*;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
+import com.lustprision.admin.web.rest.errors.PrisonerNumberAlredyUsed;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -59,6 +58,14 @@ public class PrisionerResource {
         log.debug("REST request to save Prisioner : {}", prisioner);
         if (prisioner.getId() != null) {
             throw new BadRequestAlertException("A new prisioner cannot already have an ID", ENTITY_NAME, "idexists");
+        }else if(prisionerRepository.findOneByNumPrisioner(prisioner.getNumPrisioner()).isPresent()){
+            throw new PrisonerNumberAlredyUsed();
+        }else if(prisionerRepository.findOneByNumCell(prisioner.getNumCell()).isPresent()){
+            throw new BadRequestAlertException("Cell number alredy in use", ENTITY_NAME, "prisonerCellNum");
+        }else if(prisionerRepository.findOneByBi(prisioner.getBi()).isPresent()){
+            throw new BadRequestAlertException("BI number alredy in use", ENTITY_NAME, "prisonerBi");
+        }else if(prisionerRepository.findOneByNfcCode(prisioner.getNfcCode()).isPresent()){
+            throw new BadRequestAlertException("NFC code alredy in use", ENTITY_NAME, "prisonerNfcCode");
         }
         Prisioner result = prisionerRepository.save(prisioner);
         return ResponseEntity.created(new URI("/api/prisioners/" + result.getId()))
@@ -137,9 +144,8 @@ public class PrisionerResource {
     }
 
     @GetMapping("/prisioners/{id}/quizs")
-    public List<QuizDTO> getPrisionerQuizs(@PathVariable Long id){
+    public List<CompletedQuizDTO> getPrisionerQuizs(@PathVariable Long id){
         log.debug("REST request to get all Prisioner work jobs : {}", id);
         return prisionerService.getPrisionerQuizs(id);
     }
 }
-

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {useTheme} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
+import {QuizBox} from "app/components/StateBox";
 
 const MySwal = withReactContent(Swal);
 
@@ -29,8 +30,11 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
   const [state, setState] = React.useState<TableState>({
     columns: [
       {title: 'Identificação', field: 'id', render: rowData => <i>#{rowData.id}</i>},
-      {title: 'Number of Question', field: 'qtyQuestion'},
       {title: 'Date', field: 'quizDate', type: 'date'},
+      {
+        title: 'Score', field: 'score',
+        render: rowData => <QuizBox correctAnswers={rowData.correctAnswers} nQuestions={rowData.qtyQuestion}/>
+      },
       // {title: 'Estado', field: 'state', render: rowData => <span className="span-status" style={{border: '1px solid rgb(67, 160, 71)', color: 'rgb(67, 160, 71)'}}>CONCLUIDO</span>},
     ]
   });
@@ -48,7 +52,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
             onRowClick={((evt, selectedRow) => {})}
             options={{
               headerStyle: {
-                backgroundColor: '#8a8a8a',
+                backgroundColor: '#01579b',
                 color: '#FFF',
                 fontWeight: 'bold'
               },

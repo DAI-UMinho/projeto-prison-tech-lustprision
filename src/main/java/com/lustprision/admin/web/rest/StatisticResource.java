@@ -77,7 +77,7 @@ public class StatisticResource {
         WorkStatDTO stat = new WorkStatDTO();
         stat.setCompleted(pressWorkRepository.getTotalCompletedWorks(id));
         stat.setCanceled(pressWorkRepository.getTotalCanceledWorks(id));
-        stat.setCreditsEarned(pressWorkRepository.getTotalCreditsFromWork(id));
+//        stat.setCreditsEarned(pressWorkRepository.getTotalCreditsFromWork(id));
         return stat;
     }
 

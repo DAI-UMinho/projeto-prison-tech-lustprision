@@ -88,7 +88,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
             onRowClick={((evt, selectedRow) => {purchaseClick(selectedRow.id)})}
             options={{
               headerStyle: {
-                backgroundColor: '#8a8a8a',
+                backgroundColor: '#01579b',
                 color: '#FFF',
                 fontWeight: 'bold'
               },

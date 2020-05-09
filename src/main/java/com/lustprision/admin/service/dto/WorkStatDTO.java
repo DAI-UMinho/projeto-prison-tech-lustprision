@@ -8,7 +8,11 @@ public class WorkStatDTO {
 
     private int canceled;
 
-    public WorkStatDTO(){}
+    public WorkStatDTO(){
+        creditsEarned = 0;
+        completed = 0;
+        canceled = 0;
+    }
 
     public int getCompleted() {
         return completed;

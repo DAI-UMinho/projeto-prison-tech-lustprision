@@ -12,7 +12,6 @@ import {Line, Pie} from "react-chartjs-2";
 import {withStyles, Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Ellipsis } from 'react-spinners-css';
 import {LinearProgress, useMediaQuery} from "@material-ui/core";
 import {TextFormat, Translate} from "react-jhipster";
@@ -120,7 +119,7 @@ export const Works = (props: IWorkProps) => {
     }).then((result: any) => {
       console.log(result);
       if(result.value.status === 200){
-
+        console.log("OK");
       }
     })
   };

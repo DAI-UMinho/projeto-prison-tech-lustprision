@@ -184,18 +184,13 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
               <AvField id="question-wrongAnswer3" type="text" name="wrongAnswer3" />
             </AvGroup>
             &nbsp;
-            <Button color="primary" id="save-entity" type="submit">
+            <Button style={{float: 'right'}} color="primary" id="save-entity" type="submit">
               <FontAwesomeIcon icon="save" />
               &nbsp;
               <Translate contentKey="entity.action.save">Save</Translate>
             </Button>
           </AvForm>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Guardar
-          </Button>
-        </DialogActions>
       </Dialog>
   );
 };

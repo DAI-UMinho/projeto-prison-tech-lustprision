@@ -60,7 +60,8 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
     const mPressWork = { work: workEntity, prisioner: prisoner};
 
     asyncAction(mPressWork).then(function(success) {
-      props.getWorkSubs(props.match.params.id)
+      props.getWorkSubs(props.match.params.id);
+      props.getEntity(props.match.params.id);
     });
   };
 

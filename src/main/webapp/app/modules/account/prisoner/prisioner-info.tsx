@@ -5,13 +5,15 @@ import {AvForm, AvField, AvGroup, AvInput} from 'availity-reactstrap-validation'
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle} from 'reactstrap';
 import {Translate, translate, setFileData, openFile} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-
 import {IRootState} from 'app/shared/reducers';
 import {createEntity, getEntity, reset, setBlob, updateEntity} from './prisioner.reducer';
 import {CircularProgress} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import {DatePicker, KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import {subYears} from "date-fns";
 
 export interface IPrisionerInfoProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string  }> {
 }
@@ -30,11 +32,16 @@ const useStyles = makeStyles((theme: Theme) =>
         color: "#141415",
         cursor: 'pointer'
       }
+    },
+    datePicker: {
+      border: '1px solid #ced4da',
+      borderRadius: '0.25rem'
     }
   }));
 
 export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   const classes = useStyles();
+
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const [password, setPassword] = useState('');
   const [eyeActive, setEyeActive] = useState(false);
@@ -43,15 +50,14 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   const {profileImage, profileImageContentType} = prisionerEntity;
 
   const [nfcCode, setNfcCode] = useState(isNew? '' : prisionerEntity.nfcCode);
+  const [selectedDate, handleDateChange] = useState(!isNew ? prisionerEntity.dataNascimento : subYears(new Date(), 18));
 
   const updatePassword = event => setPassword(event.target.value);
-
   const passwordType = eyeActive ? "text" : "password";
   const eyeColor = eyeActive ? 'inherit' : 'action';
 
   const eyeClick = () => setEyeActive(!eyeActive);
-
-  const generateNFC = () => setNfcCode(Math.random().toString().slice(2,12));
+  const generateNFC = () => setNfcCode(Math.random().toString().slice(2,11));
 
   const handleClose = () => {
     props.history.push('/dashboard/prisoners');
@@ -103,7 +109,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
           </CardHeader>
           <CardBody>
             {loading ? (
-              <CircularProgress color="secondary" className={classes.spinner}/>
+              <CircularProgress className={classes.spinner}/>
             ) : (
               <AvForm model={isNew ? {} : prisionerEntity} onSubmit={saveEntity}>
                 <div className="profile-wrap">
@@ -171,7 +177,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                 </AvGroup>
                 <AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.numCell">Num Cell</Translate>
-                  <AvField id="prisioner-numCell" type="text" className="form-control" name="numCell"
+                  <AvField  id="prisioner-numCell" type="text" className="form-control" name="numCell"
                            validate={{
                              number: true,
                              required: {
@@ -190,11 +196,28 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                 </AvGroup>
                 <AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.dataNascimento">Data Nascimento</Translate>
-                  <AvField id="prisioner-dataNascimento" type="date" className="form-control" name="dataNascimento"/>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      disableFuture
+                      className={`form-control ${classes.datePicker}`}
+                      openTo="year"
+                      format="dd/MM/yyyy"
+                      views={["year", "month", "date"]}
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      maxDate={subYears(new Date(), 18)}
+                    />
+                    <AvField id="prisioner-dataNascimento" type="hidden" name="dataNascimento" value={selectedDate} validate={{
+                      required:{
+                        value: true,
+                        errorMessage: translate('lustPrisionApp.prisioner.validation.data.required')
+                      }
+                    }}/>
+                  </MuiPickersUtilsProvider>
                 </AvGroup>
                 <AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.bi">Bi</Translate>
-                  <AvField id="prisioner-bi" type="number" className="form-control" name="bi"
+                  <AvField id="prisioner-bi" type="text" className="form-control" name="bi"
                            validate={{
                              number: true,
                              required: {
@@ -221,15 +244,15 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                                  number: true,
                                  required: {
                                    value: true,
-                                   errorMessage: translate('lustPrisionApp.prisioner.validation.bi.required')
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.nfc.required')
                                  },
                                  minLength: {
-                                   value: 10,
-                                   errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
+                                   value: 9,
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.nfc.minLength')
                                  },
                                  maxLength: {
                                    value: 12,
-                                   errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.nfc.maxLength')
                                  }
                                }}/>
                     </Col>
@@ -245,15 +268,15 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                                  number: true,
                                  required: {
                                    value: true,
-                                   errorMessage: translate('global.messages.validate.newpassword.required')
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.pinCode.required')
                                  },
                                  minLength: {
                                    value: 4,
-                                   errorMessage: translate('global.messages.validate.newpassword.minlength')
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.pinCode.length')
                                  },
                                  maxLength: {
                                    value: 4,
-                                   errorMessage: translate('global.messages.validate.newpassword.maxlength')
+                                   errorMessage: translate('lustPrisionApp.prisioner.validation.pinCode.length')
                                  }
                                }}/>
                     </Col>

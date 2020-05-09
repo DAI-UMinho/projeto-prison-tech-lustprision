@@ -17,7 +17,6 @@
 
 */
 import React, { useState, useEffect } from 'react';
-import {AiOutlineUser} from "react-icons/ai";
 // react plugin used to create charts
 import { Line, Pie } from "react-chartjs-2";
 // reactstrap components

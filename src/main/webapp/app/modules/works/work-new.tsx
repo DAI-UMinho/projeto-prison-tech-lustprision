@@ -60,15 +60,14 @@ export const WorkCreate = (props: IWorkUpdateProps) => {
                            validate={{
                              required: {
                                value: true,
-                               errorMessage: translate('settings.messages.validate.firstname.required')
+                               errorMessage: translate('lustPrisionApp.work.validation.name.required')
                              },
                              minLength: {
-                               value: 6,
-                               errorMessage: translate('settings.messages.validate.firstname.minlength')
+                               value: 5,
+                               errorMessage: translate('lustPrisionApp.work.validation.name.minLength')
                              },
                              maxLength: {
-                               value: 30,
-                               errorMessage: translate('settings.messages.validate.firstname.maxlength')
+                               value: 40,
                              }
                            }}/>
                 </AvGroup>
@@ -76,9 +75,8 @@ export const WorkCreate = (props: IWorkUpdateProps) => {
                   <Label id="priceHourLabel" for="work-priceHour">
                     <Translate contentKey="lustPrisionApp.work.priceHour">Price Hour</Translate>
                   </Label>
-                  <AvField id="work-priceHour" type="number" className="form-control" name="totalCredits"
+                  <AvField id="work-totalCredits" type="text" className="form-control" name="totalCredits"
                            validate={{
-                             number: true,
                              required: {
                                value: true,
                                errorMessage: translate('lustPrisionApp.work.validation.credits.required')
@@ -88,16 +86,18 @@ export const WorkCreate = (props: IWorkUpdateProps) => {
                                errorMessage: translate('lustPrisionApp.work.validation.credits.length')
                              },
                              maxLength: {
-                               value: 5,
+                               value: 3,
                                errorMessage: translate('lustPrisionApp.work.validation.credits.length')
-                             }
+                             },
+                             min: {value: 1},
+                             max: {value: 999}
                            }}/>
                 </AvGroup>
                 <AvGroup>
                   <Label id="numVacanciesLabel" for="work-numVacancies">
-                    <Translate contentKey="lustPrisionApp.work.numVacancies">Num Vacancies</Translate>
+                    <Translate contentKey="lustPrisionApp.work.numVacancies">Num Entries</Translate>
                   </Label>
-                  <AvField id="work-numVacancies" type="number" className="form-control" name="numRemainingEntries"
+                  <AvField id="work-numRemainingEntries" type="text" className="form-control" name="numRemainingEntries"
                            validate={{
                              number: true,
                              required: {
@@ -109,9 +109,11 @@ export const WorkCreate = (props: IWorkUpdateProps) => {
                                errorMessage: translate('lustPrisionApp.work.validation.entries.minLength')
                              },
                              maxLength: {
-                               value: 4,
+                               value: 3,
                                errorMessage: translate('lustPrisionApp.work.validation.entries.maxLength')
-                             }
+                             },
+                             min: {value: 0},
+                             max: {value: 999}
                            }}/>
                 </AvGroup>
                 <AvGroup>
