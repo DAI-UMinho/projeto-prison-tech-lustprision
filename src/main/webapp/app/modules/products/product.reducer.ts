@@ -29,7 +29,7 @@ const initialState = {
   entities: [] as ReadonlyArray<IProduct>,
   productsPage: [] as ReadonlyArray<IProduct>,
   productsByName: [] as ReadonlyArray<IProduct>,
-  productSales: [] as ReadonlyArray<any>,
+  productSales: [] as Array<any>,
   product: defaultValue,
   updating: false,
   updateSuccess: false,
@@ -157,7 +157,7 @@ export const getEntities: ICrudGetAllAction<IProduct> = (page, size, sort) => ({
   payload: axios.get<IProduct>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
-export const getProductSales: ICrudGetAllAction<any> = id => {
+export const getProductSales: ICrudGetAction<IProduct> = id => {
   const requestUrl = `${apiUrl}/${id}/sales`;
   return {
     type: ACTION_TYPES.FETCH_PRODUCT_SALES_LIST,
@@ -189,7 +189,7 @@ export const getProductsByPagePriceRange: ICrudSearchBetweenAction<IProduct> = (
   };
 };
 
-export const getProductsByName: ICrudSearchAction<IProduct> = (name: string) => ({
+/*export const getProductsByName: ICrudSearchAction<IProduct> = (name: string) => ({
   type: ACTION_TYPES.FETCH_PRODUCT_NAME_LIST,
   payload: axios.get<IPrisioner>(`${apiUrl}/byname`, { params: { name: name } })
 });
@@ -197,7 +197,7 @@ export const getProductsByName: ICrudSearchAction<IProduct> = (name: string) => 
 export const getProductsByPriceRange: ICrudSearchAction<IProduct> = (low, high: number) => ({
   type: ACTION_TYPES.FETCH_PRODUCT_RANGE_LIST,
   payload: axios.get<IPrisioner>(`${apiUrl}/byrange`, { params: { low: low, high: high } })
-});
+});*/
 
 export const getEntity: ICrudGetAction<IProduct> = id => {
   const requestUrl = `${apiUrl}/${id}`;

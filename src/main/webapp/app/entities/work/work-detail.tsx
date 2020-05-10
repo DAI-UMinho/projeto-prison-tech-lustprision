@@ -36,13 +36,13 @@ export const WorkDetail = (props: IWorkDetailProps) => {
               <Translate contentKey="lustPrisionApp.work.priceHour">Price Hour</Translate>
             </span>
           </dt>
-          <dd>{workEntity.priceHour}</dd>
+          <dd>{workEntity.totalCredits}</dd>
           <dt>
             <span id="numVacancies">
               <Translate contentKey="lustPrisionApp.work.numVacancies">Num Vacancies</Translate>
             </span>
           </dt>
-          <dd>{workEntity.numVacancies}</dd>
+          <dd>{workEntity.numRemainingEntries}</dd>
           <dt>
             <span id="date">
               <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
@@ -54,7 +54,7 @@ export const WorkDetail = (props: IWorkDetailProps) => {
           <dt>
             <Translate contentKey="lustPrisionApp.work.state">State</Translate>
           </dt>
-          <dd>{workEntity.stateId ? workEntity.stateId : ''}</dd>
+          <dd>{workEntity.stateID ? workEntity.stateID : ''}</dd>
         </dl>
         <Button tag={Link} to="/work" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

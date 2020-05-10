@@ -12,6 +12,7 @@ import withReactContent from 'sweetalert2-react-content'
 import {useTheme} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
 import {QuizBox} from "app/components/StateBox";
+import TableIcon from "app/shared/util/table-icon";
 
 const MySwal = withReactContent(Swal);
 
@@ -47,6 +48,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
         <Card className="card-user justify-content-center">
           <MaterialTable
             title="Todos os Quizs"
+            icons={TableIcon}
             columns={state.columns}
             data={prisionerQuizs}
             onRowClick={((evt, selectedRow) => {})}
@@ -71,7 +73,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
               {
                 icon: 'delete',
                 tooltip: 'Remover Quiz',
-                onClick: (event, rowData) => {
+                onClick: (event, rowData) =>
                   MySwal.fire({
                     title: <p>Apagar Trabalho?</p>,
                     text: "Não é possivel reverter esta operação!",
@@ -89,7 +91,6 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
                       )
                     }
                   })
-                }
               }
             ]}
           />
@@ -99,7 +100,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
   );
 };
 const mapStateToProps = ({prisioner}: IRootState) => ({
-  prisionerQuizs: prisioner.quizs,
+  prisionerQuizs: prisioner.quizzes,
 });
 
 const mapDispatchToProps = {getPrisionerQuizs};

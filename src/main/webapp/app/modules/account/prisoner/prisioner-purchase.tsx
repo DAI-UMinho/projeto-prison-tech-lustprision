@@ -20,6 +20,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {TextFormat} from "react-jhipster";
 import {useMediaQuery} from "@material-ui/core";
+import TableIcon from "app/shared/util/table-icon";
 
 interface TableState {
   columns: Array<Column<any>>;
@@ -83,6 +84,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
         <Card className="card-user justify-content-center">
           <MaterialTable
             title="Compras Efetuadas"
+            icons={TableIcon}
             columns={state.columns}
             data={prisionerPurchases}
             onRowClick={((evt, selectedRow) => {purchaseClick(selectedRow.id)})}
@@ -99,7 +101,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
               {
                 icon: 'replay',
                 tooltip: 'Reverter Compra',
-                onClick: (event, rowData) => { purchaseDelete() }
+                onClick: (event, rowData) => purchaseDelete()
               }
             ]}
             localization={{

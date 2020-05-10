@@ -23,6 +23,7 @@ import completed from "app/assets/img/completed-icon.png";
 import canceled from "app/assets/img/cancel-icon.png";
 import CancelIcon from '@material-ui/icons/Cancel';
 import DoneIcon from '@material-ui/icons/Done';
+import TableIcon from "app/shared/util/table-icon";
 
 const MySwal = withReactContent(Swal);
 
@@ -31,6 +32,12 @@ export interface IWorkUpdateProps extends StateProps, DispatchProps, RouteCompon
 
 interface TableState {
   columns: Array<Column<any>>;
+}
+
+interface WorkSubs{
+  pressID: number;
+  pressState: number;
+  stateName: string;
 }
 
 export const WorkInfo = (props: IWorkUpdateProps) => {
@@ -56,15 +63,6 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
   const allowWorkActions = stateID !== 1;
   const allowNewSub = allowWorkActions || workEntity.numRemainingEntries === 0;
 
-  const createPW = (prisoner: IPrisioner) => {
-    const mPressWork = { work: workEntity, prisioner: prisoner};
-
-    asyncAction(mPressWork).then(function(success) {
-      props.getWorkSubs(props.match.params.id);
-      props.getEntity(props.match.params.id);
-    });
-  };
-
   function asyncAction(mPressWork) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -73,6 +71,28 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
       }, 1000);
     });
   }
+
+  const getImageByState = (id) => {
+    switch (id) {
+      case 1:
+        return pending;
+      case 2:
+        return completed;
+      case 3:
+        return canceled;
+      default:
+        return pending;
+    }
+  };
+
+  const createPW = (prisoner: IPrisioner) => {
+    const mPressWork = { work: workEntity, prisioner: prisoner};
+
+    asyncAction(mPressWork).then(function(success) {
+      props.getWorkSubs(props.match.params.id);
+      props.getEntity(props.match.params.id);
+    });
+  };
 
   const handleClose = () => {
     props.history.push('/dashboard/works');
@@ -98,8 +118,8 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
 
   useEffect(() => {
     if(workEntity.state){
-      setStateID(workEntity.state.id);
-      setStateImg(getImageByState(workEntity.state.id));
+      setStateID(workEntity.state['id']);
+      setStateImg(getImageByState(workEntity.state['id']));
     }
   }, [workEntity]);
 
@@ -144,7 +164,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
     }).then((result: any) => {
       console.log(result);
       if(result.value.status === 200){
-
+        console.log("OK");
       }
     })
   };
@@ -165,7 +185,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
     }).then((result: any) => {
       console.log(result);
       if(result.value.status === 200){
-
+        console.log("OK");
       }
     })
   };
@@ -188,6 +208,19 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
         props.getWorkSubs(props.match.params.id)
       }
     })
+  };
+
+  const getStateName = (id) => {
+    switch (id) {
+      case 1:
+        return "Pendente";
+      case 2:
+        return "Concluído";
+      case 3:
+        return "Cancelado";
+      default:
+        return "Pendente";
+    }
   };
 
   return (
@@ -267,7 +300,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                       className="avatar border-gray"
                       src={stateImg}
                     />
-                    <h5 className="title">Trabalho {getStateName(workEntity.state.id)}</h5>
+                    <h5 className="title">Trabalho {getStateName(workEntity.state['id'])}</h5>
                   </a>
                   <div className="new-sub">
                     <Button variant="contained" color="primary" onClick={dialogOpen}
@@ -294,6 +327,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
           <Card className="card-user">
             <MaterialTable
               title="Subscritores"
+              icons={TableIcon}
               columns={state.columns}
               data={...data.filter(user => {return user.pressState < 3})}
               isLoading={loading}
@@ -311,7 +345,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                 }
               }}
               actions={[
-                rowData => ({
+                (rowData: WorkSubs) => ({
                   icon: 'cancel',
                   tooltip: 'Despedir prisidiário',
                   onClick: (event, row) => clickCancelPressWork(row.pressID),
@@ -325,6 +359,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
           <Card className="card-user">
             <MaterialTable
               title="Despedimentos"
+              icons={TableIcon}
               columns={state.columns}
               data={...data.filter(user => {return user.pressState === 3})}
               isLoading={loading}
@@ -374,26 +409,3 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkInfo);
-
-
-const getImageByState = (id) => {
-  switch (id) {
-    case 1:
-      return pending;
-    case 2:
-      return completed;
-    case 3:
-      return canceled;
-  }
-};
-
-const getStateName = (id) => {
-  switch (id) {
-    case 1:
-      return "Pendente";
-    case 2:
-      return "Concluído";
-    case 3:
-      return "Cancelado";
-  }
-};

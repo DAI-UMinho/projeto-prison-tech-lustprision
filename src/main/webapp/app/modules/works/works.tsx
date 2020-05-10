@@ -19,6 +19,8 @@ import {StateBox} from "app/components/StateBox";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content'
 import CardNewButton from "app/components/CardNewButton";
+import {IWork} from "app/shared/model/work.model";
+import TableIcon from "app/shared/util/table-icon";
 
 const MySwal = withReactContent(Swal);
 
@@ -150,8 +152,8 @@ export const Works = (props: IWorkProps) => {
     }
   };
 
-  const pendingNumber = workList.filter(pending => {return pending.state.id === 1}).length;
-  const completedNumber = workList.filter(done => {return done.state.id === 2}).length;
+  const pendingNumber = workList.filter(pending => {return pending.state['id'] === 1}).length;
+  const completedNumber = workList.filter(done => {return done.state['id'] === 2}).length;
 
   return (
     <div>
@@ -238,6 +240,7 @@ export const Works = (props: IWorkProps) => {
         <Card className="card-user">
           <MaterialTable
             title="Todos os Trabalhos"
+            icons={TableIcon}
             columns={state.columns}
             data={data}
             isLoading={loading}
@@ -260,11 +263,11 @@ export const Works = (props: IWorkProps) => {
               }
             }}
             actions={[
-              rowData => ({
+              (rowData: IWork) => ({
                 icon: 'cancel',
                 tooltip: 'Cancelar trabalho',
                 onClick: (event, row) => clickCancelWork(row.id),
-                disabled: rowData.state.id > 1
+                disabled: rowData.state['id'] > 1
               }),
               {
                 icon: 'delete',

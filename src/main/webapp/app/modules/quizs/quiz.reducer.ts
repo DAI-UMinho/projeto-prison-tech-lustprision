@@ -21,7 +21,7 @@ const initialState = {
   loading: false,
   errorMessage: null,
   entities: [] as ReadonlyArray<IQuiz>,
-  completed: [] as ReadonlyArray<IQuiz>,
+  completed: [] as Array<IQuiz>,
   quizResults: [] as ReadonlyArray<any>,
   entity: defaultValue,
   updating: false,

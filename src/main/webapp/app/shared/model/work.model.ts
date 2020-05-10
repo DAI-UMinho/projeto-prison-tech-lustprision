@@ -5,12 +5,13 @@ import { IState } from 'app/shared/model/state.model';
 export interface IWork {
   id?: number;
   nameWork?: string;
-  priceHour?: number;
+  totalCredits?: number;
   numRemainingEntries?: number;
   date?: Moment;
   ids?: IPressWork[];
   state?: IState[];
-  stateId?: number;
+  stateID?: number;
+  pressProductId?: number;
 }
 
 export const defaultValue: Readonly<IWork> = {};

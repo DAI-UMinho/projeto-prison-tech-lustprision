@@ -18,9 +18,9 @@ export interface IPrisioner {
   profileImage?: any;
   nfcCode?: number;
   codigoCartao?: number;
-  ids?: IPressWork[];
-  ids?: IPrisQuiz[];
-  ids?: IPurchase[];
+  pressWork?: IPressWork[];
+  prisQuiz?: IPrisQuiz[];
+  purchase?: IPurchase[];
   permission?: IPermission;
 }
 

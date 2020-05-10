@@ -124,10 +124,10 @@ const PurchaseDetailDialog = (props: SimpleDialogProps) => {
             setIsLoaded(true);
             setItems(result)
           },
-          (error) => {
+          (fetchError) => {
             console.log("ERRO");
             setIsLoaded(true);
-            setError(error);
+            setError(fetchError);
           })
     }
   }, [open]);

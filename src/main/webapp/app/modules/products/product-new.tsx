@@ -217,7 +217,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  productEntity: storeState.product.entity,
+  productEntity: storeState.product.product,
   loading: storeState.product.loading,
   updating: storeState.product.updating,
   updateSuccess: storeState.product.updateSuccess

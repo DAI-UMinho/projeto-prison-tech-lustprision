@@ -160,9 +160,9 @@ const Header = (props: IUserHeader) => {
                   <p style={{marginTop: '3px'}}>{`${account.firstName} ${account.lastName}`}</p>
                 </NavItem>) : null}
                 <NavItem>
-                  <Link onClick={handleClickOpen} className="nav-link btn-magnify">
+                  <i onClick={handleClickOpen} className="nav-link btn-magnify">
                     <ExitToAppIcon />
-                  </Link>
+                  </i>
                 </NavItem>
               </Nav>
             </Collapse>

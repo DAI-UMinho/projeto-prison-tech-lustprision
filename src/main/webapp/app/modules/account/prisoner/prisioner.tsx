@@ -17,6 +17,7 @@ import { Ellipsis } from 'react-spinners-css';
 import {LinearProgress, useMediaQuery} from "@material-ui/core";
 import {translate, Translate} from "react-jhipster";
 import CardNewButton from "app/components/CardNewButton";
+import TableIcon from "app/shared/util/table-icon";
 
 export interface IPrisionerProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
@@ -65,7 +66,7 @@ export const Prisioner = (props: IPrisionerProps) => {
   }, [prisionerList]);
 
 
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles({
     root: {
       padding: theme.spacing(3)
     },
@@ -90,7 +91,7 @@ export const Prisioner = (props: IPrisionerProps) => {
     exportButton: {
       marginRight: '10px'
     }
-  }));
+  });
 
   const classes = useStyles();
 
@@ -122,6 +123,7 @@ export const Prisioner = (props: IPrisionerProps) => {
         <Card className="card-user">
           <MaterialTable
             title=""
+            icons={TableIcon}
             columns={state.columns}
             data={data}
             isLoading={loading}

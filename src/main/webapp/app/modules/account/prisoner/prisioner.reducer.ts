@@ -6,6 +6,10 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 
 import { IPrisioner, defaultValue } from 'app/shared/model/prisioner.model';
 import { IPurchase } from 'app/shared/model/purchase.model';
+import { IWorkStats } from 'app/shared/model/prisoner.work.stats';
+import { IPurchaseData } from 'app/shared/model/prisoner.purchase.data';
+import { IPrisonerQuiz } from 'app/shared/model/prisoner.quiz';
+import { IWork } from 'app/shared/model/work.model';
 
 export const ACTION_TYPES = {
   FETCH_PRISIONER_QUIZ_LIST: 'prisioner/FETCH_PRISIONER_QUIZ_LIST',
@@ -25,9 +29,9 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IPrisioner>,
   entity: defaultValue,
-  purchases: [] as ReadonlyArray<any>,
-  works: [] as ReadonlyArray<any>,
-  quizs: [] as ReadonlyArray<any>,
+  purchases: [] as Array<IPurchaseData>,
+  works: [] as Array<IWork>,
+  quizzes: [] as Array<IPrisonerQuiz>,
   updating: false,
   updateSuccess: false
 };
@@ -77,7 +81,7 @@ export default (state: PrisionerState = initialState, action): PrisionerState =>
       return {
         ...state,
         loading: false,
-        quizs: action.payload.data
+        quizzes: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PRISIONER_WORK_LIST):
       return {
@@ -155,7 +159,7 @@ export const getEntity: ICrudGetAction<IPrisioner> = id => {
   };
 };
 
-export const getPrisonerPurchases: ICrudGetAllAction<any> = id => {
+export const getPrisonerPurchases: ICrudGetAction<any> = id => {
   const requestUrl = `${apiUrl}/${id}/purchases`;
   return {
     type: ACTION_TYPES.FETCH_PRISIONER_PURCHASE_LIST,
@@ -163,7 +167,7 @@ export const getPrisonerPurchases: ICrudGetAllAction<any> = id => {
   };
 };
 
-export const getPrisionerWorks: ICrudGetAllAction<any> = id => {
+export const getPrisionerWorks: ICrudGetAction<any> = id => {
   const requestUrl = `${apiUrl}/${id}/work`;
   return {
     type: ACTION_TYPES.FETCH_PRISIONER_WORK_LIST,
@@ -171,7 +175,7 @@ export const getPrisionerWorks: ICrudGetAllAction<any> = id => {
   };
 };
 
-export const getPrisionerQuizs: ICrudGetAllAction<any> = id => {
+export const getPrisionerQuizs: ICrudGetAction<any> = id => {
   const requestUrl = `${apiUrl}/${id}/quizs`;
   return {
     type: ACTION_TYPES.FETCH_PRISIONER_QUIZ_LIST,

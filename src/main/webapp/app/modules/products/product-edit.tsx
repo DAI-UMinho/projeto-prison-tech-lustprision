@@ -12,6 +12,7 @@ import {getEntity, updateEntity, createEntity, setBlob, reset, getProductSales, 
 import CloseIcon from '@material-ui/icons/Close';
 import MaterialTable, {Column} from "material-table";
 import {APP_DATE_FORMAT} from "app/config/constants";
+import TableIcon from "app/shared/util/table-icon";
 
 export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -295,6 +296,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
               <Card className="card-user justify-content-center">
                 <MaterialTable
                   title="Ultimas Vendas"
+                  icons={TableIcon}
                   columns={state.columns}
                   data={productSales}
                   options={{

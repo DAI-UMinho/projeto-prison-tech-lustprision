@@ -18,7 +18,6 @@ import {APP_DATE_FORMAT} from 'app/config/constants';
 import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
 import {getUsers, updateUser} from './user-management.reducer';
 import {IRootState} from 'app/shared/reducers';
-import StateBox from "app/components/StateBox";
 import {Column} from "material-table";
 
 interface TableState {
@@ -188,7 +187,7 @@ export const Employee = (props: IUserManagementProps) => {
                 </TableHead>
                 <TableBody>
                   {users.filter(function (user) {
-                    return user.authorities.length == 1;
+                    return user.authorities.length === 1;
                   })
                     .map((user, i) => (
                       <TableRow key={user.login}>

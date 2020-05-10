@@ -93,7 +93,7 @@ export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
   results:  readonly any[];
-  loading: false;
+  loading: boolean;
 }
 
 const QuizDetailDialog = (props: SimpleDialogProps) => {

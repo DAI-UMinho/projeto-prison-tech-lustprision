@@ -18,6 +18,7 @@ import {getCompletedQuizzes, getQuizResults} from "./quiz.reducer"
 import {StateBox, QuizBox} from "app/components/StateBox";
 import Swal from "sweetalert2";
 import QuizDetailDialog from "app/modules/quizs/quiz-details";
+import TableIcon from "app/shared/util/table-icon";
 
 export interface IQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
@@ -93,7 +94,7 @@ export const Quiz = (props: IQuizProps) => {
     }
   }, [waitingList]);
 
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles({
     root: {
       padding: theme.spacing(3)
     },
@@ -118,7 +119,7 @@ export const Quiz = (props: IQuizProps) => {
     exportButton: {
       marginRight: '10px'
     }
-  }));
+  });
 
   const classes = useStyles();
 
@@ -169,6 +170,7 @@ export const Quiz = (props: IQuizProps) => {
           <Card className="card-user">
             <MaterialTable
               title="Quizzes Completados"
+              icons={TableIcon}
               columns={state.quizzes}
               data={completedQuizzes}
               isLoading={loading}
@@ -207,6 +209,7 @@ export const Quiz = (props: IQuizProps) => {
           <Card className="card-user">
             <MaterialTable
               title="Aprovação Pendente"
+              icons={TableIcon}
               columns={state.pending}
               data={approvalList}
               isLoading={loading}

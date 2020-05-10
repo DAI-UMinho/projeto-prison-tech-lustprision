@@ -33,9 +33,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:oracle:thin:@localhost:1521:xe
+    url: jdbc:oracle:thin:@193.136.11.147:1521:lustdb2
     username: system
-    password: oracle
+    password: DBpassword#1
     hikari:
       poolName: Hikari
       auto-commit: false

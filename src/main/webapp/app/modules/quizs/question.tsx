@@ -17,6 +17,7 @@ import {getEntities, createEntity, updateEntity, deleteEntity} from "app/modules
 import Swal from "sweetalert2";
 import QuestionUpdate from "app/modules/quizs/question-update";
 import CardNewButton from "app/components/CardNewButton";
+import TableIcon from "app/shared/util/table-icon";
 
 export interface IQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
@@ -103,6 +104,7 @@ export const Question = (props: IQuizProps) => {
           <Card className="card-user">
             <MaterialTable
               title="Questões"
+              icons={TableIcon}
               columns={state.questions}
               data={questionList}
               isLoading={loading}

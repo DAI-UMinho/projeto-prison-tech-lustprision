@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, forwardRef} from 'react';
 import {connect} from 'react-redux';
 import {RouteComponentProps} from 'react-router-dom';
 import {Col, Row, Card, CardBody, CardTitle} from 'reactstrap';
@@ -15,6 +15,24 @@ import withReactContent from 'sweetalert2-react-content'
 import {StateBox} from "app/components/StateBox";
 import {useTheme} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
+import {IWork} from "app/shared/model/work.model";
+import TableIcon from "app/shared/util/table-icon";
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const MySwal = withReactContent(Swal);
 
@@ -30,7 +48,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
   const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 8;
 
   const [data, setData] = useState([]);
-  const {prisionerWorks, updateSuccess, workJob, worksReloading, workStats} = props;
+  const {prisionerWorks, updateSuccess, workStats} = props;
 
   const creditsEarned: number = prisionerWorks.filter(completed => {return completed.stateID === 2})
                                       .reduce((accumulator, completed) => accumulator + completed.totalCredits, 0);
@@ -77,10 +95,10 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
       <Col md={colN}>
         <Card className="card-user justify-content-center">
             <MaterialTable
+              icons={TableIcon}
               title="Trabalhos Realizados"
               columns={state.columns}
               data={prisionerWorks}
-              isLoading={worksReloading}
               onRowClick={((evt, selectedRow) =>
                 window.location.replace(`dashboard/works/${selectedRow.id}`))}
               options={{
@@ -101,16 +119,16 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
                 }
               }}
               actions={[
-                rowData => ({
+                (rowData: IWork) => ({
                   icon: 'cancel',
                   tooltip: 'Despedir deste trabalho',
-                  onClick: (event, data) => clickCancelWork(data.pressProductId),
+                  onClick: (event, mData) => clickCancelWork(mData.pressProductId),
                   disabled: rowData.stateID > 1
                 }),
                 {
                   icon: 'delete',
                   tooltip: 'Remover trabalho',
-                  onClick: (event, rowData) => {
+                  onClick: (event, rowData) =>
                     MySwal.fire({
                       title: <p>Apagar Trabalho?</p>,
                       text: "Não é possivel reverter esta operação!",
@@ -133,7 +151,6 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
                         )
                       }
                     })
-                  }
                 }
               ]}
             />
@@ -201,12 +218,8 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
 
 const mapStateToProps = (state: IRootState) => ({
   prisionerWorks: state.prisioner.works,
-  worksReloading: state.prisioner.loading,
   updateSuccess: state.work.updateSuccess,
-  workJob: state.pressWork.entity,
-  workUpdating: state.pressWork.updating,
   workStats: state.statistics.prisonerWorkStats
-  // completedWorks: state.statistics.nPrisonerCompletedWork
 });
 
 const mapDispatchToProps = {getPrisionerWorks, cancelPressProduct, getPrisonerWorkStates};

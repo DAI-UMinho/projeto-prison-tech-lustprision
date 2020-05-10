@@ -39,6 +39,12 @@
         <profile.swagger />
         <profile.tls />
 
+        <!-- Database info -->
+        <env.JDBC_DATABASE_URL>jdbc:oracle:thin:@193.136.11.147:1521:lustdb2</env.JDBC_DATABASE_URL>
+        <env.JDBC_DATABASE_USERNAME>system</env.JDBC_DATABASE_USERNAME>
+        <env.JDBC_DATABASE_PASSWORD>DBpassword#1</env.JDBC_DATABASE_PASSWORD>
+
+
         <!-- Dependency versions -->
         <jhipster-dependencies.version>3.4.0</jhipster-dependencies.version>
         <!-- The spring-boot version should match the one managed by
@@ -327,6 +333,14 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-localconfig-connector</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-heroku-connector</artifactId>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>

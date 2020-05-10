@@ -17,7 +17,12 @@ import {PrisionerDetail} from "app/entities/prisioner/prisioner-detail";
 import {PrisionerWork} from "app/modules/account/prisoner/prisioner-work";
 import {PrisionerPurchase} from "app/modules/account/prisoner/prisioner-purchase";
 import {PrisionerQuiz} from "app/modules/account/prisoner/prisioner-quiz";
-import {getPrisonerCompletedWorks, getPrisonerWorkStates} from "app/shared/reducers/statistics";
+import {getPrisonerWorkStates} from "app/shared/reducers/statistics";
+import {IWorkStats} from "app/shared/model/prisoner.work.stats";
+import {IPurchaseData} from "app/shared/model/prisoner.purchase.data";
+import {IPrisonerQuiz} from "app/shared/model/prisoner.quiz";
+import {read} from "fs";
+import {IWork} from "app/shared/model/work.model";
 
 interface TabPanelProps {
   children?: any;
@@ -52,10 +57,10 @@ const useStyles = makeStyles({
 export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
   const [loginId, setLoginId] = useState('0');
   const [permissionId, setPermissionId] = useState('0');
-  const [purchaseData, setPurchaseData] = useState([]);
-  const [workData, setWorkData] = useState([]);
-  const [quizData, setQuizDate] = useState([]);
-  const [value, setValue] = React.useState(0);
+  const [purchaseData, setPurchaseData] = useState<readonly IPurchaseData[]>();
+  const [workData, setWorkData] = useState<readonly IWork[]>([]);
+  const [quizData, setQuizDate] = useState<readonly IPrisonerQuiz[]>([]);
+  const [mValue, setValue] = React.useState(0);
 
 /*  const {logins, permissions, prisionerPurchases, match} = props;*/
   const {prisionerEntity, prisionerPurchases, prisionerQuizs, loading, updating} = props;
@@ -92,8 +97,8 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
     props.getPrisonerWorkStates(props.match.params.id);
   }, []);
 
-  function TabPanel(props: TabPanelProps) {
-    const {children, value, index, ...other } = props;
+  function TabPanel(tabProps: TabPanelProps) {
+    const {children, value, index, ...other } = tabProps;
 
     return (
       <Typography
@@ -113,7 +118,7 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
   return (
     <div>
       <AppBar className={classes.appbar} position="static">
-        <Tabs value={value} onChange={handleChange} TabIndicatorProps={{style: {
+        <Tabs value={mValue} onChange={handleChange} TabIndicatorProps={{style: {
             backgroundColor: "#2196f3"}}} aria-label="simple tabs example">
           <Tab className={classes.textStyle} label="Dados Pessoais" {...a11yProps(0)} />
           <Tab className={classes.textStyle} label="Trabalhos" {...a11yProps(1)} />
@@ -121,16 +126,16 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
           <Tab className={classes.textStyle} label="Quizes" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={mValue} index={0}>
         <PrisionerInfo {...props} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={mValue} index={1}>
         <PrisionerWork {...props} />
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={mValue} index={2}>
         <PrisionerPurchase {...props} />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={mValue} index={3}>
         <PrisionerQuiz {...props}/>
       </TabPanel>
     </div>
@@ -143,7 +148,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   prisionerPurchases: storeState.prisioner.purchases,
   prisionerEntity: storeState.prisioner.entity,
   prisionerWorks: storeState.prisioner.works,
-  prisionerQuizs: storeState.prisioner.quizs,
+  prisionerQuizs: storeState.prisioner.quizzes,
   // completedWorks: storeState.statistics.nPrisonerCompletedWork,
   workStats: storeState.statistics.prisonerWorkStats,
   loading: storeState.prisioner.loading,

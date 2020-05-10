@@ -81,6 +81,8 @@ export const StateBox = (props: StateBoxState) => {
         return classes.completed;
       case 3:
         return classes.canceled;
+      default:
+        return classes.pending;
     }
   };
 
@@ -101,12 +103,13 @@ export const QuizBox = (props: QuizBoxState) => {
       case 1:
       case 2:
         return classes.canceled;
-      case 2:
       case 3:
       case 4:
         return classes.pending;
       case 5:
         return classes.completed;
+      default:
+        return classes.canceled;
     }
   };
 

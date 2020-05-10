@@ -63,12 +63,12 @@ export const Work = (props: IWorkProps) => {
                     </Button>
                   </td>
                   <td>{work.nameWork}</td>
-                  <td>{work.priceHour}</td>
-                  <td>{work.numVacancies}</td>
+                  <td>{work.totalCredits}</td>
+                  <td>{work.numRemainingEntries}</td>
                   <td>
                     <TextFormat type="date" value={work.date} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{work.stateId ? <Link to={`state/${work.stateId}`}>{work.stateId}</Link> : ''}</td>
+                  <td>{work.stateID ? <Link to={`state/${work.stateID}`}>{work.stateID}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${work.id}`} color="info" size="sm">

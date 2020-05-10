@@ -4,8 +4,8 @@ import { IQuestionQuiz } from 'app/shared/model/question-quiz.model';
 export interface IQuiz {
   id?: number;
   qtyQuestion?: number;
-  ids?: IPrisQuiz[];
-  ids?: IQuestionQuiz[];
+  prisQuiz?: IPrisQuiz[];
+  questionQuiz?: IQuestionQuiz[];
 }
 
 export const defaultValue: Readonly<IQuiz> = {};

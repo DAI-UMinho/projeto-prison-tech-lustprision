@@ -104,7 +104,7 @@ export const ProductDetail = (props: IProductDetailProps) => {
 };
 
 const mapStateToProps = ({ product }: IRootState) => ({
-  productEntity: product.entity
+  productEntity: product.product
 });
 
 const mapDispatchToProps = { getEntity };

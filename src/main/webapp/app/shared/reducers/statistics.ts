@@ -5,6 +5,7 @@ import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util'
 import { IProduct } from 'app/shared/model/product.model';
 import { IPrisioner } from 'app/shared/model/prisioner.model';
 import { IQuestion } from 'app/shared/model/question.model';
+import { IWorkStats, defaultValue } from 'app/shared/model/prisoner.work.stats';
 
 export const ACTION_TYPES = {
   FETCH_PRISONER_COMPLETED_WORKS: 'locale/FETCH_PRISONER_COMPLETED_WORKS',
@@ -17,7 +18,7 @@ const initialState = {
   nProducts: 0,
   nSales: 0,
   // nPrisonerCompletedWork: 0,
-  prisonerWorkStats: {},
+  prisonerWorkStats: defaultValue,
   loading: false,
   errorMessage: null
 };
@@ -81,5 +82,3 @@ export const getPrisonerWorkStates: ICrudGetAction<number> = id => ({
   type: ACTION_TYPES.FETCH_PRISONER_WORK_STATES,
   payload: axios.get<number>(`${apiUrl}/prisoner/${id}/work-stat`)
 });
-
-export class getPrisonerCompletedWorks {}

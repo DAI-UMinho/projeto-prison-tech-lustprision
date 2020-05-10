@@ -58,7 +58,7 @@ export const ProductDeleteDialog = (props: IProductDeleteDialogProps) => {
 };
 
 const mapStateToProps = ({ product }: IRootState) => ({
-  productEntity: product.entity,
+  productEntity: product.product,
   updateSuccess: product.updateSuccess
 });
 
