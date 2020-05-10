@@ -118,6 +118,14 @@ export const Quiz = (props: IQuizProps) => {
     },
     exportButton: {
       marginRight: '10px'
+    },
+    cardBody:{
+      "&:hover":{
+        cursor: 'pointer',
+        backgroundColor: '#1571ff'
+      },
+      borderRadius: '12px',
+      backgroundColor: "#2b5eb1"
     }
   });
 
@@ -148,7 +156,7 @@ export const Quiz = (props: IQuizProps) => {
         </Col>
         <Col onClick={() => props.history.push(`${match.url}/questions`)} lg={mStatCol} md="6" sm="6">
           <Card className="card-stats">
-            <CardBody style={{backgroundColor: "#2b5eb1", borderRadius: '12px'}}>
+            <CardBody className={classes.cardBody}>
               <Row>
                 <Col md="4" xs="5">
                   <div className="icon-big text-center icon-warning">

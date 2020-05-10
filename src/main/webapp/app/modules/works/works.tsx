@@ -82,7 +82,7 @@ export const Works = (props: IWorkProps) => {
     columns: [
       {title: 'Numero de Trabalho', field: 'id', render: rowData => <i>#{rowData.id}</i>},
       {title: 'Nome do Trabalho', field: 'nameWork'},
-      {title: 'Data', field: 'date', type: 'datetime', render: rowData => <TextFormat value={rowData.date} type="date" format={APP_DATE_FORMAT} blankOnInvalid />},
+      {title: 'Data', field: 'date', type: 'date'},
       {title: 'Recompensa', field: 'totalCredits'},
       {title: 'Vagas Disponiveis', field: 'numRemainingEntries'},
       {title: 'Estado', field: 'state', render: rowData => <StateBox boxText={rowData.state.name} stateID={rowData.state.id}/>},
@@ -284,7 +284,7 @@ export const Works = (props: IWorkProps) => {
 };
 
 const mapStateToProps = ({work}: IRootState) => ({
-  workList : work.entities,
+  workList: work.entities,
   loading: work.loading,
 });
 

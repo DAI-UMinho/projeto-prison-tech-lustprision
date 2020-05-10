@@ -16,6 +16,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Ellipsis } from 'react-spinners-css';
 import Paper from '@material-ui/core/Paper';
+import axios from "axios";
 
 
 const styles = (theme: Theme) =>
@@ -39,6 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     tableHeader:{
       fontWeight: 'bold'
+    },
+    hr:{
+      marginBottom: 0,
+      marginTop: 0
     }
   })
 );
@@ -71,24 +76,11 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
   );
 });
 
-const DialogContent = withStyles((theme: Theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
 const CustomTableCell = withStyles((theme: Theme) => ({
   root: {
     fontWeight: 'bold',
   },
 }))(TableCell);
-
-const DialogActions = withStyles((theme: Theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
 
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
@@ -113,22 +105,13 @@ const PurchaseDetailDialog = (props: SimpleDialogProps) => {
 
   useEffect(() => {
     if (open) {
-      console.log("PURCHASE ID: " + props.purchaseID);
-      const apiEndpoint = `http://localhost:8080/api/purchases/${props.purchaseID}/pres-products`;
+      const apiEndpoint = `api/purchases/${props.purchaseID}/pres-products`;
+      const request = axios.get(apiEndpoint);
 
-      fetch(apiEndpoint)
-        .then(res => res.json())
-        .then((result) => {
-            console.log("SUCESSSSO");
-            console.log(result);
-            setIsLoaded(true);
-            setItems(result)
-          },
-          (fetchError) => {
-            console.log("ERRO");
-            setIsLoaded(true);
-            setError(fetchError);
-          })
+      request.then(result => {
+        setIsLoaded(true);
+        setItems(result.data);
+      });
     }
   }, [open]);
 
@@ -146,17 +129,11 @@ const PurchaseDetailDialog = (props: SimpleDialogProps) => {
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Detalhes da Compra
         </DialogTitle>
-        <DialogContent dividers>
+        <hr className={classes.hr}/>
           {isLoaded ? (
             <TableContainer component={Paper}>
             <Table style={{minWidth: 800}} aria-label="spanning table">
               <TableHead>
-                <TableRow className={classes.tableHeader}>
-                  <TableCell align="center" colSpan={3}>
-                    Details
-                  </TableCell>
-                  <TableCell align="right">Price</TableCell>
-                </TableRow>
                 <TableRow>
                   <CustomTableCell >Nome Produto</CustomTableCell>
                   <CustomTableCell align="right">Qty.</CustomTableCell>
@@ -184,27 +161,8 @@ const PurchaseDetailDialog = (props: SimpleDialogProps) => {
             </Table>
           </TableContainer>
             ) : (<Ellipsis color="#99c3ff"/>)}
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions>
       </Dialog>)}
     </div>
   );
 };
-
-/*const mapStateToProps = ({purchase}: IRootState) => ({
-  infoProducts: purchase.infoProducts,
-  loading: purchase.loading,
-  updateSuccess: purchase.updateSuccess
-});
-
-const mapDispatchToProps = {getPurchaseProductInfoList};
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-
-export default connect(mapStateToProps, mapDispatchToProps)(PurchaseDetailDialog);*/
 export default PurchaseDetailDialog;

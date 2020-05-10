@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles, useTheme, Theme, createStyles} from '@material-ui/core/styles';
 import MaterialTable, {Column} from "material-table";
 import {Dialog, DialogContent, DialogTitle} from "@material-ui/core";
+import TableIcon from "app/shared/util/table-icon";
 
 export interface SimpleDialogProps {
   open: boolean,
@@ -52,6 +53,7 @@ const WorkSubDialog = (props: SimpleDialogProps) => {
     >
       <MaterialTable
         title=""
+        icons={TableIcon}
         columns={state.columns}
         data={data}
         isLoading={loading}

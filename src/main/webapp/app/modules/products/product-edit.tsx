@@ -13,6 +13,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import MaterialTable, {Column} from "material-table";
 import {APP_DATE_FORMAT} from "app/config/constants";
 import TableIcon from "app/shared/util/table-icon";
+import {useMediaQuery} from "@material-ui/core";
+import {useTheme} from "@material-ui/core/styles";
 
 export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -22,6 +24,8 @@ interface TableState {
 }
 
 export const ProductEditInfo = (props: IProductUpdateProps) => {
+  const theme = useTheme();
+  const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 6;
 
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const [state, setState] = React.useState<TableState>({
@@ -42,7 +46,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
         render: rowData => <TextFormat value={rowData.purchaseDate} type="date" format={APP_DATE_FORMAT}
                                        blankOnInvalid/>
       },
-      {title: 'Quantidade Vendida', field: 'qty'},
+      {title: 'Quantidade', field: 'qty'},
       {title: 'Valor Total', field: 'priceTotal'},
     ]
   });
@@ -193,7 +197,9 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                                    maxLength: {
                                      value: 3,
                                      errorMessage: translate('lustPrisionApp.product.validation.price.length')
-                                   }
+                                   },
+                                   min: {value: 1},
+                                   max: {value: 999}
                                  }}/>
                       </AvGroup>
                     </div>
@@ -239,7 +245,9 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                           maxLength: {
                             value: 3,
                             errorMessage: translate('lustPrisionApp.product.validation.stock.maxLength')
-                          }
+                          },
+                          min: {value: 0},
+                          max: {value: 999}
                         }}/>
                       </AvGroup>
                     </div>
@@ -292,7 +300,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
         <div>
           <hr></hr>
           <Row className="justify-content-center">
-            <Col md="6">
+            <Col md={colN}>
               <Card className="card-user justify-content-center">
                 <MaterialTable
                   title="Ultimas Vendas"

@@ -172,7 +172,9 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                              maxLength: {
                                value: 5,
                                errorMessage: translate('lustPrisionApp.prisioner.validation.numPrisoner.length')
-                             }
+                             },
+                             min: {value: 1},
+                             max: {value: 99999}
                            }}/>
                 </AvGroup>
                 <AvGroup>
@@ -191,7 +193,9 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                              maxLength: {
                                value: 4,
                                errorMessage: translate('lustPrisionApp.prisioner.validation.numCell.maxLength')
-                             }
+                             },
+                             min: {value: 1},
+                             max: {value: 9999}
                            }}/>
                 </AvGroup>
                 <AvGroup>
@@ -231,7 +235,9 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                              maxLength: {
                                value: 9,
                                errorMessage: translate('lustPrisionApp.prisioner.validation.bi.length')
-                             }
+                             },
+                             min: {value: 100000000},
+                             max: {value: 999999999}
                            }}/>
                 </AvGroup>
                 <AvGroup>
@@ -253,7 +259,9 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                                  maxLength: {
                                    value: 12,
                                    errorMessage: translate('lustPrisionApp.prisioner.validation.nfc.maxLength')
-                                 }
+                                 },
+                                 min: {value: 100000000},
+                                 max: {value: 999999999999}
                                }}/>
                     </Col>
                     <RefreshIcon onClick={generateNFC} className={classes.eyeButton} />
@@ -277,7 +285,9 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                                  maxLength: {
                                    value: 4,
                                    errorMessage: translate('lustPrisionApp.prisioner.validation.pinCode.length')
-                                 }
+                                 },
+                                 min: {value: 0},
+                                 max: {value: 9999}
                                }}/>
                     </Col>
                     <VisibilityIcon onClick={eyeClick} className={classes.eyeButton} color={eyeColor}/>
