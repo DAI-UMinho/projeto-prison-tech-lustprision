@@ -23,6 +23,7 @@ import {IPurchaseData} from "app/shared/model/prisoner.purchase.data";
 import {IPrisonerQuiz} from "app/shared/model/prisoner.quiz";
 import {read} from "fs";
 import {IWork} from "app/shared/model/work.model";
+import {getQuizResults} from "app/modules/quizs/quiz.reducer";
 
 interface TabPanelProps {
   children?: any;
@@ -153,7 +154,9 @@ const mapStateToProps = (storeState: IRootState) => ({
   workStats: storeState.statistics.prisonerWorkStats,
   loading: storeState.prisioner.loading,
   updating: storeState.prisioner.updating,
-  updateSuccess: storeState.prisioner.updateSuccess
+  updateSuccess: storeState.prisioner.updateSuccess,
+  quizResults: storeState.quiz.quizResults,
+  resultLoading: storeState.quiz.loading
 });
 
 const mapDispatchToProps = {
@@ -162,7 +165,8 @@ const mapDispatchToProps = {
   getPrisionerWorks,
   getPrisionerQuizs,
   cancelPressProduct,
-  getPrisonerWorkStates
+  getPrisonerWorkStates,
+  getQuizResults
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

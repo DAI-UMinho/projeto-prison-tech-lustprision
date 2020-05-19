@@ -33,6 +33,7 @@ export const Quiz = (props: IQuizProps) => {
   const mCol = useMediaQuery(theme.breakpoints.up('xl')) ? 8 : 10;
   const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
+  const [selectedID, setSelectedID] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [approvalList, setApprovalList] = useState([]);
 
@@ -183,7 +184,7 @@ export const Quiz = (props: IQuizProps) => {
               data={completedQuizzes}
               isLoading={loading}
               onRowClick={((evt, selectedRow) => {
-                  props.getQuizResults(selectedRow.quizID);
+                  setSelectedID(selectedRow.quizID);
                   setOpen(true);
               })}
               options={{
@@ -250,7 +251,7 @@ export const Quiz = (props: IQuizProps) => {
           </Card>
         </Col>
       </Row>
-      <QuizDetailDialog open={open} onClose={handleDialogClose} results={props.quizResults} loading={resultLoading}/>
+      <QuizDetailDialog open={open} onClose={handleDialogClose} quizID={selectedID}/>
     </div>
   );
 };

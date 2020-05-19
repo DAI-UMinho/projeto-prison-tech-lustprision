@@ -1,5 +1,6 @@
 package com.lustprision.admin.repository;
 
+import com.lustprision.admin.domain.Authority;
 import com.lustprision.admin.domain.User;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -46,4 +47,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
+
+    Page<User> findAllByAuthoritiesIsNotContaining(Pageable pageable, Authority authority);
 }

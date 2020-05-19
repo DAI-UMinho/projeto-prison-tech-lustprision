@@ -4,7 +4,7 @@ import {AvForm, AvField, AvGroup, AvInput} from 'availity-reactstrap-validation'
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle} from 'reactstrap';
 import {Translate, ICrudGetAllAction, TextFormat, translate, setFileData, openFile} from 'react-jhipster';
 import MaterialTable, {Column} from "material-table";
-import { getPrisionerQuizs} from "app/modules/account/prisoner/prisioner.reducer";
+import {getPrisionerQuizs} from "app/modules/account/prisoner/prisioner.reducer";
 import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
 import Swal from 'sweetalert2'
@@ -13,10 +13,12 @@ import {useTheme} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
 import {QuizBox} from "app/components/StateBox";
 import TableIcon from "app/shared/util/table-icon";
+import QuizDetailDialog from "app/modules/quizs/quiz-details";
+import {getQuizResults} from "app/modules/quizs/quiz.reducer";
 
 const MySwal = withReactContent(Swal);
 
-export interface IPrisionerQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string  }>{
+export interface IPrisionerQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
 
 interface TableState {
@@ -26,8 +28,11 @@ interface TableState {
 export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
   const theme = useTheme();
   const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 8;
+  const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
-  const { prisionerQuizs } = props;
+  const [selectedID, setSelectedID] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
+  const {prisionerQuizs} = props;
   const [state, setState] = React.useState<TableState>({
     columns: [
       {title: 'Identificação', field: 'id', render: rowData => <i>#{rowData.id}</i>},
@@ -40,70 +45,81 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
     ]
   });
 
-  console.log(prisionerQuizs);
+
+  const handleDialogClose = (value: string) => {
+    setOpen(false);
+  };
 
   return (
-    <Row className="justify-content-center">
-      <Col md={colN}>
-        <Card className="card-user justify-content-center">
-          <MaterialTable
-            title="Todos os Quizs"
-            icons={TableIcon}
-            columns={state.columns}
-            data={prisionerQuizs}
-            onRowClick={((evt, selectedRow) => {})}
-            options={{
-              headerStyle: {
-                backgroundColor: '#01579b',
-                color: '#FFF',
-                fontWeight: 'bold'
-              },
-              actionsColumnIndex: -1,
-              exportButton: true
-            }}
-            localization={{
-              body: {
-                emptyDataSourceMessage: "Ainda não existem trabalhos para este presidiário",
-                editRow: {
-                  deleteText: "Tem a certeza que quer eliminar este presidiário?!"
+    <>
+      <Row className="justify-content-center">
+        <Col md={colN}>
+          <Card className="card-user justify-content-center">
+            <MaterialTable
+              title="Todos os Quizs"
+              icons={TableIcon}
+              columns={state.columns}
+              data={prisionerQuizs}
+              onRowClick={((evt, selectedRow) => {
+                setSelectedID(selectedRow.quizID);
+                setOpen(true);
+              })}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#01579b',
+                  color: '#FFF',
+                  fontWeight: 'bold'
+                },
+                actionsColumnIndex: -1,
+                exportButton: true
+              }}
+              localization={{
+                body: {
+                  emptyDataSourceMessage: "Ainda não existem trabalhos para este presidiário",
+                  editRow: {
+                    deleteText: "Tem a certeza que quer eliminar este presidiário?!"
+                  }
                 }
-              }
-            }}
-            actions={[
-              {
-                icon: 'delete',
-                tooltip: 'Remover Quiz',
-                onClick: (event, rowData) =>
-                  MySwal.fire({
-                    title: <p>Apagar Trabalho?</p>,
-                    text: "Não é possivel reverter esta operação!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Apagar!'
-                  }).then((result) => {
-                    if (result.value) {
-                      Swal.fire(
-                        'Removido!',
-                        'O trabalho foi removido da conta do presidiário',
-                        'success'
-                      )
-                    }
-                  })
-              }
-            ]}
-          />
-        </Card>
-      </Col>
-    </Row>
+              }}
+              actions={[
+                {
+                  icon: 'delete',
+                  tooltip: 'Remover Quiz',
+                  onClick: (event, rowData) =>
+                    MySwal.fire({
+                      title: <p>Apagar Trabalho?</p>,
+                      text: "Não é possivel reverter esta operação!",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Apagar!'
+                    }).then((result) => {
+                      if (result.value) {
+                        Swal.fire(
+                          'Removido!',
+                          'O trabalho foi removido da conta do presidiário',
+                          'success'
+                        )
+                      }
+                    })
+                }
+              ]}
+            />
+          </Card>
+        </Col>
+      </Row>
+      <QuizDetailDialog open={open} onClose={handleDialogClose} quizID={selectedID}/>
+    </>
   );
 };
-const mapStateToProps = ({prisioner}: IRootState) => ({
-  prisionerQuizs: prisioner.quizzes,
+const mapStateToProps = (state: IRootState) => ({
+  prisionerQuizs: state.prisioner.quizzes,
+  quizResults: state.quiz.quizResults,
+  resultLoading: state.quiz.loading
 });
 
-const mapDispatchToProps = {getPrisionerQuizs};
+const mapDispatchToProps = {getPrisionerQuizs, getQuizResults};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

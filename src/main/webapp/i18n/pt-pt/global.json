@@ -149,6 +149,7 @@
     "prisonerCellNum": "O numero de cela já está em uso",
     "prisonerNfcCode": "O código NFC já está a ser usado",
     "prisonerBi": "Este bi está associado a outro prisioneiro",
+    "newSub": "Este presidiário já está inscrito neste trabalho",
     "file": {
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""

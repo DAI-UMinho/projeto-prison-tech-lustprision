@@ -34,6 +34,7 @@ export interface IPrisionerPurchaseProps extends StateProps, DispatchProps, Rout
 export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
   const theme = useTheme();
   const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 8;
+  const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
   const [selectedID, setSelectedID] = React.useState(0);
   const [open, setOpen] = React.useState(false);
@@ -77,9 +78,50 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
   };
 
   const {prisionerPurchases} = props;
+  const spentCredits = prisionerPurchases.reduce((accumulator, purchase) => accumulator + purchase.purchaseTotal, 0);
 
   return (
     <Row className="justify-content-center">
+      <Col lg={mStatCol} md="6" sm="6">
+        <Card className="card-stats">
+          <CardBody>
+            <Row>
+              <Col md="4" xs="5">
+                <div className="icon-big text-center icon-warning">
+                  <i className="nc-icon nc-basket text-success"/>
+                </div>
+              </Col>
+              <Col md="8" xs="7">
+                <div className="numbers">
+                  <p className="card-category">Nº de Compras</p>
+                  <CardTitle tag="p">{prisionerPurchases.length}</CardTitle>
+                  <p/>
+                </div>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
+      </Col>
+      <Col lg={mStatCol} md="6" sm="6">
+        <Card className="card-stats">
+          <CardBody>
+            <Row>
+              <Col md="4" xs="5">
+                <div className="icon-big text-center icon-warning">
+                  <i className="nc-icon nc-money-coins text-info"/>
+                </div>
+              </Col>
+              <Col md="8" xs="7">
+                <div className="numbers">
+                  <p className="card-category">Créditos Gastos</p>
+                  <CardTitle tag="p">{spentCredits}</CardTitle>
+                  <p/>
+                </div>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
+      </Col>
       <Col md={colN}>
         <Card className="card-user justify-content-center">
           <MaterialTable

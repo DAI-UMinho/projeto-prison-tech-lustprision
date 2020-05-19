@@ -262,6 +262,12 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public Page<UserDTO> getAllEmployees(Pageable pageable) {
+        Authority authority = authorityRepository.getOne(AuthoritiesConstants.ADMIN);
+        return userRepository.findAllByAuthoritiesIsNotContaining(pageable, authority).map(UserDTO::new);
+    }
+
+    @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }

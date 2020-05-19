@@ -109,7 +109,7 @@ export default (state: UserManagementState = initialState, action): UserManageme
 const apiUrl = 'api/users';
 // Actions
 export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `api/employees/${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_USERS,
     payload: axios.get<IUser>(requestUrl)

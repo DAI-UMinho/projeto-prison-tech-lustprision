@@ -150,6 +150,14 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/employees")
+    public ResponseEntity<List<UserDTO>> getAllEmployees(Pageable pageable) {
+        log.debug("REST request to save User : {}", pageable);
+        final Page<UserDTO> page = userService.getAllEmployees(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
     /**
      * Gets a list of all roles.
      * @return a string list of all roles.

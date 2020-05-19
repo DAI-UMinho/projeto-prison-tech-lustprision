@@ -12,9 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.BadAttributeValueExpException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -56,10 +58,12 @@ public class PressWorkResource {
         log.debug("REST request to save PressWork : {}", pressWork);
         if (pressWork.getId() != null) {
             throw new BadRequestAlertException("A new pressWork cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        if (pressWork.getState() == null) {
+        }else if(pressWorkRepository.findOneByPrisionerAndWork(pressWork.getPrisioner(), pressWork.getWork()).isPresent()){
+            throw new BadRequestAlertException("Prisoner already subbed on this work", ENTITY_NAME, "newSub");
+        }else if (pressWork.getState() == null) {
             pressWork.setState(stateRepository.getOne(1L));
         }
+
         PressWork result = pressWorkRepository.save(pressWork);
         return ResponseEntity.created(new URI("/api/press-works/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

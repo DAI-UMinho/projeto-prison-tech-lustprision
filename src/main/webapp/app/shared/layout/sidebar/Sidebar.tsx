@@ -3,6 +3,7 @@ import './Sidebar.css'
 import React, {useState} from "react";
 import {NavLink, useRouteMatch} from "react-router-dom";
 import {Nav} from "reactstrap";
+import appIcon from "app/assets/images/lust-icon.png"
 import adminRoutes from "app/shared/layout/sidebar/routes";
 
 const Sidebar = props => {
@@ -21,7 +22,7 @@ const Sidebar = props => {
           href={currentRoute.path}
           className="simple-text logo-mini">
           <div className="logo-img">
-            <img src="https://i.ibb.co/r4R8yYm/login-icon.png" alt="react-logo"/>
+            <img src={appIcon} alt="react-logo"/>
           </div>
         </a>
         <a

@@ -64,7 +64,10 @@ spring:
     port: 587
     username: lustprision@gmail.com
     password: prisiontrabalho
-
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
   thymeleaf:
     cache: true
 

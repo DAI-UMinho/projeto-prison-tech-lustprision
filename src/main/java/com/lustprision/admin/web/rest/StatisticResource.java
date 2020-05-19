@@ -66,6 +66,14 @@ public class StatisticResource {
         return workRepository.getTotalWorkNumber();
     }
 
+    @GetMapping("/work-state-total")
+    public WorkStatDTO getWorkStateData() {
+        WorkStatDTO stat = new WorkStatDTO();
+        stat.setCompleted(workRepository.getTotalCompletedWorkNumber());
+        stat.setCanceled(workRepository.getTotalCanceledWorkNumber());
+        return stat;
+    }
+
     @GetMapping("/completed-works/{id}")
     public Integer get(@PathVariable Long id) {
         log.debug("REST request to get all Works");
@@ -80,7 +88,4 @@ public class StatisticResource {
 //        stat.setCreditsEarned(pressWorkRepository.getTotalCreditsFromWork(id));
         return stat;
     }
-
-
-
 }

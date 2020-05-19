@@ -17,6 +17,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import axios from "axios";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -92,30 +93,47 @@ const CustomTableCell = withStyles((theme: Theme) => ({
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
-  results:  readonly any[];
-  loading: boolean;
+  quizID: number;
 }
 
 const QuizDetailDialog = (props: SimpleDialogProps) => {
   const classes = useStyles();
+
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [quizData, setQuizData] = useState([]);
   const [error, setError] = useState(null);
-  const {onClose, open, results, loading} = props;
+  const {onClose, open} = props;
 
   const handleClose = () => {
     onClose(null);
   };
+
+  useEffect(() => {
+    if (open) {
+      console.log(props.quizID);
+      const apiEndpoint = `api/quizzes/${props.quizID}/results`;
+      const request = axios.get(apiEndpoint);
+
+      request.then(result => {
+        console.log("FINISH");
+        console.log(result.data);
+        setIsLoaded(true);
+        setQuizData(result.data);
+      });
+    }
+  }, [open]);
 
   return (
     <div>{error ? (<h1>SHIT</h1>) :
       (<Dialog onClose={handleClose} maxWidth={false} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>Resultado do Quiz</DialogTitle>
         <hr className={classes.hr}/>
-        {!loading ? (
+        {isLoaded ? (
           <div>
             <TableContainer component={Paper}>
               <Table style={{minWidth: 400}} aria-label="spanning table">
                 <TableBody>
-                  {results.map((result) => (
+                  {quizData.map((result) => (
                     <>
                       <TableRow key={1}>
                         <CustomTableCell align="left"><HelpOutlineIcon/> {result.question}</CustomTableCell>

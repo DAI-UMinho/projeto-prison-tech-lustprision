@@ -7,7 +7,7 @@ import {IRootState} from 'app/shared/reducers';
 import {getPrisionerWorks} from './prisioner.reducer';
 import {getPrisonerWorkStates} from "app/shared/reducers/statistics";
 // import {deleteWork} from "app/entities/work/work.reducer";
-import { cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
+import {cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
 import MaterialTable, {Column} from "material-table";
 
 import Swal from 'sweetalert2'
@@ -24,18 +24,18 @@ interface TableState {
   columns: Array<Column<any>>;
 }
 
-export interface IPrisionerWorkProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string  }> {
+export interface IPrisionerWorkProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
 
 export const PrisionerWork = (props: IPrisionerWorkProps) => {
   const theme = useTheme();
   const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 12 : 8;
+  const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
-  const [data, setData] = useState([]);
   const {prisionerWorks, updateSuccess, workStats} = props;
 
   const creditsEarned: number = prisionerWorks.filter(completed => {return completed.stateID === 2})
-                                      .reduce((accumulator, completed) => accumulator + completed.totalCredits, 0);
+                      .reduce((accumulator, completed) => accumulator + completed.totalCredits, 0);
 
 
   const [state, setState] = React.useState<TableState>({
@@ -44,7 +44,11 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
       {title: 'Nome', field: 'nameWork'},
       {title: 'Data', field: 'dateWork', type: 'date'},
       {title: 'Créditos', field: 'totalCredits'},
-      {title: 'Estado', field: 'state', render: rowData => <StateBox boxText={rowData.stateName} stateID={rowData.stateID}/>},
+      {
+        title: 'Estado',
+        field: 'state',
+        render: rowData => <StateBox boxText={rowData.stateName} stateID={rowData.stateID}/>
+      },
     ]
   });
 
@@ -63,7 +67,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
       }
     }).then((result: any) => {
       console.log(result);
-      if(result.value.status === 200){
+      if (result.value.status === 200) {
         props.getPrisionerWorks(props.match.params.id);
         // Swal.fire(
         //   'Sucesso!',
@@ -76,71 +80,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
 
   return (
     <Row className="justify-content-center">
-      <Col md={colN}>
-        <Card className="card-user justify-content-center">
-            <MaterialTable
-              icons={TableIcon}
-              title="Trabalhos Realizados"
-              columns={state.columns}
-              data={prisionerWorks}
-              onRowClick={((evt, selectedRow) =>
-                window.location.replace(`dashboard/works/${selectedRow.id}`))}
-              options={{
-                headerStyle: {
-                  backgroundColor: '#01579b',
-                  color: '#FFF',
-                  fontWeight: 'bold'
-                },
-                actionsColumnIndex: -1,
-                exportButton: true
-              }}
-              localization={{
-                body: {
-                  emptyDataSourceMessage: "Ainda não existem trabalhos para este presidiário",
-                  editRow: {
-                    deleteText: "Tem a certeza que quer eliminar este presidiário?!"
-                  }
-                }
-              }}
-              actions={[
-                (rowData: IWork) => ({
-                  icon: 'cancel',
-                  tooltip: 'Despedir deste trabalho',
-                  onClick: (event, mData) => clickCancelWork(mData.pressProductId),
-                  disabled: rowData.stateID > 1
-                }),
-                {
-                  icon: 'delete',
-                  tooltip: 'Remover trabalho',
-                  onClick: (event, rowData) =>
-                    MySwal.fire({
-                      title: <p>Apagar Trabalho?</p>,
-                      text: "Não é possivel reverter esta operação!",
-                      icon: 'warning',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Apagar!'
-                    }).then((result) => {
-                      if (result.value) {
-                        // return props.deleteWork(rowData.id);
-                      }
-                    }).then((result: any) => {
-                      if(result.value.status === 204){
-                        props.getPrisionerWorks(props.match.params.id);
-                        Swal.fire(
-                          'Sucesso!',
-                          'O trabalho deste presioneiro foi removido.',
-                          'success'
-                        )
-                      }
-                    })
-                }
-              ]}
-            />
-        </Card>
-      </Col>
-      <Col lg="3" md="6" sm="6">
+      <Col lg={mStatCol} md="6" sm="6">
         <Card className="card-stats">
           <CardBody>
             <Row>
@@ -159,6 +99,8 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
             </Row>
           </CardBody>
         </Card>
+      </Col>
+      <Col lg={mStatCol} md="6" sm="6">
         <Card className="card-stats">
           <CardBody>
             <Row>
@@ -177,6 +119,8 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
             </Row>
           </CardBody>
         </Card>
+      </Col>
+      <Col lg={mStatCol} md="6" sm="6">
         <Card className="card-stats">
           <CardBody>
             <Row>
@@ -194,6 +138,70 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
               </Col>
             </Row>
           </CardBody>
+        </Card>
+      </Col>
+      <Col md={colN}>
+        <Card className="card-user justify-content-center">
+          <MaterialTable
+            icons={TableIcon}
+            title="Trabalhos Realizados"
+            columns={state.columns}
+            data={prisionerWorks}
+            onRowClick={((evt, selectedRow) =>
+              window.location.replace(`dashboard/works/${selectedRow.id}`))}
+            options={{
+              headerStyle: {
+                backgroundColor: '#01579b',
+                color: '#FFF',
+                fontWeight: 'bold'
+              },
+              actionsColumnIndex: -1,
+              exportButton: true
+            }}
+            localization={{
+              body: {
+                emptyDataSourceMessage: "Ainda não existem trabalhos para este presidiário",
+                editRow: {
+                  deleteText: "Tem a certeza que quer eliminar este presidiário?!"
+                }
+              }
+            }}
+            actions={[
+              (rowData: IWork) => ({
+                icon: 'cancel',
+                tooltip: 'Despedir deste trabalho',
+                onClick: (event, mData) => clickCancelWork(mData.pressProductId),
+                disabled: rowData.stateID > 1
+              }),
+              {
+                icon: 'delete',
+                tooltip: 'Remover trabalho',
+                onClick: (event, rowData) =>
+                  MySwal.fire({
+                    title: <p>Apagar Trabalho?</p>,
+                    text: "Não é possivel reverter esta operação!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Apagar!'
+                  }).then((result) => {
+                    if (result.value) {
+                      // return props.deleteWork(rowData.id);
+                    }
+                  }).then((result: any) => {
+                    if (result.value.status === 204) {
+                      props.getPrisionerWorks(props.match.params.id);
+                      Swal.fire(
+                        'Sucesso!',
+                        'O trabalho deste presioneiro foi removido.',
+                        'success'
+                      )
+                    }
+                  })
+              }
+            ]}
+          />
         </Card>
       </Col>
     </Row>

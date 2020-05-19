@@ -65,7 +65,7 @@ spring:
     protocol: smtp
     tls: true
     auth: true
-    from: spoonatte@gmail.com
+    from: prisionlust@gmail.com
     properties.mail.smtp:
       auth: true
       starttls.enable: true

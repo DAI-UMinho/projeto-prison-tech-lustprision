@@ -9,11 +9,26 @@ import { IRootState } from 'app/shared/reducers';
 
 import { createEntity, reset} from './work.reducer';
 import { IWork } from 'app/shared/model/work.model';
+import DateFnsUtils from "@date-io/date-fns";
+import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import {subYears} from "date-fns";
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    datePicker: {
+      border: '1px solid #ced4da',
+      borderRadius: '0.25rem'
+    }
+  }));
 
 export interface IWorkUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const WorkCreate = (props: IWorkUpdateProps) => {
+  const classes = useStyles();
   const { workEntity, updating } = props;
+
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   const handleClose = () => {
     props.history.push('/dashboard/works');
@@ -120,13 +135,24 @@ export const WorkCreate = (props: IWorkUpdateProps) => {
                   <Label id="dateLabel" for="work-date">
                     <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
                   </Label>
-                  <AvField id="work-date" type="date" className="form-control" name="date"
-                           validate={{
-                             required: {
-                               value: true,
-                               errorMessage: translate('lustPrisionApp.work.validation.date.required')
-                             }
-                           }}/>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      disablePast
+                      className={`form-control ${classes.datePicker}`}
+                      openTo="date"
+                      format="dd/MM/yyyy"
+                      views={["year", "month", "date"]}
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      minDate={new Date()}
+                    />
+                    <AvField id="date" type="hidden" name="date" value={selectedDate} validate={{
+                      required:{
+                        value: true,
+                        errorMessage: translate('lustPrisionApp.prisioner.validation.data.required')
+                      }
+                    }}/>
+                  </MuiPickersUtilsProvider>
                 </AvGroup>
                 <AvInput type="hidden" name="state.id" value={1}/>
                 <Button tag={Link} id="cancel-save" onClick={handleClose} replace color="info">

@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Link, RouteComponentProps} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle, CardFooter} from 'reactstrap';
 
 import {IRootState} from 'app/shared/reducers';
 import {getEntities, deleteEntity, updateCancelWork} from './work.reducer';
+import {getChartWorkState} from "app/shared/reducers/statistics";
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import MaterialTable, {MTableToolbar, Column} from 'material-table';
 import {Line, Pie} from "react-chartjs-2";
 
-import {withStyles, Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
+import {useTheme} from '@material-ui/core/styles';
 
-import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import { Ellipsis } from 'react-spinners-css';
 import {LinearProgress, useMediaQuery} from "@material-ui/core";
 import {TextFormat, Translate} from "react-jhipster";
@@ -52,20 +52,6 @@ const chartData = {
     }]
 };
 
-const pieData = {
-  labels: ["Concluídos", "Cancelados"],
-  datasets: [
-    {
-      label: "Emails",
-      pointRadius: 0,
-      pointHoverRadius: 0,
-      backgroundColor: ["#4acccd", "#ef8157"],
-      borderWidth: 0,
-      data: [382, 44]
-    }
-  ]
-};
-
 export interface IWorkProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
 
@@ -78,6 +64,7 @@ export const Works = (props: IWorkProps) => {
   const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
   const [data, setData] = useState([]);
+  const [chartStateData, setChartStateData] = useState([0,0]);
   const [state, setState] = React.useState<TableState>({
     columns: [
       {title: 'Numero de Trabalho', field: 'id', render: rowData => <i>#{rowData.id}</i>},
@@ -89,14 +76,30 @@ export const Works = (props: IWorkProps) => {
     ]
   });
 
-  const {workList, match, loading} = props;
+  const pieChart = {
+    labels: ["Concluídos", "Cancelados"],
+    datasets: [
+      {
+        label: "Emails",
+        pointRadius: 0,
+        pointHoverRadius: 0,
+        backgroundColor: ["#4acccd", "#ef8157"],
+        borderWidth: 0,
+        data: chartStateData
+      }
+    ]
+  };
+
+  const {workList, match, loading, workStateChart} = props;
 
   const updateTable = () => {
     setData([...workList]);
+    props.getChartWorkState();
   };
 
   useEffect(() => {
     props.getEntities();
+    props.getChartWorkState();
   }, []);
 
   useEffect(() => {
@@ -105,7 +108,11 @@ export const Works = (props: IWorkProps) => {
     }
   }, [workList]);
 
-  const clickCancelWork = (id) => {
+  useEffect(() => {
+    {workStateChart && setChartStateData([workStateChart['completed'], workStateChart['canceled']])}
+  }, [workStateChart]);
+
+  const clickCancelWork = id => {
     MySwal.fire({
       title: <p>Cancelar Trabalho?</p>,
       text: "Não é possivel reverter esta operação!",
@@ -231,7 +238,7 @@ export const Works = (props: IWorkProps) => {
               legend={false}
               redraw={false}
               options={{responsive: true}}
-              data={pieData}
+              data={pieChart}
             />
           </CardBody>
         </Card>
@@ -283,12 +290,13 @@ export const Works = (props: IWorkProps) => {
   );
 };
 
-const mapStateToProps = ({work}: IRootState) => ({
-  workList: work.entities,
-  loading: work.loading,
+const mapStateToProps = (state: IRootState) => ({
+  workList: state.work.entities,
+  loading: state.work.loading,
+  workStateChart: state.statistics.chartWorkState
 });
 
-const mapDispatchToProps = {getEntities, deleteEntity, updateCancelWork};
+const mapDispatchToProps = {getEntities, deleteEntity, updateCancelWork, getChartWorkState};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
