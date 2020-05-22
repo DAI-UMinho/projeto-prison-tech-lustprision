@@ -45,6 +45,6 @@ public class WorkLineController implements Initializable{
     public void handleCandidatar(ActionEvent actionEvent) throws IOException {
 
         Main.sis.sessionatual.applyJOB(Main.sis.sessionatual.nowusing.getID(), id);
-        
+
 
 }}

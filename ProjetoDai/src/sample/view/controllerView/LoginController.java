@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
 
             try {
 
-                if (Main.sis.LoginTS(5453, Integer.valueOf(pwd1.getText()))) {
+                if (Main.sis.LoginTS(55303, Integer.valueOf(pwd1.getText()))) {
 
 
 
@@ -172,7 +172,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         badloginlbl.setVisible(false);
-        
+
     }
 
 
