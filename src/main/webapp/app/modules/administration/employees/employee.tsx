@@ -5,7 +5,6 @@ import {Button, Row, Badge} from 'reactstrap';
 import {makeStyles, withStyles, createStyles, Theme, useTheme} from '@material-ui/core/styles';
 import {Col, Card} from 'reactstrap';
 import {Translate, TextFormat, JhiPagination, JhiItemCount, getSortState} from 'react-jhipster';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -92,10 +91,7 @@ export const Employee = (props: IUserManagementProps) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {users.filter(function (user) {
-                    return user.authorities.length === 1;
-                  })
-                    .map((user, i) => (
+                  {users.map((user, i) => (
                       <TableRow key={user.login}>
                         <TableCell component="th" scope="row">
                           <Button tag={Link} to={`${match.url}/${user.login}`} color="link" size="sm">

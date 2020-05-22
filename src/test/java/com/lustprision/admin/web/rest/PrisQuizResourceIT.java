@@ -14,8 +14,10 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,8 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class PrisQuizResourceIT {
 
-    private static final LocalDate DEFAULT_QUIZ_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_QUIZ_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_QUIZ_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_QUIZ_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Integer DEFAULT_APPROVAL = 1;
     private static final Integer UPDATED_APPROVAL = 0;
@@ -132,7 +134,7 @@ public class PrisQuizResourceIT {
             .andExpect(jsonPath("$.[*].quizDate").value(hasItem(DEFAULT_QUIZ_DATE.toString())))
             .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL)));
     }
-    
+
     @Test
     @Transactional
     public void getPrisQuiz() throws Exception {

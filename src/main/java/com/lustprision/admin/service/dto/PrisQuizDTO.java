@@ -4,13 +4,14 @@ import com.lustprision.admin.domain.PrisQuiz;
 import com.lustprision.admin.domain.Prisioner;
 import com.lustprision.admin.domain.Quiz;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 public class PrisQuizDTO {
 
     private Long id;
 
-    private LocalDate quizDate;
+    private Instant quizDate;
 
     private int approval;
 
@@ -30,11 +31,11 @@ public class PrisQuizDTO {
         this.id = id;
     }
 
-    public LocalDate getQuizDate() {
+    public Instant getQuizDate() {
         return quizDate;
     }
 
-    public void setQuizDate(LocalDate quizDate) {
+    public void setQuizDate(Instant quizDate) {
         this.quizDate = quizDate;
     }
 

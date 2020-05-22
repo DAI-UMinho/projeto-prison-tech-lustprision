@@ -141,7 +141,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
             }}
             actions={[
               {
-                icon: 'replay',
+                icon: () => <TableIcon.Revert/>,
                 tooltip: 'Reverter Compra',
                 onClick: (event, rowData) => purchaseDelete()
               }

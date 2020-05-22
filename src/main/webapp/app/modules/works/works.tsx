@@ -213,7 +213,6 @@ export const Works = (props: IWorkProps) => {
         <Card className="card-stats">
           <CardHeader>
             <CardTitle tag="h5">Adesão aos Trabalhos</CardTitle>
-            <p className="card-category">Numero de trabalhos realizados ao longo de 1 ano</p>
           </CardHeader>
           <CardBody>
             <Line
@@ -231,7 +230,6 @@ export const Works = (props: IWorkProps) => {
         <Card>
           <CardHeader>
             <CardTitle tag="h5">Trabalhos Concluidos/Cancelados</CardTitle>
-            <p className="card-category">Diferença entre as conclusoes dos trabalhos</p>
           </CardHeader>
           <CardBody>
             <Pie
@@ -271,13 +269,13 @@ export const Works = (props: IWorkProps) => {
             }}
             actions={[
               (rowData: IWork) => ({
-                icon: 'cancel',
+                icon: () => <TableIcon.Cancel/>,
                 tooltip: 'Cancelar trabalho',
                 onClick: (event, row) => clickCancelWork(row.id),
                 disabled: rowData.state['id'] > 1
               }),
               {
-                icon: 'delete',
+                icon: () => <TableIcon.Delete/>,
                 tooltip: 'Eliminar trabalho',
                 onClick: (event, rowData) => clickDeleteWork(rowData.id),
               }

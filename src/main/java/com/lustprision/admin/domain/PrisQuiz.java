@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 import java.time.LocalDate;
 
@@ -27,7 +28,7 @@ public class PrisQuiz implements Serializable {
     private Long id;
 
     @Column(name = "quiz_date")
-    private LocalDate quizDate;
+    private Instant quizDate;
 
     @Max(value = 1)
     @Column(name = "approval")
@@ -50,16 +51,16 @@ public class PrisQuiz implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getQuizDate() {
+    public Instant getQuizDate() {
         return quizDate;
     }
 
-    public PrisQuiz quizDate(LocalDate quizDate) {
+    public PrisQuiz quizDate(Instant quizDate) {
         this.quizDate = quizDate;
         return this;
     }
 
-    public void setQuizDate(LocalDate quizDate) {
+    public void setQuizDate(Instant quizDate) {
         this.quizDate = quizDate;
     }
 

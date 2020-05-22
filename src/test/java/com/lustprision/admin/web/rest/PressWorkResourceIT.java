@@ -143,18 +143,21 @@ public class PressWorkResourceIT {
     public void  despedir() throws Exception {
 
         Prisioner nome = PrisionerResourceIT.createEntity(em);
+        prisionerRepository.saveAndFlush(nome);
+
         Work trabalho =  WorkResourceIT.createEntity(em);
-        State mState = stateRepository.getOne(1L);
-        List<Work> workList = new ArrayList<>();
-        pressWork.setState(mState);
-        workList.add(trabalho);
+        workRepository.saveAndFlush(trabalho);
+
+        State estado = StateResourceIT.createPendingState(em);
+        stateRepository.saveAndFlush(estado);
+
+        pressWork.setState(estado);
         pressWork.setWork(trabalho);
         pressWork.setPrisioner(nome);
         System.out.println(pressWork);
-        workRepository.saveAndFlush(trabalho);
-        prisionerRepository.saveAndFlush(nome);
+//        System.out.println(mState);
         pressWorkRepository.saveAndFlush(pressWork);
-
+        System.out.println(pressWork);
         System.out.println(pressWork.getState());
 
         restPressWorkMockMvc.perform(put("/api/press-works/{id}/cancel", pressWork.getId()))
@@ -164,7 +167,6 @@ public class PressWorkResourceIT {
         //System.out.println(prisionerService.getPrisionerWork((long) 1001));
 
         List<PressWork> pressWorkList = pressWorkRepository.findAll();
-
     }
 
 

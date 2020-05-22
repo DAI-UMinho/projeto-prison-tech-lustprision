@@ -168,13 +168,13 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
             }}
             actions={[
               (rowData: IWork) => ({
-                icon: 'cancel',
+                icon: () => <TableIcon.Cancel/>,
                 tooltip: 'Despedir deste trabalho',
                 onClick: (event, mData) => clickCancelWork(mData.pressProductId),
                 disabled: rowData.stateID > 1
               }),
               {
-                icon: 'delete',
+                icon: () => <TableIcon.Delete/>,
                 tooltip: 'Remover trabalho',
                 onClick: (event, rowData) =>
                   MySwal.fire({

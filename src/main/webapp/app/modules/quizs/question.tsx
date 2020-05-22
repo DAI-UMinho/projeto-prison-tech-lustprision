@@ -117,7 +117,7 @@ export const Question = (props: IQuizProps) => {
               }}
               actions={[
                 {
-                  icon: 'delete',
+                  icon: () => <TableIcon.Delete/>,
                   tooltip: 'Eliminar trabalho',
                   onClick: (event, rowData) => props.deleteEntity(rowData.id),
                 }

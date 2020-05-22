@@ -13,19 +13,12 @@ import DateFnsUtils from "@date-io/date-fns";
 import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import {subYears} from "date-fns";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    datePicker: {
-      border: '1px solid #ced4da',
-      borderRadius: '0.25rem'
-    }
-  }));
+import {datePicker} from "app/shared/layout/themes/themes";
 
 export interface IWorkUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const WorkCreate = (props: IWorkUpdateProps) => {
-  const classes = useStyles();
+  const classes = datePicker();
   const { workEntity, updating } = props;
 
   const [selectedDate, handleDateChange] = useState(new Date());

@@ -63,6 +63,8 @@ public class WorkResource {
         log.debug("REST request to save Work : {}", work);
         if (work.getId() != null) {
             throw new BadRequestAlertException("A new work cannot already have an ID", ENTITY_NAME, "idexists");
+        }else if(!workService.checkValidDate(work.getDate())){
+            throw new BadRequestAlertException("The work date is invalid", ENTITY_NAME, "workDate");
         }
         Work result = workRepository.save(work);
         return ResponseEntity.created(new URI("/api/works/" + result.getId()))

@@ -83,7 +83,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
               }}
               actions={[
                 {
-                  icon: 'delete',
+                  icon: () => <TableIcon.Delete/>,
                   tooltip: 'Remover Quiz',
                   onClick: (event, rowData) =>
                     MySwal.fire({

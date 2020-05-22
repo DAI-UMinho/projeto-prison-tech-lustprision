@@ -444,8 +444,6 @@ public class PrisionerResourceIT {
             .andExpect(jsonPath("$.[*].qtyQuestion").value(hasItem(quiz.getQtyQuestion().intValue())));
 
                System.out.println(prisionerService.getPrisionerQuizs(prisioner.getId()).toString());
-
     }
-
 }
 

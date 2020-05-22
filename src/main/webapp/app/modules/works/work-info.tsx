@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
 import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
-import {Translate} from 'react-jhipster';
+import {translate, Translate} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Button as RButton, Card, CardBody, CardHeader, CardTitle, Col, Label, Row} from 'reactstrap';
 import {Button, CircularProgress} from "@material-ui/core";
@@ -21,9 +21,11 @@ import workBack from "app/assets/img/trabalhos.jpg";
 import pending from "app/assets/img/pending.png";
 import completed from "app/assets/img/completed-icon.png";
 import canceled from "app/assets/img/cancel-icon.png";
-import CancelIcon from '@material-ui/icons/Cancel';
-import DoneIcon from '@material-ui/icons/Done';
 import TableIcon from "app/shared/util/table-icon";
+import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import moment from "moment";
+import {datePicker} from "app/shared/layout/themes/themes";
 
 const MySwal = withReactContent(Swal);
 
@@ -41,12 +43,14 @@ interface WorkSubs{
 }
 
 export const WorkInfo = (props: IWorkUpdateProps) => {
+  const classes = datePicker();
 
   const {workEntity, loading, updating, workSubs, prisoners, prisonersLoading, pressUpdating} = props;
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [stateID, setStateID] = useState(0);
   const [stateImg, setStateImg] = useState(pending);
+  const [selectedDate, handleDateChange] = useState<Date>(new Date());
   const [state, setState] = React.useState<TableState>({
     columns: [
       {title: 'Prisioneiro', field: 'prisonerName',
@@ -120,6 +124,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
     if(workEntity.state){
       setStateID(workEntity.state['id']);
       setStateImg(getImageByState(workEntity.state['id']));
+      handleDateChange(moment(workEntity.date).toDate());
     }
   }, [workEntity]);
 
@@ -223,6 +228,9 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
     }
   };
 
+  console.log("GAGA");
+  console.log(selectedDate);
+
   return (
     <div>
       <Row>
@@ -264,7 +272,23 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     <Label id="dateLabel" for="work-date">
                       <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
                     </Label>
-                    <AvField id="work-date" type="date" className="form-control" name="date"/>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        disablePast
+                        className={`form-control ${classes.datePicker}`}
+                        openTo="date"
+                        format="dd/MM/yyyy"
+                        views={["year", "month", "date"]}
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                      />
+                      <AvField id="date" type="hidden" name="date" value={selectedDate} validate={{
+                        required:{
+                          value: true,
+                          errorMessage: translate('lustPrisionApp.prisioner.validation.data.required')
+                        }
+                      }}/>
+                    </MuiPickersUtilsProvider>
                   </AvGroup>
                   <RButton tag={Link} id="cancel-save" onClick={handleClose} replace color="info">
                     <FontAwesomeIcon icon="arrow-left"/>
@@ -346,7 +370,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
               }}
               actions={[
                 (rowData: WorkSubs) => ({
-                  icon: 'cancel',
+                  icon: () => <TableIcon.Cancel/>,
                   tooltip: 'Despedir prisidiário',
                   onClick: (event, row) => clickCancelPressWork(row.pressID),
                   disabled: rowData.pressState > 1

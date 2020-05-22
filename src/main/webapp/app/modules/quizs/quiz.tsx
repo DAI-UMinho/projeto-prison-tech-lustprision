@@ -12,13 +12,14 @@ import {withStyles, Theme, createStyles, makeStyles, useTheme} from '@material-u
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Ellipsis} from 'react-spinners-css';
 import {LinearProgress, useMediaQuery} from "@material-ui/core";
-import {Translate} from "react-jhipster";
+import {TextFormat, Translate} from "react-jhipster";
 import {getWaitingList, updateQuizAuthorization, deleteEntity} from "app/modules/quizs/pris-quiz.reducer";
 import {getCompletedQuizzes, getQuizResults} from "./quiz.reducer"
 import {StateBox, QuizBox} from "app/components/StateBox";
 import Swal from "sweetalert2";
 import QuizDetailDialog from "app/modules/quizs/quiz-details";
 import TableIcon from "app/shared/util/table-icon";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export interface IQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
@@ -48,7 +49,7 @@ export const Quiz = (props: IQuizProps) => {
             <p style={{paddingTop: 15}}>{rowData.prisonerName}</p>
           </div>
       },
-      {title: 'Data', field: 'quizDate', type: 'date'},
+      {title: 'Data', field: 'quizDate', type: 'date', render: rowData => <TextFormat value={rowData.quizDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />},
       {
         title: 'Approval',
         field: 'approval',
@@ -204,7 +205,7 @@ export const Quiz = (props: IQuizProps) => {
               }}
               actions={[
                 {
-                  icon: 'delete',
+                  icon: () => <TableIcon.Delete/>,
                   tooltip: 'Eliminar Quiz',
                   onClick: (event, rowData) => props.deleteEntity(rowData.id)
                 }
@@ -241,10 +242,15 @@ export const Quiz = (props: IQuizProps) => {
               }}
               actions={[
                 {
-                  icon: 'done',
+                  icon: () => <TableIcon.Done/>,
                   tooltip: 'Aprovar Quiz',
-                  onClick: (event, rowData) => null
-                    // props.updateQuizAuthorization(rowData.id)
+                  onClick: (event, rowData) =>
+                    props.updateQuizAuthorization(rowData.id)
+                },
+                {
+                  icon: () => <TableIcon.Delete/>,
+                  tooltip: 'Eliminar Aprovação',
+                  onClick: (event, rowData) => props.deleteEntity(rowData.id)
                 }
               ]}
             />

@@ -5,12 +5,17 @@ import com.lustprision.admin.domain.Work;
 import com.lustprision.admin.repository.*;
 import com.lustprision.admin.service.dto.ProductSaleDTO;
 import com.lustprision.admin.service.dto.WorkSubsDTO;
+import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,5 +42,13 @@ public class WorkService {
                 subs.add(sub);
             }));
         return subs;
+    }
+
+    public boolean checkValidDate(LocalDate date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        if(date.getYear() > calendar.get(Calendar.YEAR)){ return true; }
+        else if(date.getYear() < calendar.get(Calendar.YEAR)){ return false; }
+        else{ return date.getDayOfYear() >= calendar.get(Calendar.DAY_OF_YEAR); }
     }
 }
