@@ -14,7 +14,7 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="quiz_date" type="date">
+            <column name="quiz_date" type="timestamp">
                 <constraints nullable="true" />
             </column>
             <column name="approval" type="integer">

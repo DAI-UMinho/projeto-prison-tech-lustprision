@@ -29,7 +29,7 @@ export interface IPrisionerWorkProps extends StateProps, DispatchProps, RouteCom
 
 export const PrisionerWork = (props: IPrisionerWorkProps) => {
   const theme = useTheme();
-  const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 12 : 8;
+  const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 12 : 9;
   const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
   const {prisionerWorks, updateSuccess, workStats} = props;

@@ -6511,3 +6511,11 @@ a:focus {
 .center-div-alone {
   text-align: center;
 }
+
+.prisoner-image {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 50%;
+}

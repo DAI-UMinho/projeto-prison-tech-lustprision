@@ -45,7 +45,7 @@ export const Quiz = (props: IQuizProps) => {
         render: rowData =>
           <div>
             <img src={`data:${rowData.prisonerImageContentType};base64,${rowData.prisonerImage}`}
-                 style={{width: 50, borderRadius: '50%', float: 'left', marginRight: 10}}/>
+                 className="prisoner-image"/>
             <p style={{paddingTop: 15}}>{rowData.prisonerName}</p>
           </div>
       },

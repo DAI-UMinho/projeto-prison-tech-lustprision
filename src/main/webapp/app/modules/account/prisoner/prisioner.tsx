@@ -39,7 +39,7 @@ export const Prisioner = (props: IPrisionerProps) => {
         render: rowData =>
           <div>
             <img src={`data:${rowData.profileImageContentType};base64,${rowData.profileImage}`}
-                 style={{width: 50, borderRadius: '50%', float: 'left', marginRight: 10}}/>
+                 className="prisoner-image"/>
             <p style={{paddingTop: 15}}>{rowData.name}</p>
           </div>
       },
