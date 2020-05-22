@@ -337,7 +337,7 @@ public class ProductResourceIT {
         // Initialize the database
         productRepository.saveAndFlush(product);
         Prisioner prisioner =PrisionerResourceIT.createEntity(em);
-        Purchase purchase =PurchaseResourceIT.createEntity(em);
+        Purchase purchase = PurchaseResourceIT.createEntity(em);
 
         purchase.setPrisioner(prisioner);
         prisionerRepository.saveAndFlush(prisioner);
@@ -347,8 +347,6 @@ public class ProductResourceIT {
         nome.setPurchase(purchase);
         nome.setProduct(product);
         pressProductRepository.saveAndFlush(nome);
-
-
 
 
         // Get the product

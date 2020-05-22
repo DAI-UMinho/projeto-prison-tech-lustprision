@@ -62,10 +62,7 @@ public class BD_CONTROLLER {
             ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB");
 
             while (rs.next()) {
-
                 Trabalho x = new Trabalho(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
-
-
                 WORK_TB y= new WORK_TB(x);
                 output.add(y);
             }
@@ -79,8 +76,6 @@ public class BD_CONTROLLER {
 
             return null;
         }
-
-
     }
 
     //ADICIONAMOS ESTA FUNCAO PARA OS TESTES
@@ -174,7 +169,7 @@ public class BD_CONTROLLER {
     }
 
 
-    public static boolean removeProduct(int id, int qnty){
+    public static boolean removeProduct(int id, int qnty){ //quantidades negativas (if)
 
         try {
 
@@ -221,7 +216,7 @@ public class BD_CONTROLLER {
 
     }
 
-    public static boolean removeCredits(int id, int amount){
+    public static boolean removeCredits(int id, int amount){  //creditos nao podem ser negativos (if)
         try {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -245,14 +240,14 @@ public class BD_CONTROLLER {
     }
 
     //return void pendente
-    public static void applyjob(int id, int idjob){
+    public static void applyjob(int id, int idjob){  //update vagas
         try {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
 
             Statement st = con.createStatement();
-            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID) VALUES ("+id+","+id+", "+idjob+")";
+            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID, STATE_ID) VALUES ("+id+","+id+", "+idjob+", 1)";
             ResultSet rs = st.executeQuery(query);
             System.out.println("CANDIDATURA");
             con.close();
@@ -265,8 +260,6 @@ public class BD_CONTROLLER {
 
 
         }
-
-
     }
 
 

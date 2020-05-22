@@ -79,6 +79,7 @@ class TrabalhoTest {
             ResultSet rs = st.executeQuery(query1);
             rs.next();
             System.out.println(rs.getInt("ID"));
+            int id = rs.getInt("ID");
 
             String query2 = "Select ID, NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE ROWNUM <= 1";
             ResultSet result = st.executeQuery(query2);
@@ -86,13 +87,14 @@ class TrabalhoTest {
             int vagas = result.getInt("NUM_REMAINING_ENTRIES");
             System.out.println(vagas);
             System.out.println(result.getInt("ID"));
+            int idJob = result.getInt("ID");
 
-            BD_CONTROLLER.applyjob(rs.getInt("ID"),result.getInt("ID"));
+            BD_CONTROLLER.applyjob(id,idJob);
 
-            String query3 = "Select NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE  ID = " + Integer.toString(result.getInt("NUM_REMAINING_ENTRIES"));
-            ResultSet result2 = st.executeQuery(query2);
+            String query3 = "Select NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE  ID = " + idJob;
+            ResultSet result2 = st.executeQuery(query3);
             result2.next();
-            int vagas2 = result.getInt("NUM_REMAINING_ENTRIES");
+            int vagas2 = result2.getInt("NUM_REMAINING_ENTRIES");
             System.out.println(vagas2);
 
             con.close();
