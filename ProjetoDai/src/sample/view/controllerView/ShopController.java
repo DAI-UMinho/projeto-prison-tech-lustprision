@@ -31,25 +31,34 @@ public class ShopController implements Initializable {
 
     static ObservableList<Produto> observableList = FXCollections.observableArrayList();
 
-    public static Label totaltxt;
-    public static int total;
+    public Label totaltxt;
 
+
+    public static int total = 0;
 
     public static void handleBtnAdicionar(int d) {
+
+
+
         String nome = BD_CONTROLLER.getProdutoNome(d);
         int preco = BD_CONTROLLER.getProdutoPreco(d);
 
         observableList.add(new Produto(nome, preco));
 
-        /*int tamanho = observableList.size();
-        int i = 0;
-        while (i < tamanho){
-            total += observableList.get(i).getPreco();
-            i++;
+        int tamanho = observableList.size();
 
-        }
-        System.out.print(total);
-        //totaltxt.setText(String.valueOf(total));*/
+        int i = tamanho-1;
+
+        System.out.println("PRECO:" + observableList.get(i).getPreco());
+
+        total = total + observableList.get(i).getPreco();
+
+        System.out.println("TOTAL" + total);
+
+        String s=String.valueOf(total);
+        System.out.println("TOTAL STRING" + s);
+
+        //totaltxt.setText("fds");
 
     }
 
@@ -65,6 +74,8 @@ public class ShopController implements Initializable {
         tableview.getColumns().addAll(column1, column2);
 
         tableview.setItems(observableList);
+
+
 
         saldo.setText(Main.sis.sessionatual.nowusing.getSaldo());
 
