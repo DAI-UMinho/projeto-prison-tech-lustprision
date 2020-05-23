@@ -1,5 +1,6 @@
 package sample.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Questoes {
@@ -15,6 +16,12 @@ public class Questoes {
         this.resposta=resposta;
         this.valorQuestao=valorQuestao;
     }
+
+    public void setID (int id){ idQuestao = id; }
+
+    public void setResposta (String Resposta){ resposta = Resposta; }
+
+    public void setValorQuestao (int ValorQuestao){ valorQuestao = ValorQuestao; }
 
     public String getResposta() { return resposta;}
 

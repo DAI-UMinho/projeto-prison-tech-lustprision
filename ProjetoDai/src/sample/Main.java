@@ -24,6 +24,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        BD_CONTROLLER.applyjob(4545,4545);
+        //BD_CONTROLLER.applyjob(4545,4545);
     }
 }

@@ -1,5 +1,7 @@
 package sample.view.controllerView;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,21 +9,62 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Main;
-
+import sample.controller.BD_CONTROLLER;
+import sample.model.Produto;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class ShopController implements Initializable {
     public VBox productvbox;
     public Label saldo;
 
+    public TableView tableview;
+
+    static ObservableList<Produto> observableList = FXCollections.observableArrayList();
+
+    public static Label totaltxt;
+    public static int total;
+
+
+    public static void handleBtnAdicionar(int d) {
+        String nome = BD_CONTROLLER.getProdutoNome(d);
+        int preco = BD_CONTROLLER.getProdutoPreco(d);
+
+        observableList.add(new Produto(nome, preco));
+
+        /*int tamanho = observableList.size();
+        int i = 0;
+        while (i < tamanho){
+            total += observableList.get(i).getPreco();
+            i++;
+
+        }
+        System.out.print(total);
+        //totaltxt.setText(String.valueOf(total));*/
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        TableColumn<String, Produto> column1 = new TableColumn<>("Produto");
+        column1.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+
+        TableColumn<Integer, Produto> column2 = new TableColumn<>("Preço");
+        column2.setCellValueFactory(new PropertyValueFactory<>("Preco"));
+
+        tableview.getColumns().addAll(column1, column2);
+
+        tableview.setItems(observableList);
 
         saldo.setText(Main.sis.sessionatual.nowusing.getSaldo());
 
@@ -31,9 +74,9 @@ public class ShopController implements Initializable {
 
         for(int i = 0 ; i< sz; i++){
             try{
-
                 ProductLineController.name=Main.sis.products.get(i).type.getNome();
                 ProductLineController.price=Main.sis.products.get(i).type.getPreco();
+                ProductLineController.id=Main.sis.products.get(i).type.getID();
 
                 nodes[i] = FXMLLoader.load(getClass().getResource("/sample/view/product_line.fxml"));
                 productvbox.getChildren().add(nodes[i]);
@@ -93,5 +136,15 @@ public class ShopController implements Initializable {
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
 
+    }
+
+    public void deleteBtn(ActionEvent actionEvent) {
+        Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
+        tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItem());
+
+        /*int tamanho = observableList.size();
+        int i = 0;
+        total -= p.getPreco();
+        //totaltxt.setText(String.valueOf(total));*/
     }
 }

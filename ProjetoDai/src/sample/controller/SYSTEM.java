@@ -6,6 +6,7 @@ public class SYSTEM {
 
     public ArrayList<PRODUCT_TB> products = new ArrayList<>();
     public ArrayList<WORK_TB> works = new ArrayList<>();
+    public ArrayList<WORK_TB> filterjob = new ArrayList<>();
 
     public SESSION sessionatual;
 
@@ -17,7 +18,14 @@ public class SYSTEM {
     public void loadWorksTS() {
         if (BD_CONTROLLER.getWORKS() == null) {
         } else {this.works = BD_CONTROLLER.getWORKS();
-            System.out.println("Produtos carregados no sistema");
+            System.out.println("Trabalhos carregados no sistema");
+        };
+    }
+
+    public void loadFilterJobs() {
+        if (BD_CONTROLLER.getJobFilter() == null) {
+        } else {this.filterjob = BD_CONTROLLER.getJobFilter();
+            System.out.println("Trabalhos Filtrados carregados no sistema");
         };
     }
 

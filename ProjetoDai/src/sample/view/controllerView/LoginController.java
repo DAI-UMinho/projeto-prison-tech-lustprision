@@ -59,12 +59,11 @@ public class LoginController implements Initializable {
 
             try {
 
-                if (Main.sis.LoginTS(55303, Integer.valueOf(pwd1.getText()))) {
-
-
+                if (Main.sis.LoginTS(5352, Integer.valueOf(pwd1.getText()))) {
 
                     Main.sis.loadWorksTS();
                     Main.sis.loadProductsTS();
+                    Main.sis.loadFilterJobs();
 
                     Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
                     Scene home_page_scene = new Scene(home_page_parent);

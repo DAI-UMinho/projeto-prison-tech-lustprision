@@ -33,18 +33,30 @@ public class WorkLineController implements Initializable{
     public static int remun;
     public static int id;
 
+    public Button candidatarbtn;
 
+    public int id1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        id1 = id;
         worknamelbl.setText(name);
         workvagaslbl.setText(Integer.toString(vagas));
         workremunlbl.setText(Integer.toString(remun));
     }
 
-    public void handleCandidatar(ActionEvent actionEvent) throws IOException {
 
-        Main.sis.sessionatual.applyJOB(Main.sis.sessionatual.nowusing.getID(), id);
+    public void handlecandidata(ActionEvent actionEvent) {
+        try{
+        System.out.print("candidatar");
+        //System.out.print(id1);
+        Main.sis.sessionatual.applyJOB(Main.sis.sessionatual.nowusing.getID(), id1);
 
 
-}}
+        } catch (Exception e){
+            System.out.print("falxagjcle");
+            JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+        }
+
+    }
+}
