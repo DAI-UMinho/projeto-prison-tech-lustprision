@@ -6,7 +6,7 @@
 
 <Pane fx:id="workpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.WorkLineController">
    <children>
-      <Button layoutX="540.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #66ff99;" text="Candidatar" textFill="WHITE">
+      <Button fx:id="candidatarbtn" layoutX="540.0" layoutY="13.0" mnemonicParsing="false" onAction="#handlecandidata" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #66ff99;" text="Candidatar" textFill="WHITE">
          <font>
             <Font name="Agency FB Bold" size="14.0" />
          </font>

@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.controller.BD_CONTROLLER;
 
 import javax.swing.*;
 
@@ -44,7 +45,7 @@ public class ProfileController implements Initializable {
         nreclusotxt.setText(Main.sis.sessionatual.nowusing.getNumRecluso());
         datanasctxt.setText(String.valueOf(Main.sis.sessionatual.nowusing.getDataNascim()));
         saldotxt.setText(Main.sis.sessionatual.nowusing.getSaldo());
-
+        trabalhotxt.setText(BD_CONTROLLER.getIdwork(Main.sis.sessionatual.nowusing.getID()));
     }
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {

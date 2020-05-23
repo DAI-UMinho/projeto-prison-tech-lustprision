@@ -31,19 +31,16 @@ public class WorkController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         int totalvagas=0;
 
-        int sz = Main.sis.works.size();
+        int sz = Main.sis.filterjob.size();
         System.out.println(sz);
         Node[] nodes = new Node[sz];
-
-
             for(int i = 0 ; i< sz; i++){
                 try{
-
-                    totalvagas+=Main.sis.works.get(i).type.getVagas();
-                    WorkLineController.name = Main.sis.works.get(i).type.getNome();
-                    WorkLineController.vagas= Main.sis.works.get(i).type.getVagas();
-                    WorkLineController.remun=Main.sis.works.get(i).type.getPrecoHora();
-                    WorkLineController.id=Main.sis.works.get(i).type.getIdTrabalho();
+                    totalvagas+=Main.sis.filterjob.get(i).type.getVagas();
+                    WorkLineController.name = Main.sis.filterjob.get(i).type.getNome();
+                    WorkLineController.vagas= Main.sis.filterjob.get(i).type.getVagas();
+                    WorkLineController.remun=Main.sis.filterjob.get(i).type.getPrecoHora();
+                    WorkLineController.id=Main.sis.filterjob.get(i).type.getIdTrabalho();
                     nodes[i] = FXMLLoader.load(getClass().getResource("/sample/view/work_line.fxml"));
                     workvbox.getChildren().add(nodes[i]);
 
@@ -52,14 +49,10 @@ public class WorkController implements Initializable {
                 }
 
             }
-
             vagastotallbl.setText(Integer.toString(totalvagas));
         }
 
-
-
-
-    public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
+        public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
         System.out.println("Botão Loja");
         Parent loja_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
         Scene loja_scene = new Scene(loja_parent);
@@ -103,6 +96,4 @@ public class WorkController implements Initializable {
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
     }
-
-
 }

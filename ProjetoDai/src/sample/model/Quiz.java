@@ -1,5 +1,6 @@
 package sample.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Quiz {
@@ -13,6 +14,10 @@ public class Quiz {
         this.QtdQuestoes = QtdQuestoes;
         this.questoes = questoes;
     }
+
+    public void setID (int id){ idQuiz = id; }
+
+    public void setQtdQuestoes (int qtdQuestoes){ QtdQuestoes = qtdQuestoes; }
 
     public int getIdQuiz() {
         return idQuiz;
