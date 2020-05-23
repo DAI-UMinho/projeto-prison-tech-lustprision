@@ -348,7 +348,7 @@ public class BD_CONTROLLER {
         }
     }
 
-    public static Quiz loadQuiz(int ID) {
+    /*public static Quiz loadQuiz(int ID) {
         try {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -374,7 +374,7 @@ public class BD_CONTROLLER {
 
         }
         return null;
-    }
+    }*/
 
 
 
