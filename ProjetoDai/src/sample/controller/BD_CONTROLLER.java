@@ -1,6 +1,7 @@
 package sample.controller;
 import sample.model.Prisioneiro;
 import sample.model.Produto;
+import sample.model.Quiz;
 import sample.model.Trabalho;
 
 import javax.swing.*;
@@ -345,6 +346,34 @@ public class BD_CONTROLLER {
             System.out.println("Conexão sem sucesso");
             return 0;
         }
+    }
+
+    public static Quiz loadQuiz(int ID) {
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM QUESTION ");
+
+            while (rs.next()) {
+                if (rs.getInt(1) == ID) {
+                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
+                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(4) + rs.getDate(6 ) + rs.getInt(7));
+                    return user;
+                }
+            }
+            con.close();
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+
+
+        }
+        return null;
     }
 
 

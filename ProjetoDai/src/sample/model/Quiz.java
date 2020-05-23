@@ -5,27 +5,31 @@ import java.util.ArrayList;
 
 public class Quiz {
     private int idQuiz;
-    private int QtdQuestoes;
     private ArrayList<Questoes> questoes = new ArrayList();
+    private String respostaCorreta;
+    private String respostaErrada1;
+    private String respostaErrada2;
+    private String respostaErrada3;
 
 
-    public Quiz(int idQuiz, int QtdQuestoes, ArrayList<Questoes> questoes) {
+    public Quiz(int idQuiz, int QtdQuestoes, ArrayList<Questoes> questoes, String respostaCorreta, String respostaErrada1, String respostaErrada2, String respostaErrada3) {
         this.idQuiz = idQuiz;
-        this.QtdQuestoes = QtdQuestoes;
         this.questoes = questoes;
+        this.respostaCorreta = respostaCorreta;
+        this.respostaErrada1 = respostaErrada1;
+        this.respostaErrada2 = respostaErrada2;
+        this.respostaErrada3 = respostaErrada3;
     }
 
     public void setID (int id){ idQuiz = id; }
 
-    public void setQtdQuestoes (int qtdQuestoes){ QtdQuestoes = qtdQuestoes; }
+
 
     public int getIdQuiz() {
         return idQuiz;
     }
 
-    public int getQtdQuestoes() {
-        return QtdQuestoes;
-    }
+
 
     public ArrayList getQuestoes() {
         return questoes;
