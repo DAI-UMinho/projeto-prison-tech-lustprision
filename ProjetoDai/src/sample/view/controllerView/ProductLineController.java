@@ -23,7 +23,11 @@ public class ProductLineController implements Initializable {
     public static String name;
     public static int price;
 
+<<<<<<< HEAD
     public static Button addpbtn;
+=======
+    public Button addpbtn;
+>>>>>>> f89d6d3abc0c338fba78fcf6a0f8076f53f9d08c
 
     public static int id;
 
@@ -50,5 +54,8 @@ public class ProductLineController implements Initializable {
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f89d6d3abc0c338fba78fcf6a0f8076f53f9d08c
 }

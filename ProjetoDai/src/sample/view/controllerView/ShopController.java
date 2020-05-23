@@ -34,6 +34,8 @@ public class ShopController implements Initializable {
     public Label totaltxt;
 
 
+
+
     public static int total = 0;
 
     public static void handleBtnAdicionar(int d) {
@@ -42,6 +44,7 @@ public class ShopController implements Initializable {
 
         String nome = BD_CONTROLLER.getProdutoNome(d);
         int preco = BD_CONTROLLER.getProdutoPreco(d);
+
 
         observableList.add(new Produto(nome, preco));
 
@@ -58,7 +61,7 @@ public class ShopController implements Initializable {
         String s=String.valueOf(total);
         System.out.println("TOTAL STRING" + s);
 
-        //totaltxt.setText("fds");
+
 
     }
 
