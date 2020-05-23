@@ -5,7 +5,7 @@ import sample.model.Prisioneiro;
 
 public class SESSION {
     public Prisioneiro nowusing;
-    SHOPLIST shoplist = new SHOPLIST();
+    public SHOPLIST shoplist = new SHOPLIST();
 
     //int balance=0; // resultado das compras do recluso para no fim da sessão ajustar o valor na BD
     boolean started = false;

@@ -24,7 +24,6 @@ public class ShopController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         saldo.setText(Main.sis.sessionatual.nowusing.getSaldo());
-
         int sz = Main.sis.products.size();
         System.out.println(sz);
         Node[] nodes = new Node[sz];
@@ -47,6 +46,7 @@ public class ShopController implements Initializable {
 
 
     }
+
 
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {

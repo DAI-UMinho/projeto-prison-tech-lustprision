@@ -36,5 +36,13 @@ public class SYSTEM {
         this.works = new ArrayList<>();
     }
 
+    public PRODUCT_TB getProductFS(String Name){
+        for(int i = 0;i<products.size();i++){
+            if(products.get(i).type.getNome().equals(Name)){
+                return products.get(i);
+            }
+        }
+        return null;
+    }
 
 }
