@@ -34,17 +34,13 @@ public class ShopController implements Initializable {
     public Label totaltxt;
 
 
-
-
     public static int total = 0;
 
     public static void handleBtnAdicionar(int d) {
-
-
-
         String nome = BD_CONTROLLER.getProdutoNome(d);
         int preco = BD_CONTROLLER.getProdutoPreco(d);
 
+        Label label1 = new
 
         observableList.add(new Produto(nome, preco));
 
