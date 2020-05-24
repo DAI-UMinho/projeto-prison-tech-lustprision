@@ -59,7 +59,7 @@ public class ShopController implements Initializable {
 
         //totaltxt.setText(String.valueOf(total));
         //totaltxt.setText("fsdgnsoihg");
-        
+
     }
 
     @Override
@@ -93,9 +93,6 @@ public class ShopController implements Initializable {
             }
 
         }
-
-
-
     }
 
 
@@ -157,6 +154,27 @@ public class ShopController implements Initializable {
 
     public void handleBtnPagar(ActionEvent actionEvent) {
         String s = totaltxt.getText();
+        int foo = Integer.parseInt(s);
+        System.out.println("STRIGN"+ s);
+        System.out.println("Int" + foo);
+
+        BD_CONTROLLER.removeCredits(Main.sis.sessionatual.nowusing.getID(), foo);
+
+        /*int tamanho = observableList.size();
+        for (int i = 0; i< tamanho; i++){
+            BD_CONTROLLER.removeProduct(observableList.get(i).getID() ,1);
+            System.out.println(observableList.get(i).getID());
+        }*/
+
+        JOptionPane.showMessageDialog(null, "Pagamento com sucesso.");
+
+       String sd = Main.sis.sessionatual.nowusing.getSaldo();
+        int it = Integer.parseInt(sd);
+        int conta = it - foo;
+        saldo.setText(String.valueOf(conta));
+
+        ProfileController profileController = new ProfileController();
+        //profileController.saldotxt.setText(String.valueOf(conta));
     }
 
 

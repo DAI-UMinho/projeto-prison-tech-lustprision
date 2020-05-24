@@ -48,13 +48,12 @@ public class WorkLineController implements Initializable{
 
     public void handlecandidata(ActionEvent actionEvent) {
         try{
-        System.out.print("candidatar");
+        //System.out.print("candidatar");
         //System.out.print(id1);
         Main.sis.sessionatual.applyJOB(Main.sis.sessionatual.nowusing.getID(), id1);
 
 
         } catch (Exception e){
-            System.out.print("falxagjcle");
             JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
         }
 
