@@ -1,5 +1,8 @@
 package sample.controller;
-import sample.model.*;
+import sample.model.Prisioneiro;
+import sample.model.Produto;
+import sample.model.Quiz;
+import sample.model.Trabalho;
 
 import javax.swing.*;
 import java.sql.*;
@@ -345,7 +348,7 @@ public class BD_CONTROLLER {
         }
     }
 
-    public static Quiz loadQuiz(int ID) {
+    /*public static Quiz loadQuiz(int ID) {
         try {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -356,9 +359,9 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {
-                    Quiz question = new Quiz(rs.getInt(1), (ArrayList<Questoes>) rs.getArray(2), rs.getString(4), rs.getString(5),rs.getString(6), rs.getString(7));
-                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getString(4) + rs.getString(6) + rs.getString(6) + rs.getString(7));
-                    return question;
+                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
+                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(4) + rs.getDate(6 ) + rs.getInt(7));
+                    return user;
                 }
             }
             con.close();
@@ -371,7 +374,7 @@ public class BD_CONTROLLER {
 
         }
         return null;
-    }
+    }*/
 
 
 

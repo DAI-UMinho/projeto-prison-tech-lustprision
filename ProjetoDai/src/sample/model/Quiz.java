@@ -12,7 +12,7 @@ public class Quiz {
     private String respostaErrada3;
 
 
-    public Quiz(int idQuiz, ArrayList<Questoes> questoes, String respostaCorreta, String respostaErrada1, String respostaErrada2, String respostaErrada3) {
+    public Quiz(int idQuiz, int QtdQuestoes, ArrayList<Questoes> questoes, String respostaCorreta, String respostaErrada1, String respostaErrada2, String respostaErrada3) {
         this.idQuiz = idQuiz;
         this.questoes = questoes;
         this.respostaCorreta = respostaCorreta;
@@ -20,8 +20,6 @@ public class Quiz {
         this.respostaErrada2 = respostaErrada2;
         this.respostaErrada3 = respostaErrada3;
     }
-
-
 
     public void setID (int id){ idQuiz = id; }
 
