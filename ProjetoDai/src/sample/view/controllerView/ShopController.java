@@ -3,6 +3,7 @@ package sample.view.controllerView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -26,42 +27,43 @@ import java.util.ResourceBundle;
 public class ShopController implements Initializable {
     public VBox productvbox;
     public Label saldo;
-
     public TableView tableview;
 
-    static ObservableList<Produto> observableList = FXCollections.observableArrayList();
-
+    @FXML
     public Label totaltxt;
-
 
     public static int total = 0;
 
-    public static void handleBtnAdicionar(int d) {
+    public ShopController(){
+
+    }
+
+    static ObservableList<Produto> observableList = FXCollections.observableArrayList();
+
+
+    public void handleBtnAdicionar(int d) { //tava a static
         String nome = BD_CONTROLLER.getProdutoNome(d);
         int preco = BD_CONTROLLER.getProdutoPreco(d);
-        
+
         observableList.add(new Produto(nome, preco));
 
         int tamanho = observableList.size();
 
         int i = tamanho-1;
 
-        System.out.println("PRECO:" + observableList.get(i).getPreco());
+        total += observableList.get(i).getPreco();
 
-        total = total + observableList.get(i).getPreco();
-
-        System.out.println("TOTAL" + total);
-
+        /*System.out.println("TOTAL" + total);
         String s=String.valueOf(total);
-        System.out.println("TOTAL STRING" + s);
+        System.out.println("TOTAL STRING" + s);*/
 
-
-
+        //totaltxt.setText(String.valueOf(total));
+        //totaltxt.setText("fsdgnsoihg");
+        
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         TableColumn<String, Produto> column1 = new TableColumn<>("Produto");
         column1.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 
@@ -71,8 +73,6 @@ public class ShopController implements Initializable {
         tableview.getColumns().addAll(column1, column2);
 
         tableview.setItems(observableList);
-
-
 
         saldo.setText(Main.sis.sessionatual.nowusing.getSaldo());
         int sz = Main.sis.products.size();
@@ -101,7 +101,7 @@ public class ShopController implements Initializable {
 
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
-        System.out.println("Botão Loja");
+        //System.out.println("Botão Loja");
         Parent loja_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
         Scene loja_scene = new Scene(loja_parent);
         Stage loja_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -110,7 +110,7 @@ public class ShopController implements Initializable {
     }
 
     public void handleBtnTrabalho(ActionEvent actionEvent) throws IOException {
-        System.out.println("Botão Trabalho");
+        //System.out.println("Botão Trabalho");
         Parent trabalho_parent = FXMLLoader.load(getClass().getResource("/sample/view/work.fxml"));
         Scene trabalho_scene = new Scene(trabalho_parent);
         Stage trabalho_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -119,7 +119,7 @@ public class ShopController implements Initializable {
     }
 
     public void handleBtnQuiz(ActionEvent actionEvent) throws IOException {
-        System.out.println("Botão Quiz");
+        //System.out.println("Botão Quiz");
         Parent quiz_parent = FXMLLoader.load(getClass().getResource("/sample/view/quiz.fxml"));
         Scene quiz_scene = new Scene(quiz_parent);
         Stage quiz_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -128,7 +128,7 @@ public class ShopController implements Initializable {
     }
 
     public void handleBtnPerfil(ActionEvent actionEvent) throws IOException {
-        System.out.println("Botão Perfil");
+        //System.out.println("Botão Perfil");
         Parent perfil_parent = FXMLLoader.load(getClass().getResource("/sample/view/profile.fxml"));
         Scene perfil_scene = new Scene(perfil_parent);
         Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -137,7 +137,7 @@ public class ShopController implements Initializable {
     }
 
     public void handleBtnSair(ActionEvent actionEvent) throws IOException {
-        System.out.println("Botão Perfil");
+        //System.out.println("Botão Perfil");
         Parent perfil_parent = FXMLLoader.load(getClass().getResource("/sample/view/login.fxml"));
         Scene perfil_scene = new Scene(perfil_parent);
         Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -149,10 +149,16 @@ public class ShopController implements Initializable {
     public void deleteBtn(ActionEvent actionEvent) {
         Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
         tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItem());
-
-        /*int tamanho = observableList.size();
+        int tamanho = observableList.size();
         int i = 0;
         total -= p.getPreco();
-        //totaltxt.setText(String.valueOf(total));*/
+        totaltxt.setText(String.valueOf(total));
     }
+
+    public void handleBtnPagar(ActionEvent actionEvent) {
+        String s = totaltxt.getText();
+    }
+
+
+
 }

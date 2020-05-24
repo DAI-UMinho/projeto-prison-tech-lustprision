@@ -78,7 +78,7 @@
       <Button layoutX="711.0" layoutY="472.0" mnemonicParsing="false" style="-fx-background-color: #3E5BFD;" text="/\" textFill="WHITE" />
       <Button layoutX="755.0" layoutY="472.0" mnemonicParsing="false" style="-fx-background-color: #3E5BFD;" text="\\/" textFill="WHITE" />
       <Button layoutX="821.0" layoutY="472.0" mnemonicParsing="false" onAction="#deleteBtn" style="-fx-background-color: #3E5BFD;" text="Remover" textFill="WHITE" />
-      <Button layoutX="711.0" layoutY="513.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="PAGAR" textFill="WHITE" />
+      <Button layoutX="711.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleBtnPagar" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="PAGAR" textFill="WHITE" />
       <VBox layoutX="798.0" layoutY="511.0" prefHeight="43.0" prefWidth="82.0">
          <children>
             <Label fx:id="totaltxt" alignment="CENTER" prefHeight="18.0" prefWidth="82.0" text="000" textFill="#0d7727">
