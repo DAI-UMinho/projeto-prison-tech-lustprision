@@ -35,13 +35,12 @@ public class ShopController implements Initializable {
     public static int total = 0;
 
     public ShopController(){
-
     }
 
     static ObservableList<Produto> observableList = FXCollections.observableArrayList();
 
 
-    public void handleBtnAdicionar(int d) { //tava a static
+    public void BtnAdicionar(int d) { //tava a static
         String nome = BD_CONTROLLER.getProdutoNome(d);
         int preco = BD_CONTROLLER.getProdutoPreco(d);
 
@@ -64,6 +63,7 @@ public class ShopController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         TableColumn<String, Produto> column1 = new TableColumn<>("Produto");
         column1.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 
@@ -166,17 +166,17 @@ public class ShopController implements Initializable {
             System.out.println(observableList.get(i).getID());
         }*/
 
-        JOptionPane.showMessageDialog(null, "Pagamento com sucesso.");
-
-       String sd = Main.sis.sessionatual.nowusing.getSaldo();
+        String sd = Main.sis.sessionatual.nowusing.getSaldo();
         int it = Integer.parseInt(sd);
-        int conta = it - foo;
-        saldo.setText(String.valueOf(conta));
 
-        ProfileController profileController = new ProfileController();
-        //profileController.saldotxt.setText(String.valueOf(conta));
+        if(it >= foo){
+            int conta = it - foo;
+            saldo.setText(String.valueOf(conta));
+            JOptionPane.showMessageDialog(null, "Pagamento com sucesso.");
+        }
+
+        else{ JOptionPane.showMessageDialog(null, "Saldo insuficiente."); }
+
     }
-
-
 
 }

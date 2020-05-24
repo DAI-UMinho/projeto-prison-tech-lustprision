@@ -8,14 +8,23 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.*;
 
+
 public class BD_CONTROLLER {
+
 
     static String dburl = "jdbc:oracle:thin:@//193.136.11.147:1521/lustdb2";
     static String dbusername = "system";
     static String dbpassword = "DBpassword#1";
+    private static BD_CONTROLLER bd_controller;
 
+    public BD_CONTROLLER(){}
 
-
+    public static BD_CONTROLLER getBd_controller(){
+        if(bd_controller == null){
+            bd_controller = new BD_CONTROLLER();
+        }
+        return bd_controller;
+    }
 
     public static ArrayList<PRODUCT_TB> getPRODUCTS() {
         ArrayList<PRODUCT_TB> output = new ArrayList();

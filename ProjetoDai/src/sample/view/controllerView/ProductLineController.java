@@ -54,7 +54,7 @@ public class ProductLineController implements Initializable {
 
     public void handleBtnAdicionar(ActionEvent actionEvent) {
         //ShopController.handleBtnAdicionar(id1); // metodo a static
-        shop.handleBtnAdicionar(id1);
+        shop.BtnAdicionar(id1);
         //shop.totaltxt.setText("fds");
     }
 }

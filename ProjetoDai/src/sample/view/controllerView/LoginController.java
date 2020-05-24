@@ -25,6 +25,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import sample.controller.BD_CONTROLLER;
 import sample.controller.SYSTEM;
 import java.util.*;
 import sample.Main;
@@ -35,6 +36,8 @@ import sample.*;
  * @author shenr
  */
 public class LoginController implements Initializable {
+
+    private BD_CONTROLLER bd_controller;
 
     public PasswordField pwd1;
 
@@ -171,7 +174,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         badloginlbl.setVisible(false);
-
+        bd_controller = BD_CONTROLLER.getBd_controller();
     }
 
 
