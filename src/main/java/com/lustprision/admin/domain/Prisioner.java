@@ -3,6 +3,8 @@ package com.lustprision.admin.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -18,9 +20,10 @@ import java.util.Set;
  * A Prisioner.
  */
 @Entity
+@Audited
 @Table(name = "prisioner")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Prisioner implements Serializable {
+public class Prisioner extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -63,18 +66,22 @@ public class Prisioner implements Serializable {
     @Column(name = "profile_image_content_type")
     private String profileImageContentType;
 
+    @NotAudited
     @OneToMany(mappedBy = "prisioner")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressWork> ids = new HashSet<>();
 
+    @NotAudited
     @OneToMany(mappedBy = "prisioner")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PrisQuiz> idsa = new HashSet<>();
 
+    @NotAudited
     @OneToMany(mappedBy = "prisioner")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Purchase> idsaa = new HashSet<>();
 
+    @NotAudited
     @ManyToOne
     @JsonIgnoreProperties("ids")
     private Permission permission;
