@@ -263,8 +263,10 @@ public class BD_CONTROLLER {
             Statement st = con.createStatement();
             String query = "SELECT ID,QUANTY_IN_STOCK FROM PRODUCT WHERE ID = '"+id+"'";
             ResultSet rs = st.executeQuery(query);
+            rs.next();
+            int f =rs.getInt("QUANTY_IN_STOCK");
             con.close();
-            return rs.getInt(2);
+            return f;
 
         } catch (SQLException | ClassNotFoundException e) {
 

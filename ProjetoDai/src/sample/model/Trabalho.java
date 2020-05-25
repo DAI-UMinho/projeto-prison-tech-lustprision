@@ -1,6 +1,6 @@
 package sample.model;
 
-import com.sun.source.doctree.InheritDocTree;
+
 import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.Date;

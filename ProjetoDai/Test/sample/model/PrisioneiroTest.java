@@ -1,5 +1,5 @@
 package sample.model;
-package sample.model;
+
 
 import org.junit.jupiter.api.Test;
 import sample.controller.BD_CONTROLLER;
@@ -109,5 +109,23 @@ class PrisioneiroTest {
             System.out.println(e);
             System.out.println("Conexão sem sucesso");
         }
+
     }
-}
+    @Test
+    void getPrisionerPIN() throws ClassNotFoundException { //rever
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "Select ID FROM PRISIONER WHERE ROWNUM <= 1";
+            ResultSet rs = st.executeQuery(query1);
+            rs.next();
+           int pri = rs.getInt("ID");
+           int cod =BD_CONTROLLER.getPrisionerPIN(pri);
+           System.out.println(+cod);
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+        }
+    }}
