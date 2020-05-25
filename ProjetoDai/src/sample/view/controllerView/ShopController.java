@@ -33,6 +33,7 @@ public class ShopController implements Initializable {
     public Label totaltxt;
 
     public static int total = 0;
+    public static int quantidade = 0;
 
     public ShopController(){
     }
@@ -57,6 +58,10 @@ public class ShopController implements Initializable {
         for(int i = 0; i < tamanho; i++){
             if (id == observableList.get(i).getID()){
                 observableList.get(i).setStock(observableList.get(i).getStock()+1);
+                //Produto n = observableList.get(i);
+                //observableList.remove(1);
+                //observableList.add(i,n);
+                observableList.set(i, observableList.get(i));
                 contador++; }
 
             total += observableList.get(i).getPreco();
@@ -71,7 +76,6 @@ public class ShopController implements Initializable {
         System.out.println("TOTAL STRING" + s);
         totaltxt.setText(String.valueOf(total));
         totaltxt.setText("fsdgnsoihg");*/
-
     }
 
     @Override
@@ -158,12 +162,34 @@ public class ShopController implements Initializable {
     }
 
     public void deleteBtn(ActionEvent actionEvent) {
-        Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
+        /*Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
         tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItem());
         int tamanho = observableList.size();
         int i = 0;
         total -= p.getPreco();
+        totaltxt.setText(String.valueOf(total));*/
+
+        int quant = ((Produto) tableview.getSelectionModel().getSelectedItem()).getStock();
+        int valor = 0;
+
+        if (quant != 1){
+            Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
+            ((Produto) tableview.getSelectionModel().getSelectedItem()).setStock(quant-1);
+            valor = ((Produto) tableview.getSelectionModel().getSelectedItem()).getPreco();
+        }
+        else{
+            Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
+            tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItem());
+            valor = ((Produto) tableview.getSelectionModel().getSelectedItem()).getPreco();
+        }
+
+        int tamanho = observableList.size();
+        int i = 0;
+
+        total -= valor;
         totaltxt.setText(String.valueOf(total));
+
+        //tableview.refresh();
     }
 
     public void handleBtnPagar(ActionEvent actionEvent) {
