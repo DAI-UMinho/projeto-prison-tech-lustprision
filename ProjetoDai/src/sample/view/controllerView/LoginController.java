@@ -30,11 +30,7 @@ import sample.controller.SYSTEM;
 import java.util.*;
 import sample.Main;
 import sample.*;
-/**
- * FXML Controller class
- *
- * @author shenr
- */
+
 public class LoginController implements Initializable {
 
     private BD_CONTROLLER bd_controller;
@@ -69,17 +65,13 @@ public class LoginController implements Initializable {
                     Main.sis.loadFilterJobs();
 
 
-                    Parent quiz_parent = FXMLLoader.load(getClass().getResource("/sample/view/quiz.fxml"));
-                    Scene quiz_scene = new Scene(quiz_parent);
-                    Stage quiz_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    quiz_stage.setScene(quiz_scene);
-                    quiz_stage.show();
 
-                    /*Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
+
+                    Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
                     Scene home_page_scene = new Scene(home_page_parent);
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.setScene(home_page_scene);
-                    app_stage.show();*/
+                    app_stage.show();
 
                 } else badloginlbl.setVisible(true);
             }catch (Exception e ){};
@@ -182,7 +174,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         badloginlbl.setVisible(false);
-        bd_controller = BD_CONTROLLER.getBd_controller();
+        
     }
 
 

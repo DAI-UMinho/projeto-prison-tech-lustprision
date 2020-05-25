@@ -186,8 +186,8 @@ public class BD_CONTROLLER {
             ResultSet rs = st.executeQuery("SELECT ID,CODIGO_CARTAO FROM Prisioner ");
 
             while (rs.next()) {
-                if (rs.getInt(1) == ID) {
-                    return rs.getInt(2);
+                if (rs.getInt("ID") == ID) {
+                    return rs.getInt("CODIGO_CARTAO");
                 }
             }
             con.close();

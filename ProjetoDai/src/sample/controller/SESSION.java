@@ -17,8 +17,8 @@ public class SESSION {
         this.started = true;
         Main.sis.loadProductsTS();
         Main.sis.loadWorksTS();
-        if(BD_CONTROLLER.getQuiz(nowusing.getID()).equals(null)){}
-        else this.sessionquiz =BD_CONTROLLER.getQuiz(nowusing.getID());
+       // if(BD_CONTROLLER.getQuiz(nowusing.getID()).equals(null)){}
+        //else this.sessionquiz =BD_CONTROLLER.getQuiz(nowusing.getID());
     }
 
     //teste teste
