@@ -98,4 +98,22 @@ class ProdutoTest {
             System.out.println("Conexão sem sucesso");
         }
     }
+    @Test
+    void getProductStock() throws ClassNotFoundException { //rever
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "Select ID FROM PRODUCT WHERE ROWNUM <= 1";
+            ResultSet rs = st.executeQuery(query1);
+            rs.next();
+            int pri = rs.getInt("ID");
+            int cod =BD_CONTROLLER.getProductStock(pri);
+            System.out.println(cod);
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+        }
+    }
 }
