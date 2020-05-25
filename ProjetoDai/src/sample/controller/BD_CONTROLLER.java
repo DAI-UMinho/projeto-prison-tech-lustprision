@@ -131,10 +131,7 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
 
-                Prisioneiro x = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"));
-
-
-
+                Prisioneiro x = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"), rs.getInt("CODIGO_CARTAO"));
                 output.add(x);
             }
             con.close();
@@ -213,7 +210,7 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {
-                    Prisioneiro user = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"));
+                    Prisioneiro user = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"), rs.getInt("CODIGO_CARTAO"));
 
                     return user;
                 }
@@ -423,7 +420,7 @@ public class BD_CONTROLLER {
         }
     }
 
-    public static void addPurchase(int id){
+    public static int addPurchase(int id){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
@@ -440,15 +437,18 @@ public class BD_CONTROLLER {
             System.out.println("PURCHASE");
             //JOptionPane.showMessageDialog(null, "PURCHASE com sucesso.");
             con.close();
+            return d;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             System.out.println(e);
             System.out.println("PURCHASE errada");
             //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+            return 0;
         }
+
     }
 
-    /* public static void addPressProdut(int id){
+     public static void addPressProdut(int id, int quantidade, int idproduto){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
@@ -457,18 +457,19 @@ public class BD_CONTROLLER {
             ResultSet rs1 = st.executeQuery(query1);
             rs1.next();
             int d = rs1.getInt("NEXTVAL");
-            String query = "INSERT INTO PRESS_WORK (ID, QTY ,PRICE_TOTAL, PPRICE_TOTAL, PURCHASE_ID, PRODUCT_ID) VALUES ("+d+","+id+", "++", 0)";
+            System.out.println(idproduto);
+            String query = "INSERT INTO PRESS_PRODUCT (ID, QTY ,PRICE_TOTAL, PURCHASE_ID, PRODUCT_ID) VALUES ("+d+","+quantidade+",0, "+id+", "+idproduto+")";
             ResultSet rs = st.executeQuery(query);
             rs.next();
             System.out.println("PRESS PRODUCT");
-            JOptionPane.showMessageDialog(null, "PRESS PRODUCT com sucesso.");
+            //JOptionPane.showMessageDialog(null, "PRESS PRODUCT com sucesso.");
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
             System.out.println("PRESS errada");
-            JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+            //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
         }
-    }*/
+    }
 
     /*public static Quiz loadQuiz(int ID) {
         try {

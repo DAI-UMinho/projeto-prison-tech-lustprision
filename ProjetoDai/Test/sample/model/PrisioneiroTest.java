@@ -3,6 +3,7 @@ package sample.model;
 
 import org.junit.jupiter.api.Test;
 import sample.controller.BD_CONTROLLER;
+import sample.controller.WORK_TB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ class PrisioneiroTest {
     @Test
     void isPermissaoQuiz() {
         int i = 0;
-        while(i<numeroUtilizadores) {
+        while (i < numeroUtilizadores) {
             int j = BD_CONTROLLER.getPrisioners().get(i).getID(); //id do utilizador
             System.out.println("Permissão do Utilizador: " + BD_CONTROLLER.loadUser(j).isPermissaoQuiz()); //print da permissao do user
             i++;
@@ -30,7 +31,7 @@ class PrisioneiroTest {
     @Test
     void getSaldo() {
         int i = 0;
-        while(i<numeroUtilizadores) {
+        while (i < numeroUtilizadores) {
             int j = BD_CONTROLLER.getPrisioners().get(i).getID(); //id do utilizador
             System.out.println("Saldo do utilizador: " + BD_CONTROLLER.loadUser(j).getSaldo()); //print da saldo do user
             i++;
@@ -40,7 +41,7 @@ class PrisioneiroTest {
     @Test
     void getNome() {
         int i = 0;
-        while(i<numeroUtilizadores) {
+        while (i < numeroUtilizadores) {
             int j = BD_CONTROLLER.getPrisioners().get(i).getID(); //id do utilizador
             System.out.println("Nome do utilizador: " + BD_CONTROLLER.loadUser(j).getNome()); //print da nome do user
             i++;
@@ -50,7 +51,7 @@ class PrisioneiroTest {
     @Test
     void getID() {
         int i = 0;
-        while(i<numeroUtilizadores) {
+        while (i < numeroUtilizadores) {
             int j = BD_CONTROLLER.getPrisioners().get(i).getID(); //id do utilizador
             System.out.println("Id do utilizador: " + BD_CONTROLLER.loadUser(j).getID()); //print da ID do user
             i++;
@@ -60,7 +61,7 @@ class PrisioneiroTest {
     @Test
     void getNumRecluso() {
         int i = 0;
-        while(i<numeroUtilizadores) {
+        while (i < numeroUtilizadores) {
             int j = BD_CONTROLLER.getPrisioners().get(i).getID(); //id do utilizador
             System.out.println("Numero de recluso: " + BD_CONTROLLER.loadUser(j).getNumRecluso()); //print da num do recluso
             i++;
@@ -70,7 +71,7 @@ class PrisioneiroTest {
     @Test
     void getDataNascim() {
         int i = 0;
-        while(i<numeroUtilizadores) {
+        while (i < numeroUtilizadores) {
             int j = BD_CONTROLLER.getPrisioners().get(i).getID(); //id do utilizador
             System.out.println("Data de Nascimento: " + BD_CONTROLLER.loadUser(j).getDataNascim()); //print da data de nascimento do recluso
             i++;
@@ -111,6 +112,7 @@ class PrisioneiroTest {
         }
 
     }
+
     @Test
     void getPrisionerPIN() throws ClassNotFoundException { //rever
         try {
@@ -120,12 +122,45 @@ class PrisioneiroTest {
             String query1 = "Select ID FROM PRISIONER WHERE ROWNUM <= 1";
             ResultSet rs = st.executeQuery(query1);
             rs.next();
-           int pri = rs.getInt("ID");
-           int cod =BD_CONTROLLER.getPrisionerPIN(pri);
-           System.out.println(+cod);
-        }
-        catch (SQLException | ClassNotFoundException e) {
+            int pri = rs.getInt("ID");
+            int cod = BD_CONTROLLER.getPrisionerPIN(pri);
+            System.out.println(+cod);
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
             System.out.println("Conexão sem sucesso");
         }
-    }}
+    }
+
+    @Test
+    void addPurchase() throws ClassNotFoundException {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "Select ID FROM PRISIONER WHERE ROWNUM <= 1";
+            ResultSet rs = st.executeQuery(query1);
+            rs.next();
+            int pri = rs.getInt("ID");
+            String query2 = "Select * FROM PURCHASE ";
+            ResultSet result = st.executeQuery(query2);
+            int cont = 0;
+            while (result.next()) {
+                cont++;
+            }
+            System.out.println(cont);
+
+            BD_CONTROLLER.addPurchase(pri);
+            String query3 = "Select * FROM PURCHASE ";
+            ResultSet resu = st.executeQuery(query2);
+            int conta = 0;
+            while (resu.next()) {
+                conta++;
+            }
+            System.out.println(conta);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+        }
+    }
+}
