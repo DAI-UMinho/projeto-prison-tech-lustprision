@@ -238,4 +238,5 @@ public class QuizResourceIT {
         List<Quiz> quizList = quizRepository.findAll();
         assertThat(quizList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
 }

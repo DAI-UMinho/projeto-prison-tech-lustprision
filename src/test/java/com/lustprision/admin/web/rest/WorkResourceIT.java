@@ -43,11 +43,12 @@ public class WorkResourceIT {
     private static final Long DEFAULT_PRICE_HOUR = 1L;
     private static final Long UPDATED_PRICE_HOUR = 2L;
 
-    private static final Integer DEFAULT_NUM_VACANCIES = 1;
-    private static final Integer UPDATED_NUM_VACANCIES = 2;
+    private static final Integer DEFAULT_NUM_REMAINING_ENTRIES = 1;
+    private static final Integer UPDATED_NUM_REMAINING_ENTRIES = 2;
 
-    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate DEFAULT_DATE = LocalDate.now(ZoneId.systemDefault());
     private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
+
 
     @Autowired
     private WorkService workService;
@@ -97,9 +98,10 @@ public class WorkResourceIT {
      */
     public static Work createEntity(EntityManager em) {
         Work work = new Work()
+
             .nameWork(DEFAULT_NAME_WORK)
             .priceHour(DEFAULT_PRICE_HOUR)
-            .numVacancies(DEFAULT_NUM_VACANCIES)
+            .numVacancies(DEFAULT_NUM_REMAINING_ENTRIES)
             .date(DEFAULT_DATE);
         return work;
     }
@@ -113,7 +115,7 @@ public class WorkResourceIT {
         Work work = new Work()
             .nameWork(UPDATED_NAME_WORK)
             .priceHour(UPDATED_PRICE_HOUR)
-            .numVacancies(UPDATED_NUM_VACANCIES)
+            .numVacancies(UPDATED_NUM_REMAINING_ENTRIES)
             .date(UPDATED_DATE);
         return work;
     }
@@ -127,9 +129,10 @@ public class WorkResourceIT {
     @Transactional
     public void createWork() throws Exception {
         int databaseSizeBeforeCreate = workRepository.findAll().size();
-
+System.out.println(databaseSizeBeforeCreate);
         // Create the Work
-        //Work work = WorkResourceIT.createEntity(em);
+        Work work = WorkResourceIT.createEntity(em);
+
         restWorkMockMvc.perform(post("/api/works")
             .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(work)))
@@ -141,7 +144,7 @@ public class WorkResourceIT {
         Work testWork = workList.get(workList.size() - 1);
         assertThat(testWork.getNameWork()).isEqualTo(DEFAULT_NAME_WORK);
         assertThat(testWork.getTotalCredits()).isEqualTo(DEFAULT_PRICE_HOUR);
-        assertThat(testWork.getNumRemainingEntries()).isEqualTo(DEFAULT_NUM_VACANCIES);
+        assertThat(testWork.getNumRemainingEntries()).isEqualTo(DEFAULT_NUM_REMAINING_ENTRIES);
         assertThat(testWork.getDate()).isEqualTo(DEFAULT_DATE);
         System.out.println("Número de trabalhos antes do teste: " +databaseSizeBeforeCreate);
         System.out.println("Número de trabalhos criados: " +workList.size());
@@ -199,8 +202,8 @@ public class WorkResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(work.getId().intValue()))
             .andExpect(jsonPath("$.nameWork").value(DEFAULT_NAME_WORK))
-            .andExpect(jsonPath("$.priceHour").value(DEFAULT_PRICE_HOUR.intValue()))
-            .andExpect(jsonPath("$.numVacancies").value(DEFAULT_NUM_VACANCIES))
+            //.andExpect(jsonPath("$.priceHour").value(DEFAULT_PRICE_HOUR.intValue()))
+            .andExpect(jsonPath("$.numRemainingEntries").value(DEFAULT_NUM_REMAINING_ENTRIES))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
 
@@ -227,7 +230,7 @@ public class WorkResourceIT {
         updatedWork
             .nameWork(UPDATED_NAME_WORK)
             .priceHour(UPDATED_PRICE_HOUR)
-            .numVacancies(UPDATED_NUM_VACANCIES)
+            .numVacancies(UPDATED_NUM_REMAINING_ENTRIES)
             .date(UPDATED_DATE);
 
         restWorkMockMvc.perform(put("/api/works")
@@ -241,7 +244,7 @@ public class WorkResourceIT {
         Work testWork = workList.get(workList.size() - 1);
         assertThat(testWork.getNameWork()).isEqualTo(UPDATED_NAME_WORK);
         assertThat(testWork.getTotalCredits()).isEqualTo(UPDATED_PRICE_HOUR);
-        assertThat(testWork.getNumRemainingEntries()).isEqualTo(UPDATED_NUM_VACANCIES);
+        assertThat(testWork.getNumRemainingEntries()).isEqualTo(UPDATED_NUM_REMAINING_ENTRIES);
         assertThat(testWork.getDate()).isEqualTo(UPDATED_DATE);
     }
 

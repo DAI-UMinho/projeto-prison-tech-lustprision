@@ -1,5 +1,6 @@
 package com.lustprision.admin.web.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.PressProduct;
 import com.lustprision.admin.repository.PressProductRepository;
@@ -38,6 +39,7 @@ public class PressProductResourceIT {
 
     private static final Long DEFAULT_PRICE_EACH = 1L;
     private static final Long UPDATED_PRICE_EACH = 2L;
+
 
     @Autowired
     private PressProductRepository pressProductRepository;
@@ -154,7 +156,7 @@ public class PressProductResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(pressProduct.getId().intValue())))
             .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY)))
-            .andExpect(jsonPath("$.[*].priceEach").value(hasItem(DEFAULT_PRICE_EACH.intValue())));
+            .andExpect(jsonPath("$.[*].priceTotal").value(hasItem(DEFAULT_PRICE_EACH.intValue())));
     }
 
     @Test
@@ -169,7 +171,7 @@ public class PressProductResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(pressProduct.getId().intValue()))
             .andExpect(jsonPath("$.qty").value(DEFAULT_QTY))
-            .andExpect(jsonPath("$.priceEach").value(DEFAULT_PRICE_EACH.intValue()));
+            .andExpect(jsonPath("$.priceTotal").value(DEFAULT_PRICE_EACH.doubleValue()));
     }
 
     @Test
