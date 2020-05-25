@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="285.0" prefWidth="441.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.QuizinitiateController">
+   <children>
+      <Button fx:id="initiate" layoutX="153.0" layoutY="105.0" mnemonicParsing="false" onAction="" prefHeight="75.0" prefWidth="136.0" style="-fx-background-color: #3E5BFD;" text="INICIAR QUIZ" textFill="WHITE">
+         <font>
+            <Font name="Agency FB" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

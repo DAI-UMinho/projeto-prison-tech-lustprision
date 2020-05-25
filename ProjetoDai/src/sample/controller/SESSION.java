@@ -2,10 +2,12 @@ package sample.controller;
 
 import sample.Main;
 import sample.model.Prisioneiro;
+import sample.model.Quiz;
 
 public class SESSION {
     public Prisioneiro nowusing;
     public SHOPLIST shoplist = new SHOPLIST();
+    public Quiz sessionquiz;
 
     //int balance=0; // resultado das compras do recluso para no fim da sessão ajustar o valor na BD
     boolean started = false;
@@ -15,6 +17,8 @@ public class SESSION {
         this.started = true;
         Main.sis.loadProductsTS();
         Main.sis.loadWorksTS();
+        if(BD_CONTROLLER.getQuiz(nowusing.getID()).equals(null)){}
+        else this.sessionquiz =BD_CONTROLLER.getQuiz(nowusing.getID());
     }
 
     //teste teste

@@ -62,17 +62,25 @@ public class LoginController implements Initializable {
 
             try {
 
-                if (Main.sis.LoginTS(5352, Integer.valueOf(pwd1.getText()))) {
+                if (Main.sis.LoginTS(1202, Integer.valueOf(pwd1.getText()))) {
 
                     Main.sis.loadWorksTS();
                     Main.sis.loadProductsTS();
                     Main.sis.loadFilterJobs();
 
-                    Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
+
+                    Parent quiz_parent = FXMLLoader.load(getClass().getResource("/sample/view/quiz.fxml"));
+                    Scene quiz_scene = new Scene(quiz_parent);
+                    Stage quiz_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    quiz_stage.setScene(quiz_scene);
+                    quiz_stage.show();
+
+                    /*Parent home_page_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
                     Scene home_page_scene = new Scene(home_page_parent);
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.setScene(home_page_scene);
-                    app_stage.show();
+                    app_stage.show();*/
+
                 } else badloginlbl.setVisible(true);
             }catch (Exception e ){};
 

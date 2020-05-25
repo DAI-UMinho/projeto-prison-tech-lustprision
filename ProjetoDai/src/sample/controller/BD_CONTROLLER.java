@@ -1,8 +1,5 @@
 package sample.controller;
-import sample.model.Prisioneiro;
-import sample.model.Produto;
-import sample.model.Quiz;
-import sample.model.Trabalho;
+import sample.model.*;
 
 import javax.swing.*;
 import java.sql.*;
@@ -44,7 +41,7 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 //coisas que faltem ir buscar à bd adicionar ao construtor de produtos e ir buscar ao ResultSet
-                Produto x = new Produto(rs.getInt(1), rs.getString(3), rs.getString(6), rs.getInt(4), rs.getInt(7));
+                Produto x = new Produto(rs.getInt("ID"), rs.getString("NAME_PROD"), rs.getString("DESCRIPTION_PROD"), rs.getInt("PRICE"), rs.getInt("QUANTY_IN_STOCK"));
 
 
                 PRODUCT_TB y = new PRODUCT_TB(x);
@@ -74,7 +71,7 @@ public class BD_CONTROLLER {
             ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB");
 
             while (rs.next()) {
-                Trabalho x = new Trabalho(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
+                Trabalho x = new Trabalho(rs.getInt("ID"),rs.getString("NAME_WORK"),rs.getInt("TOTAL_CREDITS"),rs.getInt("NUM_REMAINING_ENTRIES"));
                 WORK_TB y= new WORK_TB(x);
                 output.add(y);
             }
@@ -103,7 +100,7 @@ public class BD_CONTROLLER {
             ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB where STATE_ID = 1");
 
             while (rs.next()) {
-                Trabalho x = new Trabalho(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
+                Trabalho x = new Trabalho(rs.getInt("ID"),rs.getString("NAME_WORK"),rs.getInt("TOTAL_CREDITS"),rs.getInt("NUM_REMAINING_ENTRIES"));
                 WORK_TB y= new WORK_TB(x);
                 output.add(y);
             }
@@ -134,7 +131,7 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
 
-                Prisioneiro x = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
+                Prisioneiro x = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"));
 
 
 
@@ -216,8 +213,8 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {
-                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
-                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(4) + rs.getDate(6 ) + rs.getInt(7));
+                    Prisioneiro user = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"));
+
                     return user;
                 }
             }
@@ -498,6 +495,62 @@ public class BD_CONTROLLER {
         }
         return null;
     }*/
+
+
+
+    public static Quiz getQuiz(int id){ // este id é do prisioneiro , não do quiz o do quiz está como idquiz
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT QUIZ_ID FROM PRIS_QUIZ WHERE PRISIONER_ID = "+id+"AND APPROVAL = 1");
+            rs.next();
+            int idquiz = rs.getInt("QUIZ_ID");
+
+            Statement st2 = con.createStatement();
+            ResultSet rs2 = st2.executeQuery("SELECT QUESTION_ID FROM QUESTION_QUIZ WHERE QUIZ_ID ="+idquiz);
+
+            int questionids[] = new int[5];
+            rs2.next();
+            for(int i =0 ; i<5;i++){
+                questionids[i]=rs2.getInt("QUESTION_ID");
+                rs2.next();
+            }
+
+            Statement st3 = con.createStatement();
+
+            ArrayList<Questoes> questions = new ArrayList<>();
+
+            for(int i = 0 ; i<5;i++){
+            ResultSet rs3 = st3.executeQuery("SELECT * FROM QUESTION WHERE ID = "+questionids[i]);
+            rs3.next();
+            ArrayList<String> answers = new ArrayList<>();
+            answers.add(rs3.getString("WONG_ANSWER_1"));
+            answers.add(rs3.getString("WONG_ANSWER_2"));
+            answers.add(rs3.getString("WONG_ANSWER_3"));
+
+            Questoes x = new Questoes(rs3.getInt("ID"),rs3.getString("QUESTION"),answers,rs3.getInt("JHI_VALUE"),rs3.getString("ANSWER"));
+            questions.add(x);
+            }
+
+            Quiz quiz = new Quiz(idquiz,5,questions);
+            return quiz;
+
+
+        }catch(SQLException | ClassNotFoundException e){
+            System.out.print("Não há QUIZ");
+            return null;
+        }
+
+
+    }
+
+
+
+
+
+
 
 
 

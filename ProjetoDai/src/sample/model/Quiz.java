@@ -6,19 +6,29 @@ import java.util.ArrayList;
 public class Quiz {
     private int idQuiz;
     private ArrayList<Questoes> questoes = new ArrayList();
-    private String respostaCorreta;
-    private String respostaErrada1;
-    private String respostaErrada2;
-    private String respostaErrada3;
 
+    private int currentquest; // em qual questão vai, refere-se a uma questao lista de questoes
+    private int totalpoints;
 
-    public Quiz(int idQuiz, int QtdQuestoes, ArrayList<Questoes> questoes, String respostaCorreta, String respostaErrada1, String respostaErrada2, String respostaErrada3) {
+    private int right_cont=0; //contadores para no fim aparecer lá quantas acertou e errou
+    private int wrong_cont=0;
+
+    public Quiz(int idQuiz, int QtdQuestoes, ArrayList<Questoes> questoes) {
         this.idQuiz = idQuiz;
         this.questoes = questoes;
-        this.respostaCorreta = respostaCorreta;
-        this.respostaErrada1 = respostaErrada1;
-        this.respostaErrada2 = respostaErrada2;
-        this.respostaErrada3 = respostaErrada3;
+    }
+
+    public Questoes displayQuestion(){
+        return questoes.get(currentquest);
+    }
+
+    public boolean answerQuestion(String x){ //não é a melhor maneira mas é prática e serve perfeitamente , podiamos ir por ids de resposta
+        if(questoes.get(currentquest).answer(x)){
+            totalpoints+= questoes.get(currentquest).getValorQuestao();
+            currentquest++;
+            right_cont++;
+            return true;
+        }else wrong_cont++;return false;
     }
 
     public void setID (int id){ idQuiz = id; }

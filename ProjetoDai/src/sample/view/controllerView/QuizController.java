@@ -9,14 +9,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.Main;
 
 import javax.swing.*;
 
@@ -28,7 +31,10 @@ import javax.swing.*;
 public class QuizController implements Initializable {
 
     public Label valortxt;
+    public Pane mainpanequiz;
+    public Label noquizlbl;
 
+    public static int question=0;
 
     /**
      * Initializes the controller class.
@@ -36,7 +42,29 @@ public class QuizController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if(Main.sis.sessionatual.sessionquiz.equals(null)){
 
+        }else{
+            noquizlbl.setVisible(false);
+            if (question == 0) {
+            try {
+                Node initquiz = FXMLLoader.load(getClass().getResource("/sample/view/quizinitiate.fxml"));
+                mainpanequiz.getChildren().add(initquiz);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }}
+
+            if (question==1){
+                try {
+                    Node question = FXMLLoader.load(getClass().getResource("/sample/view/question.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
     }
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
@@ -84,15 +112,5 @@ public class QuizController implements Initializable {
         perfil_stage.show();
     }
 
-    public void onClickA1(ActionEvent actionEvent) {
-    }
 
-    public void onClickA3(ActionEvent actionEvent) {
-    }
-
-    public void onClickA2(ActionEvent actionEvent) {
-    }
-
-    public void onClickA4(ActionEvent actionEvent) {
-    }
 }
