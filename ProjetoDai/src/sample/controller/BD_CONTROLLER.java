@@ -131,10 +131,7 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
 
-                Prisioneiro x = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"));
-
-
-
+                Prisioneiro x = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"), rs.getInt("CODIGO_CARTAO"));
                 output.add(x);
             }
             con.close();
@@ -213,7 +210,7 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {
-                    Prisioneiro user = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"));
+                    Prisioneiro user = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"), rs.getInt("CODIGO_CARTAO"));
 
                     return user;
                 }

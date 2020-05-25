@@ -11,15 +11,18 @@ public class Prisioneiro {
     private int Saldo;
     private boolean PermissaoQuiz;
     private Date DataNascim;
+    private int codigoPin;
 
-
-    public Prisioneiro(int ID, String Name, int NumRecluso, Date DataNascim, int Balance){
+    public Prisioneiro(int ID, String Name, int NumRecluso, Date DataNascim, int Balance, int cod){
         this.ID=ID;
         this.Saldo=Balance;
         this.Nome=Name;
         this.NumRecluso = NumRecluso;
         this.DataNascim = DataNascim;
+        this.codigoPin = cod;
     }
+
+    public void setCodigoPin(int cod){ codigoPin = cod; }
 
     public void setID (int id){ ID = id; }
 
@@ -50,6 +53,8 @@ public class Prisioneiro {
     public String getNumRecluso() {return String.valueOf(NumRecluso);}
 
     public Date getDataNascim(){return (DataNascim);}
+
+    public int getCodigoPin(){ return codigoPin; }
 
 
 
