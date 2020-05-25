@@ -15,6 +15,8 @@ import {APP_DATE_FORMAT} from "app/config/constants";
 import TableIcon from "app/shared/util/table-icon";
 import {useMediaQuery} from "@material-ui/core";
 import {useTheme} from "@material-ui/core/styles";
+import {Bar} from "react-chartjs-2";
+import {getChartProductSales} from "app/shared/reducers/statistics";
 
 export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -28,6 +30,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
   const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 6;
 
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
+  const [chartProduct, setChartProduct] = useState([]);
   const [state, setState] = React.useState<TableState>({
     columns: [
       {
@@ -50,7 +53,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
       {title: 'Valor Total', field: 'priceTotal'},
     ]
   });
-  const {productEntity, loading, updating, productSales} = props;
+  const {productEntity, loading, updating, productSales, chartSales} = props;
   const {image, imageContentType} = productEntity;
 
   const handleClose = () => {
@@ -63,8 +66,14 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
       props.getProductSales(props.match.params.id);
+      props.getChartProductSales(props.match.params.id);
     }
   }, []);
+
+  useEffect(() => {
+    {chartSales && setChartProduct(chartSales.map(x => x.value))}
+
+  }, [chartSales]);
 
   const onBlobChange = (isAnImage, name) => event => {
     setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
@@ -95,8 +104,24 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
     }
   };
 
+
   const deleteProduct = () => {
     props.deleteEntity(productEntity.id);
+  };
+
+  const chartData = {
+    labels: chartSales.map(x => x.monthName),
+    datasets: [
+      {
+        label: 'Vendas',
+        backgroundColor: 'rgba(38,120,255,0.36)',
+        borderColor: 'rgba(33,94,205)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(38,120,255,0.36)',
+        hoverBorderColor: 'rgb(33,94,205)',
+        data: chartProduct
+      }
+    ]
   };
 
   return (
@@ -324,6 +349,22 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                 />
               </Card>
             </Col>
+            <Col md={colN}>
+              <Card className="card-stats">
+                <CardHeader>
+                  <CardTitle tag="h5">Vendas dos ultimos 6 meses</CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <Bar
+                    data={chartData}
+                    options={{
+                      responsive: true,
+                      scales: {yAxes: [{ticks: {stepSize: 1}}]}
+                    }}
+                  />
+                </CardBody>
+              </Card>
+            </Col>
           </Row>
         </div>
       ) : null}
@@ -331,12 +372,13 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
   );
 };
 
-const mapStateToProps = ({product}: IRootState) => ({
-  productEntity: product.product,
-  productSales: product.productSales,
-  loading: product.loading,
-  updating: product.updating,
-  updateSuccess: product.updateSuccess
+const mapStateToProps = (state: IRootState) => ({
+  productEntity: state.product.product,
+  productSales: state.product.productSales,
+  loading: state.product.loading,
+  updating: state.product.updating,
+  updateSuccess: state.product.updateSuccess,
+  chartSales: state.statistics.chartProductSales
 });
 
 const mapDispatchToProps = {
@@ -346,7 +388,8 @@ const mapDispatchToProps = {
   setBlob,
   createEntity,
   reset,
-  deleteEntity
+  deleteEntity,
+  getChartProductSales
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

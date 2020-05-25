@@ -163,13 +163,14 @@ export const updateEntity: ICrudPutAction<IQuiz> = entity => async dispatch => {
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IQuiz> = id => async dispatch => {
+export const deleteQuiz: ICrudDeleteAction<IQuiz> = id => async dispatch => {
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_QUIZ,
     payload: axios.delete(requestUrl)
   });
   dispatch(getEntities());
+  dispatch(getCompletedQuizzes());
   return result;
 };
 

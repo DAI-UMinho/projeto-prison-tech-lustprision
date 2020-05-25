@@ -7,19 +7,18 @@ import {IRootState} from 'app/shared/reducers';
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import MaterialTable, {MTableToolbar, Column} from 'material-table';
 
-import {withStyles, Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Ellipsis} from 'react-spinners-css';
-import {LinearProgress, useMediaQuery} from "@material-ui/core";
+import {useMediaQuery} from "@material-ui/core";
 import {TextFormat, Translate} from "react-jhipster";
 import {getWaitingList, updateQuizAuthorization, deleteEntity} from "app/modules/quizs/pris-quiz.reducer";
-import {getCompletedQuizzes, getQuizResults} from "./quiz.reducer"
+import {getCompletedQuizzes, getQuizResults, deleteQuiz} from "./quiz.reducer"
 import {StateBox, QuizBox} from "app/components/StateBox";
 import Swal from "sweetalert2";
 import QuizDetailDialog from "app/modules/quizs/quiz-details";
 import TableIcon from "app/shared/util/table-icon";
-import DeleteIcon from "@material-ui/icons/Delete";
+import {quizTheme} from "app/shared/layout/themes/themes";
 
 export interface IQuizProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
@@ -31,12 +30,14 @@ interface TableState {
 
 export const Quiz = (props: IQuizProps) => {
   const theme = useTheme();
+  const classes = quizTheme();
   const mCol = useMediaQuery(theme.breakpoints.up('xl')) ? 8 : 10;
   const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
   const [selectedID, setSelectedID] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [approvalList, setApprovalList] = useState([]);
+  const [quizList, setQuizList] = useState([]);
 
   const [state, setState] = React.useState<TableState>({
     pending: [
@@ -83,6 +84,7 @@ export const Quiz = (props: IQuizProps) => {
   }, []);
 
   const updateTable = () => {
+    console.log("ATUALIZAR");
     setApprovalList([...waitingList]);
   };
 
@@ -96,42 +98,9 @@ export const Quiz = (props: IQuizProps) => {
     }
   }, [waitingList]);
 
-  const useStyles = makeStyles({
-    root: {
-      padding: theme.spacing(3)
-    },
-    content: {
-      marginTop: theme.spacing(2)
-    },
-    table: {
-      minWidth: 700,
-    },
-    row: {
-      height: '42px',
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: '10px'
-    },
-    spacer: {
-      flexGrow: 1
-    },
-    importButton: {
-      marginRight: '10px'
-    },
-    exportButton: {
-      marginRight: '10px'
-    },
-    cardBody:{
-      "&:hover":{
-        cursor: 'pointer',
-        backgroundColor: '#1571ff'
-      },
-      borderRadius: '12px',
-      backgroundColor: "#2b5eb1"
-    }
-  });
-
-  const classes = useStyles();
+  useEffect(() => {
+    {completedQuizzes && completedQuizzes.length > 0 && setQuizList([...completedQuizzes])}
+  }, [completedQuizzes]);
 
   return (
     <div>
@@ -183,7 +152,7 @@ export const Quiz = (props: IQuizProps) => {
               icons={TableIcon}
               columns={state.quizzes}
               data={completedQuizzes}
-              isLoading={loading}
+              isLoading={resultLoading}
               onRowClick={((evt, selectedRow) => {
                   setSelectedID(selectedRow.quizID);
                   setOpen(true);
@@ -198,16 +167,14 @@ export const Quiz = (props: IQuizProps) => {
               }}
               localization={{
                 body: {
-                  editRow: {
-                    deleteText: "Tem a certeza que quer eliminar este presidiário?!"
-                  }
+                  emptyDataSourceMessage: "Não existem quizzes completados",
                 }
               }}
               actions={[
                 {
                   icon: () => <TableIcon.Delete/>,
                   tooltip: 'Eliminar Quiz',
-                  onClick: (event, rowData) => props.deleteEntity(rowData.id)
+                  onClick: (event, rowData) => props.deleteQuiz(rowData.quizID)
                 }
               ]}
             />
@@ -218,7 +185,7 @@ export const Quiz = (props: IQuizProps) => {
         <Col md={mCol}>
           <Card className="card-user">
             <MaterialTable
-              title="Aprovação Pendente"
+              title="Aprovações Pendentes"
               icons={TableIcon}
               columns={state.pending}
               data={approvalList}
@@ -235,21 +202,18 @@ export const Quiz = (props: IQuizProps) => {
               }}
               localization={{
                 body: {
-                  editRow: {
-                    deleteText: "Tem a certeza que quer eliminar este presidiário?!"
-                  }
+                  emptyDataSourceMessage: "Não existem aprovações de quizzes neste momento",
                 }
               }}
               actions={[
                 {
                   icon: () => <TableIcon.Done/>,
                   tooltip: 'Aprovar Quiz',
-                  onClick: (event, rowData) =>
-                    props.updateQuizAuthorization(rowData.id)
+                  onClick: (event, rowData) => props.updateQuizAuthorization(rowData.id)
                 },
                 {
-                  icon: () => <TableIcon.Delete/>,
-                  tooltip: 'Eliminar Aprovação',
+                  icon: () => <TableIcon.Clear/>,
+                  tooltip: 'Recusar Aprovação',
                   onClick: (event, rowData) => props.deleteEntity(rowData.id)
                 }
               ]}
@@ -271,7 +235,7 @@ const mapStateToProps = (state: IRootState) => ({
   resultLoading: state.quiz.loading
 });
 
-const mapDispatchToProps = {getWaitingList, updateQuizAuthorization, getCompletedQuizzes, getQuizResults, deleteEntity};
+const mapDispatchToProps = {getWaitingList, updateQuizAuthorization, getCompletedQuizzes, getQuizResults, deleteEntity, deleteQuiz};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -17,6 +17,8 @@ import Products from "app/modules/products/";
 import Works from "app/modules/works/";
 import Employees from "app/modules/administration/employees/";
 import Quiz from "app/modules/quizs"
+import DocsPage from "app/modules/administration/docs/docs";
+import AuditsPage from "app/modules/administration/audits/audits";
 
 export interface IDashboardProps {
   isAuthenticated: boolean;
@@ -52,7 +54,10 @@ const Dashboard = (props: IDashboardProps) => {
             <PrivateRoute path={`${currentRoute.url}/home`} component={HDashboard} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/prisoners`} component={Prisioner} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/quizs`} component={Quiz} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
+
             <PrivateRoute path={`${currentRoute.url}/employees`} component={Employees} hasAnyAuthorities={[AUTHORITIES.ADMIN]}/>
+            <PrivateRoute path={`${currentRoute.url}/audits`} component={AuditsPage} hasAnyAuthorities={[AUTHORITIES.ADMIN]}/>
+            <PrivateRoute path={`${currentRoute.url}/docs`} component={DocsPage} hasAnyAuthorities={[AUTHORITIES.ADMIN]}/>
             <ErrorBoundary>
               <Redirect to={`${currentRoute.url}/home`}/>
             </ErrorBoundary>

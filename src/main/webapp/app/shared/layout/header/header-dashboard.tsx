@@ -72,11 +72,11 @@ const Header = (props: IUserHeader) => {
     return brandName;
   };
 
-  /*
-  openSidebar() {
+  const openSideBar = () => {
     document.documentElement.classList.toggle("nav-open");
-    this.sidebarToggle.current.classList.toggle("toggled");
-  }
+  };
+
+  /*
   // function that adds color dark/transparent to the navbar on resize (this is for the collapse)
   updateColor() {
     if (window.innerWidth < 993 && this.state.isOpen) {
@@ -120,7 +120,7 @@ const Header = (props: IUserHeader) => {
                   type="button"
                   /*              ref={this.sidebarToggle}*/
                   className="navbar-toggler"
-                  /* onClick={() => this.openSidebar()}*/
+                   onClick={openSideBar}
                 >
                   <span className="navbar-toggler-bar bar1"/>
                   <span className="navbar-toggler-bar bar2"/>

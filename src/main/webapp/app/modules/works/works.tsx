@@ -5,7 +5,7 @@ import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle, CardFooter} fro
 
 import {IRootState} from 'app/shared/reducers';
 import {getEntities, deleteEntity, updateCancelWork} from './work.reducer';
-import {getChartWorkState} from "app/shared/reducers/statistics";
+import {getChartWorkState, getChartWorkCompleted} from "app/shared/reducers/statistics";
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import MaterialTable, {MTableToolbar, Column} from 'material-table';
 import {Line, Pie} from "react-chartjs-2";
@@ -24,34 +24,6 @@ import TableIcon from "app/shared/util/table-icon";
 
 const MySwal = withReactContent(Swal);
 
-const chartData = {
-  labels: [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ],
-  datasets: [
-    {
-      data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
-      fill: false,
-      borderColor: "#73b0fb",
-      backgroundColor: "transparent",
-      pointBorderColor: "#73b0fb",
-      pointRadius: 4,
-      pointHoverRadius: 4,
-      pointBorderWidth: 8
-    }]
-};
-
 export interface IWorkProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
 
@@ -64,17 +36,37 @@ export const Works = (props: IWorkProps) => {
   const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
 
   const [data, setData] = useState([]);
-  const [chartStateData, setChartStateData] = useState([0,0]);
+  const [chartLineWorkLabel, setChartWorkLabel] = useState(['','']);
+  const [chartLineWorkData, setChartWorkData] = useState([0,0]);
+  const [chartPieData, setChartStateData] = useState([0,0]);
   const [state, setState] = React.useState<TableState>({
     columns: [
-      {title: 'Numero de Trabalho', field: 'id', render: rowData => <i>#{rowData.id}</i>},
-      {title: 'Nome do Trabalho', field: 'nameWork'},
+      {title: 'Numero de Trabalho', field: 'id', render: rowData => <i>#{rowData.id}</i>, filtering: false},
+      {title: 'Nome do Trabalho', field: 'nameWork', filtering: false},
       {title: 'Data', field: 'date', type: 'date'},
-      {title: 'Recompensa', field: 'totalCredits'},
-      {title: 'Vagas Disponiveis', field: 'numRemainingEntries'},
-      {title: 'Estado', field: 'state', render: rowData => <StateBox boxText={rowData.state.name} stateID={rowData.state.id}/>},
-    ]
+      {title: 'Recompensa', field: 'totalCredits', filtering: false},
+      {title: 'Vagas Disponiveis', field: 'numRemainingEntries', filtering: false},
+      {title: 'Estado', field: 'state', render: rowData => <StateBox boxText={rowData.state.name} stateID={rowData.state.id}/>,
+        lookup: { 1: "Pendente", 2: 'Completado', 3: "Cancelado"},
+        customSort: (a, b) => a.state.id - b.state.id,
+        customFilterAndSearch: (mID, rowData) => {if(+mID){return +mID === rowData.state.id}else{return 0 < rowData.state.id}},
+      }]
   });
+
+  const chartData = {
+    labels: chartLineWorkLabel,
+    datasets: [
+      {
+        data: chartLineWorkData,
+        fill: false,
+        borderColor: "#73b0fb",
+        backgroundColor: "transparent",
+        pointBorderColor: "#73b0fb",
+        pointRadius: 4,
+        pointHoverRadius: 4,
+        pointBorderWidth: 8
+      }]
+  };
 
   const pieChart = {
     labels: ["Concluídos", "Cancelados"],
@@ -85,12 +77,12 @@ export const Works = (props: IWorkProps) => {
         pointHoverRadius: 0,
         backgroundColor: ["#4acccd", "#ef8157"],
         borderWidth: 0,
-        data: chartStateData
+        data: chartPieData
       }
     ]
   };
 
-  const {workList, match, loading, workStateChart} = props;
+  const {workList, match, loading, workStateChart, workCompletedChart} = props;
 
   const updateTable = () => {
     setData([...workList]);
@@ -100,6 +92,7 @@ export const Works = (props: IWorkProps) => {
   useEffect(() => {
     props.getEntities();
     props.getChartWorkState();
+    props.getChartWorkCompleted();
   }, []);
 
   useEffect(() => {
@@ -111,6 +104,12 @@ export const Works = (props: IWorkProps) => {
   useEffect(() => {
     {workStateChart && setChartStateData([workStateChart['completed'], workStateChart['canceled']])}
   }, [workStateChart]);
+
+  useEffect(() => {
+    {workCompletedChart && setChartWorkData(workCompletedChart.map(x => x.value))}
+    {workCompletedChart && setChartWorkLabel(workCompletedChart.map(x => x.monthName))}
+
+  }, [workCompletedChart]);
 
   const clickCancelWork = id => {
     MySwal.fire({
@@ -219,9 +218,8 @@ export const Works = (props: IWorkProps) => {
               data={chartData}
               legend={false}
               redraw={false}
-              options={{responsive: true}}
-              width={400}
               height={100}
+              options={{responsive: true, scales: {yAxes: [{ticks: {stepSize: 1}}]}}}
             />
           </CardBody>
         </Card>
@@ -233,9 +231,13 @@ export const Works = (props: IWorkProps) => {
           </CardHeader>
           <CardBody>
             <Pie
-              legend={false}
               redraw={false}
-              options={{responsive: true}}
+              options={{
+                responsive: true,
+                legend: {
+                  display: true,
+                  position: "bottom"
+                }}}
               data={pieChart}
             />
           </CardBody>
@@ -258,6 +260,7 @@ export const Works = (props: IWorkProps) => {
                 color: '#FFF',
                 fontWeight: 'bold'
               },
+              filtering: true,
               actionsColumnIndex: -1
             }}
             localization={{
@@ -291,10 +294,11 @@ export const Works = (props: IWorkProps) => {
 const mapStateToProps = (state: IRootState) => ({
   workList: state.work.entities,
   loading: state.work.loading,
-  workStateChart: state.statistics.chartWorkState
+  workStateChart: state.statistics.chartWorkState,
+  workCompletedChart: state.statistics.chartCompletedWork
 });
 
-const mapDispatchToProps = {getEntities, deleteEntity, updateCancelWork, getChartWorkState};
+const mapDispatchToProps = {getEntities, deleteEntity, updateCancelWork, getChartWorkState, getChartWorkCompleted};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

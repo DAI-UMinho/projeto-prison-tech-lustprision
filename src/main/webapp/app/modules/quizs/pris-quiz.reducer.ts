@@ -165,6 +165,7 @@ export const deleteEntity: ICrudDeleteAction<IPrisQuiz> = id => async dispatch =
     payload: axios.delete(requestUrl)
   });
   dispatch(getEntities());
+  dispatch(getWaitingList());
   return result;
 };
 

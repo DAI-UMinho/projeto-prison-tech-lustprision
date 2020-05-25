@@ -4,9 +4,21 @@ export const adminRoutes = [
   {
     path: "/employees",
     name: "Funcionários",
-    icon: "nc-icon nc-shop",
+    icon: "nc-icon nc-badge",
     layout: "/dashboard"
   },
+  {
+    path: "/docs",
+    name: "API Docs",
+    icon: "nc-icon nc-globe",
+    layout: "/dashboard"
+  },
+  {
+    path: "/audits",
+    name: "Login Logs",
+    icon: "nc-icon nc-lock-circle-open",
+    layout: "/dashboard"
+  }
 ];
 
 const routes = [

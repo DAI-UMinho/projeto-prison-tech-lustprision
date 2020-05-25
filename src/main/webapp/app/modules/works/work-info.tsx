@@ -228,9 +228,6 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
     }
   };
 
-  console.log("GAGA");
-  console.log(selectedDate);
-
   return (
     <div>
       <Row>
