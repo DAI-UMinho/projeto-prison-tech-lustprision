@@ -440,7 +440,7 @@ public class PrisionerResourceIT {
         restPrisionerMockMvc.perform(get("/api/prisioners/{id}/quizs", prisioner.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(quiz.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(prizQuiz.getId().intValue())))
             .andExpect(jsonPath("$.[*].qtyQuestion").value(hasItem(quiz.getQtyQuestion().intValue())));
 
                System.out.println(prisionerService.getPrisionerQuizs(prisioner.getId()).toString());

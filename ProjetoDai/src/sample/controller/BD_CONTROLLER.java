@@ -503,49 +503,94 @@ public class BD_CONTROLLER {
 
     public static Quiz getQuiz(int id){ // este id é do prisioneiro , não do quiz o do quiz está como idquiz
         try {
+
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             System.out.println("Conexão com sucesso");
+
+
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT QUIZ_ID FROM PRIS_QUIZ WHERE PRISIONER_ID = "+id+"AND APPROVAL = 1");
+            ResultSet rs = st.executeQuery("SELECT QUIZ_ID FROM PRIS_QUIZ WHERE PRISIONER_ID = "+id+" AND APPROVAL = 1");
             rs.next();
             int idquiz = rs.getInt("QUIZ_ID");
+            con.close();
 
-            Statement st2 = con.createStatement();
-            ResultSet rs2 = st2.executeQuery("SELECT QUESTION_ID FROM QUESTION_QUIZ WHERE QUIZ_ID ="+idquiz);
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con2 = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st2 = con2.createStatement();
+            ResultSet rs2 = st2.executeQuery("SELECT QUESTION_ID FROM QUESTION_QUIZ WHERE QUIZ_ID = "+idquiz);
 
-            int questionids[] = new int[5];
+            ArrayList<Integer> questionids = new ArrayList<>();
+
             rs2.next();
             for(int i =0 ; i<5;i++){
-                questionids[i]=rs2.getInt("QUESTION_ID");
+                questionids.add(rs2.getInt("QUESTION_ID"));
                 rs2.next();
             }
 
-            Statement st3 = con.createStatement();
+            con2.close();
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con3 = DriverManager.getConnection(dburl, dbusername, dbpassword);
+
+            Statement st3 = con3.createStatement();
 
             ArrayList<Questoes> questions = new ArrayList<>();
 
             for(int i = 0 ; i<5;i++){
-            ResultSet rs3 = st3.executeQuery("SELECT * FROM QUESTION WHERE ID = "+questionids[i]);
+            ResultSet rs3 = st3.executeQuery("SELECT * FROM QUESTION WHERE ID = "+questionids.get(i));
             rs3.next();
             ArrayList<String> answers = new ArrayList<>();
-            answers.add(rs3.getString("WONG_ANSWER_1"));
-            answers.add(rs3.getString("WONG_ANSWER_2"));
-            answers.add(rs3.getString("WONG_ANSWER_3"));
+            answers.add(rs3.getString("WRONG_ANSWER_1"));
+            answers.add(rs3.getString("WRONG_ANSWER_2"));
+            answers.add(rs3.getString("WRONG_ANSWER_3"));
 
             Questoes x = new Questoes(rs3.getInt("ID"),rs3.getString("QUESTION"),answers,rs3.getInt("JHI_VALUE"),rs3.getString("ANSWER"));
             questions.add(x);
+
             }
 
             Quiz quiz = new Quiz(idquiz,5,questions);
+
+            System.out.println("QUIZ ADICIONADO à SESSION");
+            con3.close();
             return quiz;
 
 
         }catch(SQLException | ClassNotFoundException e){
             System.out.print("Não há QUIZ");
+            e.printStackTrace();
             return null;
         }
 
+
+    }
+
+
+    public static void addCredits(int id,int credits){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("UPDATE PRISIONER set balance = (balance + "+credits+") where id = "+id);
+
+        }catch(SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public static void answerQuestion(String answer,int questionid,int quizid){
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("UPDATE QUESTION_QUIZ set QUESTION_ANSWER = '"+answer+"' where question_id = "+ questionid+" and quiz_id = "+quizid);
+            rs.close();
+            System.out.println("UPDATE QUESTION_QUIZ set QUESTION_ANSWER = '"+answer+"' where question_id = "+ questionid+" and quiz_id = "+quizid);
+            con.close();
+        }catch(SQLException | ClassNotFoundException e){e.printStackTrace();}
 
     }
 
