@@ -19,6 +19,7 @@ import sample.Main;
 import sample.controller.BD_CONTROLLER;
 import sample.model.Produto;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -200,11 +201,20 @@ public class ShopController implements Initializable {
         System.out.println("Int" + foo);
 
         BD_CONTROLLER.removeCredits(Main.sis.sessionatual.nowusing.getID(), foo);
-
+        int purchaseid = BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
         int tamanho = observableList.size();
+
         for (int i = 0; i< tamanho; i++){
-            BD_CONTROLLER.removeProduct(observableList.get(i).getID() ,1);
+            System.out.println("fds");
+
+            System.out.println(purchaseid);
+            System.out.println(observableList.get(i).getStock());
             System.out.println(observableList.get(i).getID());
+
+            BD_CONTROLLER.addPressProdut(purchaseid,observableList.get(i).getStock(), observableList.get(i).getID());
+
+            BD_CONTROLLER.removeProduct(observableList.get(i).getID() ,observableList.get(i).getStock());
+
         }
 
         String sd = Main.sis.sessionatual.nowusing.getSaldo();
@@ -213,7 +223,7 @@ public class ShopController implements Initializable {
         if(it >= foo){
             int conta = it - foo;
             saldo.setText(String.valueOf(conta));
-            BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
+
             JOptionPane.showMessageDialog(null, "Pagamento com sucesso.");
         }
         else{ JOptionPane.showMessageDialog(null, "Saldo insuficiente."); }
