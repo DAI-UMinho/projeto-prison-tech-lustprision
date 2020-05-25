@@ -41,23 +41,36 @@ public class ShopController implements Initializable {
 
 
     public void BtnAdicionar(int d) { //tava a static
+        int qty = 0;
+        qty++;
+        int contador = 0;
+
         String nome = BD_CONTROLLER.getProdutoNome(d);
         int preco = BD_CONTROLLER.getProdutoPreco(d);
+        String descricao = BD_CONTROLLER.getProdutoDescricao(d);
+        int quantidade = BD_CONTROLLER.getProdutoQuantidade(d);
+        int id = BD_CONTROLLER.getProdutoID(d);
 
-        observableList.add(new Produto(nome, preco));
-
+        quantidade = qty;
         int tamanho = observableList.size();
 
-        int i = tamanho-1;
+        for(int i = 0; i < tamanho; i++){
+            if (id == observableList.get(i).getID()){
+                observableList.get(i).setStock(observableList.get(i).getStock()+1);
+                contador++; }
 
-        total += observableList.get(i).getPreco();
+            total += observableList.get(i).getPreco();
+        }
+        if (contador != 1){ observableList.add(new Produto(id, nome, descricao, preco,quantidade)); }
+
+        //int i = tamanho-1;
+
 
         /*System.out.println("TOTAL" + total);
         String s=String.valueOf(total);
-        System.out.println("TOTAL STRING" + s);*/
-
-        //totaltxt.setText(String.valueOf(total));
-        //totaltxt.setText("fsdgnsoihg");
+        System.out.println("TOTAL STRING" + s);
+        totaltxt.setText(String.valueOf(total));
+        totaltxt.setText("fsdgnsoihg");*/
 
     }
 
@@ -70,7 +83,10 @@ public class ShopController implements Initializable {
         TableColumn<Integer, Produto> column2 = new TableColumn<>("Preço");
         column2.setCellValueFactory(new PropertyValueFactory<>("Preco"));
 
-        tableview.getColumns().addAll(column1, column2);
+        TableColumn<Integer, Produto> column3 = new TableColumn<>("Quantidade");
+        column3.setCellValueFactory(new PropertyValueFactory<>("Stock"));
+
+        tableview.getColumns().addAll(column1, column2, column3);
 
         tableview.setItems(observableList);
 
@@ -94,8 +110,6 @@ public class ShopController implements Initializable {
 
         }
     }
-
-
 
     public void handleBtnLoja(ActionEvent actionEvent) throws IOException {
         //System.out.println("Botão Loja");
@@ -155,16 +169,17 @@ public class ShopController implements Initializable {
     public void handleBtnPagar(ActionEvent actionEvent) {
         String s = totaltxt.getText();
         int foo = Integer.parseInt(s);
+
         System.out.println("STRIGN"+ s);
         System.out.println("Int" + foo);
 
         BD_CONTROLLER.removeCredits(Main.sis.sessionatual.nowusing.getID(), foo);
 
-        /*int tamanho = observableList.size();
+        int tamanho = observableList.size();
         for (int i = 0; i< tamanho; i++){
             BD_CONTROLLER.removeProduct(observableList.get(i).getID() ,1);
             System.out.println(observableList.get(i).getID());
-        }*/
+        }
 
         String sd = Main.sis.sessionatual.nowusing.getSaldo();
         int it = Integer.parseInt(sd);
@@ -172,10 +187,12 @@ public class ShopController implements Initializable {
         if(it >= foo){
             int conta = it - foo;
             saldo.setText(String.valueOf(conta));
+            BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
             JOptionPane.showMessageDialog(null, "Pagamento com sucesso.");
         }
-
         else{ JOptionPane.showMessageDialog(null, "Saldo insuficiente."); }
+
+        totaltxt.setText(String.valueOf(00));
 
     }
 

@@ -6,7 +6,14 @@ import sample.model.Trabalho;
 
 import javax.swing.*;
 import java.sql.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.*;
+import java.util.Date;
 
 
 public class BD_CONTROLLER {
@@ -356,6 +363,113 @@ public class BD_CONTROLLER {
             return 0;
         }
     }
+
+    public static int getProdutoID(int id){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT ID From PRODUCT where ID = " +id);
+            rs.next();
+            int d = rs.getInt("ID");
+            System.out.println(d);
+            con.close();
+            return d;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+            return 0;
+        }
+    }
+
+    public static int getProdutoQuantidade(int id){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT QUANTY_IN_STOCK From PRODUCT where ID = " +id);
+            rs.next();
+            int d = rs.getInt("QUANTY_IN_STOCK");
+            System.out.println(d);
+            con.close();
+            return d;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+            return 0;
+        }
+    }
+
+    public static String getProdutoDescricao(int id){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT DESCRIPTION_PROD From PRODUCT where ID = " +id);
+            rs.next();
+            String d = rs.getString("DESCRIPTION_PROD");
+            System.out.println(d);
+            con.close();
+            return d;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+            return "";
+        }
+    }
+
+    public static void addPurchase(int id){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
+            ResultSet rs1 = st.executeQuery(query1);
+            rs1.next();
+            int d = rs1.getInt("NEXTVAL");
+            //System.out.println(d);
+
+            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+d+","+id+", '2020-05-29', 0)"; //DATA ATENÇão MUDAR
+            ResultSet rs = st.executeQuery(query);
+            rs.next();
+            System.out.println("PURCHASE");
+            //JOptionPane.showMessageDialog(null, "PURCHASE com sucesso.");
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e);
+            System.out.println("PURCHASE errada");
+            //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+        }
+    }
+
+    /* public static void addPressProdut(int id){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
+            ResultSet rs1 = st.executeQuery(query1);
+            rs1.next();
+            int d = rs1.getInt("NEXTVAL");
+            String query = "INSERT INTO PRESS_WORK (ID, QTY ,PRICE_TOTAL, PPRICE_TOTAL, PURCHASE_ID, PRODUCT_ID) VALUES ("+d+","+id+", "++", 0)";
+            ResultSet rs = st.executeQuery(query);
+            rs.next();
+            System.out.println("PRESS PRODUCT");
+            JOptionPane.showMessageDialog(null, "PRESS PRODUCT com sucesso.");
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("PRESS errada");
+            JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+        }
+    }*/
 
     /*public static Quiz loadQuiz(int ID) {
         try {

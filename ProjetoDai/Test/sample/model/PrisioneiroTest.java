@@ -1,4 +1,5 @@
 package sample.model;
+package sample.model;
 
 import org.junit.jupiter.api.Test;
 import sample.controller.BD_CONTROLLER;
