@@ -66,7 +66,12 @@ public class ShopController implements Initializable {
                 contador++; }
 
             total += observableList.get(i).getPreco();
+
+
         }
+
+        System.out.println(total);
+
         if (contador != 1){ observableList.add(new Produto(id, nome, descricao, preco,quantidade)); }
 
         //int i = tamanho-1;
@@ -175,22 +180,20 @@ public class ShopController implements Initializable {
 
         if (quant != 1){
             Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
-            ((Produto) tableview.getSelectionModel().getSelectedItem()).setStock(quant-1);
             valor = ((Produto) tableview.getSelectionModel().getSelectedItem()).getPreco();
+            System.out.println(valor);
+            total -= valor;
+            totaltxt.setText(String.valueOf(total));
+            ((Produto) tableview.getSelectionModel().getSelectedItem()).setStock(quant-1);
         }
+
         else{
             Produto p = (Produto) tableview.getSelectionModel().getSelectedItem();
-            tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItem());
             valor = ((Produto) tableview.getSelectionModel().getSelectedItem()).getPreco();
+            total -= valor;
+            totaltxt.setText(String.valueOf(total));
+            tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItem());
         }
-
-        int tamanho = observableList.size();
-        int i = 0;
-
-        total -= valor;
-        totaltxt.setText(String.valueOf(total));
-
-        //tableview.refresh();
     }
 
     public void handleBtnPagar(ActionEvent actionEvent) {
