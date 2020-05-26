@@ -27,37 +27,45 @@ import java.util.ResourceBundle;
 
 public class ShopController implements Initializable {
     public VBox productvbox;
+
     public Label saldo;
     public TableView tableview;
-
-    @FXML
     public Label totaltxt;
 
-    public static int total = 0;
-    public static int quantidade = 0;
+    public String x="";
 
-    public ShopController(){
-    }
+    public int total = 0;
+    public Label totallbl;
 
-    static ObservableList<Produto> observableList = FXCollections.observableArrayList();
+    ObservableList<Produto> observableList = FXCollections.observableArrayList();
 
 
     public void BtnAdicionar(int d) { //tava a static
+
+
         int qty = 0;
         qty++;
         int contador = 0;
 
-        String nome = BD_CONTROLLER.getProdutoNome(d);
+        String nome = Main.sis.getProductFS(d).type.getNome();
+        int preco = Main.sis.getProductFS(d).type.getPreco();
+        String descricao = Main.sis.getProductFS(d).type.getDescricao();
+        int quantidade = Main.sis.getProductFS(d).type.getStock();
+
+        totaltxt.setText(Integer.toString(total+Main.sis.getProductFS(d).type.getPreco()));
+
+
+        /*String nome = BD_CONTROLLER.getProdutoNome(d);
         int preco = BD_CONTROLLER.getProdutoPreco(d);
         String descricao = BD_CONTROLLER.getProdutoDescricao(d);
         int quantidade = BD_CONTROLLER.getProdutoQuantidade(d);
-        int id = BD_CONTROLLER.getProdutoID(d);
+        int id = BD_CONTROLLER.getProdutoID(d);*/
 
         quantidade = qty;
         int tamanho = observableList.size();
 
         for(int i = 0; i < tamanho; i++){
-            if (id == observableList.get(i).getID()){
+            if (d == observableList.get(i).getID()){
                 observableList.get(i).setStock(observableList.get(i).getStock()+1);
                 //Produto n = observableList.get(i);
                 //observableList.remove(1);
@@ -72,7 +80,7 @@ public class ShopController implements Initializable {
 
         System.out.println(total);
 
-        if (contador != 1){ observableList.add(new Produto(id, nome, descricao, preco,quantidade)); }
+        if (contador != 1){ observableList.add(new Produto(d, nome, descricao, preco,quantidade)); }
 
         //int i = tamanho-1;
 
@@ -86,6 +94,7 @@ public class ShopController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //totaltxt.setText("1231231");
 
         TableColumn<String, Produto> column1 = new TableColumn<>("Produto");
         column1.setCellValueFactory(new PropertyValueFactory<>("Nome"));
@@ -233,6 +242,10 @@ public class ShopController implements Initializable {
 
         totaltxt.setText(String.valueOf(00));
 
+    }
+
+    public void teste(String s){
+        totallbl.setText(s);
     }
 
 }

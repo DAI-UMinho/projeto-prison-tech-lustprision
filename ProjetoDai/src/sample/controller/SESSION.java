@@ -9,7 +9,6 @@ public class SESSION {
     public SHOPLIST shoplist = new SHOPLIST();
     public Quiz sessionquiz;
 
-    //int balance=0; // resultado das compras do recluso para no fim da sessão ajustar o valor na BD
     boolean started = false;
 
     public SESSION(Prisioneiro nowusing){

@@ -44,9 +44,9 @@ public class SYSTEM {
         this.works = new ArrayList<>();
     }
 
-    public PRODUCT_TB getProductFS(String Name){
+    public PRODUCT_TB getProductFS(int id){
         for(int i = 0;i<products.size();i++){
-            if(products.get(i).type.getNome().equals(Name)){
+            if(products.get(i).type.getID()==id){
                 return products.get(i);
             }
         }
