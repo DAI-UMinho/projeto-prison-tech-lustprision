@@ -42,5 +42,7 @@
 <!--    <include file="config/liquibase/changelog/20200320151700_added_entity_constraints_Pressproduct.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/20200419200941_added_entity_constraints_State.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320151800_added_entity_constraints_Work.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200320151300_added_entity_Prisioner_AUD.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200320151300_added_entity_REVINFO.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

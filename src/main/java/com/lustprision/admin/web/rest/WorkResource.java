@@ -86,6 +86,8 @@ public class WorkResource {
         log.debug("REST request to update Work : {}", work);
         if (work.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }else if(work.getState().getId() > 1L){
+            throw new BadRequestAlertException("Can't update the work at this time", ENTITY_NAME, "workUpdate");
         }
         Work result = workRepository.save(work);
         return ResponseEntity.ok()
