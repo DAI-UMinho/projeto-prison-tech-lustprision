@@ -44,7 +44,7 @@ public class ProfileController implements Initializable {
         nometxt.setText(Main.sis.sessionatual.nowusing.getNome());
         nreclusotxt.setText(Main.sis.sessionatual.nowusing.getNumRecluso());
         datanasctxt.setText(String.valueOf(Main.sis.sessionatual.nowusing.getDataNascim()));
-        saldotxt.setText(Main.sis.sessionatual.nowusing.getSaldo());
+        saldotxt.setText(Integer.toString(Main.sis.sessionatual.nowusing.getSaldo()));
         trabalhotxt.setText(BD_CONTROLLER.getIdwork(Main.sis.sessionatual.nowusing.getID()));
     }
 

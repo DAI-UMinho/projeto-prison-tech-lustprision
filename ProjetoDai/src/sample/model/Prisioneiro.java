@@ -38,8 +38,8 @@ public class Prisioneiro {
         return PermissaoQuiz;
     }
 
-    public String getSaldo() {
-        return String.valueOf(Saldo);
+    public int getSaldo() {
+        return Saldo;
     }
 
     public String getNome() {
@@ -57,6 +57,11 @@ public class Prisioneiro {
     public int getCodigoPin(){ return codigoPin; }
 
 
+
+
+    public void removeSaldo(int pag){
+        this.Saldo-=pag;
+    }
 
 
 

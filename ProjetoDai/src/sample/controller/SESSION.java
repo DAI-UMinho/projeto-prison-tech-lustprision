@@ -4,6 +4,8 @@ import sample.Main;
 import sample.model.Prisioneiro;
 import sample.model.Quiz;
 
+import java.util.ArrayList;
+
 public class SESSION {
     public Prisioneiro nowusing;
     public SHOPLIST shoplist = new SHOPLIST();
@@ -26,22 +28,38 @@ public class SESSION {
         shoplist.addSHOPLIST(x);
     }
 
+
+
     public void resetQuiz(){
         sessionquiz = null;
     }
 
     public void removeShopping(PRODUCT_TB x){
-        for(int i = 0;i<shoplist.Shoplist.size();i++){
-            if(shoplist.Shoplist.get(i).type.getID() == x.type.getID()){
-                shoplist.Price-=shoplist.Shoplist.get(i).type.getPreco();
-                shoplist.Shoplist.remove(i);
-            }
-        }
+        shoplist.removeSHOPLIST(x);
     }
 
     public void applyJOB(int id, int idjob){
         BD_CONTROLLER.applyjob(id,idjob);
     }
+
+
+
+
+    public ArrayList displayShoplist(){
+        return shoplist.Shoplist;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public String finishShopping() {
         //checkar se há stock para vender
@@ -50,22 +68,20 @@ public class SESSION {
             else return shoplist.Shoplist.get(i).type.getNome();
         }
 
-        //atualizar a bd dos produtos
-        for(int i=0;i < shoplist.Shoplist.size();i++){
-            BD_CONTROLLER.removeProduct(shoplist.Shoplist.get(i).type.getID(),1);
+        if(nowusing.getSaldo()>shoplist.getPrice()){
+            return "NO_SALDO";
         }
 
-        //descontar o valor pago na bd
-        int payprice =0;
-        for(int i=0;i < shoplist.Shoplist.size();i++){
-           payprice += shoplist.Shoplist.get(i).type.getPreco();
-        }
 
-        BD_CONTROLLER.removeCredits(nowusing.getID(),payprice);
+        nowusing.removeSaldo(shoplist.getPrice());
+        BD_CONTROLLER.removeCredits(nowusing.getID(),shoplist.getPrice());
 
         //criar e adicionar uma transaction ao user na bd
+        BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
 
-        //atualizar o frontend
+        for(int i = 0; i<shoplist.Shoplist.size() ; i++){
+            BD_CONTROLLER.addPressProdut(Main.sis.sessionatual.nowusing.getID(),shoplist.Shoplist.get(i).quantity,Main.sis.sessionatual.shoplist.Shoplist.get(i).type.getID());
+        }
 
         //reset shoplist
         shoplist.resetSHOPLIST();
@@ -73,6 +89,5 @@ public class SESSION {
         return "finished";
     }
 
-    public void finishSession() {
-    }
+
 }

@@ -18,10 +18,7 @@ public class Produto {
         this.Stock = Stock;
     }
 
-    public Produto(String Name, int Price){
-        this.Nome = Name;
-        this.Preco = Price;
-    }
+
 
     public void setID (int id){ ID = id; }
 

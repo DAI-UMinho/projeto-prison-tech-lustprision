@@ -53,4 +53,14 @@ public class SYSTEM {
         return null;
     }
 
+
+    public PRODUCT_TB getProductFSNAME(String name){
+        for(int i = 0;i<products.size();i++){
+            if(products.get(i).type.getNome().equals(name)){
+                return products.get(i);
+            }
+        }
+        return null;
+    }
+
 }
