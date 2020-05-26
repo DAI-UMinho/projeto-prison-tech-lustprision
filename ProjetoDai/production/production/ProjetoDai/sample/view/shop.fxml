@@ -70,20 +70,13 @@
          <content>
             <VBox fx:id="productvbox" prefHeight="354.0" prefWidth="462.0" />
          </content></ScrollPane>
-      <TableView fx:id="tableview" layoutX="701.0" layoutY="151.0" opacity="0.6" prefHeight="311.0" prefWidth="187.0">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <Button layoutX="711.0" layoutY="472.0" mnemonicParsing="false" style="-fx-background-color: #3E5BFD;" text="/\" textFill="WHITE" />
-      <Button layoutX="755.0" layoutY="472.0" mnemonicParsing="false" style="-fx-background-color: #3E5BFD;" text="\\/" textFill="WHITE" />
-      <Button layoutX="821.0" layoutY="472.0" mnemonicParsing="false" onAction="#deleteBtn" style="-fx-background-color: #3E5BFD;" text="Remover" textFill="WHITE" />
-      <Button layoutX="711.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleBtnPagar" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="PAGAR" textFill="WHITE" />
+      <Button layoutX="763.0" layoutY="469.0" mnemonicParsing="false" onAction="#deleteBtn" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="Remover" textFill="WHITE" />
+      <Button layoutX="708.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleBtnPagar" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="PAGAR" textFill="WHITE" />
       <VBox layoutX="798.0" layoutY="511.0" prefHeight="43.0" prefWidth="82.0">
          <children>
-            <Label fx:id="totaltxt" alignment="CENTER" prefHeight="18.0" prefWidth="82.0" text="000" textFill="#0d7727">
+            <Label fx:id="totallbl" alignment="CENTER" prefHeight="18.0" prefWidth="82.0" text="000" textFill="#0d7727">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Line endX="60.0" startX="-20.0" stroke="#0000008e" />
@@ -104,5 +97,6 @@
             <Font name="Agency FB Bold" size="28.0" />
          </font>
       </Label>
+      <TableView fx:id="tableshoplist" layoutX="686.0" layoutY="181.0" prefHeight="288.0" prefWidth="208.0" />
    </children>
 </AnchorPane>

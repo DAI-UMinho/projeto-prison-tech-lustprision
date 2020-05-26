@@ -11,7 +11,11 @@
             <Font name="Agency FB" size="22.0" />
          </font>
       </Label>
-      <Button layoutX="323.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleBtnAdicionar" prefHeight="33.0" prefWidth="92.0" style="-fx-background-color: #5FEC74;" text="Adicionar" textFill="WHITE">
+
+       <Button fx:id="addpbtn" layoutX="323.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionar" prefHeight="33.0" prefWidth="92.0" style="-fx-background-color: #5FEC74;" text="Adicionar" textFill="WHITE" />
+
+      <Button layoutX="323.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionar" prefHeight="33.0" prefWidth="92.0" style="-fx-background-color: #5FEC74;" text="Adicionar" textFill="WHITE">
+
          <font>
             <Font name="Agency FB" size="17.0" />
          </font>

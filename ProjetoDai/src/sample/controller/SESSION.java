@@ -79,13 +79,15 @@ public class SESSION {
         BD_CONTROLLER.removeCredits(nowusing.getID(),shoplist.getPrice());
 
 
-        for(int i = 0; i<shoplist.Shoplist.size() ; i++){
-            BD_CONTROLLER.addPressProdut(Main.sis.sessionatual.nowusing.getID(),shoplist.Shoplist.get(i).quantity,Main.sis.sessionatual.shoplist.Shoplist.get(i).type.getID());
-        }
+
 
         //criar e adicionar uma transaction ao user na bd
         BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
 
+        int d = BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
+        for(int i = 0; i<shoplist.Shoplist.size() ; i++){
+            BD_CONTROLLER.addPressProdut(d,shoplist.Shoplist.get(i).quantity,Main.sis.sessionatual.shoplist.Shoplist.get(i).type.getID());
+        }
 
 
         //reset shoplist
