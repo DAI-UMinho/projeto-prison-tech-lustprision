@@ -65,10 +65,12 @@ public class SESSION {
         //checkar se há stock para vender
         for(int i=0;i < shoplist.Shoplist.size();i++){
             if(BD_CONTROLLER.getProductStock(shoplist.Shoplist.get(i).type.getID())>=0){}
-            else return shoplist.Shoplist.get(i).type.getNome();
+            else{
+                System.out.println("Não há stock");
+                return shoplist.Shoplist.get(i).type.getNome(); }
         }
 
-        if(nowusing.getSaldo()>shoplist.getPrice()){
+        if(nowusing.getSaldo()<shoplist.getPrice()){
             return "NO_SALDO";
         }
 
@@ -76,12 +78,15 @@ public class SESSION {
         nowusing.removeSaldo(shoplist.getPrice());
         BD_CONTROLLER.removeCredits(nowusing.getID(),shoplist.getPrice());
 
-        //criar e adicionar uma transaction ao user na bd
-        BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
 
         for(int i = 0; i<shoplist.Shoplist.size() ; i++){
             BD_CONTROLLER.addPressProdut(Main.sis.sessionatual.nowusing.getID(),shoplist.Shoplist.get(i).quantity,Main.sis.sessionatual.shoplist.Shoplist.get(i).type.getID());
         }
+
+        //criar e adicionar uma transaction ao user na bd
+        BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
+
+
 
         //reset shoplist
         shoplist.resetSHOPLIST();

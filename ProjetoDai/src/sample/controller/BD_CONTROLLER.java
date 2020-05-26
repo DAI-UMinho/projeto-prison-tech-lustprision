@@ -420,7 +420,7 @@ public class BD_CONTROLLER {
         }
     }
 
-    public static int addPurchase(int id){
+    public static int addPurchase(int id ){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
@@ -559,7 +559,7 @@ public class BD_CONTROLLER {
 
         }catch(SQLException | ClassNotFoundException e){
             System.out.print("Não há QUIZ");
-            e.printStackTrace();
+
             return null;
         }
 
