@@ -14,7 +14,7 @@ import {useMediaQuery} from "@material-ui/core";
 import {QuizBox} from "app/components/StateBox";
 import TableIcon from "app/shared/util/table-icon";
 import QuizDetailDialog from "app/modules/quizs/quiz-details";
-import {getQuizResults} from "app/modules/quizs/quiz.reducer";
+import {deleteQuiz, getQuizResults} from "app/modules/quizs/quiz.reducer";
 
 const MySwal = withReactContent(Swal);
 
@@ -87,7 +87,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
                   tooltip: 'Remover Quiz',
                   onClick: (event, rowData) =>
                     MySwal.fire({
-                      title: <p>Apagar Trabalho?</p>,
+                      title: <p>Quer apagar o Quiz?</p>,
                       text: "Não é possivel reverter esta operação!",
                       icon: 'warning',
                       showCancelButton: true,
@@ -96,9 +96,13 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
                       confirmButtonText: 'Apagar!'
                     }).then((result) => {
                       if (result.value) {
+                        return props.deleteQuiz(rowData.quizID);
+                      }
+                    }).then((result: any) => {
+                      if(result.value.status === 200){
                         Swal.fire(
                           'Removido!',
-                          'O trabalho foi removido da conta do presidiário',
+                          'O quiz foi removido da conta do presidiário',
                           'success'
                         )
                       }
@@ -119,7 +123,7 @@ const mapStateToProps = (state: IRootState) => ({
   resultLoading: state.quiz.loading
 });
 
-const mapDispatchToProps = {getPrisionerQuizs, getQuizResults};
+const mapDispatchToProps = {getPrisionerQuizs, getQuizResults, deleteQuiz};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

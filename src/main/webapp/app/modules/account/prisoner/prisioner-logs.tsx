@@ -17,13 +17,16 @@ import TableRow from '@material-ui/core/TableRow';
 import { Ellipsis } from 'react-spinners-css';
 import Paper from '@material-ui/core/Paper';
 import axios from "axios";
-
+import TableIcon from "app/shared/util/table-icon";
+import MaterialTable, {Column} from "material-table";
+import {LogBox, StateBox} from "app/components/StateBox";
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       margin: 0,
       padding: theme.spacing(2),
+      minWidth: '550px'
     },
     closeButton: {
       position: 'absolute',
@@ -36,7 +39,8 @@ const styles = (theme: Theme) =>
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
-      maxWidth: '800px'
+      maxWidth: '800px',
+      minWidth: '550px'
     },
     tableHeader:{
       fontWeight: 'bold'
@@ -47,12 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-
-export interface SimpleDialogProps {
-  open: boolean;
-  onClose: () => void;
-  purchaseID: number;
-}
 
 export interface DialogTitleProps extends WithStyles<typeof styles> {
   id: string;
@@ -72,92 +70,87 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
         </IconButton>
       ) : null}
     </MuiDialogTitle>
-  );
+  )
 });
 
-const CustomTableCell = withStyles((theme: Theme) => ({
-  root: {
-    fontWeight: 'bold',
-  },
-}))(TableCell);
-
-function ccyFormat(num) {
-  return `${num.toFixed(2)}`;
+interface SimpleDialogProps {
+  open: boolean;
+  onClose: (value: string) => void;
+  prisonerID: number;
 }
 
-function subtotalC(items) {
-  const total = items.reduce(function (accumulator, product) {
-    return accumulator + product.priceTotal;
-  }, 0);
-  return total;
+interface TableState {
+  columns: Array<Column<any>>;
 }
 
-const PurchaseDetailDialog = (props: SimpleDialogProps) => {
+const PrisonerLogs = (props: SimpleDialogProps) => {
   const classes = useStyles();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const {onClose, open} = props;
-  // const { infoProducts, loading} = props;
 
-  const invoiceTotal = subtotalC(items);
+  const [state, setState] = React.useState<TableState>({
+    columns: [
+      {title: 'Operação', field: 'operation',
+        render: rowData => <LogBox operationType={rowData.revType}/>},
+      {title: 'Responsável', field: 'lastModifiedBy'},
+      {title: 'Data', field: 'lastModifiedDate', type: 'datetime'}
+    ]
+  });
 
   useEffect(() => {
     if (open) {
-      const apiEndpoint = `api/purchases/${props.purchaseID}/pres-products`;
+      const apiEndpoint = `api/prisioners/${props.prisonerID}/logs`;
       const request = axios.get(apiEndpoint);
 
       request.then(result => {
         setIsLoaded(true);
         setItems(result.data);
+        console.log(result.data);
       });
     }
   }, [open]);
 
   const handleClose = () => {
-    onClose();
+    onClose('');
+  };
+
+  const handleListItemClick = (value: string) => {
+    onClose(value);
   };
 
   return (
     <div>{error ? (<h1>SHIT</h1>) :
       (<Dialog onClose={handleClose} maxWidth={false} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Detalhes da Compra
+          Logs do Presidiário
         </DialogTitle>
         <hr className={classes.hr}/>
           {isLoaded ? (
-            <TableContainer component={Paper}>
-            <Table style={{minWidth: 800}} aria-label="spanning table">
-              <TableHead>
-                <TableRow>
-                  <CustomTableCell >Nome Produto</CustomTableCell>
-                  <CustomTableCell align="right">Qty.</CustomTableCell>
-                  <CustomTableCell align="right">Preço/Unidade</CustomTableCell>
-                  <CustomTableCell align="right">Somatório</CustomTableCell>
-                </TableRow>
-              </TableHead>
-              {items && items.length > 0 ?
-                (<TableBody>
-                  {items.map((row) => (
-                    <TableRow key={row.nameProd}>
-                      <TableCell>{row.nameProd}</TableCell>
-                      <TableCell align="right">{row.qty}</TableCell>
-                      <TableCell align="right">{row.price}</TableCell>
-                      <TableCell align="right">{row.priceTotal}</TableCell>
-                    </TableRow>
-                  ))}
-                  <TableRow>
-                    <TableCell rowSpan={2} />
-                    <CustomTableCell colSpan={2}>Total</CustomTableCell>
-                    <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
-                  </TableRow>
-                </TableBody>) : (<TableCell align="right">NADA</TableCell>)
-              }
-            </Table>
-          </TableContainer>
+            <MaterialTable
+              icons={TableIcon}
+              title=""
+              columns={state.columns}
+              data={items}
+              isLoading={!isLoaded}
+              localization={{
+                body: {
+                  emptyDataSourceMessage: "Não existem despedimentos neste trabalho",
+                }
+              }}
+              options={{
+                search: false,
+                toolbar: false,
+                headerStyle: {
+                  fontWeight: 'bold',
+                },
+                actionsColumnIndex: -1
+              }}
+            />
             ) : (<Ellipsis color="#99c3ff"/>)}
       </Dialog>)}
     </div>
   );
 };
-export default PurchaseDetailDialog;
+export default PrisonerLogs;
