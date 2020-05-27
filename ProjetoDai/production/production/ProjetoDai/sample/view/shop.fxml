@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.ShopController">
+<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.ShopController">
    <children>
       <VBox alignment="CENTER_RIGHT" layoutY="-1.0" prefHeight="600.0" prefWidth="208.0" spacing="25.0" style="-fx-background-color: #3E5BFD;">
          <children>
@@ -51,52 +56,80 @@
             <Font name="Agency FB Bold" size="18.0" />
          </font>
       </Label>
-      <VBox layoutX="584.0" layoutY="108.0" prefHeight="43.0" prefWidth="82.0">
+      <VBox layoutX="786.0" layoutY="59.0" prefHeight="43.0" prefWidth="82.0">
          <children>
             <Label fx:id="saldo" alignment="CENTER" prefHeight="18.0" prefWidth="82.0" text="000" textFill="#0d7727">
                <font>
-                  <Font name="System Bold" size="21.0" />
+                  <Font name="System Bold" size="17.0" />
                </font>
             </Label>
             <Line endX="60.0" startX="-20.0" stroke="#0000008e" />
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="86.0" text="SALDO">
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="86.0" text="SALDO" textFill="#1b1a71">
                <font>
-                  <Font name="Agency FB" size="20.0" />
+                  <Font name="Agency FB" size="17.0" />
                </font>
             </Label>
          </children>
       </VBox>
-      <ScrollPane hbarPolicy="NEVER" layoutX="218.0" layoutY="181.0" prefHeight="354.0" prefWidth="462.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="260.0" layoutY="181.0" prefHeight="354.0" prefWidth="346.0">
          <content>
-            <VBox fx:id="productvbox" prefHeight="354.0" prefWidth="462.0" />
+            <VBox fx:id="productvbox" prefHeight="354.0" prefWidth="334.0" />
          </content></ScrollPane>
-      <Button layoutX="763.0" layoutY="469.0" mnemonicParsing="false" onAction="#deleteBtn" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="Remover" textFill="WHITE" />
-      <Button layoutX="708.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleBtnPagar" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="PAGAR" textFill="WHITE" />
-      <VBox layoutX="798.0" layoutY="511.0" prefHeight="43.0" prefWidth="82.0">
+      <Button layoutX="716.0" layoutY="475.0" mnemonicParsing="false" onAction="#deleteBtn" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #3E5BFD;" text="Remover" textFill="WHITE">
+         <font>
+            <Font name="Agency FB" size="14.0" />
+         </font></Button>
+      <Button layoutX="660.0" layoutY="523.0" mnemonicParsing="false" onAction="#handleBtnPagar" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: #3E5BFD;" text="PAGAR" textFill="WHITE">
+         <font>
+            <Font name="Agency FB" size="25.0" />
+         </font></Button>
+      <VBox layoutX="764.0" layoutY="524.0" prefHeight="43.0" prefWidth="82.0">
          <children>
             <Label fx:id="totallbl" alignment="CENTER" prefHeight="18.0" prefWidth="82.0" text="000" textFill="#0d7727">
                <font>
-                  <Font name="System Bold" size="21.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
             <Line endX="60.0" startX="-20.0" stroke="#0000008e" />
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="86.0" text="TOTAL">
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="86.0" text="TOTAL" textFill="#1b1a71">
                <font>
                   <Font name="Agency FB" size="16.0" />
                </font>
             </Label>
          </children>
       </VBox>
-      <Label layoutX="244.0" layoutY="136.0" text="Produto" textFill="#0c1e79">
+      <TableView fx:id="tableshoplist" layoutX="647.0" layoutY="181.0" prefHeight="288.0" prefWidth="208.0" />
+      <Line endX="486.4000244140625" layoutX="368.0" layoutY="174.0" startX="-105.99996948242188" stroke="#bfbfbf" />
+      <Label alignment="CENTER" layoutX="679.0" layoutY="141.0" prefHeight="24.0" prefWidth="141.0" text="Lista de Compras" textFill="#1b1a71">
          <font>
-            <Font name="Agency FB Bold" size="29.0" />
+            <Font name="Agency FB" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="435.0" layoutY="137.0" text="Preço" textFill="#0c1e79">
+      <Label layoutX="279.0" layoutY="141.0" prefHeight="24.0" prefWidth="90.0" text="Produto" textFill="#1b1a71">
          <font>
-            <Font name="Agency FB Bold" size="28.0" />
+            <Font name="Agency FB" size="20.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label layoutX="406.0" layoutY="141.0" prefHeight="24.0" prefWidth="44.0" text="Preço" textFill="#1b1a71">
+         <font>
+            <Font name="Agency FB" size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="tableshoplist" layoutX="686.0" layoutY="181.0" prefHeight="288.0" prefWidth="208.0" />
+      <Label fx:id="nosaldolbl" layoutX="512.0" layoutY="550.0" prefHeight="24.0" prefWidth="126.0" text="Saldo Insuficiente" textFill="#aa1f1f">
+         <font>
+            <Font name="Agency FB" size="20.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label layoutX="273.0" layoutY="97.0" prefHeight="22.0" prefWidth="266.0" text="Aqui pode adquirir produtos com o saldo adquirido." textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="10.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -219,4 +219,34 @@ class PrisioneiroTest {
             System.out.println(e);
             System.out.println("Conexão sem sucesso");
         }
-}}
+}
+    @Test
+    void answerQuiz() throws ClassNotFoundException{
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query2 = "Select QUIZ_ID FROM PRIS_QUIZ WHERE APPROVAL=1 AND ROWNUM <= 1";
+            ResultSet r = st.executeQuery(query2);
+            r.next();
+            int quiz = r.getInt("QUIZ_ID");
+            ArrayList<Integer> questoes = new ArrayList<>();
+            ArrayList<String> respostas = new ArrayList<>();
+            String query3 = "Select ID, ANSWER FROM Question WHERE ROWNUM <= 5 ";
+            ResultSet res = st.executeQuery(query3);
+            while(res.next()) {
+                questoes.add(res.getInt("ID"));
+                respostas.add(res.getString("ANSWER"));
+            }
+            int i = 0;
+            while(i<questoes.size()) {
+                BD_CONTROLLER.answerQuestion(respostas.get(i), questoes.get(i), quiz);
+                i++;
+            }
+
+        }catch(Exception e) {
+            System.out.println(e);
+        }
+
+    }
+}
