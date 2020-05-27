@@ -4,6 +4,7 @@ import com.lustprision.admin.domain.Prisioner;
 import com.lustprision.admin.domain.Purchase;
 import com.lustprision.admin.repository.PrisionerRepository;
 import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.service.AuditService;
 import com.lustprision.admin.service.PrisionerService;
 import com.lustprision.admin.service.dto.*;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
@@ -14,6 +15,8 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.history.Revision;
+import org.springframework.data.history.Revisions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -40,10 +43,12 @@ public class PrisionerResource {
 
     private final PrisionerRepository prisionerRepository;
     private final PrisionerService prisionerService;
+    private final AuditService auditService;
 
-    public PrisionerResource(PrisionerRepository prisionerRepository, PrisionerService prisionerService) {
+    public PrisionerResource(PrisionerRepository prisionerRepository, PrisionerService prisionerService, AuditService auditService) {
         this.prisionerRepository = prisionerRepository;
         this.prisionerService = prisionerService;
+        this.auditService = auditService;
     }
 
     /**
@@ -148,4 +153,12 @@ public class PrisionerResource {
         log.debug("REST request to get all Prisioner work jobs : {}", id);
         return prisionerService.getPrisionerQuizs(id);
     }
+
+    @GetMapping("/prisioners/{id}/logs")
+    public List<PrisonerDTO> getPrisionerLog(@PathVariable Long id){
+        log.debug("REST request to get all Prisioner work jobs : {}", id);
+        return auditService.getPrisonerLogs(id);
+    }
+
+
 }

@@ -158,13 +158,10 @@ public class ProductResourceIT {
     public void createProduct() throws Exception {
         int Produtosiniciais = productRepository.findAll().size();
         System.out.println("Numero de produtos existentes: "+Produtosiniciais);
-        // Create the Product
         restProductMockMvc.perform(post("/api/products")
             .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isCreated());
-
-        // Validate the Product in the database
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(Produtosiniciais+ 1);
         Product testProduct = productList.get(productList.size() - 1);
@@ -174,7 +171,6 @@ public class ProductResourceIT {
         assertThat(testProduct.getSeler()).isEqualTo(DEFAULT_SELER);
         assertThat(testProduct.getDescriptionProd()).isEqualTo(DEFAULT_DESCRIPTION_PROD);
         assertThat(testProduct.getQuantyInStock()).isEqualTo(DEFAULT_QUANTY_IN_STOCK);
-        //assertThat(testProduct.getBuyPrice()).isEqualTo(DEFAULT_BUY_PRICE);
         assertThat(testProduct.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testProduct.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         System.out.println("Numero de produtos existentes: "+productRepository.getTotalProductNumber());

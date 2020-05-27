@@ -38,7 +38,6 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
 
   const [selectedID, setSelectedID] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState('AMERICA');
   const [state, setState] = React.useState<TableState>({
     columns: [
       {title: 'Numero de Compra', field: 'id', render: rowData => <i>#{rowData.id}</i>},
@@ -72,9 +71,8 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
     setOpen(true);
   };
 
-  const handleDialogClose = (value: string) => {
+  const handleDialogClose = () => {
     setOpen(false);
-    setSelectedValue(value);
   };
 
   const {prisionerPurchases} = props;
@@ -156,7 +154,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
             }}
           />
         </Card>
-        <PurchaseDetailDialog open={open} selectedValue={selectedValue} onClose={handleDialogClose} purchaseID={selectedID}/>
+        <PurchaseDetailDialog open={open} onClose={handleDialogClose} purchaseID={selectedID}/>
       </Col>
     </Row>
   );

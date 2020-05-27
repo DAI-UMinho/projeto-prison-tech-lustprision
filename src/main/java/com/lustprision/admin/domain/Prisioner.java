@@ -20,7 +20,7 @@ import java.util.Set;
  * A Prisioner.
  */
 @Entity
-@Audited
+@Audited()
 @Table(name = "prisioner")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Prisioner extends AbstractAuditingEntity implements Serializable {

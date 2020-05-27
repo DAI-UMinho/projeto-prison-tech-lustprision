@@ -18,7 +18,6 @@ public class LoginDTO {
         this.id = login.getId();
         this.userName = login.getUserName();
         this.password = login.getPassword();
-        this.employeeID = login.getAdminEmploy().getId();
     }
 
     public Long getId() {
