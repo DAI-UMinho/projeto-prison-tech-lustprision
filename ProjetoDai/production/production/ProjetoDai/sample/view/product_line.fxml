@@ -4,25 +4,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.ProductLineController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.ProductLineController">
    <children>
-      <Label fx:id="prodstock" layoutX="231.0" layoutY="19.0" text="QNTY">
-         <font>
-            <Font name="Agency FB" size="22.0" />
-         </font>
-      </Label>
-
-       <Button fx:id="addpbtn" layoutX="323.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionar" prefHeight="33.0" prefWidth="92.0" style="-fx-background-color: #5FEC74;" text="Adicionar" textFill="WHITE" />
-
-      <Button layoutX="323.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionar" prefHeight="33.0" prefWidth="92.0" style="-fx-background-color: #5FEC74;" text="Adicionar" textFill="WHITE">
-
+      <Label fx:id="prodstock" layoutX="158.0" layoutY="22.0" text="QNTY" textFill="#2f09eb">
          <font>
             <Font name="Agency FB" size="17.0" />
          </font>
-      </Button>
-      <Label fx:id="prodname" layoutX="23.0" layoutY="19.0" text="PRODUCTNAME">
+      </Label>
+
+      <Button layoutX="259.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionar" prefHeight="21.0" prefWidth="52.0" style="-fx-background-color: #5FEC74;" text="ADD" textFill="WHITE">
+
          <font>
-            <Font name="Agency FB" size="22.0" />
+            <Font name="Agency FB Bold" size="17.0" />
+         </font>
+      </Button>
+      <Label fx:id="prodname" layoutX="25.0" layoutY="22.0" text="PRODUCTNAME" textFill="#2f09eb">
+         <font>
+            <Font name="Agency FB" size="17.0" />
          </font>
       </Label>
    </children>
