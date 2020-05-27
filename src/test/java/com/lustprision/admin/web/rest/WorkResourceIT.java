@@ -129,16 +129,12 @@ public class WorkResourceIT {
     @Transactional
     public void createWork() throws Exception {
         int databaseSizeBeforeCreate = workRepository.findAll().size();
-System.out.println(databaseSizeBeforeCreate);
-        // Create the Work
+        System.out.println(databaseSizeBeforeCreate);
         Work work = WorkResourceIT.createEntity(em);
-
         restWorkMockMvc.perform(post("/api/works")
             .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(work)))
             .andExpect(status().isCreated());
-
-        // Validate the Work in the database
         List<Work> workList = workRepository.findAll();
         assertThat(workList).hasSize(databaseSizeBeforeCreate + 1);
         Work testWork = workList.get(workList.size() - 1);
