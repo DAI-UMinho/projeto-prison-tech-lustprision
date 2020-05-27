@@ -87,7 +87,6 @@ export const Works = (props: IWorkProps) => {
   const updateTable = () => {
     setData([...workList]);
     props.getChartWorkState();
-    props.getChartWorkCompleted();
   };
 
   useEffect(() => {

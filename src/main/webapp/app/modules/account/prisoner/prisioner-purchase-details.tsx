@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface SimpleDialogProps {
   open: boolean;
-  onClose: () => void;
+  selectedValue: string;
+  onClose: (value: string) => void;
   purchaseID: number;
 }
 
@@ -97,7 +98,7 @@ const PurchaseDetailDialog = (props: SimpleDialogProps) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const {onClose, open} = props;
+  const {onClose, selectedValue, open} = props;
   // const { infoProducts, loading} = props;
 
   const invoiceTotal = subtotalC(items);
@@ -115,7 +116,11 @@ const PurchaseDetailDialog = (props: SimpleDialogProps) => {
   }, [open]);
 
   const handleClose = () => {
-    onClose();
+    onClose(selectedValue);
+  };
+
+  const handleListItemClick = (value: string) => {
+    onClose(value);
   };
 
   return (

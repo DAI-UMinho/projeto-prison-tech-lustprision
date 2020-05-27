@@ -32,6 +32,11 @@ public class Login implements Serializable {
     @Column(name = "jhi_type")
     private String type;
 
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = true)
+    private AdminEmploy adminEmploy;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -79,6 +84,20 @@ public class Login implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+    public AdminEmploy getAdminEmploy() {
+        return adminEmploy;
+    }
+
+    public Login adminEmploy(AdminEmploy adminEmploy) {
+        this.adminEmploy = adminEmploy;
+        return this;
+    }
+
+    public void setAdminEmploy(AdminEmploy adminEmploy) {
+        this.adminEmploy = adminEmploy;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

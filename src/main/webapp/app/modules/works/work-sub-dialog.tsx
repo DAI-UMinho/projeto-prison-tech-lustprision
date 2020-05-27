@@ -61,7 +61,7 @@ const WorkSubDialog = (props: SimpleDialogProps) => {
           headerStyle: {
             fontWeight: 'bold'
           },
-          actionsColumnIndex: -1,
+          actionsColumnIndex: -1
         }}
         localization={{
           body: {

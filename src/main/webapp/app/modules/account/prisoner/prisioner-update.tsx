@@ -1,6 +1,6 @@
 import {Link, RouteComponentProps} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {withStyles, makeStyles, createStyles, Theme} from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -10,10 +10,9 @@ import {IRootState} from "app/shared/reducers";
 
 import {getPrisonerPurchases, getEntity, getPrisionerWorks, getPrisionerQuizs} from "./prisioner.reducer";
 import {cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
-import {deleteQuiz} from "app/modules/quizs/quiz.reducer";
 import {connect} from "react-redux";
 import PrisionerInfo from "app/modules/account/prisoner/prisioner-info";
-import PrivateRoute, {hasAnyAuthority} from "app/shared/auth/private-route";
+import PrivateRoute from "app/shared/auth/private-route";
 import {PrisionerDetail} from "app/entities/prisioner/prisioner-detail";
 import {PrisionerWork} from "app/modules/account/prisoner/prisioner-work";
 import {PrisionerPurchase} from "app/modules/account/prisoner/prisioner-purchase";
@@ -25,12 +24,6 @@ import {IPrisonerQuiz} from "app/shared/model/prisoner.quiz";
 import {read} from "fs";
 import {IWork} from "app/shared/model/work.model";
 import {getQuizResults} from "app/modules/quizs/quiz.reducer";
-import {Fab} from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
-import {AUTHORITIES} from "app/config/constants";
-import authentication from "app/shared/reducers/authentication";
-import PrisonerLogs from "app/modules/account/prisoner/prisioner-logs";
-import EventNoteIcon from '@material-ui/icons/EventNote';
 
 interface TabPanelProps {
   children?: any;
@@ -48,8 +41,7 @@ function a11yProps(index: any) {
 export interface IPrisionerUpdateProps extends TabPanelProps, StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles({
   appbar: {
     background: 'transparent',
     boxShadow: 'none',
@@ -60,15 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
   },
   textStyle: {
     fontWeight: 'bold'
-  },
-  margin: {
-    margin: theme.spacing(1),
-    float: 'right'
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}));
+  }
+});
 
 export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
   const [loginId, setLoginId] = useState('0');
@@ -77,17 +62,12 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
   const [workData, setWorkData] = useState<readonly IWork[]>([]);
   const [quizData, setQuizDate] = useState<readonly IPrisonerQuiz[]>([]);
   const [mValue, setValue] = React.useState(0);
-  const [open, setOpen] = useState(false);
 
 /*  const {logins, permissions, prisionerPurchases, match} = props;*/
-  const {prisionerEntity, prisionerPurchases, prisionerQuizs, loading, updating, isAdmin} = props;
+  const {prisionerEntity, prisionerPurchases, prisionerQuizs, loading, updating} = props;
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
-  };
-
-  const handleDialogClose = () => {
-    setOpen(false);
   };
 
   useEffect(() => {
@@ -135,6 +115,7 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
     );
   }
   const classes = useStyles();
+
   return (
     <div>
       <AppBar className={classes.appbar} position="static">
@@ -146,16 +127,6 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
           <Tab className={classes.textStyle} label="Quizes" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
-      {isAdmin &&
-      <Fab aria-label="edit"
-           variant="extended"
-           size="medium"
-           color="primary"
-           className={classes.margin}
-           onClick={() => setOpen(true)}>
-        <EventNoteIcon className={classes.extendedIcon}/>
-        Logs
-      </Fab>}
       <TabPanel value={mValue} index={0}>
         <PrisionerInfo {...props} />
       </TabPanel>
@@ -168,7 +139,6 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
       <TabPanel value={mValue} index={3}>
         <PrisionerQuiz {...props}/>
       </TabPanel>
-      <PrisonerLogs  open={open} prisonerID={prisionerEntity.id} onClose={handleDialogClose}/>
     </div>
   );
 };
@@ -186,8 +156,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   updating: storeState.prisioner.updating,
   updateSuccess: storeState.prisioner.updateSuccess,
   quizResults: storeState.quiz.quizResults,
-  resultLoading: storeState.quiz.loading,
-  isAdmin: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ADMIN])
+  resultLoading: storeState.quiz.loading
 });
 
 const mapDispatchToProps = {
@@ -197,8 +166,7 @@ const mapDispatchToProps = {
   getPrisionerQuizs,
   cancelPressProduct,
   getPrisonerWorkStates,
-  getQuizResults,
-  deleteQuiz
+  getQuizResults
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

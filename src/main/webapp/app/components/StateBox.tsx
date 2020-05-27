@@ -54,10 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: '1px solid rgb(203,0,15)',
       color: 'rgb(203,0,15)',
     },
-    updated: {
-      border: '1px solid rgb(30,115,203)',
-      color: 'rgb(30,115,203)',
-    },
+
   }),
 );
 
@@ -69,10 +66,6 @@ interface StateBoxState{
 interface QuizBoxState{
   correctAnswers: number
   nQuestions: number
-}
-
-interface LogBoxState{
-  operationType: string
 }
 
 export const StateBox = (props: StateBoxState) => {
@@ -123,43 +116,6 @@ export const QuizBox = (props: QuizBoxState) => {
   return (
     <span className={`${classes.quizBase} ${getColorByCorrectAnswers(correctAnswers)}`}>
       {`${correctAnswers}  /  ${nQuestions}`}
-    </span>
-  );
-};
-
-export const LogBox = (props: LogBoxState) => {
-  const classes = useStyles();
-  const { operationType } = props;
-
-  const getColorByOperation = (id) => {
-    switch (id) {
-      case 'ADD':
-        return classes.completed;
-      case 'DEL':
-        return classes.canceled;
-      case 'MOD':
-        return classes.updated;
-      default:
-        return classes.updated;
-    }
-  };
-
-  const getTextByOperation = (id) => {
-    switch (id) {
-      case 'ADD':
-        return 'CREATE';
-      case 'DEL':
-        return 'DELETE';
-      case 'MOD':
-        return 'UPDATE';
-      default:
-        return 'UPDATE';
-    }
-  };
-
-  return (
-    <span className={`${classes.quizBase} ${getColorByOperation(operationType)}`}>
-      {getTextByOperation(operationType)}
     </span>
   );
 };
