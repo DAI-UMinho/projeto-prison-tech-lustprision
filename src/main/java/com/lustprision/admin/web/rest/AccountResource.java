@@ -97,7 +97,6 @@ public class AccountResource {
         Login login = new Login();
         login.setUserName(managedEmployVM.getUserName());
         login.setPassword(managedEmployVM.getPassword());
-        login.setAdminEmploy(employee);
         loginRepository.save(login);
     }
 
