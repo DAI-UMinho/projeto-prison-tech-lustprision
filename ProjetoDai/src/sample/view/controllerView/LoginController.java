@@ -55,6 +55,10 @@ public class LoginController implements Initializable {
     @FXML
     private void onClick(ActionEvent event) throws IOException {
 
+            if(pwd1.getText().equals("")){
+                badloginlbl.setVisible(true);
+                return;
+            }
 
             try {
 
@@ -73,7 +77,9 @@ public class LoginController implements Initializable {
                     app_stage.setScene(home_page_scene);
                     app_stage.show();
 
-                } else badloginlbl.setVisible(true);
+                } else{badloginlbl.setVisible(true);
+
+                };
             }catch (Exception e ){};
 
 
@@ -168,13 +174,10 @@ public class LoginController implements Initializable {
 
 
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         badloginlbl.setVisible(false);
-        
+
     }
 
 

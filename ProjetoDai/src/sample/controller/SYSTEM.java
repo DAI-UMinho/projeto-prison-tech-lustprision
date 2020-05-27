@@ -63,4 +63,8 @@ public class SYSTEM {
         return null;
     }
 
+    public void exitSession(){
+        sessionatual=null;
+    }
+
 }

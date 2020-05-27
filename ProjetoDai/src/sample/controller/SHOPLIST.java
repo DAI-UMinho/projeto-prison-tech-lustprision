@@ -48,11 +48,7 @@ public class SHOPLIST {
 
     public int getPrice(){return Price;}
 
-    public void resetSHOPLIST() {
-        Shoplist.clear();
-        Price=0;
-        //bd controller e assim
-    }
+
 
 
 

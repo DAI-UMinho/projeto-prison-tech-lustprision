@@ -63,7 +63,7 @@ public class QuizController implements Initializable {
 
     public Pane terminatepane;
 
-    public boolean isAnswering=false;
+    public static boolean isAnswering=false;
 
 
     /**
@@ -82,7 +82,7 @@ public class QuizController implements Initializable {
         if(Main.sis.sessionatual.sessionquiz!=null) {
             noquizlbl.setVisible(false);
             initiatepane.setVisible(true);
-            isAnswering=true;
+
 
         }else{
 
@@ -136,10 +136,14 @@ public class QuizController implements Initializable {
         Scene perfil_scene = new Scene(perfil_parent);
         Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         perfil_stage.setScene(perfil_scene);
-        perfil_stage.show();}
+        perfil_stage.show();
+        Main.sis.exitSession();
+        }
+
     }
 
     public void handleInitiatequiz(ActionEvent actionEvent) throws IOException {
+        isAnswering=true;
         questionpane.setVisible(true);
 
         initiatepane.setVisible(false);

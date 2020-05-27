@@ -51,16 +51,6 @@ public class SESSION {
 
 
 
-
-
-
-
-
-
-
-
-
-
     public String finishShopping() {
         //checkar se há stock para vender
         for(int i=0;i < shoplist.Shoplist.size();i++){
@@ -91,10 +81,14 @@ public class SESSION {
 
 
         //reset shoplist
-        shoplist.resetSHOPLIST();
 
+        resetShoplist();
         return "finished";
     }
 
+
+    public void resetShoplist(){
+        shoplist=new SHOPLIST();
+    }
 
 }

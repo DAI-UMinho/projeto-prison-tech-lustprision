@@ -40,26 +40,31 @@ public class ShopController implements Initializable {
 
 
     public TableView tableshoplist;
+    public Label nosaldolbl;
 
-    ObservableList<PRODUCTLISTLINE> obsshoplistfront = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        nosaldolbl.setVisible(false);
+        TableColumn<Integer, PRODUCTLISTLINE> columnd1 = new TableColumn<>("Preço");
+        TableColumn<String, PRODUCTLISTLINE> columnd2 = new TableColumn<>("Nome");
+        TableColumn<Integer, PRODUCTLISTLINE> columnd3 = new TableColumn<>("Qnt");
 
+        columnd1.setPrefWidth(47);columnd2.setPrefWidth(120);columnd3.setPrefWidth(39);
 
-
+        tableshoplist.getColumns().addAll(columnd1,columnd2,columnd3);
 
         if(isshopping==true){
 
-            obsshoplistfront.clear();
+
             tableshoplist.getItems().clear();
             tableshoplist.getColumns().clear();
 
             totallbl.setText(Integer.toString(Main.sis.sessionatual.shoplist.getPrice()));
 
             ArrayList<PRODUCT_TB> shoplistfront= Main.sis.sessionatual.displayShoplist(); // arraylist
-
+            ObservableList<PRODUCTLISTLINE> obsshoplistfront = FXCollections.observableArrayList();
             int size = shoplistfront.size();
 
             for(int i = 0 ; i<size ;i++) {
@@ -68,14 +73,17 @@ public class ShopController implements Initializable {
                 System.out.println("criou");
             }
 
-            TableColumn<Integer, PRODUCTLISTLINE> column1 = new TableColumn<>("Produto");
+            TableColumn<Integer, PRODUCTLISTLINE> column1 = new TableColumn<>("Preço");
             column1.setCellValueFactory(new PropertyValueFactory<>("price"));
+            column1.setPrefWidth(47);
 
             TableColumn<String, PRODUCTLISTLINE> column2 = new TableColumn<>("Nome");
             column2.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+            column2.setPrefWidth(120);
 
             TableColumn<Integer, PRODUCTLISTLINE> column3 = new TableColumn<>("Qnt");
             column3.setCellValueFactory(new PropertyValueFactory<>("qnt"));
+            column3.setPrefWidth(39);
 
             tableshoplist.getColumns().addAll(column1,column2,column3);
 
@@ -150,6 +158,7 @@ public class ShopController implements Initializable {
         Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
+        Main.sis.exitSession();
 
     }
 
@@ -186,12 +195,8 @@ public class ShopController implements Initializable {
         }
 
         if(end_statement.equals("NO_SALDO")){
-
-
-
+            nosaldolbl.setVisible(true);
         }else{
-
-
 
         }
 
@@ -199,6 +204,9 @@ public class ShopController implements Initializable {
 
 
     }
+
+
+
 
 
 }
