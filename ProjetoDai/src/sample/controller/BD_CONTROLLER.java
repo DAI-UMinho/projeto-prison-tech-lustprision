@@ -306,7 +306,11 @@ public class BD_CONTROLLER {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             Statement st = con.createStatement();
-            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID, STATE_ID) VALUES ("+id+","+id+", "+idjob+", 1)";
+            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
+            ResultSet rs1 = st.executeQuery(query1);
+            rs1.next();
+            int d = rs1.getInt("NEXTVAL");
+            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID, STATE_ID) VALUES ("+d+","+id+", "+idjob+", 1)";
             ResultSet rs = st.executeQuery(query);
             System.out.println("CANDIDATURA");
 
