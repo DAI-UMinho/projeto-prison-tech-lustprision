@@ -1,8 +1,13 @@
 package sample.controller;
+import oracle.sql.DATE;
 import sample.model.*;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 
 public class BD_CONTROLLER {
@@ -444,9 +449,11 @@ public class BD_CONTROLLER {
             ResultSet rs1 = st.executeQuery(query1);
             rs1.next();
             int d = rs1.getInt("NEXTVAL");
-            //System.out.println(d);
 
-            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+d+","+id+", '2020-05-29', 0)"; //DATA ATENÇão MUDAR
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String m = dateFormat.format(new Date());
+
+            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+ d + "," + id + "," + "'" + m + "'" + ", 0)";
             ResultSet rs = st.executeQuery(query);
             rs.next();
             System.out.println("PURCHASE");
