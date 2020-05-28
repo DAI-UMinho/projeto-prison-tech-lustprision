@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
 import {makeStyles, withStyles, createStyles, Theme, useTheme} from '@material-ui/core/styles';
-import {Translate} from 'react-jhipster';
+import {openFile, setFileData, Translate} from 'react-jhipster';
 import {Button, Card, CardBody, CardHeader, CardTitle, Col, Label, Row} from 'reactstrap';
 import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
 
-import {getUser, updateUser} from './user-management.reducer';
+import {getUser, updateUser, setBlob} from './user-management.reducer';
 import {IRootState} from 'app/shared/reducers';
 import {useMediaQuery} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -25,6 +25,15 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
   const mCol = useMediaQuery(theme.breakpoints.down('lg')) ? 12 : 10;
 
   const {employee, updating, match, totalItems, loading} = props;
+  const {profileImage, profileImageContentType} = employee;
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, '', '');
+  };
 
   const doUpdate = () => {
     props.updateUser(
@@ -36,6 +45,7 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
     props.getUser(props.match.params.login)
   }, []);
 
+  console.log(profileImage);
   return (
     <Row className="justify-content-center">
       <Col md="8">
@@ -46,6 +56,32 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
           <CardBody>
             {loading ? null : (
               <AvForm model={employee} onSubmit={doUpdate}>
+                <div className="profile-wrap">
+                  {profileImage ? (
+                    <div>
+                      <a>
+                        <img src={`data:${profileImageContentType};base64,${profileImage}`}
+                             className="profile-avatar-wrap"/>
+                      </a>
+                      <br/>
+                      <Col md="1">
+                        <Button color="danger" onClick={clearBlob('profileImage')}>
+                          <FontAwesomeIcon icon="times-circle"/>
+                        </Button>
+                      </Col>
+                    </div>
+                  ) : null}
+                  <Row className="row justify-content-center">
+                    {!profileImage ? (
+                      <div className="file-drop-area">
+                        <span className="fake-btn">Choose files</span>
+                        <span className="file-msg">or drag and drop files here</span>
+                        <input className="file-input" id="file_profileImage" type="file"
+                               onChange={onBlobChange(true, 'profileImage')} accept="image/*"/>
+                        <AvInput type="hidden" name="profileImage" value={profileImage}/>
+                      </div>) : null}
+                  </Row>
+                </div>
                 <AvGroup>
                   <Label for="employee-login">
                     <Translate contentKey="global.field.username">ID</Translate>
@@ -79,7 +115,7 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
                     <Translate contentKey="userManagement.activated">Activated</Translate>
                   </Label>
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" onClick={null} replace color="info">
+                <Button tag={Link} id="cancel-save" onClick={() => props.history.goBack()} replace color="info">
                   <FontAwesomeIcon icon="arrow-left"/>
                   &nbsp;
                   <span className="d-none d-md-inline">
@@ -109,7 +145,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   updating : storeState.userManagement.updating
 });
 
-const mapDispatchToProps = {getUser, updateUser};
+const mapDispatchToProps = {getUser, updateUser, setBlob};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

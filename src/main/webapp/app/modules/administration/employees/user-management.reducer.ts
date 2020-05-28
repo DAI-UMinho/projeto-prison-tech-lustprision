@@ -11,7 +11,8 @@ export const ACTION_TYPES = {
   CREATE_USER: 'userManagement/CREATE_USER',
   UPDATE_USER: 'userManagement/UPDATE_USER',
   DELETE_USER: 'userManagement/DELETE_USER',
-  RESET: 'userManagement/RESET'
+  RESET: 'userManagement/RESET',
+  SET_BLOB: 'userManagement/SET_BLOB'
 };
 
 const initialState = {
@@ -97,6 +98,17 @@ export default (state: UserManagementState = initialState, action): UserManageme
         updateSuccess: true,
         user: defaultValue
       };
+    case ACTION_TYPES.SET_BLOB: {
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          [name]: data,
+          [name + 'ContentType']: contentType
+        }
+      };
+    }
     case ACTION_TYPES.RESET:
       return {
         ...initialState
@@ -156,6 +168,15 @@ export const deleteUser: ICrudDeleteAction<IUser> = id => async dispatch => {
   dispatch(getUsers());
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType
+  }
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

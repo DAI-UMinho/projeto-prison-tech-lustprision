@@ -10,110 +10,22 @@ import {Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/style
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 import { Ellipsis } from 'react-spinners-css';
 import {IProduct} from 'app/shared/model/product.model';
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import SearchBar from "app/components/SearchBar";
 import Slider from "@material-ui/core/Slider";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import {useMediaQuery} from "@material-ui/core";
 import CardNewButton from "app/components/CardNewButton";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
-    },
-    gridList: {
-      width: '100%',
-      overflow: 'hidden',
-      [theme.breakpoints.down('md')]: {
-        marginTop: '20px'
-      },
-    },
-    gridPrice: {
-      color: 'rgb(255,255,255)',
-      margin: '10px'
-    },
-    productWrapper: {
-      width: '100%',
-      [theme.breakpoints.up('xs')]: {
-        display: 'grid'
-      },
-      [theme.breakpoints.up('lg')]: {
-        display: 'flex'
-      },
-    },
-    gridItem: {
-      borderRadius: 10,
-      '&:hover': {
-        cursor: 'pointer'
-      }
-    },
-    loadingSpinner:{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'
-    },
-    sidebarFilter: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: '#FFFFFF',
-      padding: '15px 25px',
-      borderWidth: '1px',
-      borderStyle: 'solid',
-      borderColor: 'rgb(233, 233, 233)',
-      borderImage: 'initial',
-      borderRadius: '3px'
-    },
-    sidebar: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexShrink: 0,
-      transition: 'all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s',
-      [theme.breakpoints.up('lg')]: {
-        margin: '0px 30px 0px 0px',
-        width: '240px',
-      },
-      [theme.breakpoints.up('xl')]: {
-        margin: '0px 30px 0px 0px',
-        width: '340px',
-      },
-    },
-    filter: {
-      fontSize: '14px',
-      fontWeight: 700,
-      color: 'rgb(50, 51, 50)',
-      lineHeight: 1.3,
-      display: 'flex',
-      margin: '0px 0px 20px'
-    },
-    pagination: {
-      marginTop: '10px'
-    },
-    sliderLabel:{
-      marginLeft: '60px'
-    }
-  }),
-);
+import {productPage} from "app/shared/layout/themes/themes";
 
 
 export interface IProductProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
 }
 
 export const ProductOverview = (props: IProductProps) => {
-  const classes = useStyles();
+  const classes = productPage();
   const theme = useTheme();
   const mRow = useMediaQuery(theme.breakpoints.up('xl')) ? 2 : 1;
   const mHeight = useMediaQuery(theme.breakpoints.up('xl')) ? 200 : 256;
@@ -128,8 +40,8 @@ export const ProductOverview = (props: IProductProps) => {
 
   useEffect(() => {
     console.log(pagination);
-    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], (pagination.activePage)  - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
-    props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
+    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], (pagination.activePage || 1)  - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+    props.history.push(`${props.location.pathname}?page=${pagination.activePage || 1}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
   useEffect(() => {
