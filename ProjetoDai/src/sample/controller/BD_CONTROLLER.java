@@ -2,6 +2,7 @@ package sample.controller;
 import sample.model.*;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -430,8 +431,9 @@ public class BD_CONTROLLER {
             rs1.next();
             int d = rs1.getInt("NEXTVAL");
             //System.out.println(d);
+            DATEFORDB dfb = new DATEFORDB();
 
-            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+d+","+id+", '2020-05-29', 0)"; //DATA ATENÇão MUDAR
+            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+d+","+id+","+dfb.currentdateforsql() +", 0)"; //DATA ATENÇão MUDAR
             ResultSet rs = st.executeQuery(query);
             rs.next();
             System.out.println("PURCHASE");
@@ -594,6 +596,25 @@ public class BD_CONTROLLER {
 
     }
 
+
+    public static boolean checkWorking(int pid){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT WORKING FROM PRISIONER WHERE ID =" + pid);
+            rs.next();
+
+            int wrk = rs.getInt("WORKING");
+
+            if (wrk == 0) {
+                return false;
+            } else return true;
+        }catch (ClassNotFoundException | SQLException e){
+        }
+
+        return false;
+    }
 
 
 

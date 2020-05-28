@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.controller.BD_CONTROLLER;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -25,17 +26,24 @@ public class WorkController implements Initializable {
     @FXML
     public  VBox workvbox = null;
     public Label vagastotallbl;
-    public  Label notificationlabel;
+    public Label workinglbl;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        int totalvagas=0;
+        workinglbl.setVisible(false);
+        if(BD_CONTROLLER.checkWorking(Main.sis.sessionatual.nowusing.getID())){
+            workinglbl.setVisible(true);
+            return;
+        }
 
+        int totalvagas=0;
         int sz = Main.sis.filterjob.size();
         System.out.println(sz);
         Node[] nodes = new Node[sz];
             for(int i = 0 ; i< sz; i++){
                 try{
+
                     totalvagas+=Main.sis.filterjob.get(i).type.getVagas();
                     WorkLineController.name = Main.sis.filterjob.get(i).type.getNome();
                     WorkLineController.vagas= Main.sis.filterjob.get(i).type.getVagas();
