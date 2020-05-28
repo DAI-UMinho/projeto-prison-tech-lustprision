@@ -87,18 +87,24 @@ class PrisioneiroTest {
             String query1 = "Select ID, BALANCE FROM PRISIONER WHERE ROWNUM <= 1";
             ResultSet rs = st.executeQuery(query1);
             rs.next();
+            System.out.println(rs.getInt("ID"));
             int idUser = rs.getInt("ID");
             int balanceBefore = rs.getInt("BALANCE");
-            System.out.println("Créditos antes da remoção: " + balanceBefore);
+
+            System.out.println(balanceBefore);
+
             BD_CONTROLLER.removeCredits(idUser, 5);
+
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection conection = DriverManager.getConnection(dburl, dbusername, dbpassword);
             Statement statement = conection.createStatement();
             String query2 = "Select BALANCE FROM PRISIONER WHERE ID =" + idUser;
             ResultSet result = statement.executeQuery(query2);
             result.next();
+
             int balanceAfter = result.getInt("BALANCE");
-            System.out.print("Créditos após a remoção: " + balanceAfter);
+            System.out.print(balanceAfter);
+
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
@@ -141,7 +147,8 @@ class PrisioneiroTest {
             while (result.next()) {
                 cont++;
             }
-            System.out.println("Quantidade de compras inicial:" + cont);
+            System.out.println(cont);
+
             BD_CONTROLLER.addPurchase(pri);
             String query3 = "Select * FROM PURCHASE ";
             ResultSet resu = st.executeQuery(query2);
@@ -149,7 +156,7 @@ class PrisioneiroTest {
             while (resu.next()) {
                 conta++;
             }
-            System.out.println("Quantidade de compras final:" + conta);
+            System.out.println(conta);
 
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
@@ -165,6 +172,7 @@ class PrisioneiroTest {
             String query1 = "Select ID FROM PRISIONER WHERE ROWNUM <= 1";
             ResultSet rs = st.executeQuery(query1);
             rs.next();
+
             int pri = rs.getInt("ID");
             String query2 = "Select ID,QUANTY_IN_STOCK FROM PRODUCT WHERE ROWNUM <= 1";
             ResultSet res = st.executeQuery(query2);
@@ -172,18 +180,20 @@ class PrisioneiroTest {
             int produto = res.getInt("ID");
             int quant= res.getInt("QUANTY_IN_STOCK");
             System.out.println("Quantidade:"+quant);
-           int aaa= BD_CONTROLLER.addPurchase(pri);
-           BD_CONTROLLER.addPressProdut(aaa,1,produto);
-           String query5 = "Select QUANTY_IN_STOCK FROM PRODUCT WHERE ID= " + produto;
+            int aaa= BD_CONTROLLER.addPurchase(pri);
+
+
+            BD_CONTROLLER.addPressProdut(aaa,1,produto);
+            String query5 = "Select QUANTY_IN_STOCK FROM PRODUCT WHERE ID= " + produto;
             ResultSet r = st.executeQuery(query5);
             r.next();
             int quanti= r.getInt("QUANTY_IN_STOCK");
             System.out.println("Quantidade:"+quanti);
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
-        System.out.println(e);
-        System.out.println("Conexão sem sucesso");
-    }
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+        }
     }
     @Test
     void addCredits() throws ClassNotFoundException {
@@ -209,34 +219,4 @@ class PrisioneiroTest {
             System.out.println(e);
             System.out.println("Conexão sem sucesso");
         }
-}
-    @Test
-    void answerQuiz() throws ClassNotFoundException{
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st = con.createStatement();
-            String query2 = "Select QUIZ_ID FROM PRIS_QUIZ WHERE APPROVAL=1 AND ROWNUM <= 1";
-            ResultSet r = st.executeQuery(query2);
-            r.next();
-            int quiz = r.getInt("QUIZ_ID");
-            ArrayList<Integer> questoes = new ArrayList<>();
-            ArrayList<String> respostas = new ArrayList<>();
-            String query3 = "Select ID, ANSWER FROM Question WHERE ROWNUM <= 5 ";
-            ResultSet res = st.executeQuery(query3);
-            while(res.next()) {
-                questoes.add(res.getInt("ID"));
-                respostas.add(res.getString("ANSWER"));
-            }
-            int i = 0;
-            while(i<questoes.size()) {
-                BD_CONTROLLER.answerQuestion(respostas.get(i), questoes.get(i), quiz);
-                i++;
-            }
-
-        }catch(Exception e) {
-            System.out.println(e);
-        }
-
-    }
-}
+    }}
