@@ -309,14 +309,14 @@ public class BD_CONTROLLER {
             String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID, STATE_ID) VALUES ("+id+","+id+", "+idjob+", 1)";
             ResultSet rs = st.executeQuery(query);
             System.out.println("CANDIDATURA");
-            JOptionPane.showMessageDialog(null, "Candidatura com sucesso.");
+
             con.close();
 
 
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
             System.out.println("Candidatura errada");
-            JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+
         }
     }
 
@@ -420,7 +420,7 @@ public class BD_CONTROLLER {
         }
     }
 
-    public static int addPurchase(int id){
+    public static int addPurchase(int id ){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
@@ -559,7 +559,7 @@ public class BD_CONTROLLER {
 
         }catch(SQLException | ClassNotFoundException e){
             System.out.print("Não há QUIZ");
-            e.printStackTrace();
+
             return null;
         }
 

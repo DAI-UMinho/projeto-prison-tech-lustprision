@@ -64,7 +64,8 @@ public class QuizService {
         quizList.forEach(completedQuizDTO -> {
             quizRepository.findById(completedQuizDTO.getQuizID()).ifPresent(quiz -> {
                 questionQuizRepository.findAllByQuiz(quiz).forEach(questionQuiz -> {
-                    if(questionQuiz.getQuestionAnswer().equals(questionQuiz.getQuestion().getAnswer())){
+                    if(questionQuiz.getQuestionAnswer() != null &&
+                        questionQuiz.getQuestionAnswer().equals(questionQuiz.getQuestion().getAnswer())){
                         completedQuizDTO.setCorrectAnswers(completedQuizDTO.getCorrectAnswers() + 1);
                     }
                 });

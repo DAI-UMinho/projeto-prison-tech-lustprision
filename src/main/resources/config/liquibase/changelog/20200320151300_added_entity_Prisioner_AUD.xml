@@ -10,13 +10,19 @@
     <!--
         Added the entity Prisioner.
     -->
-    <changeSet id="20200320151300-1" author="jhipster">
-        <createTable tableName="prisioner">
+    <changeSet id="20200320151300" author="jhipster">
+        <createTable tableName="prisioner_aud">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(255)">
+            <column name="rev" type="integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="revtype" type="tinyint">
                 <constraints nullable="true" />
+            </column>
+            <column name="name" type="varchar(255)">
+            <constraints nullable="true" />
             </column>
             <column name="bi" type="integer">
                 <constraints nullable="true" />
@@ -51,15 +57,14 @@
             <column name="codigo_cartao" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="permission_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
+
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
     </changeSet>
@@ -83,6 +88,8 @@
                   separator=";"
                   tableName="prisioner">
             <column name="id" type="numeric"/>
+            <column name="rev" type="numeric"/>
+            <column name="revtype" type="numeric"/>
             <column name="name" type="string"/>
             <column name="bi" type="numeric"/>
             <column name="image" type="string"/>

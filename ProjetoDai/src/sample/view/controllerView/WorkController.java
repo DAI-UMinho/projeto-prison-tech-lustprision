@@ -95,5 +95,6 @@ public class WorkController implements Initializable {
         Stage perfil_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         perfil_stage.setScene(perfil_scene);
         perfil_stage.show();
+        Main.sis.exitSession();
     }
 }

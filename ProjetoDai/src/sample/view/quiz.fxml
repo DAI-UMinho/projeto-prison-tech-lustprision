@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.QuizController">
+<AnchorPane prefHeight="578.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.controllerView.QuizController">
    <children>
       <VBox alignment="CENTER_RIGHT" layoutY="-1.0" prefHeight="600.0" prefWidth="208.0" spacing="25.0" style="-fx-background-color: #3E5BFD;">
          <children>
@@ -51,9 +54,9 @@
             <Font name="Agency FB Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="noquizlbl" layoutX="382.0" layoutY="551.0" text="Não existe nenhum quiz para si" textFill="#45fc3f">
+      <Label fx:id="noquizlbl" layoutX="396.0" layoutY="60.0" prefHeight="22.0" prefWidth="195.0" text="Não existe nenhum quiz para si" textFill="#940808">
          <font>
-            <Font name="Agency FB Bold" size="27.0" />
+            <Font name="Agency FB Bold" size="18.0" />
          </font>
       </Label>
       <Pane fx:id="initiatepane" layoutX="244.0" layoutY="115.0" prefHeight="62.0" prefWidth="152.0">
@@ -65,7 +68,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="questionpane" layoutX="287.0" layoutY="242.0" prefHeight="296.0" prefWidth="419.0">
+      <Pane fx:id="questionpane" layoutX="332.0" layoutY="184.0" prefHeight="296.0" prefWidth="419.0" style="-fx-border-color: #3E5BFD;">
          <children>
             <Button fx:id="answer2" layoutX="176.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleAnswer2" prefHeight="75.0" prefWidth="136.0" style="-fx-background-color: #3E5BFD;" text="ANSWER 1" textFill="WHITE">
                <font>
@@ -97,7 +100,7 @@
                   <Font name="Agency FB" size="18.0" />
                </font>
             </Button>
-            <Label fx:id="questionlbl" layoutX="14.0" layoutY="25.0" prefHeight="17.0" prefWidth="373.0" text="QUESTION">
+            <Label fx:id="questionlbl" layoutX="14.0" layoutY="19.0" prefHeight="17.0" prefWidth="373.0" text="QUESTION">
                <font>
                   <Font name="Agency FB" size="19.0" />
                </font>
@@ -107,18 +110,18 @@
                   <Font name="Agency FB" size="18.0" />
                </font>
             </Button>
+            <Label fx:id="correctlbl" layoutX="339.0" layoutY="19.0" prefHeight="23.0" prefWidth="67.0" text="CORRETO" textFill="#00fc3e">
+               <font>
+                  <Font name="Agency FB" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="wronglbl" layoutX="328.0" layoutY="61.0" prefHeight="23.0" prefWidth="67.0" text="ERRADO" textFill="#f80000">
+               <font>
+                  <Font name="Agency FB" size="19.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Label fx:id="correctlbl" layoutX="305.0" layoutY="230.0" prefHeight="23.0" prefWidth="67.0" text="CORRETO" textFill="#00fc3e">
-         <font>
-            <Font name="Agency FB" size="19.0" />
-         </font>
-      </Label>
-      <Label fx:id="wronglbl" layoutX="382.0" layoutY="230.0" prefHeight="23.0" prefWidth="67.0" text="ERRADO" textFill="#f80000">
-         <font>
-            <Font name="Agency FB" size="19.0" />
-         </font>
-      </Label>
       <Pane fx:id="terminatepane" layoutX="416.0" layoutY="109.0" prefHeight="75.0" prefWidth="466.0">
          <children>
             <VBox alignment="CENTER" layoutX="22.0" prefHeight="75.0" prefWidth="80.0">
@@ -173,5 +176,10 @@
             </Button>
          </children>
       </Pane>
+      <Label layoutX="272.0" layoutY="92.0" prefHeight="22.0" prefWidth="266.0" text="Aqui pode encontrar diversos quiz que colocam à prova a sua cultura geral." textFill="#3e5bfd">
+         <font>
+            <Font name="Agency FB Bold" size="10.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

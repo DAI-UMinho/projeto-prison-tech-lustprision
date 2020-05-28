@@ -163,4 +163,60 @@ class PrisioneiroTest {
             System.out.println("Conexão sem sucesso");
         }
     }
-}
+    @Test
+    void addPressProduct() throws ClassNotFoundException {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "Select ID FROM PRISIONER WHERE ROWNUM <= 1";
+            ResultSet rs = st.executeQuery(query1);
+            rs.next();
+
+            int pri = rs.getInt("ID");
+            String query2 = "Select ID,QUANTY_IN_STOCK FROM PRODUCT WHERE ROWNUM <= 1";
+            ResultSet res = st.executeQuery(query2);
+            res.next();
+            int produto = res.getInt("ID");
+            int quant= res.getInt("QUANTY_IN_STOCK");
+            System.out.println("Quantidade:"+quant);
+            int aaa= BD_CONTROLLER.addPurchase(pri);
+
+
+            BD_CONTROLLER.addPressProdut(aaa,1,produto);
+            String query5 = "Select QUANTY_IN_STOCK FROM PRODUCT WHERE ID= " + produto;
+            ResultSet r = st.executeQuery(query5);
+            r.next();
+            int quanti= r.getInt("QUANTY_IN_STOCK");
+            System.out.println("Quantidade:"+quanti);
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+        }
+    }
+    @Test
+    void addCredits() throws ClassNotFoundException {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "Select ID,BALANCE FROM PRISIONER WHERE ROWNUM <= 1";
+            ResultSet rs = st.executeQuery(query1);
+            rs.next();
+            int pri = rs.getInt("ID");
+            int ba = rs.getInt("BALANCE");
+            System.out.println(ba);
+            BD_CONTROLLER.addCredits(pri,100000);
+            String query2 = "Select BALANCE FROM PRISIONER WHERE ROWNUM <= 1";
+            ResultSet res = st.executeQuery(query2);
+            res.next();
+            int bar = res.getInt("BALANCE");
+            System.out.println(bar);
+
+            System.out.println();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+        }
+    }}

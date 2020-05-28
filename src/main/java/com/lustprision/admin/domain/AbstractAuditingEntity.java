@@ -1,6 +1,7 @@
 package com.lustprision.admin.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,6 +18,7 @@ import javax.persistence.MappedSuperclass;
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
  * last modified by date.
  */
+@Audited
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity implements Serializable {
