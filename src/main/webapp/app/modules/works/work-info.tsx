@@ -251,19 +251,19 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     <Label id="nameWorkLabel" for="work-nameWork">
                       <Translate contentKey="lustPrisionApp.work.nameWork">Name Work</Translate>
                     </Label>
-                    <AvField id="work-nameWork" type="text" name="nameWork"/>
+                    <AvField id="work-nameWork" type="text" name="nameWork" readOnly={allowWorkActions && true}/>
                   </AvGroup>
                   <AvGroup>
                     <Label id="priceHourLabel" for="work-priceHour">
-                      <Translate contentKey="lustPrisionApp.work.priceHour">Price Hour</Translate>
+                      <Translate contentKey="lustPrisionApp.work.priceHour">Total Credits</Translate>
                     </Label>
-                    <AvField id="work-priceHour" type="string" className="form-control" name="totalCredits"/>
+                    <AvField id="work-priceHour" type="string" className="form-control" name="totalCredits" readOnly={allowWorkActions && true}/>
                   </AvGroup>
                   <AvGroup>
                     <Label id="numVacanciesLabel" for="work-numVacancies">
-                      <Translate contentKey="lustPrisionApp.work.numVacancies">Num Vacancies</Translate>
+                      <Translate contentKey="lustPrisionApp.work.numVacancies">Remaining Entries</Translate>
                     </Label>
-                    <AvField id="work-numVacancies" type="string" className="form-control" name="numRemainingEntries"/>
+                    <AvField id="work-numVacancies" type="string" className="form-control" name="numRemainingEntries" readOnly={allowWorkActions && true}/>
                   </AvGroup>
                   <AvGroup>
                     <Label id="dateLabel" for="work-date">
@@ -271,13 +271,14 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     </Label>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                       <DatePicker
-                        disablePast
+                        disablePast={!allowWorkActions && true}
                         className={`form-control ${classes.datePicker}`}
                         openTo="date"
                         format="dd/MM/yyyy"
                         views={["year", "month", "date"]}
                         value={selectedDate}
                         onChange={handleDateChange}
+                        disabled={allowWorkActions && true}
                       />
                       <AvField id="date" type="hidden" name="date" value={selectedDate} validate={{
                         required:{
@@ -295,7 +296,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                   </span>
                   </RButton>
                   &nbsp;
-                  <RButton color="primary" id="save-entity" type="submit" disabled={updating}>
+                  <RButton color="primary" id="save-entity" type="submit" disabled={updating || allowWorkActions && true}>
                     <FontAwesomeIcon icon="save"/>
                     &nbsp;
                     <Translate contentKey="entity.action.save">Save</Translate>

@@ -79,12 +79,6 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
                     <Translate contentKey="userManagement.activated">Activated</Translate>
                   </Label>
                 </AvGroup>
-                <AvGroup>
-                  <Label id="dateLabel" for="work-date">
-                    <Translate contentKey="lustPrisionApp.work.date">Date</Translate>
-                  </Label>
-                  <AvField id="work-date" type="date" className="form-control" name="date"/>
-                </AvGroup>
                 <Button tag={Link} id="cancel-save" onClick={null} replace color="info">
                   <FontAwesomeIcon icon="arrow-left"/>
                   &nbsp;

@@ -60,7 +60,9 @@ public class PressWorkResource {
             throw new BadRequestAlertException("A new pressWork cannot already have an ID", ENTITY_NAME, "idexists");
         }else if(pressWorkRepository.findOneByPrisionerAndWork(pressWork.getPrisioner(), pressWork.getWork()).isPresent()){
             throw new BadRequestAlertException("Prisoner already subbed on this work", ENTITY_NAME, "newSub");
-        }else if(pressWork.getState() == null) {
+        }else if(pressWork.getPrisioner().getWorking() == 1){
+            throw new BadRequestAlertException("Prisoner is already signed on a work", ENTITY_NAME, "newSubWorking");
+        } else if(pressWork.getState() == null) {
             pressWork.setState(stateRepository.getOne(1L));
         }
 

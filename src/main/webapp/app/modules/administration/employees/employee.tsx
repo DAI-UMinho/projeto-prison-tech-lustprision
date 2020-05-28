@@ -18,10 +18,21 @@ import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
 import {getUsers, updateUser} from './user-management.reducer';
 import {IRootState} from 'app/shared/reducers';
 import {useMediaQuery} from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+  },
+  loadingSpinner:{
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  },
+  gridList: {
+    width: '100%',
+    overflow: 'hidden'
   },
 });
 
@@ -34,7 +45,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
     },
     body: {
       fontSize: 14,
-    },
+    }
   }),
 )(TableCell);
 
@@ -71,12 +82,16 @@ export const Employee = (props: IUserManagementProps) => {
     });
 
   const classes = useStyles();
-  const {users, account, match, totalItems} = props;
+  const {users, account, match, totalItems, loading} = props;
   return (
     <div>
       <Row className="justify-content-center">
         <Col lg={mCol} md="6" sm="6">
           <Card className="card-stats">
+            {loading ? (
+              <div className={classes.gridList}>
+                <CircularProgress className={classes.loadingSpinner}/>
+              </div>) : (
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
@@ -127,6 +142,7 @@ export const Employee = (props: IUserManagementProps) => {
                 </TableBody>
               </Table>
             </TableContainer>
+            )}
           </Card>
         </Col>
       </Row>
@@ -150,6 +166,7 @@ export const Employee = (props: IUserManagementProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  loading: storeState.userManagement.loading,
   users: storeState.userManagement.users,
   totalItems: storeState.userManagement.totalItems,
   account: storeState.authentication.account

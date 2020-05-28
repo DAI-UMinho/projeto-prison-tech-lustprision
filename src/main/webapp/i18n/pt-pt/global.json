@@ -151,6 +151,7 @@
     "prisonerNfcCode": "O código NFC já está a ser usado",
     "prisonerBi": "Este bi está associado a outro prisioneiro",
     "newSub": "Este presidiário já está inscrito neste trabalho",
+    "newSubWorking": "Este presidiário já está inscrito num trabalho",
     "newSubDate": "Este presidiário já está inscrito num trabalho nesta data",
     "workDate": "A data do trabalho é inválida",
     "file": {
