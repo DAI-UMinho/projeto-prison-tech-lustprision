@@ -97,7 +97,7 @@ public class BD_CONTROLLER {
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB where STATE_ID = 1");
+            ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB where STATE_ID = 1 and NUM_REMAINING_ENTRIES > 0");
 
             while (rs.next()) {
                 Trabalho x = new Trabalho(rs.getInt("ID"),rs.getString("NAME_WORK"),rs.getInt("TOTAL_CREDITS"),rs.getInt("NUM_REMAINING_ENTRIES"));
