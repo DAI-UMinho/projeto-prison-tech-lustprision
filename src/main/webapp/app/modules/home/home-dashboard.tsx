@@ -31,45 +31,9 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import {IPrisioner} from "app/shared/model/prisioner.model";
+import {ICrudGetAllAction} from "react-jhipster";
+import {ACTION_TYPES} from "app/shared/reducers/statistics";
 
-export const test = {labels: [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct"
-  ],
-  datasets: [
-    {
-      borderColor: "#6bd098",
-      backgroundColor: "#6bd098",
-      pointRadius: 0,
-      pointHoverRadius: 0,
-      borderWidth: 3,
-      data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
-    },
-    {
-      borderColor: "#f17e5d",
-      backgroundColor: "#f17e5d",
-      pointRadius: 0,
-      pointHoverRadius: 0,
-      borderWidth: 3,
-      data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
-    },
-    {
-      borderColor: "#fcc468",
-      backgroundColor: "#fcc468",
-      pointRadius: 0,
-      pointHoverRadius: 0,
-      borderWidth: 3,
-      data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
-    }
-  ]};
 const test2 = {
   labels: [1, 2, 3],
     datasets: [
@@ -124,8 +88,12 @@ const apiUrl = 'api/prisioners';
 const apiUrlTrabalho = 'api/works';
 const apiUrlProdutos = 'api/products';
 const apiUrlVendas = 'api/purchases';
+const apiUrlVendasAnuais = 'api/stats/purchases/purchases-half-year';
 
 const HDashboard = (props) => {
+
+  const [chartLineWorkLabel, setChartWorkLabel] = useState(['','']);
+  const [chartLineWorkData, setChartWorkData] = useState([0,0]);
 
   const [countainerPrisioneiros, setCount] = useState(0);
   useEffect(() => {
@@ -154,6 +122,28 @@ const HDashboard = (props) => {
       //console.log(result) //ver (daniel)
     });
   },[]);
+
+  const [countainerVendasGrafico, setCount4] = useState(0);
+  useEffect(() => {
+    const comp3 = axios.get(`${apiUrlVendasAnuais}`);
+    comp3.then(result => {
+      {result.data && setChartWorkData(result.data.map(x => x.value))}
+      {result.data && setChartWorkLabel(result.data.map(x => x.monthName))}
+      //console.log(result) //ver (daniel)
+    });
+  },[]);
+
+ const test = {labels: chartLineWorkLabel,
+    datasets: [
+      {
+        borderColor: "#6bd098",
+        backgroundColor: "#6bd098",
+        pointRadius: 0,
+        pointHoverRadius: 0,
+        borderWidth: 3,
+        data: chartLineWorkData,
+      },
+    ]};
 
   return (
         <div>
@@ -267,8 +257,8 @@ const HDashboard = (props) => {
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h5">Users Behavior</CardTitle>
-                  <p className="card-category">24 Hours performance</p>
+                  <CardTitle tag="h5">Vendas</CardTitle>
+                  <p className="card-category">Produtos vendidos (Informação anual)</p>
                 </CardHeader>
                 <CardBody>
                   <Line
@@ -280,7 +270,7 @@ const HDashboard = (props) => {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="fa fa-history" /> Updated 3 minutes ago
+                    <i className="fa fa-history" /> LustPrision
                   </div>
                 </CardFooter>
               </Card>

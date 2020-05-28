@@ -119,4 +119,22 @@ public class StatisticResource {
         Collections.reverse(data);
         return data;
     }
+
+    @GetMapping("/purchases/purchases-half-year")
+    public List<MonthDataDTO> getLastYearProductPurchases() {
+        log.debug("REST request to get last half year sales from a product");
+        List<MonthDataDTO> data = new ArrayList<>();
+
+        for(int i = 0; i < 12; i++){
+            String initialDate = Utilities.getDateFormatted(i, Utilities.MONTH_FIRST_DAY);
+            String finalDate = Utilities.getDateFormatted(i, Utilities.MONTH_LAST_DAY_IDENTIFIER);
+
+            int value = purchaseRepository.getProductSalesFromDateRange(initialDate,finalDate );
+            data.add(new MonthDataDTO(Utilities.convertMonth(i), value));
+        }
+        Collections.reverse(data);
+        return data;
+    }
 }
+
+

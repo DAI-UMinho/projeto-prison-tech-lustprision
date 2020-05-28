@@ -43,8 +43,6 @@ public class SESSION {
     }
 
 
-
-
     public ArrayList displayShoplist(){
         return shoplist.Shoplist;
     }

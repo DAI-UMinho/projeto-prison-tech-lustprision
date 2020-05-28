@@ -57,7 +57,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
   const {image, imageContentType} = productEntity;
 
   const handleClose = () => {
-    props.history.push('/dashboard/products');
+    props.history.goBack();
   };
 
   useEffect(() => {

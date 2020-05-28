@@ -73,30 +73,25 @@ class TrabalhoTest {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             String query1 = "Select ID FROM PRISIONER WHERE ROWNUM <= 1";
             ResultSet rs = st.executeQuery(query1);
             rs.next();
-            System.out.println(rs.getInt("ID"));
             int id = rs.getInt("ID");
-
-            String query2 = "Select ID, NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE ROWNUM <= 1";
+            System.out.println(id);
+            String query2 = "Select ID, NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE STATE_ID = 1 AND ROWNUM <= 1";
             ResultSet result = st.executeQuery(query2);
             result.next();
             int vagas = result.getInt("NUM_REMAINING_ENTRIES");
-            System.out.println(vagas);
-            System.out.println(result.getInt("ID"));
+            System.out.println("quantidade de vagas inicialmente:" + vagas);
             int idJob = result.getInt("ID");
-
+            System.out.println(idJob);
             BD_CONTROLLER.applyjob(id,idJob);
-
-            String query3 = "Select NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE  ID = " + idJob;
+            String query3 = "Select NUM_REMAINING_ENTRIES FROM WORK_JOB WHERE ID = " + idJob;
             ResultSet result2 = st.executeQuery(query3);
             result2.next();
             int vagas2 = result2.getInt("NUM_REMAINING_ENTRIES");
-            System.out.println(vagas2);
-
+            System.out.println("quantidade de vagas inicialmente:"+vagas2);
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);

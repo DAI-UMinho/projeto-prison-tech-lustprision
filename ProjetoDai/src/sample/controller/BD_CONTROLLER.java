@@ -1,15 +1,13 @@
 package sample.controller;
+import oracle.sql.DATE;
 import sample.model.*;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
@@ -98,7 +96,7 @@ public class BD_CONTROLLER {
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB where STATE_ID = 1");
+            ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB where STATE_ID = 1 and NUM_REMAINING_ENTRIES > 0");
 
             while (rs.next()) {
                 Trabalho x = new Trabalho(rs.getInt("ID"),rs.getString("NAME_WORK"),rs.getInt("TOTAL_CREDITS"),rs.getInt("NUM_REMAINING_ENTRIES"));
@@ -303,11 +301,14 @@ public class BD_CONTROLLER {
     //return void pendente
     public static void applyjob(int id, int idjob){  //update vagas
         try {
-
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             Statement st = con.createStatement();
-            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID, STATE_ID) VALUES ("+id+","+id+", "+idjob+", 1)";
+            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
+            ResultSet rs1 = st.executeQuery(query1);
+            rs1.next();
+            int d = rs1.getInt("NEXTVAL");
+            String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID, STATE_ID) VALUES ("+d+","+id+", "+idjob+", 1)";
             ResultSet rs = st.executeQuery(query);
             System.out.println("CANDIDATURA");
 
@@ -318,6 +319,26 @@ public class BD_CONTROLLER {
             System.out.println(e);
             System.out.println("Candidatura errada");
 
+        }
+    }
+
+    public static int working (int id){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT WORKING From PRISIONER where ID = " +id);
+            rs.next();
+            int d = rs.getInt("WORKING");
+            System.out.println(d);
+            con.close();
+            return d;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+            return 999999999;
         }
     }
 
@@ -430,10 +451,11 @@ public class BD_CONTROLLER {
             ResultSet rs1 = st.executeQuery(query1);
             rs1.next();
             int d = rs1.getInt("NEXTVAL");
-            //System.out.println(d);
-            DATEFORDB dfb = new DATEFORDB();
 
-            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+d+","+id+","+dfb.currentdateforsql() +", 0)"; //DATA ATENÇão MUDAR
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String m = dateFormat.format(new Date());
+
+            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+ d + "," + id + "," + "'" + m + "'" + ", 0)";
             ResultSet rs = st.executeQuery(query);
             rs.next();
             System.out.println("PURCHASE");
