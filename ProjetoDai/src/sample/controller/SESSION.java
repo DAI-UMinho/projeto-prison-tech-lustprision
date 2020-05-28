@@ -43,8 +43,6 @@ public class SESSION {
     }
 
 
-
-
     public ArrayList displayShoplist(){
         return shoplist.Shoplist;
     }
@@ -72,7 +70,7 @@ public class SESSION {
 
 
         //criar e adicionar uma transaction ao user na bd
-        
+
 
         int d = BD_CONTROLLER.addPurchase(Main.sis.sessionatual.nowusing.getID());
         for(int i = 0; i<shoplist.Shoplist.size() ; i++){

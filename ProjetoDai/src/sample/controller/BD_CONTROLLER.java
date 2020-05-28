@@ -1,16 +1,8 @@
 package sample.controller;
 import sample.model.*;
 
-import javax.swing.*;
 import java.sql.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.*;
-import java.util.Date;
 
 
 public class BD_CONTROLLER {
@@ -302,7 +294,6 @@ public class BD_CONTROLLER {
     //return void pendente
     public static void applyjob(int id, int idjob){  //update vagas
         try {
-
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
             Statement st = con.createStatement();
@@ -321,6 +312,26 @@ public class BD_CONTROLLER {
             System.out.println(e);
             System.out.println("Candidatura errada");
 
+        }
+    }
+
+    public static int working (int id){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            System.out.println("Conexão com sucesso");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT WORKING From PRISIONER where ID = " +id);
+            rs.next();
+            int d = rs.getInt("WORKING");
+            System.out.println(d);
+            con.close();
+            return d;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("Conexão sem sucesso");
+            return 999999999;
         }
     }
 
