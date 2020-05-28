@@ -453,11 +453,14 @@ public class QuizController implements Initializable {
 
 
     public void handleTerminate(ActionEvent actionEvent) throws IOException{
-        BD_CONTROLLER.addCredits(Main.sis.sessionatual.nowusing.getID(),Main.sis.sessionatual.sessionquiz.getTotalpoints());
+
+        //BD_CONTROLLER.addCredits(Main.sis.sessionatual.nowusing.getID(), Main.sis.sessionatual.sessionquiz.getTotalpoints());
+
         isAnswering=false;
         Main.sis.sessionatual.resetQuiz();
         terminatepane.setVisible(false);
         noquizlbl.setVisible(true);
+
     }
 
 
