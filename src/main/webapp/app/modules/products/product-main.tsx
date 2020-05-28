@@ -36,7 +36,7 @@ export const ProductOverview = (props: IProductProps) => {
 
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
-  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 1000]);
+  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 700]);
 
   useEffect(() => {
     console.log(pagination);
@@ -155,6 +155,7 @@ export const ProductOverview = (props: IProductProps) => {
             <Slider
               value={sliderValue}
               onChangeCommitted={handleChange}
+              max={700}
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
             />

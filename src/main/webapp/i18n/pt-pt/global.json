@@ -154,6 +154,7 @@
     "newSubWorking": "Este presidiário já está inscrito num trabalho",
     "newSubDate": "Este presidiário já está inscrito num trabalho nesta data",
     "workDate": "A data do trabalho é inválida",
+    "workUpdate": "O trabalho não pode ser alteradao",
     "file": {
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""

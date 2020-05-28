@@ -72,9 +72,8 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
     setOpen(true);
   };
 
-  const handleDialogClose = (value: string) => {
+  const handleDialogClose = () => {
     setOpen(false);
-    setSelectedValue(value);
   };
 
   const {prisionerPurchases} = props;

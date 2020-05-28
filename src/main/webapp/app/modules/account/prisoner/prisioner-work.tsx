@@ -6,7 +6,6 @@ import {Col, Row, Card, CardBody, CardTitle} from 'reactstrap';
 import {IRootState} from 'app/shared/reducers';
 import {getPrisionerWorks} from './prisioner.reducer';
 import {getPrisonerWorkStates} from "app/shared/reducers/statistics";
-// import {deleteWork} from "app/entities/work/work.reducer";
 import {cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
 import MaterialTable, {Column} from "material-table";
 
@@ -172,34 +171,7 @@ export const PrisionerWork = (props: IPrisionerWorkProps) => {
                 tooltip: 'Despedir deste trabalho',
                 onClick: (event, mData) => clickCancelWork(mData.pressProductId),
                 disabled: rowData.stateID > 1
-              }),
-              {
-                icon: () => <TableIcon.Delete/>,
-                tooltip: 'Remover trabalho',
-                onClick: (event, rowData) =>
-                  MySwal.fire({
-                    title: <p>Apagar Trabalho?</p>,
-                    text: "Não é possivel reverter esta operação!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Apagar!'
-                  }).then((result) => {
-                    if (result.value) {
-                      // return props.deleteWork(rowData.id);
-                    }
-                  }).then((result: any) => {
-                    if (result.value.status === 204) {
-                      props.getPrisionerWorks(props.match.params.id);
-                      Swal.fire(
-                        'Sucesso!',
-                        'O trabalho deste presioneiro foi removido.',
-                        'success'
-                      )
-                    }
-                  })
-              }
+              })
             ]}
           />
         </Card>
