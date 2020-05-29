@@ -35,11 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface ProductSearchState{
   onSearchChange: any;
+  searchValue: string;
 }
 
 const SearchBar = (props: ProductSearchState) => {
   const classes = useStyles();
-  const { onSearchChange } = props;
+  const { onSearchChange, searchValue } = props;
 
   return (
     <Paper component="form" className={classes.root}>
@@ -48,6 +49,7 @@ const SearchBar = (props: ProductSearchState) => {
         onChange={onSearchChange}
         placeholder="Search ..."
         inputProps={{ 'aria-label': 'search google maps' }}
+        value={searchValue}
       />
       <IconButton className={classes.iconButton} aria-label="search">
         <SearchIcon />

@@ -9,12 +9,12 @@ import Box from '@material-ui/core/Box';
 import {IRootState} from "app/shared/reducers";
 
 import {getPrisonerPurchases, getEntity, getPrisionerWorks, getPrisionerQuizs} from "./prisioner.reducer";
+import {deleteEntity} from "app/modules/account/prisoner/purchase.reducer";
 import {cancelPressProduct} from "app/modules/account/prisoner/press-work.reducer";
 import {deleteQuiz} from "app/modules/quizs/quiz.reducer";
 import {connect} from "react-redux";
 import PrisionerInfo from "app/modules/account/prisoner/prisioner-info";
 import PrivateRoute, {hasAnyAuthority} from "app/shared/auth/private-route";
-import {PrisionerDetail} from "app/entities/prisioner/prisioner-detail";
 import {PrisionerWork} from "app/modules/account/prisoner/prisioner-work";
 import {PrisionerPurchase} from "app/modules/account/prisoner/prisioner-purchase";
 import {PrisionerQuiz} from "app/modules/account/prisoner/prisioner-quiz";
@@ -22,13 +22,10 @@ import {getPrisonerWorkStates} from "app/shared/reducers/statistics";
 import {IWorkStats} from "app/shared/model/prisoner.work.stats";
 import {IPurchaseData} from "app/shared/model/prisoner.purchase.data";
 import {IPrisonerQuiz} from "app/shared/model/prisoner.quiz";
-import {read} from "fs";
 import {IWork} from "app/shared/model/work.model";
 import {getQuizResults} from "app/modules/quizs/quiz.reducer";
 import {Fab} from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
 import {AUTHORITIES} from "app/config/constants";
-import authentication from "app/shared/reducers/authentication";
 import PrisonerLogs from "app/modules/account/prisoner/prisioner-logs";
 import EventNoteIcon from '@material-ui/icons/EventNote';
 
@@ -71,8 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
 }));
 
 export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
-  const [loginId, setLoginId] = useState('0');
-  const [permissionId, setPermissionId] = useState('0');
   const [purchaseData, setPurchaseData] = useState<readonly IPurchaseData[]>();
   const [workData, setWorkData] = useState<readonly IWork[]>([]);
   const [quizData, setQuizDate] = useState<readonly IPrisonerQuiz[]>([]);
@@ -174,13 +169,10 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-/*  logins: storeState.login.entities,
-  permissions: storeState.permission.entities,*/
   prisionerPurchases: storeState.prisioner.purchases,
   prisionerEntity: storeState.prisioner.entity,
   prisionerWorks: storeState.prisioner.works,
   prisionerQuizs: storeState.prisioner.quizzes,
-  // completedWorks: storeState.statistics.nPrisonerCompletedWork,
   workStats: storeState.statistics.prisonerWorkStats,
   loading: storeState.prisioner.loading,
   updating: storeState.prisioner.updating,
@@ -198,7 +190,8 @@ const mapDispatchToProps = {
   cancelPressProduct,
   getPrisonerWorkStates,
   getQuizResults,
-  deleteQuiz
+  deleteQuiz,
+  deleteEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

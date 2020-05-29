@@ -11,12 +11,6 @@ import {IRootState} from 'app/shared/reducers';
 import {useMediaQuery} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
 export interface IUserManagementProps extends StateProps, DispatchProps, RouteComponentProps<{login}> {
 }
 
@@ -41,12 +35,18 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
     )
   };
 
+  const toggleActive = user => () =>
+    props.updateUser({
+      ...user,
+      activated: !user.activated
+    });
+
   useEffect(() => {
     props.getUser(props.match.params.login)
   }, []);
 
-  console.log(profileImage);
   return (
+
     <Row className="justify-content-center">
       <Col md="8">
         <Card className="card-user justify-content-center">
@@ -112,7 +112,15 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
                 <AvGroup check>
                   <Label>
                     <AvInput type="checkbox" name="activated" value={employee.activated} checked={employee.activated} disabled={!employee.id} />{' '}
-                    <Translate contentKey="userManagement.activated">Activated</Translate>
+                    {employee.activated ? (
+                      <Button color="success" onClick={toggleActive(employee)}>
+                        <Translate contentKey="userManagement.activated">Activated</Translate>
+                      </Button>
+                    ) : (
+                      <Button color="danger" onClick={toggleActive(employee)}>
+                        <Translate contentKey="userManagement.deactivated">Deactivated</Translate>
+                      </Button>
+                    )}
                   </Label>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" onClick={() => props.history.goBack()} replace color="info">

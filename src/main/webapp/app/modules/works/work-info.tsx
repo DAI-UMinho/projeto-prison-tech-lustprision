@@ -328,7 +328,6 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     <Button variant="contained" color="primary" onClick={dialogOpen}
                             disabled={allowNewSub || pressUpdating}>Adicionar Prisidiário</Button>
                     {pressUpdating && <CircularProgress size={24} />}
-                    {/*<p className="description">5/10 Vagas Restantes</p>*/}
                   </div>
                   <div className="complete-cancel">
                     <RButton variant="contained" color="primary" disabled={allowWorkActions}

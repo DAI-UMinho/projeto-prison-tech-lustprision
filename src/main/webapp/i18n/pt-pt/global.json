@@ -92,6 +92,15 @@
           "invalid": "Email inválido.",
           "minlength": "O email deve ter pelo menos 5 caracteres",
           "maxlength": "O email não pode ter mais de 50 caracteres"
+        },
+        "username": {
+          "required": "O username é obrigatório.",
+          "invalid": "Username inválido.",
+          "minlength": "O email deve ter pelo menos 4 caracteres",
+          "maxlength": "O email não pode ter mais de 50 caracteres"
+        },
+        "firstName": {
+          "required": "O primeiro nome é obrigatorio"
         }
       }
     },

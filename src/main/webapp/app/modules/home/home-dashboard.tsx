@@ -265,6 +265,7 @@ const HDashboard = (props) => {
                     data={test}
                     width={400}
                     height={100}
+                    options={{responsive: true, scales: {yAxes: [{ticks: {stepSize: 1}}]}}}
                   />
                 </CardBody>
                 <CardFooter>
@@ -277,7 +278,7 @@ const HDashboard = (props) => {
             </Col>
           </Row>
           <Row>
-            <Col md="4">
+{/*            <Col md="4">
               <Card>
                 <CardHeader>
                   <CardTitle tag="h5">Email Statistics</CardTitle>
@@ -328,7 +329,7 @@ const HDashboard = (props) => {
                   </div>
                 </CardFooter>
               </Card>
-            </Col>
+            </Col>*/}
           </Row>
         </div>
     );

@@ -49,7 +49,7 @@ export const Works = (props: IWorkProps) => {
       {title: 'Estado', field: 'state', render: rowData => <StateBox boxText={rowData.state.name} stateID={rowData.state.id}/>,
         lookup: { 1: "Pendente", 2: 'Completado', 3: "Cancelado"},
         customSort: (a, b) => a.state.id - b.state.id,
-        customFilterAndSearch: (mID, rowData) => {if(+mID){return +mID === rowData.state.id}else{return 0 < rowData.state.id}},
+        customFilterAndSearch: (mID, rowData) => +mID ? +mID === rowData.state.id : 0 < rowData.state.id,
       }]
   });
 
@@ -97,7 +97,7 @@ export const Works = (props: IWorkProps) => {
 
   useEffect(() => {
     {
-      workList && workList.length > 0 ? updateTable() : console.log("NO")
+      workList && workList.length > 0 ? updateTable() : null
     }
   }, [workList]);
 
@@ -132,7 +132,7 @@ export const Works = (props: IWorkProps) => {
     })
   };
 
-  const clickDeleteWork = (id) => {
+  const clickDeleteWork = id => {
     {
       MySwal.fire({
         title: <p>Apagar Trabalho?</p>,
