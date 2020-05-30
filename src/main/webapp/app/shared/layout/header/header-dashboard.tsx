@@ -15,17 +15,26 @@ import {Button} from "@material-ui/core";
 import {IRootState} from "app/shared/reducers";
 import {getSession, } from "app/shared/reducers/authentication";
 
-export interface IUserHeader extends StateProps, DispatchProps {
+interface IHeader{
+  currentUrl: any;
+}
+
+export interface IUserHeader extends StateProps, DispatchProps, IHeader {
 }
 
 const Header = (props: IUserHeader) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
   const [color, setColor] = useState("transparent");
-
   const [open, setOpen] = React.useState(false);
 
-  const { account, isAuthenticated } = props;
+  const { account, isAuthenticated, currentUrl } = props;
+
+  console.log(currentUrl);
+
+  useEffect(() => {
+    props.getSession();
+  }, []);
 
   useEffect(() => {
     props.getSession();
@@ -55,6 +64,7 @@ const Header = (props: IUserHeader) => {
 
   const getBrand = () => {
     let brandName = "";
+
     routes.map((prop, key) => {
       if (window.location.href.includes(prop.layout + prop.path)) {
         brandName = prop.name;

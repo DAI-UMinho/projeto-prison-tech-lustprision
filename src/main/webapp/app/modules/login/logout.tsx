@@ -19,13 +19,10 @@ export const Logout = (props: ILogoutProps) => {
         ? logoutUrl + '?redirect_uri=' + window.location.origin
         : logoutUrl + '?id_token_hint=' + props.idToken + '&post_logout_redirect_uri=' + window.location.origin;
     }
+    window.location.replace('/login');
   });
 
-  return (
-    <div className="p-5">
-      <h4>Logged out successfully!</h4>
-    </div>
-  );
+  return (<></>);
 };
 
 const mapStateToProps = (storeState: IRootState) => ({

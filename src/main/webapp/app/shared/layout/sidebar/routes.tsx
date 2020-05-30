@@ -59,4 +59,5 @@ const routes = [
     layout: "/dashboard"
   },
 ];
+
 export default routes;
