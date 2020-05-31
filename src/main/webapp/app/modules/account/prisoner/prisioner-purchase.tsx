@@ -6,14 +6,7 @@ import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle} from 'reactstra
 import {IRootState} from 'app/shared/reducers';
 import {getPrisonerPurchases} from './prisioner.reducer';
 import { APP_DATE_FORMAT } from 'app/config/constants';
-import TableContainer from "@material-ui/core/TableContainer";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
 import {makeStyles, useTheme, withStyles} from "@material-ui/core/styles";
-import TableCell from "@material-ui/core/TableCell";
 import MaterialTable, {Column} from "material-table";
 import PurchaseDetailDialog from "app/modules/account/prisoner/prisioner-purchase-details";
 import Swal from 'sweetalert2'
@@ -21,6 +14,7 @@ import withReactContent from 'sweetalert2-react-content'
 import {TextFormat} from "react-jhipster";
 import {useMediaQuery} from "@material-ui/core";
 import TableIcon from "app/shared/util/table-icon";
+import {deleteEntity} from "app/modules/account/prisoner/purchase.reducer";
 
 interface TableState {
   columns: Array<Column<any>>;
@@ -47,7 +41,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
     ]
   });
 
-  const purchaseDelete = () =>{
+  const purchaseDelete = id =>{
     MySwal.fire({
       title: <p>Reverter Compra?</p>,
       text: "Os créditos irão ser devolvidos ao comprador",
@@ -58,23 +52,28 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
       confirmButtonText: 'Reverter!'
     }).then((result) => {
       if (result.value) {
+        return props.deleteEntity(id);
+      }
+    }).then((result: any) => {
+      console.log(result.value.status);
+      if(result.value.status === 204){
+        props.getPrisonerPurchases(props.match.params.id);
         Swal.fire(
-          'Compra Revertida!',
-          'Os créditos gastos na compra foram repostos',
+          'Removido!',
+          'A compra foi removida da conta do presidiário',
           'success'
         )
       }
     })
-  }
+  };
 
   const purchaseClick = id => {
     setSelectedID(id);
     setOpen(true);
   };
 
-  const handleDialogClose = (value: string) => {
+  const handleDialogClose = () => {
     setOpen(false);
-    setSelectedValue(value);
   };
 
   const {prisionerPurchases} = props;
@@ -143,7 +142,7 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
               {
                 icon: () => <TableIcon.Revert/>,
                 tooltip: 'Reverter Compra',
-                onClick: (event, rowData) => purchaseDelete()
+                onClick: (event, rowData) => purchaseDelete(rowData.id)
               }
             ]}
             localization={{
@@ -166,7 +165,7 @@ const mapStateToProps = ({prisioner}: IRootState) => ({
   prisionerPurchases: prisioner.purchases,
 });
 
-const mapDispatchToProps = {getPrisonerPurchases};
+const mapDispatchToProps = {getPrisonerPurchases, deleteEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

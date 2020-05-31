@@ -25,6 +25,7 @@ import ActivatePage from "app/modules/account/activate/activate";
 import PasswordResetInit from "app/modules/account/password-reset/init/password-reset-init";
 import Dashboard from "app/Dashboard";
 import PasswordResetFinish from "app/modules/account/password-reset/finish/password-reset-finish";
+import Logout from "app/modules/login/logout";
 
 const baseHref = document
   .querySelector('base')
@@ -68,6 +69,7 @@ export const App = (props: IAppProps) => {
               />
             </ErrorBoundary>
             <Switch>
+              <ErrorBoundaryRoute path="/logout" exact component={Logout}/>
               <ErrorBoundaryRoute path="/login" exact={true} component={Login}/>
               <ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
               <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>

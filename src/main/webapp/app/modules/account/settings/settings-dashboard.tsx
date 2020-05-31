@@ -172,13 +172,13 @@ const User = (props: IUserSettingsProps) => {
                   <div className="pl-1 col-md-6">
                     <AvField
                       name="login"
-                      label={translate('global.form.email.label')}
-                      placeholder={translate('global.form.email.placeholder')}
+                      label={translate('global.form.username.label')}
+                      placeholder={translate('global.form.username.placeholder')}
                       type="login"
                       validate={{
-                        required: {value: true, errorMessage: translate('global.messages.validate.email.required')},
-                        minLength: {value: 4, errorMessage: translate('global.messages.validate.email.minlength')},
-                        maxLength: {value: 254, errorMessage: translate('global.messages.validate.email.maxlength')}
+                        required: {value: true, errorMessage: translate('global.messages.validate.username.required')},
+                        minLength: {value: 4, errorMessage: translate('global.messages.validate.username.minlength')},
+                        maxLength: {value: 254, errorMessage: translate('global.messages.validate.username.maxlength')}
                       }}
                       value={props.account.login}
                     />

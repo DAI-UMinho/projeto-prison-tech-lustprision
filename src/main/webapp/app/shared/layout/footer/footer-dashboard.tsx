@@ -11,8 +11,8 @@ const Footer = () => {
         <Row>
           <div className="credits ml-auto">
             <div className="copyright">
-              &copy; {1900 + new Date().getFullYear()}, made with{" "}
-              <i className="fa fa-heart heart"/> by LustPrision
+              &copy; {new Date().getFullYear()}, made with{" Love "}
+              by LustPrision
             </div>
           </div>
         </Row>

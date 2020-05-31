@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lustprision.admin.LustPrisionApp;
 import com.lustprision.admin.domain.*;
 import com.lustprision.admin.repository.*;
+import com.lustprision.admin.service.AuditService;
 import com.lustprision.admin.service.PrisionerService;
 import com.lustprision.admin.service.dto.PurchaseDTO;
 import com.lustprision.admin.service.dto.QuizDTO;
@@ -91,6 +92,8 @@ public class PrisionerResourceIT {
     private PrisQuizRepository presQuizRepository;
     @Autowired
     private PrisionerService prisionerService;
+    @Autowired
+    private AuditService auditService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -115,7 +118,7 @@ public class PrisionerResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PrisionerResource prisionerResource = new PrisionerResource(prisionerRepository, prisionerService);
+        final PrisionerResource prisionerResource = new PrisionerResource(prisionerRepository, prisionerService, auditService);
         this.restPrisionerMockMvc = MockMvcBuilders.standaloneSetup(prisionerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -126,6 +126,14 @@ export const productPage = makeStyles((theme: Theme) =>
     },
     sliderLabel: {
       marginLeft: '60px'
+    },
+    customImageStyle: {
+      top: '0',
+      height: '100%',
+      width: '100%',
+      transform: 'translateX(-50%)',
+      position: 'relative',
+      left: '50%'
     }
   })
 );

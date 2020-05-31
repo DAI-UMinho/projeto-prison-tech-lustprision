@@ -36,7 +36,7 @@ export const ProductOverview = (props: IProductProps) => {
 
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
-  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 1000]);
+  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 700]);
 
   useEffect(() => {
     console.log(pagination);
@@ -62,16 +62,27 @@ export const ProductOverview = (props: IProductProps) => {
     });
 
   const handleChange = (event: any, newValue: number | number[]) => {
-    // props.getProductsByPriceRange(newValue[0], newValue[1]);
     setSliderValue(newValue as number[]);
-    props.getProductsByPageName(searchValue, newValue[0], newValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`)
+    console.log(event);
+    //props.getProductsByPageName(searchValue, newValue[0], newValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`)
   };
 
   const searchChange = (e) => {
-    // props.getProductsByName(searchQuery);
     const searchQuery = e.target.value.trim();
     setSearchValue(searchQuery);
-    props.getProductsByPageName(searchQuery, sliderValue[0], sliderValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`)
+  };
+
+  useEffect(() => {
+    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+  }, [searchValue]);
+
+  useEffect(() => {
+    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+  }, [sliderValue]);
+
+  const resetFilters = () => {
+    setSliderValue([0, 700]);
+    setSearchValue('');
   };
 
   return (
@@ -117,35 +128,12 @@ export const ProductOverview = (props: IProductProps) => {
             </CardBody>
           </Card>
         </Col>
-        {/*<Col lg="3" md="6" sm="6">
-          <div className="card-hover" onClick={() => props.history.push(match.url + '/new')}>
-            <Card className="card-stats">
-              <CardBody style={{backgroundColor: "#6DB65B", borderRadius: '12px'}}>
-                <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center">
-                      <FontAwesomeIcon style={{color: "#284a25"}} icon={faPlusCircle}/>
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <CardTitle tag="p" style={{color: '#ffffff'}}>
-                        <Translate contentKey="lustPrisionApp.product.home.newCard">Product</Translate>
-                      </CardTitle>
-                      <p/>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </div>
-        </Col>*/}
         <CardNewButton cardClick={() => props.history.push(match.url + '/new')} cardTitle={"Produto"}/>
       </Row>
       <hr/>
       <div className={classes.productWrapper}>
         <div className={classes.sidebar}>
-          <SearchBar onSearchChange={searchChange}/>
+          <SearchBar searchValue={searchValue} onSearchChange={searchChange}/>
           &nbsp;
           <div className={classes.sidebarFilter}>
             <Row>
@@ -155,10 +143,13 @@ export const ProductOverview = (props: IProductProps) => {
             <Slider
               value={sliderValue}
               onChangeCommitted={handleChange}
+              // onChange={handleChange}
+              max={700}
               valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
+              aria-labelledby="continuous-slider"
             />
           </div>
+          <Button variant="contained" color="primary" onClick={resetFilters}>Remover Filtros</Button>
         </div>
         {loading ? (
           <div className={classes.gridList}>
@@ -167,8 +158,8 @@ export const ProductOverview = (props: IProductProps) => {
             <div className={classes.gridList}>
               <GridList cellHeight={mHeight} spacing={3} cols={gridNumber} className={classes.gridList}>
                 {productsPage.map((product) => (
-                  <GridListTile key={product.image} cols={2} rows={mRow} className={classes.gridItem} onClick={() => purchaseSelect(product.id)}>
-                    <img src={`data:${product.imageContentType};base64,${product.image}`} alt={product.nameProd}/>
+                  <GridListTile classes={{imgFullWidth: classes.customImageStyle, imgFullHeight: classes.customImageStyle}} key={product.image} cols={2} rows={mRow} className={classes.gridItem} onClick={() => purchaseSelect(product.id)}>
+                    <img src={`data:${product.imageContentType};base64,${product.image}`} alt={product.nameProd} />
                     <GridListTileBar
                       title={product.nameProd}
                       subtitle={<span>by: {product.seler}</span>}

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
-import {Button, Row, Badge} from 'reactstrap';
 import {makeStyles, withStyles, createStyles, Theme, useTheme} from '@material-ui/core/styles';
-import {Col, Card} from 'reactstrap';
+import {Button, Card, CardBody, CardHeader, CardTitle, Col, Label, Row} from 'reactstrap';
 import {Translate, TextFormat, JhiPagination, JhiItemCount, getSortState} from 'react-jhipster';
+import { Ellipsis } from 'react-spinners-css';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -15,11 +15,16 @@ import Paper from '@material-ui/core/Paper';
 
 import {APP_DATE_FORMAT} from 'app/config/constants';
 import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
-import {getUsers, updateUser} from './user-management.reducer';
+import {getUsers, updateUser, deleteUser} from './user-management.reducer';
 import {IRootState} from 'app/shared/reducers';
 import {useMediaQuery} from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CardNewButton from "app/components/CardNewButton";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
+const MySwal = withReactContent(Swal);
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -62,6 +67,8 @@ export const Employee = (props: IUserManagementProps) => {
     props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
+  const mStatCol = useMediaQuery(theme.breakpoints.up('xl')) ? 3 : 4;
+
   const sort = p => () =>
     setPagination({
       ...pagination,
@@ -81,10 +88,51 @@ export const Employee = (props: IUserManagementProps) => {
       activated: !user.activated
     });
 
+  const deleteEmployee = login => {
+    MySwal.fire({
+      title: <p>Apagar Funcionário?</p>,
+      text: "Não é possivel reverter esta operação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Apagar!'
+    }).then((result) => {
+      if (result.value) {
+         props.deleteUser(login);
+      }
+    })
+  };
+
+
+
   const classes = useStyles();
   const {users, account, match, totalItems, loading} = props;
   return (
     <div>
+      <Row className="justify-content-center">
+        <Col lg={mStatCol} md="6" sm="6">
+          <Card className="card-stats">
+            <CardBody>
+              <Row>
+                <Col md="4" xs="5">
+                  <div className="icon-big text-center icon-warning">
+                    <i className="nc-icon nc-badge text-warning"/>
+                  </div>
+                </Col>
+                <Col md="8" xs="7">
+                  <div className="numbers">
+                    <p className="card-category">Nº Funcionários</p>
+                    {loading ? (<Ellipsis color="#99c3ff" size={40}/> )
+                      : (<CardTitle tag="p">{users.length}</CardTitle>)}
+                  </div>
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
+        </Col>
+        <CardNewButton cardClick={() => props.history.push(match.url + '/new')} cardTitle={"Funcionário"}/>
+      </Row>
       <Row className="justify-content-center">
         <Col lg={mCol} md="6" sm="6">
           <Card className="card-stats">
@@ -103,6 +151,7 @@ export const Employee = (props: IUserManagementProps) => {
                     <StyledTableCell align="right">Created Date&nbsp;</StyledTableCell>
                     <StyledTableCell align="right">Last Modified By&nbsp;</StyledTableCell>
                     <StyledTableCell align="right">Last Modified Date&nbsp;</StyledTableCell>
+                    <StyledTableCell align="right">Eliminar&nbsp;</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -136,6 +185,9 @@ export const Employee = (props: IUserManagementProps) => {
                         <TableCell align="right">{user.lastModifiedBy}</TableCell>
                         <TableCell align="right">
                           <TextFormat value={user.lastModifiedDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />
+                        </TableCell>
+                        <TableCell align="right">
+                         <DeleteIcon onClick={() => deleteEmployee(user.login)}/>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -172,7 +224,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   account: storeState.authentication.account
 });
 
-const mapDispatchToProps = {getUsers, updateUser};
+const mapDispatchToProps = {getUsers, updateUser, deleteUser};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -45,7 +45,7 @@ const Dashboard = (props: IDashboardProps) => {
       />
      <Scrollbars>
       <div className="main-panel ps" style={{paddingTop}}>
-        <Header {...props}/>
+        <Header currentUrl={currentRoute} {...props}/>
         <div className="content content-padding">
           <Switch>
             <PrivateRoute path={`${currentRoute.url}/profile`} component={User} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
