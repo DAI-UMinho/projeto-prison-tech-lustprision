@@ -24,8 +24,14 @@ public class SESSION {
     }
 
     //teste teste
-    public void addShopping(PRODUCT_TB x) {
-        shoplist.addSHOPLIST(x);
+    public boolean addShopping(PRODUCT_TB x) {
+        if(BD_CONTROLLER.getProductStock(x.type.getID())<=0){
+            return false;
+        }else  {
+            shoplist.addSHOPLIST(x);
+            return true;
+        }
+
     }
 
 
@@ -54,7 +60,7 @@ public class SESSION {
         if(shoplist.getPrice()==0){return "";}
         //checkar se há stock para vender
         for(int i=0;i < shoplist.Shoplist.size();i++){
-            if(BD_CONTROLLER.getProductStock(shoplist.Shoplist.get(i).type.getID())>=0){}
+            if(BD_CONTROLLER.getProductStock(shoplist.Shoplist.get(i).type.getID())>= shoplist.Shoplist.get(i).quantity){}
             else{
                 System.out.println("Não há stock");
                 return shoplist.Shoplist.get(i).type.getNome(); }

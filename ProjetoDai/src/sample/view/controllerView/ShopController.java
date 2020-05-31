@@ -31,6 +31,11 @@ public class ShopController implements Initializable {
 
 
     public static boolean isshopping=false; // quando paga isshoping false
+    public static boolean stockprob=false;
+    public Label nostockelement;
+
+    String defaultstock = "Sem stock do produto ";
+
 
     public VBox productvbox;
     public Label saldo;
@@ -41,12 +46,22 @@ public class ShopController implements Initializable {
 
     public TableView tableshoplist;
     public Label nosaldolbl;
+    public Label nostock;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         nosaldolbl.setVisible(false);
+        nostock.setVisible(false);
+        nostockelement.setVisible(false);
+
+        if(stockprob==true){
+            nostock.setVisible(true);
+            stockprob=false;
+        }
+
+
         TableColumn<Integer, PRODUCTLISTLINE> columnd1 = new TableColumn<>("Preço");
         TableColumn<String, PRODUCTLISTLINE> columnd2 = new TableColumn<>("Nome");
         TableColumn<Integer, PRODUCTLISTLINE> columnd3 = new TableColumn<>("Qnt");
@@ -198,7 +213,12 @@ public class ShopController implements Initializable {
             nosaldolbl.setVisible(true);
         }else{
 
+            nostockelement.setText(defaultstock + end_statement);
+            nostockelement.setVisible(true);
         }
+
+
+
 
 
 

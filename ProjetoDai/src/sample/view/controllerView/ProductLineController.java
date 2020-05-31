@@ -50,7 +50,11 @@ public class ProductLineController implements Initializable {
 
 
 
-        Main.sis.sessionatual.addShopping(Main.sis.getProductFS(id1));
+        if(Main.sis.sessionatual.addShopping(Main.sis.getProductFS(id1))){}
+        else{
+            ShopController.stockprob=true;
+        }
+
         System.out.println(Main.sis.getProductFS(id1).type.getNome());
 
 

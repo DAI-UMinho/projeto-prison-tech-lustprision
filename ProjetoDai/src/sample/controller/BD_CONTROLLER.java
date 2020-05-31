@@ -209,7 +209,13 @@ public class BD_CONTROLLER {
 
             while (rs.next()) {
                 if (rs.getInt(1) == ID) {
-                    Prisioneiro user = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),rs.getInt("BALANCE"), rs.getInt("CODIGO_CARTAO"));
+
+                    int balance;
+                    if(rs.getInt("BALANCE")<0){
+                        balance=0;
+                    }else balance=rs.getInt("BALANCE");
+
+                    Prisioneiro user = new Prisioneiro(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("NUM_PRISIONER"), rs.getDate("DATA_NASCIMENTO"),balance, rs.getInt("CODIGO_CARTAO"));
 
                     return user;
                 }
@@ -534,7 +540,7 @@ public class BD_CONTROLLER {
 
 
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT QUIZ_ID FROM PRIS_QUIZ WHERE PRISIONER_ID = "+id+" AND APPROVAL = 1");
+            ResultSet rs = st.executeQuery("SELECT QUIZ_ID FROM PRIS_QUIZ WHERE PRISIONER_ID = "+id+" AND APPROVAL = 1 AND COMPLETED = 0");
             rs.next();
             int idquiz = rs.getInt("QUIZ_ID");
             con.close();
@@ -636,6 +642,23 @@ public class BD_CONTROLLER {
         }
 
         return false;
+    }
+
+
+
+    public static void completeQuiz(int pid){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("UPDATE PRIS_QUIZ SET COMPLETED = 1 WHERE PRISIONER_ID =" +pid);
+            rs.next();
+            con.close();
+
+
+        }catch (ClassNotFoundException | SQLException e){
+        }
+
     }
 
 
