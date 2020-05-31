@@ -30,7 +30,7 @@ public class Quiz {
 
     public boolean answerQuestion(String x){ //não é a melhor maneira mas é prática e serve perfeitamente , podiamos ir por ids de resposta
         try {
-            //BD_CONTROLLER.answerQuestion(x, questoes.get(currentquest).getIdQuestao(), idQuiz);
+            BD_CONTROLLER.answerQuestion(x, questoes.get(currentquest).getIdQuestao(), idQuiz);
         }catch(Exception e){e.printStackTrace();}
 
         if(questoes.get(currentquest).answer(x)){

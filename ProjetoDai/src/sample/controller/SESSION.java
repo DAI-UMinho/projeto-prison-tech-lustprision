@@ -50,6 +50,8 @@ public class SESSION {
 
 
     public String finishShopping() {
+
+        if(shoplist.getPrice()==0){return "";}
         //checkar se há stock para vender
         for(int i=0;i < shoplist.Shoplist.size();i++){
             if(BD_CONTROLLER.getProductStock(shoplist.Shoplist.get(i).type.getID())>=0){}
