@@ -41,7 +41,7 @@ export const Works = (props: IWorkProps) => {
   const [chartPieData, setChartStateData] = useState([0,0]);
   const [state, setState] = React.useState<TableState>({
     columns: [
-      {title: 'Numero de Trabalho', field: 'id', render: rowData => <i>#{rowData.id}</i>, filtering: false},
+      {title: 'Nº de Trabalho', field: 'id', render: rowData => <i>#{rowData.id}</i>, filtering: false},
       {title: 'Nome do Trabalho', field: 'nameWork', filtering: false},
       {title: 'Data', field: 'date', type: 'date'},
       {title: 'Recompensa', field: 'totalCredits', filtering: false},

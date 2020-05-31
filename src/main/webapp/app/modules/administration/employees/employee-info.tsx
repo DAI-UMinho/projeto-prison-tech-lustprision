@@ -84,30 +84,29 @@ export const EmployeeInfo = (props: IUserManagementProps) => {
                 </div>
                 <AvGroup>
                   <Label for="employee-login">
-                    <Translate contentKey="global.field.username">ID</Translate>
+                    <Translate contentKey="global.field.username">Login</Translate>
                   </Label>
                   <AvInput id="employee-login" type="text" className="form-control" name="login" required readOnly/>
                 </AvGroup>
                 <div className="row">
                   <div className="pr-1 col-md-6">
                     <Label id="firstNameLabel" for="employee-firstName">
-                      {/*<Translate contentKey="lustPrisionApp.work.nameWork">Name Work</Translate>*/}
-                      First Name
+                      <Translate contentKey="settings.form.firstname">First Name</Translate>
                     </Label>
                     <AvField id="employee-firstName" type="text" name="firstName"/>
                   </div>
                   <div className="pr-1 col-md-6">
-                    <Label id="priceHourLabel" for="work-priceHour">
-                      Last Name
+                    <Label for="employee-lastName">
+                      <Translate contentKey="settings.form.lastname">Last Name</Translate>
                     </Label>
-                    <AvField id="work-priceHour" type="string" className="form-control" name="lastName"/>
+                    <AvField id="employee-lastName" type="string" className="form-control" name="lastName"/>
                   </div>
                 </div>
                 <AvGroup>
-                  <Label id="numVacanciesLabel" for="work-numVacancies">
+                  <Label for="employee-email">
                     Email
                   </Label>
-                  <AvField id="work-numVacancies" type="string" className="form-control" name="email"/>
+                  <AvField id="employee-email" type="string" className="form-control" name="email"/>
                 </AvGroup>
                 <AvGroup check>
                   <Label>

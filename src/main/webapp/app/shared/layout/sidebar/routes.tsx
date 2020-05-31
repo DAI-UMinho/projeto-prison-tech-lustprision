@@ -15,7 +15,7 @@ export const adminRoutes = [
   },
   {
     path: "/audits",
-    name: "Login Logs",
+    name: "Registos de Logins",
     icon: "nc-icon nc-lock-circle-open",
     layout: "/dashboard"
   }

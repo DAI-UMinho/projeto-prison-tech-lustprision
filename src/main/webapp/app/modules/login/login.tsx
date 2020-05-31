@@ -91,15 +91,6 @@ export const Login = (props: ILoginProps) => {
                   <Translate contentKey="login.password.forgot">Did you forget your password?</Translate>
                 </Link>
               </Alert>
-              <Alert color="info">
-              <span>
-                <Translate
-                  contentKey="global.messages.info.register.noaccount">You don&apos;t have an account yet?</Translate>
-              </span>{' '}
-                <Link to="/account/register">
-                  <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
-                </Link>
-              </Alert>
             </ModalBody>
           </AvForm>
         </div>

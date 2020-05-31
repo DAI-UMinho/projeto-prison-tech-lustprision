@@ -36,7 +36,7 @@ export const ProductOverview = (props: IProductProps) => {
 
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
-  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 700]);
+  const [sliderValue, setSliderValue] = React.useState<number[]>([0, 50]);
 
   useEffect(() => {
     console.log(pagination);
@@ -137,14 +137,14 @@ export const ProductOverview = (props: IProductProps) => {
           &nbsp;
           <div className={classes.sidebarFilter}>
             <Row>
-              <h3 className={classes.filter}>Multi Range</h3>
+              <h3 className={classes.filter}>Filtro por preço</h3>
               <p className={classes.sliderLabel}>{`${sliderValue[0]}-${sliderValue[1]}`}</p>
             </Row>
             <Slider
               value={sliderValue}
               onChangeCommitted={handleChange}
               // onChange={handleChange}
-              max={700}
+              max={50}
               valueLabelDisplay="auto"
               aria-labelledby="continuous-slider"
             />

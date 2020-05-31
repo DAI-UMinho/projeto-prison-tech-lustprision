@@ -59,20 +59,12 @@ public class CacheConfiguration {
             createCache(cm, com.lustprision.admin.domain.Purchase.class.getName() + ".idPurchases");
             createCache(cm, com.lustprision.admin.domain.Product.class.getName());
             createCache(cm, com.lustprision.admin.domain.Product.class.getName() + ".codeProds");
-            createCache(cm, com.lustprision.admin.domain.Login.class.getName());
-            createCache(cm, com.lustprision.admin.domain.Login.class.getName() + ".userNames");
-            createCache(cm, com.lustprision.admin.domain.Permission.class.getName());
-            createCache(cm, com.lustprision.admin.domain.Permission.class.getName() + ".idPermissions");
-            createCache(cm, com.lustprision.admin.domain.SystemAdmin.class.getName());
-            createCache(cm, com.lustprision.admin.domain.AdminEmploy.class.getName());
             createCache(cm, com.lustprision.admin.domain.Prisioner.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Work.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Quiz.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Question.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Purchase.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Product.class.getName() + ".ids");
-            createCache(cm, com.lustprision.admin.domain.Login.class.getName() + ".ids");
-            createCache(cm, com.lustprision.admin.domain.Permission.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.PressProduct.class.getName());
             createCache(cm, com.lustprision.admin.domain.State.class.getName());
             // jhipster-needle-ehcache-add-entry

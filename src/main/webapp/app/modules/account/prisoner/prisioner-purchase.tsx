@@ -43,13 +43,13 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
 
   const purchaseDelete = id =>{
     MySwal.fire({
-      title: <p>Reverter Compra?</p>,
-      text: "Os créditos irão ser devolvidos ao comprador",
+      title: <p>Eliminar Compra?</p>,
+      text: "Esta compra irá ser apagada",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#dd791e',
-      confirmButtonText: 'Reverter!'
+      confirmButtonText: 'Eliminar!'
     }).then((result) => {
       if (result.value) {
         return props.deleteEntity(id);
@@ -140,8 +140,8 @@ export const PrisionerPurchase = (props: IPrisionerPurchaseProps) => {
             }}
             actions={[
               {
-                icon: () => <TableIcon.Revert/>,
-                tooltip: 'Reverter Compra',
+                icon: () => <TableIcon.Delete/>,
+                tooltip: 'Eliminar Compra',
                 onClick: (event, rowData) => purchaseDelete(rowData.id)
               }
             ]}

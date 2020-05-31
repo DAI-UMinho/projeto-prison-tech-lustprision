@@ -8,12 +8,18 @@
 
 
     <!--
-        Added the entity Product.
+        Added the audit entity Prisioner.
     -->
-    <changeSet id="20200320152200-1" author="jhipster">
-        <createTable tableName="product">
+    <changeSet id="20200320151300-1" author="jhipster">
+        <createTable tableName="product_aud">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="rev" type="integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="revtype" type="tinyint">
+                <constraints nullable="true" />
             </column>
             <column name="name_prod" type="varchar(255)">
                 <constraints nullable="true" />
@@ -37,16 +43,23 @@
                 <constraints nullable="true" />
             </column>
             <column name="created_by" type="varchar(50)">
-                <constraints nullable="false"/>
+                <constraints nullable="true" />
             </column>
-            <column name="created_date" type="timestamp"/>
-            <column name="last_modified_by" type="varchar(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            <column name="last_modified_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
     </changeSet>
 
-    <changeSet id="20200320152200-1-relations" author="jhipster">
+    <changeSet id="20200320151300-1-relations" author="jhipster">
 
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
@@ -59,17 +72,23 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20200320152200-1-data" author="jhipster" context="faker">
+    <changeSet id="20200320151300-1-data-1" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/product.csv"
+                  file="config/liquibase/fake-data/prisioner.csv"
                   separator=";"
-                  tableName="product">
+                  tableName="prisioner">
             <column name="id" type="numeric"/>
+            <column name="rev" type="numeric"/>
+            <column name="revtype" type="numeric"/>
             <column name="name_prod" type="string"/>
             <column name="price" type="numeric"/>
             <column name="seler" type="string"/>
             <column name="description_prod" type="string"/>
             <column name="quanty_in_stock" type="numeric"/>
+            <column name="created_by" type="string"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="string"/>
+            <column name="last_modified_date" type="timestamp"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

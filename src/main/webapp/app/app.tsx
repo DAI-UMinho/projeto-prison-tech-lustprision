@@ -4,7 +4,7 @@ import './app.scss';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'reactstrap';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { hot } from 'react-hot-loader';
 
@@ -20,12 +20,12 @@ import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
 import Login from "app/modules/login/login";
-import Register from "app/modules/account/register/register";
+import Logout from "app/modules/login/logout";
 import ActivatePage from "app/modules/account/activate/activate";
 import PasswordResetInit from "app/modules/account/password-reset/init/password-reset-init";
 import Dashboard from "app/Dashboard";
 import PasswordResetFinish from "app/modules/account/password-reset/finish/password-reset-finish";
-import Logout from "app/modules/login/logout";
+import PageNotFound from "app/shared/error/page-not-found";
 
 const baseHref = document
   .querySelector('base')
@@ -47,8 +47,9 @@ export const App = (props: IAppProps) => {
       <div className="app-container">
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
         <Switch>
-          <ErrorBoundaryRoute path="/login" exact component={Login}/>
+          <ErrorBoundaryRoute path="/" exact component={() => <Redirect  to="/login"/>}/>
           <ErrorBoundaryRoute path="/logout" exact component={Logout}/>
+          <ErrorBoundaryRoute path="/login" exact component={Login}/>
           <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
           <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
           <ErrorBoundaryRoute path="/account/reset/request" exact component={PasswordResetInit} />
@@ -61,35 +62,37 @@ export const App = (props: IAppProps) => {
                        isInProduction={props.isInProduction}
                        isSwaggerEnabled={props.isSwaggerEnabled}/>
           }/>
-          <div id="no-auth" style={{ paddingTop }}>
-            <ErrorBoundary>
-              <Header
-                isAuthenticated={props.isAuthenticated}
-                isAdmin={props.isAdmin}
-                currentLocale={props.currentLocale}
-                onLocaleChange={props.setLocale}
-                ribbonEnv={props.ribbonEnv}
-                isInProduction={props.isInProduction}
-                isSwaggerEnabled={props.isSwaggerEnabled}
-              />
-            </ErrorBoundary>
-            <Switch>
-              {/*<ErrorBoundaryRoute path="/logout" exact component={Logout}/>*/}
-              {/*<ErrorBoundaryRoute path="/login" exact={true} component={Login}/>*/}
-              {/*<ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
-              <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
-              <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
-              <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />*/}
-              <div className="container-fluid view-container" id="app-view-container">
-                <Card className="jh-card">
-                  <ErrorBoundary>
-                    <AppRoutes />
-                  </ErrorBoundary>
-                </Card>
-                <Footer />
-              </div>
-            </Switch>
-          </div>
+          <Route path="/admin"  render={() =>
+            <div id="no-auth" style={{ paddingTop }}>
+              <ErrorBoundary>
+                <Header
+                  isAuthenticated={props.isAuthenticated}
+                  isAdmin={props.isAdmin}
+                  currentLocale={props.currentLocale}
+                  onLocaleChange={props.setLocale}
+                  ribbonEnv={props.ribbonEnv}
+                  isInProduction={props.isInProduction}
+                  isSwaggerEnabled={props.isSwaggerEnabled}
+                />
+              </ErrorBoundary>
+              <Switch>
+                {/*<ErrorBoundaryRoute path="/logout" exact component={Logout}/>*/}
+                {/*<ErrorBoundaryRoute path="/login" exact={true} component={Login}/>*/}
+                {/*<ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
+                <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
+                <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
+                <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />*/}
+                <div className="container-fluid view-container" id="app-view-container">
+                  <Card className="jh-card">
+                    <ErrorBoundary>
+                      <AppRoutes />
+                    </ErrorBoundary>
+                  </Card>
+                  <Footer />
+                </div>
+              </Switch>
+            </div>} />
+          <ErrorBoundaryRoute component={PageNotFound} />
         </Switch>
       </div>
     </Router>

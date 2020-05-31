@@ -150,7 +150,6 @@ export const EmployeeNew = (props: IEmployeeNewProps) => {
                   <AvField
                     name="email"
                     label={translate('global.form.email.label')}
-                    placeholder={translate('global.form.email.placeholder')}
                     type="email"
                     validate={{
                       required: {

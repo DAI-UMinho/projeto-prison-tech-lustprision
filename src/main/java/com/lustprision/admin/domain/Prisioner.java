@@ -81,11 +81,6 @@ public class Prisioner extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Purchase> idsaa = new HashSet<>();
 
-    @NotAudited
-    @ManyToOne
-    @JsonIgnoreProperties("ids")
-    private Permission permission;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -311,20 +306,6 @@ public class Prisioner extends AbstractAuditingEntity implements Serializable {
     public void setIds(Set<Purchase> purchases) {
         this.ids = purchases;
     }*/
-
-    public Permission getPermission() {
-        return permission;
-    }
-
-    public Prisioner permission(Permission permission) {
-        this.permission = permission;
-        return this;
-    }
-
-    public void setPermission(Permission permission) {
-        this.permission = permission;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

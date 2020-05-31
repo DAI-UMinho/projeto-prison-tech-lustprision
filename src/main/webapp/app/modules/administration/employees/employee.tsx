@@ -148,9 +148,9 @@ export const Employee = (props: IUserManagementProps) => {
                     <StyledTableCell align="right">Login</StyledTableCell>
                     <StyledTableCell align="right">Email&nbsp;</StyledTableCell>
                     <StyledTableCell align="right">Activated&nbsp;</StyledTableCell>
-                    <StyledTableCell align="right">Created Date&nbsp;</StyledTableCell>
-                    <StyledTableCell align="right">Last Modified By&nbsp;</StyledTableCell>
-                    <StyledTableCell align="right">Last Modified Date&nbsp;</StyledTableCell>
+                    <StyledTableCell align="right">Data de criação&nbsp;</StyledTableCell>
+                    <StyledTableCell align="right">Último a modificar&nbsp;</StyledTableCell>
+                    <StyledTableCell align="right">Última modifação&nbsp;</StyledTableCell>
                     <StyledTableCell align="right">Eliminar&nbsp;</StyledTableCell>
                   </TableRow>
                 </TableHead>

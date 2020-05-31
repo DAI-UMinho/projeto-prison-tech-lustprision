@@ -102,16 +102,11 @@ public class WorkResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Work createEntity(EntityManager em) {
-        State m = StateResourceIT.createPendingState(em);
-        m.setId(1L);
         Work work = new Work()
-
             .nameWork(DEFAULT_NAME_WORK)
             .priceHour(DEFAULT_PRICE_HOUR)
-            .state(m)
             .numVacancies(DEFAULT_NUM_REMAINING_ENTRIES)
             .date(DEFAULT_DATE);
-        System.out.println(work.getState().getId());
         return work;
     }
     /**

@@ -46,7 +46,9 @@ const Header = (props: IUserHeader) => {
 
   const handleLogout = (exit?: boolean) => {
     setOpen(false);
-    if(exit){ window.location.replace('/logout'); }
+    if(exit){
+      window.location.replace('/logout');
+    }
   };
 
   const toggle = () => {

@@ -56,7 +56,7 @@ const User = (props: IUserSettingsProps) => {
   };
 
   const updatePassword = event => setPassword(event.target.value);
-  console.log(profileImage);
+
   return (
       <Row>
         <Col md="4">
