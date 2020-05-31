@@ -47,6 +47,11 @@ export const App = (props: IAppProps) => {
       <div className="app-container">
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
         <Switch>
+          <ErrorBoundaryRoute path="/login" exact component={Login}/>
+          <ErrorBoundaryRoute path="/logout" exact component={Logout}/>
+          <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
+          <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
+          <ErrorBoundaryRoute path="/account/reset/request" exact component={PasswordResetInit} />
           <Route path="/dashboard" render={() =>
             <Dashboard isAuthenticated={props.isAuthenticated}
                        isAdmin={props.isAdmin}
@@ -69,12 +74,12 @@ export const App = (props: IAppProps) => {
               />
             </ErrorBoundary>
             <Switch>
-              <ErrorBoundaryRoute path="/logout" exact component={Logout}/>
-              <ErrorBoundaryRoute path="/login" exact={true} component={Login}/>
-              <ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
+              {/*<ErrorBoundaryRoute path="/logout" exact component={Logout}/>*/}
+              {/*<ErrorBoundaryRoute path="/login" exact={true} component={Login}/>*/}
+              {/*<ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
               <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
               <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
-              <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />
+              <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />*/}
               <div className="container-fluid view-container" id="app-view-container">
                 <Card className="jh-card">
                   <ErrorBoundary>

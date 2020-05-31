@@ -11,12 +11,17 @@ import {IRootState} from 'app/shared/reducers';
 import {getEntity, updateEntity, createEntity, setBlob, reset, getProductSales, deleteEntity} from './product.reducer';
 import CloseIcon from '@material-ui/icons/Close';
 import MaterialTable, {Column} from "material-table";
-import {APP_DATE_FORMAT} from "app/config/constants";
+import {APP_DATE_FORMAT, AUTHORITIES} from "app/config/constants";
 import TableIcon from "app/shared/util/table-icon";
-import {useMediaQuery} from "@material-ui/core";
+import {Fab, useMediaQuery} from "@material-ui/core";
 import {useTheme} from "@material-ui/core/styles";
 import {Bar} from "react-chartjs-2";
 import {getChartProductSales} from "app/shared/reducers/statistics";
+import PrisonerLogs from "app/modules/account/prisoner/prisioner-logs";
+import ProductLogs from "app/modules/products/product-logs";
+import EventNoteIcon from "@material-ui/icons/EventNote";
+import {hasAnyAuthority} from "app/shared/auth/private-route";
+import {logPages} from "app/shared/layout/themes/themes";
 
 export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -26,11 +31,13 @@ interface TableState {
 }
 
 export const ProductEditInfo = (props: IProductUpdateProps) => {
+  const classes = logPages();
   const theme = useTheme();
   const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 6;
 
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const [chartProduct, setChartProduct] = useState([]);
+  const [open, setOpen] = useState(false);
   const [state, setState] = React.useState<TableState>({
     columns: [
       {
@@ -53,11 +60,15 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
       {title: 'Valor Total', field: 'priceTotal'},
     ]
   });
-  const {productEntity, loading, updating, productSales, chartSales} = props;
+  const {productEntity, loading, updating, productSales, chartSales, isAdmin} = props;
   const {image, imageContentType} = productEntity;
 
   const handleClose = () => {
     props.history.goBack();
+  };
+
+  const handleDialogClose = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -126,6 +137,18 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
 
   return (
     <div>
+      {isAdmin &&
+      <Row className="justify-content-end">
+        <Fab aria-label="edit"
+             variant="extended"
+             size="medium"
+             color="primary"
+             className={classes.logButton}
+             onClick={() => setOpen(true)}>
+          <EventNoteIcon className={classes.extendedIcon}/>
+          Logs
+        </Fab>
+      </Row>}
       <Row className="justify-content-center">
         <Col md="4">
           <Card className="card-user">
@@ -368,6 +391,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
           </Row>
         </div>
       ) : null}
+      <ProductLogs  open={open} productID={productEntity.id} onClose={handleDialogClose}/>
     </div>
   );
 };
@@ -378,7 +402,8 @@ const mapStateToProps = (state: IRootState) => ({
   loading: state.product.loading,
   updating: state.product.updating,
   updateSuccess: state.product.updateSuccess,
-  chartSales: state.statistics.chartProductSales
+  chartSales: state.statistics.chartProductSales,
+  isAdmin: hasAnyAuthority(state.authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {

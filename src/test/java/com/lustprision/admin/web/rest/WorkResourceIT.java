@@ -1,9 +1,11 @@
 package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.LustPrisionApp;
+import com.lustprision.admin.domain.State;
 import com.lustprision.admin.domain.Work;
 import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.service.AuditService;
 import com.lustprision.admin.service.WorkService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -60,6 +62,9 @@ public class WorkResourceIT {
     private StateRepository stateRepository;
 
     @Autowired
+    private AuditService auditService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -81,7 +86,7 @@ public class WorkResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WorkResource workResource = new WorkResource(workRepository, stateRepository, workService);
+        final WorkResource workResource = new WorkResource(workRepository, stateRepository, workService, auditService);
         this.restWorkMockMvc = MockMvcBuilders.standaloneSetup(workResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -97,12 +102,16 @@ public class WorkResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Work createEntity(EntityManager em) {
+        State m = StateResourceIT.createPendingState(em);
+        m.setId(1L);
         Work work = new Work()
 
             .nameWork(DEFAULT_NAME_WORK)
             .priceHour(DEFAULT_PRICE_HOUR)
+            .state(m)
             .numVacancies(DEFAULT_NUM_REMAINING_ENTRIES)
             .date(DEFAULT_DATE);
+        System.out.println(work.getState().getId());
         return work;
     }
     /**
@@ -220,8 +229,8 @@ System.out.println(databaseSizeBeforeCreate);
     public void updateWork() throws Exception {
         // Initialize the database
         workRepository.saveAndFlush(work);
-
         int databaseSizeBeforeUpdate = workRepository.findAll().size();
+        State state = StateResourceIT.createPendingState(em);
 
         // Update the work
         Work updatedWork = workRepository.findById(work.getId()).get();
@@ -231,6 +240,7 @@ System.out.println(databaseSizeBeforeCreate);
             .nameWork(UPDATED_NAME_WORK)
             .priceHour(UPDATED_PRICE_HOUR)
             .numVacancies(UPDATED_NUM_REMAINING_ENTRIES)
+            .state(state)
             .date(UPDATED_DATE);
 
         restWorkMockMvc.perform(put("/api/works")

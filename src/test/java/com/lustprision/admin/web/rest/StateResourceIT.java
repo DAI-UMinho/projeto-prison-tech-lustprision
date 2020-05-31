@@ -33,8 +33,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = LustPrisionApp.class)
 public class StateResourceIT {
 
+    private static final Long PENDING_STATE = 1L;
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+    private static final String PENDING_NAME = "PENDING";
     private static final String DEFAULT_PENDING = "PENDING";
     private static final String UPDATED_CANCELLED = "CANCELED";
 
@@ -86,9 +88,11 @@ public class StateResourceIT {
 
     public static State createPendingState(EntityManager em) {
         State state = new State()
-            .name(DEFAULT_PENDING);
+            .id(PENDING_STATE)
+            .name(PENDING_NAME);
         return state;
     }
+
     /**
      * Create an updated entity for this test.
      *

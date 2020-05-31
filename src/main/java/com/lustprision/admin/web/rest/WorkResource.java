@@ -5,8 +5,11 @@ import com.lustprision.admin.domain.State;
 import com.lustprision.admin.domain.Work;
 import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.service.AuditService;
 import com.lustprision.admin.service.WorkService;
+import com.lustprision.admin.service.dto.ProductDTO;
 import com.lustprision.admin.service.dto.ProductSaleDTO;
+import com.lustprision.admin.service.dto.WorkDTO;
 import com.lustprision.admin.service.dto.WorkSubsDTO;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
@@ -45,10 +48,14 @@ public class WorkResource {
 
     private final StateRepository stateRepository;
 
-    public WorkResource(WorkRepository workRepository, StateRepository stateRepository, WorkService workService) {
+    private final AuditService auditService;
+
+    public WorkResource(WorkRepository workRepository, StateRepository stateRepository, WorkService workService,
+                        AuditService auditService) {
         this.workRepository = workRepository;
         this.stateRepository = stateRepository;
         this.workService = workService;
+        this.auditService = auditService;
     }
 
     /**
@@ -158,5 +165,11 @@ public class WorkResource {
     public List<WorkSubsDTO> getWorkSubs(@PathVariable Long id) {
         log.debug("REST request to get all Products Sales");
         return workService.getCurrentWorkSubs(id);
+    }
+
+    @GetMapping("/works/{id}/logs")
+    public List<WorkDTO> getWorkLog(@PathVariable Long id){
+        log.debug("REST request to get all Prisioner work jobs : {}", id);
+        return auditService.getWorkLogs(id);
     }
 }

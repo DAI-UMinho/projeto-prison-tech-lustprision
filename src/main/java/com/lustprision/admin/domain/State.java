@@ -38,6 +38,11 @@ public class State implements Serializable {
         return name;
     }
 
+    public State id(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public State name(String name) {
         this.name = name;
         return this;

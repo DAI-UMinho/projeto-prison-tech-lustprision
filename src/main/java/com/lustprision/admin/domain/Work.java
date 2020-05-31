@@ -2,6 +2,8 @@ package com.lustprision.admin.domain;
 
     import org.hibernate.annotations.Cache;
     import org.hibernate.annotations.CacheConcurrencyStrategy;
+    import org.hibernate.envers.Audited;
+    import org.hibernate.envers.NotAudited;
 
     import javax.persistence.*;
 
@@ -14,9 +16,10 @@ package com.lustprision.admin.domain;
  * A Work.
  */
 @Entity
+@Audited
 @Table(name = "work_job")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Work implements Serializable {
+public class Work extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,10 +40,12 @@ public class Work implements Serializable {
     @Column(name = "date_work")
     private LocalDate date;
 
+    @NotAudited
     @OneToMany(mappedBy = "work")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressWork> ids = new HashSet<>();
-
+    
+    @NotAudited
     @OneToOne
     @JoinColumn(unique = true)
     private State state;

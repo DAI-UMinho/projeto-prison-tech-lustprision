@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import {Row} from 'reactstrap';
 import {IRootState} from "app/shared/reducers";
 
 import {getPrisonerPurchases, getEntity, getPrisionerWorks, getPrisionerQuizs} from "./prisioner.reducer";
@@ -28,6 +29,7 @@ import {Fab} from "@material-ui/core";
 import {AUTHORITIES} from "app/config/constants";
 import PrisonerLogs from "app/modules/account/prisoner/prisioner-logs";
 import EventNoteIcon from '@material-ui/icons/EventNote';
+import {logPages} from "app/shared/layout/themes/themes";
 
 interface TabPanelProps {
   children?: any;
@@ -129,6 +131,7 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
     );
   }
   const classes = useStyles();
+  const log = logPages();
 
   return (
     <div>
@@ -142,15 +145,17 @@ export const PrisonerUpdate = (props: IPrisionerUpdateProps) => {
         </Tabs>
       </AppBar>
       {isAdmin &&
-      <Fab aria-label="edit"
-           variant="extended"
-           size="medium"
-           color="primary"
-           className={classes.margin}
-           onClick={() => setOpen(true)}>
-        <EventNoteIcon className={classes.extendedIcon}/>
-        Logs
-      </Fab>}
+      <Row className="justify-content-end">
+        <Fab aria-label="edit"
+             variant="extended"
+             size="medium"
+             color="primary"
+             className={log.logButton}
+             onClick={() => setOpen(true)}>
+          <EventNoteIcon className={classes.extendedIcon}/>
+          Logs
+        </Fab>
+      </Row>}
       <TabPanel value={mValue} index={0}>
         <PrisionerInfo {...props} />
       </TabPanel>

@@ -2,10 +2,9 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Product;
 import com.lustprision.admin.repository.ProductRepository;
+import com.lustprision.admin.service.AuditService;
 import com.lustprision.admin.service.ProductService;
-import com.lustprision.admin.service.dto.PressProductDTO;
-import com.lustprision.admin.service.dto.ProductSaleDTO;
-import com.lustprision.admin.service.dto.UserDTO;
+import com.lustprision.admin.service.dto.*;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -47,9 +46,13 @@ public class ProductResource {
 
     private final ProductService productService;
 
-    public ProductResource(ProductRepository productRepository, ProductService productService) {
+    private final AuditService auditService;
+
+
+    public ProductResource(ProductRepository productRepository, ProductService productService, AuditService auditService) {
         this.productRepository = productRepository;
         this.productService = productService;
+        this.auditService = auditService;
     }
 
     /**
@@ -172,5 +175,11 @@ public class ProductResource {
     public List<ProductSaleDTO> getProductSales(@PathVariable Long id) {
         log.debug("REST request to get all Products Sales");
         return productService.getPressProductFromProduct(id);
+    }
+
+    @GetMapping("/products/{id}/logs")
+    public List<ProductDTO> getProductLog(@PathVariable Long id){
+        log.debug("REST request to get all Prisioner work jobs : {}", id);
+        return auditService.getProductLogs(id);
     }
 }

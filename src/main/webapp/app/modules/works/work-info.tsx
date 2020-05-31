@@ -5,7 +5,7 @@ import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation'
 import {translate, Translate} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Button as RButton, Card, CardBody, CardHeader, CardTitle, Col, Label, Row} from 'reactstrap';
-import {Button, CircularProgress} from "@material-ui/core";
+import {Button, CircularProgress, Fab} from "@material-ui/core";
 import {IRootState} from 'app/shared/reducers';
 
 import {getEntity, getWorkSubs, updateCancelWork, updateCompleteWork, updateEntity} from './work.reducer';
@@ -25,7 +25,12 @@ import TableIcon from "app/shared/util/table-icon";
 import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import moment from "moment";
-import {datePicker} from "app/shared/layout/themes/themes";
+import {datePicker, logPages} from "app/shared/layout/themes/themes";
+import EventNoteIcon from "@material-ui/icons/EventNote";
+import {hasAnyAuthority} from "app/shared/auth/private-route";
+import {AUTHORITIES} from "app/config/constants";
+import PrisonerLogs from "app/modules/account/prisoner/prisioner-logs";
+import WorkLogs from "app/modules/works/work-logs";
 
 const MySwal = withReactContent(Swal);
 
@@ -43,10 +48,12 @@ interface WorkSubs{
 }
 
 export const WorkInfo = (props: IWorkUpdateProps) => {
-  const classes = datePicker();
+  const date = datePicker();
+  const classes = logPages();
 
-  const {workEntity, loading, updating, workSubs, prisoners, prisonersLoading, pressUpdating} = props;
+  const {workEntity, loading, updating, workSubs, prisoners, prisonersLoading, pressUpdating, isAdmin} = props;
   const [open, setOpen] = useState(false);
+  const [logOpen, setLogOpen] = useState(false);
   const [data, setData] = useState([]);
   const [stateID, setStateID] = useState(0);
   const [stateImg, setStateImg] = useState(pending);
@@ -113,6 +120,10 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
   const handleDialogClose = (result?) => {
     setOpen(false);
     if(result){ createPW(result); }
+  };
+
+  const handleLogDialogClose = () => {
+    setLogOpen(false);
   };
 
   useEffect(() => {
@@ -230,6 +241,18 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
 
   return (
     <div>
+      {isAdmin &&
+      <Row className="justify-content-end">
+        <Fab aria-label="edit"
+             variant="extended"
+             size="medium"
+             color="primary"
+             className={classes.logButton}
+             onClick={() => setLogOpen(true)}>
+          <EventNoteIcon className={classes.extendedIcon}/>
+          Logs
+        </Fab>
+      </Row>}
       <Row>
         <Col md="8">
           <Card className="card-user justify-content-center">
@@ -272,7 +295,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                       <DatePicker
                         disablePast={!allowWorkActions && true}
-                        className={`form-control ${classes.datePicker}`}
+                        className={`form-control ${date.datePicker}`}
                         openTo="date"
                         format="dd/MM/yyyy"
                         views={["year", "month", "date"]}
@@ -401,6 +424,7 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
         </Col>
       </Row>
       <WorkSubDialog open={open} onClose={handleDialogClose} data={prisoners} loading={prisonersLoading}/>
+      <WorkLogs open={logOpen} workID={workEntity.id} onClose={handleLogDialogClose} />
     </div>
   );
 };
@@ -413,7 +437,8 @@ const mapStateToProps = (state: IRootState) => ({
   updateSuccess: state.work.updateSuccess,
   prisoners: state.prisioner.entities,
   prisonersLoading: state.prisioner.loading,
-  pressUpdating: state.pressWork.updating
+  pressUpdating: state.pressWork.updating,
+  isAdmin: hasAnyAuthority(state.authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {

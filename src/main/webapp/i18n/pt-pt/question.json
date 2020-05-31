@@ -16,13 +16,16 @@
       "detail": {
         "title": "Question"
       },
-      "question": "Question",
+      "question": "Questão",
       "value": "Value",
-      "answer": "Answer",
-      "wrongAnswer1": "Wrong Answer 1",
-      "wrongAnswer2": "Wrong Answer 2",
-      "wrongAnswer3": "Wrong Answer 3",
-      "id": "Id"
+      "answer": "Resposta Correta",
+      "wrongAnswer1": "Resposta Errada 1",
+      "wrongAnswer2": "Resposta Errada 2",
+      "wrongAnswer3": "Resposta Errada 3",
+      "id": "Id",
+      "validate": {
+        "required": "Este campo é obrigatório"
+      }
     }
   }
 }

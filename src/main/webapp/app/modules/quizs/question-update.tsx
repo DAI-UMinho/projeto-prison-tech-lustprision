@@ -18,7 +18,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Ellipsis } from 'react-spinners-css';
 import Paper from '@material-ui/core/Paper';
-import {Translate} from "react-jhipster";
+import {translate, Translate} from "react-jhipster";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {createEntity, updateEntity} from "app/modules/quizs/question.reducer";
@@ -157,31 +157,61 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
               <Label id="questionLabel" for="question-question">
                 <Translate contentKey="lustPrisionApp.question.question">Question</Translate>
               </Label>
-              <AvField id="question-question" type="text" name="question" />
+              <AvField id="question-question" type="text" name="question"
+                       validate={{
+                         required: {
+                           value: true,
+                           errorMessage: translate('lustPrisionApp.question.validate.required')
+                         }
+                       }}/>
             </AvGroup>
             <AvGroup>
               <Label id="answerLabel" for="question-answer">
                 <Translate contentKey="lustPrisionApp.question.answer">Answer</Translate>
               </Label>
-              <AvField id="question-answer" type="text" name="answer" />
+              <AvField id="question-answer" type="text" name="answer"
+                       validate={{
+                         required: {
+                           value: true,
+                           errorMessage: translate('lustPrisionApp.question.validate.required')
+                         }
+                       }}/>
             </AvGroup>
             <AvGroup>
               <Label id="wrongAnswer1Label" for="question-wrongAnswer1">
                 <Translate contentKey="lustPrisionApp.question.wrongAnswer1">Wrong Answer 1</Translate>
               </Label>
-              <AvField id="question-wrongAnswer1" type="text" name="wrongAnswer1" />
+              <AvField id="question-wrongAnswer1" type="text" name="wrongAnswer1"
+                       validate={{
+                         required: {
+                           value: true,
+                           errorMessage: translate('lustPrisionApp.question.validate.required')
+                         }
+                       }}/>
             </AvGroup>
             <AvGroup>
               <Label id="wrongAnswer2Label" for="question-wrongAnswer2">
                 <Translate contentKey="lustPrisionApp.question.wrongAnswer2">Wrong Answer 2</Translate>
               </Label>
-              <AvField id="question-wrongAnswer2" type="text" name="wrongAnswer2" />
+              <AvField id="question-wrongAnswer2" type="text" name="wrongAnswer2"
+                       validate={{
+                         required: {
+                           value: true,
+                           errorMessage: translate('lustPrisionApp.question.validate.required')
+                         }
+                       }}/>
             </AvGroup>
             <AvGroup>
               <Label id="wrongAnswer3Label" for="question-wrongAnswer3">
                 <Translate contentKey="lustPrisionApp.question.wrongAnswer3">Wrong Answer 3</Translate>
               </Label>
-              <AvField id="question-wrongAnswer3" type="text" name="wrongAnswer3" />
+              <AvField id="question-wrongAnswer3" type="text" name="wrongAnswer3"
+                       validate={{
+                         required: {
+                           value: true,
+                           errorMessage: translate('lustPrisionApp.question.validate.required')
+                         }
+                       }}/>
             </AvGroup>
             &nbsp;
             <Button style={{float: 'right'}} color="primary" id="save-entity" type="submit">

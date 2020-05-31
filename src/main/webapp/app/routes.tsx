@@ -12,7 +12,6 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import PageNotFound from 'app/shared/error/page-not-found';
 import {AUTHORITIES} from 'app/config/constants';
-import Sidebar from "app/shared/layout/sidebar/Sidebar";
 import './routes.scss'
 
 const Account = Loadable({

@@ -46,6 +46,49 @@ export const quizTheme = makeStyles((theme: Theme) =>
   })
 );
 
+export const logs = makeStyles((theme: Theme) =>
+  createStyles({
+    modal: {
+      maxWidth: '800px',
+      minWidth: '550px'
+    },
+    tableHeader: {
+      fontWeight: 'bold'
+    },
+    hr: {
+      marginBottom: 0,
+      marginTop: 0
+    }
+  })
+);
+
+export const logPages = makeStyles((theme: Theme) =>
+  createStyles({
+    appbar: {
+      background: 'transparent',
+      boxShadow: 'none',
+      color: '#000000'
+    },
+    table: {
+      minWidth: 700
+    },
+    textStyle: {
+      fontWeight: 'bold'
+    },
+    margin: {
+      margin: theme.spacing(1),
+      float: 'right'
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1)
+    },
+    logButton: {
+      marginBottom: 10,
+      marginRight: 20
+    }
+  })
+);
+
 export const productPage = makeStyles((theme: Theme) =>
   createStyles({
     root: {

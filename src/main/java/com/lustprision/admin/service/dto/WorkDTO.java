@@ -5,7 +5,7 @@ import com.lustprision.admin.domain.Work;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-public class WorkDTO {
+public class WorkDTO extends AuditDTO{
 
     @Size(max = 38)
     private Long id;
@@ -27,10 +27,12 @@ public class WorkDTO {
     private String stateName;
 
     public WorkDTO() {
+        super(null, null, null, null);
         // Empty constructor needed for Jackson.
     }
 
     public WorkDTO(Work work) {
+        super(work.getCreatedBy(), work.getCreatedDate(), work.getLastModifiedBy(), work.getLastModifiedDate());
         this.id = work.getId();
         this.nameWork = work.getNameWork();
         this.totalCredits = work.getTotalCredits();

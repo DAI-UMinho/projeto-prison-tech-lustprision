@@ -2,6 +2,8 @@ package com.lustprision.admin.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 
@@ -13,9 +15,10 @@ import java.util.Set;
  * A Product.
  */
 @Entity
+@Audited
 @Table(name = "product")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Product implements Serializable {
+public class Product extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,9 +26,6 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-
-    @Column(name = "product_lin_id")
-    private Integer productLinId;
 
     @Column(name = "name_prod")
     private String nameProd;
@@ -42,9 +42,6 @@ public class Product implements Serializable {
     @Column(name = "quanty_in_stock")
     private Integer quantyInStock;
 
-    @Column(name = "buy_price")
-    private Long buyPrice;
-
     @Lob
     @Column(name = "image")
     private byte[] image;
@@ -52,6 +49,7 @@ public class Product implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
+    @NotAudited
     @OneToMany(mappedBy = "product")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressProduct> ids = new HashSet<>();
@@ -63,19 +61,6 @@ public class Product implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getProductLinId() {
-        return productLinId;
-    }
-
-    public Product productLinId(Integer productLinId) {
-        this.productLinId = productLinId;
-        return this;
-    }
-
-    public void setProductLinId(Integer productLinId) {
-        this.productLinId = productLinId;
     }
 
     public String getNameProd() {
@@ -141,19 +126,6 @@ public class Product implements Serializable {
 
     public void setQuantyInStock(Integer quantyInStock) {
         this.quantyInStock = quantyInStock;
-    }
-
-    public Long getBuyPrice() {
-        return buyPrice;
-    }
-
-    public Product buyPrice(Long buyPrice) {
-        this.buyPrice = buyPrice;
-        return this;
-    }
-
-    public void setBuyPrice(Long buyPrice) {
-        this.buyPrice = buyPrice;
     }
 
     public byte[] getImage() {
@@ -228,13 +200,10 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" +
             "id=" + getId() +
-            ", productLinId=" + getProductLinId() +
             ", nameProd='" + getNameProd() + "'" +
             ", price=" + getPrice() +
             ", seler='" + getSeler() + "'" +
             ", descriptionProd='" + getDescriptionProd() + "'" +
-            ", quantyInStock=" + getQuantyInStock() +
-            ", buyPrice=" + getBuyPrice() +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
             "}";
