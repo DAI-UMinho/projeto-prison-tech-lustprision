@@ -18,9 +18,13 @@ public class SESSION {
         this.started = true;
         Main.sis.loadProductsTS();
         Main.sis.loadWorksTS();
-       if(BD_CONTROLLER.getQuiz(nowusing.getID())!=null){
-        this.sessionquiz =BD_CONTROLLER.getQuiz(nowusing.getID());
+
+        Quiz x = BD_CONTROLLER.getQuiz(nowusing.getID());
+       if(x!=null){
+        this.sessionquiz =x;
     }
+
+
     }
 
     //teste teste

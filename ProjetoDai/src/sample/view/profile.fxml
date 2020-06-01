@@ -97,7 +97,7 @@
                         <Font name="Agency FB" size="29.0" />
                      </font>
                   </Label>
-                  <Label fx:id="trabalhotxt" layoutX="10.0" layoutY="160.0" text="Trabalho" textFill="#2c3044">
+                  <Label fx:id="trabalhotxt" layoutX="10.0" layoutY="160.0" prefHeight="36.0" prefWidth="210.0" text="Trabalho" textFill="#2c3044">
                      <font>
                         <Font name="Agency FB" size="29.0" />
                      </font>

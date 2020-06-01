@@ -139,7 +139,7 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <Label fx:id="nostockelement" layoutX="360.0" layoutY="562.0" prefHeight="24.0" prefWidth="135.0" text="Produto sem Stock" textFill="#aa1f1f">
+      <Label fx:id="nostockelement" layoutX="297.0" layoutY="562.0" prefHeight="24.0" prefWidth="198.0" text="Produto sem Stock" textFill="#aa1f1f">
          <font>
             <Font name="Agency FB" size="20.0" />
          </font>
