@@ -50,19 +50,22 @@ public class WorkLineController implements Initializable{
     public void handlecandidata(ActionEvent actionEvent) throws IOException {
         BD_CONTROLLER.working(Main.sis.sessionatual.nowusing.getID());
         int d = BD_CONTROLLER.working(Main.sis.sessionatual.nowusing.getID());
+
         if (d==0){
             try{
                 //System.out.print("candidatar");
                 //System.out.print(id1);
                 Main.sis.sessionatual.applyJOB(Main.sis.sessionatual.nowusing.getID(), id1);
-                JOptionPane.showMessageDialog(null, "Candidatira com sucesso");
+                //JOptionPane.showMessageDialog(null, "Candidatira com sucesso");
 
 
 
             } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+                //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
 
             }
+
+
         }
         else {JOptionPane.showMessageDialog(null, "Já se encontra inscrito num trabalho.");}
 
