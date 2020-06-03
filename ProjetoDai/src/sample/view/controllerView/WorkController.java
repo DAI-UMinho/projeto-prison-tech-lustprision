@@ -27,6 +27,7 @@ public class WorkController implements Initializable {
     public  VBox workvbox = null;
     public Label vagastotallbl;
     public Label workinglbl;
+    public static boolean f = false;
 
 
     @Override

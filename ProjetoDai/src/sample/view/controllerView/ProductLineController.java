@@ -47,17 +47,11 @@ public class ProductLineController implements Initializable {
 
 
     public void handleAdicionar(ActionEvent actionEvent) throws IOException {
-
-
-
         if(Main.sis.sessionatual.addShopping(Main.sis.getProductFS(id1))){}
         else{
             ShopController.stockprob=true;
         }
-
         System.out.println(Main.sis.getProductFS(id1).type.getNome());
-
-
         ShopController.isshopping=true;
 
         Parent loja_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));

@@ -43,8 +43,6 @@ public class Quiz {
 
     public void setID (int id){ idQuiz = id; }
 
-
-
     public int getIdQuiz() {
         return idQuiz;
     }

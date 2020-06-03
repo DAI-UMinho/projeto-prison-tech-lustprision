@@ -109,7 +109,7 @@
             <Font name="Agency FB Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="workinglbl" layoutX="278.0" layoutY="130.0" prefHeight="23.0" prefWidth="343.0" text="Para se candidatar precisa de estar desempregado" textFill="#b53333">
+      <Label fx:id="workinglbl" layoutX="278.0" layoutY="130.0" prefHeight="23.0" prefWidth="343.0" text="Para se candidatar tem que estar desempregado." textFill="#b53333">
          <font>
             <Font name="Agency FB Bold" size="19.0" />
          </font>

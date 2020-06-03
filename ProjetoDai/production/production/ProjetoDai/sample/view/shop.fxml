@@ -118,7 +118,7 @@
             <Font name="Agency FB" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="nosaldolbl" layoutX="512.0" layoutY="550.0" prefHeight="24.0" prefWidth="126.0" text="Saldo Insuficiente" textFill="#aa1f1f">
+      <Label fx:id="nosaldolbl" layoutX="520.0" layoutY="550.0" prefHeight="24.0" prefWidth="126.0" text="Saldo Insuficiente" textFill="#aa1f1f">
          <font>
             <Font name="Agency FB" size="20.0" />
          </font>
@@ -130,6 +130,22 @@
          <font>
             <Font name="Agency FB Bold" size="10.0" />
          </font>
+      </Label>
+      <Label fx:id="nostock" layoutX="360.0" layoutY="538.0" prefHeight="24.0" prefWidth="135.0" text="Produto sem Stock" textFill="#aa1f1f">
+         <font>
+            <Font name="Agency FB" size="20.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="nostockelement" layoutX="297.0" layoutY="562.0" prefHeight="24.0" prefWidth="198.0" text="Produto sem Stock" textFill="#aa1f1f">
+         <font>
+            <Font name="Agency FB" size="20.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
       </Label>
    </children>
 </AnchorPane>

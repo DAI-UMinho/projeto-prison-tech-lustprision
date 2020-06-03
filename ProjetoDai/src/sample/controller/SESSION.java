@@ -38,8 +38,6 @@ public class SESSION {
 
     }
 
-
-
     public void resetQuiz(){
         sessionquiz = null;
     }
@@ -56,7 +54,6 @@ public class SESSION {
     public ArrayList displayShoplist(){
         return shoplist.Shoplist;
     }
-
 
 
     public String finishShopping() {

@@ -34,7 +34,7 @@ public class BD_CONTROLLER {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Product ");
 
@@ -65,7 +65,7 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB");
 
@@ -75,7 +75,7 @@ public class BD_CONTROLLER {
                 output.add(y);
             }
             con.close();
-            System.out.println("Trabalhos sairam da BD");
+            //System.out.println("Trabalhos sairam da BD");
             return output;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -94,7 +94,7 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM WORK_JOB where STATE_ID = 1 and NUM_REMAINING_ENTRIES > 0");
 
@@ -104,7 +104,7 @@ public class BD_CONTROLLER {
                 output.add(y);
             }
             con.close();
-            System.out.println("Trabalhos  Filtrados sairam da BD");
+            //System.out.println("Trabalhos  Filtrados sairam da BD");
             return output;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -124,7 +124,7 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM PRISIONER");
 
@@ -151,7 +151,7 @@ public class BD_CONTROLLER {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT WORK_ID From PRESS_WORK where PRISIONER_ID = " +ID+ "AND STATE_ID = 1");
             rs.next();
@@ -177,7 +177,7 @@ public class BD_CONTROLLER {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT ID,CODIGO_CARTAO FROM Prisioner ");
 
@@ -203,7 +203,7 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Prisioner ");
 
@@ -238,7 +238,7 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             String query = "UPDATE Product SET QUANTY_IN_STOCK = QUANTY_IN_STOCK - " + Integer.toString(qnty) +" WHERE ID = " + Integer.toString(id);
             ResultSet rs = st.executeQuery(query);
@@ -261,7 +261,7 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+           // System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             String query = "SELECT ID,QUANTY_IN_STOCK FROM PRODUCT WHERE ID = '"+id+"'";
             ResultSet rs = st.executeQuery(query);
@@ -286,7 +286,7 @@ public class BD_CONTROLLER {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             String query = "UPDATE Prisioner SET BALANCE = BALANCE - " + Integer.toString(amount) +" WHERE ID = " + Integer.toString(id);
             ResultSet rs = st.executeQuery(query);
@@ -314,14 +314,17 @@ public class BD_CONTROLLER {
             ResultSet rs1 = st.executeQuery(query1);
             rs1.next();
             int d = rs1.getInt("NEXTVAL");
+
+            String query2 = "SELECT * FROM PRESS_WORK WHERE PRISIONER_ID = '"+id+"' AND WORK_ID = '"+idjob+"'";
+            ResultSet rs2 = st.executeQuery(query2);
+            rs2.next();
             String query = "INSERT INTO PRESS_WORK (ID,PRISIONER_ID, WORK_ID, STATE_ID) VALUES ("+d+","+id+", "+idjob+", 1)";
             ResultSet rs = st.executeQuery(query);
-            System.out.println("CANDIDATURA");
-
+            //System.out.println("CANDIDATURA");
             con.close();
 
-
         } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
             System.out.println(e);
             System.out.println("Candidatura errada");
 
@@ -332,7 +335,7 @@ public class BD_CONTROLLER {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT WORKING From PRISIONER where ID = " +id);
             rs.next();
@@ -348,11 +351,187 @@ public class BD_CONTROLLER {
         }
     }
 
+    public static int addPurchase(int id ){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
+            ResultSet rs1 = st.executeQuery(query1);
+            rs1.next();
+            int d = rs1.getInt("NEXTVAL");
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String m = dateFormat.format(new Date());
+
+            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+ d + "," + id + "," + "'" + m + "'" + ", 0)";
+            ResultSet rs = st.executeQuery(query);
+            rs.next();
+            //System.out.println("PURCHASE");
+            //JOptionPane.showMessageDialog(null, "PURCHASE com sucesso.");
+            con.close();
+            return d;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e);
+            System.out.println("PURCHASE errada");
+            //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+            return 0;
+        }
+
+    }
+
+    public static void addPressProdut(int id, int quantidade, int idproduto){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
+            ResultSet rs1 = st.executeQuery(query1);
+            rs1.next();
+            int d = rs1.getInt("NEXTVAL");
+            //System.out.println(idproduto);
+            String query = "INSERT INTO PRESS_PRODUCT (ID, QTY ,PRICE_TOTAL, PURCHASE_ID, PRODUCT_ID) VALUES ("+d+","+quantidade+",0, "+id+", "+idproduto+")";
+            ResultSet rs = st.executeQuery(query);
+            rs.next();
+            //System.out.println("PRESS PRODUCT");
+            //JOptionPane.showMessageDialog(null, "PRESS PRODUCT com sucesso.");
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+            System.out.println("PRESS errada");
+            //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
+        }
+    }
+
+    public static Quiz getQuiz(int id){ // este id é do prisioneiro , não do quiz o do quiz está como idquiz
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            //System.out.println("Conexão com sucesso");
+
+
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT QUIZ_ID FROM PRIS_QUIZ WHERE PRISIONER_ID = "+id+" AND APPROVAL = 1 AND COMPLETED = 0");
+            rs.next();
+            int idquiz = rs.getInt("QUIZ_ID");
+            con.close();
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con2 = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st2 = con2.createStatement();
+            ResultSet rs2 = st2.executeQuery("SELECT QUESTION_ID FROM QUESTION_QUIZ WHERE QUIZ_ID = "+idquiz);
+
+            ArrayList<Integer> questionids = new ArrayList<>();
+
+            rs2.next();
+            for(int i =0 ; i<5;i++){
+                questionids.add(rs2.getInt("QUESTION_ID"));
+                rs2.next();
+            }
+
+            con2.close();
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con3 = DriverManager.getConnection(dburl, dbusername, dbpassword);
+
+            Statement st3 = con3.createStatement();
+
+            ArrayList<Questoes> questions = new ArrayList<>();
+
+            for(int i = 0 ; i<5;i++){
+            ResultSet rs3 = st3.executeQuery("SELECT * FROM QUESTION WHERE ID = "+questionids.get(i));
+            rs3.next();
+            ArrayList<String> answers = new ArrayList<>();
+            answers.add(rs3.getString("WRONG_ANSWER_1"));
+            answers.add(rs3.getString("WRONG_ANSWER_2"));
+            answers.add(rs3.getString("WRONG_ANSWER_3"));
+
+            Questoes x = new Questoes(rs3.getInt("ID"),rs3.getString("QUESTION"),answers,rs3.getInt("JHI_VALUE"),rs3.getString("ANSWER"));
+            questions.add(x);
+
+            }
+
+            Quiz quiz = new Quiz(idquiz,5,questions);
+
+            //System.out.println("QUIZ ADICIONADO à SESSION");
+            con3.close();
+            return quiz;
+
+
+        }catch(SQLException | ClassNotFoundException e){
+            System.out.print("Não há QUIZ");
+
+            return null;
+        }
+
+
+    }
+
+    public static void addCredits(int id,int credits){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("UPDATE PRISIONER set balance = (balance + "+credits+") where id = "+id);
+
+        }catch(SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void answerQuestion(String answer,int questionid,int quizid){
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("UPDATE QUESTION_QUIZ set QUESTION_ANSWER = '"+answer+"' where question_id = "+ questionid+" and quiz_id = "+quizid);
+            rs.close();
+            //System.out.println("UPDATE QUESTION_QUIZ set QUESTION_ANSWER = '"+answer+"' where question_id = "+ questionid+" and quiz_id = "+quizid);
+            con.close();
+        }catch(SQLException | ClassNotFoundException e){e.printStackTrace();}
+
+    }
+
+    public static boolean checkWorking(int pid){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT WORKING FROM PRISIONER WHERE ID =" + pid);
+            rs.next();
+
+            int wrk = rs.getInt("WORKING");
+
+            if (wrk == 0) {
+                return false;
+            } else return true;
+        }catch (ClassNotFoundException | SQLException e){
+        }
+
+        return false;
+    }
+
+    public static void completeQuiz(int pid){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("UPDATE PRIS_QUIZ SET COMPLETED = 1 WHERE PRISIONER_ID =" +pid);
+            rs.next();
+            con.close();
+        }catch (ClassNotFoundException | SQLException e){
+        }
+
+    }
+
     public static String getProdutoNome(int id){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            //System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT NAME_PROD From PRODUCT where ID = " +id);
             rs.next();
@@ -372,7 +551,7 @@ public class BD_CONTROLLER {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
+            // System.out.println("Conexão com sucesso");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT PRICE From PRODUCT where ID = " +id);
             rs.next();
@@ -447,225 +626,5 @@ public class BD_CONTROLLER {
             return "";
         }
     }
-
-    public static int addPurchase(int id ){
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st = con.createStatement();
-            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
-            ResultSet rs1 = st.executeQuery(query1);
-            rs1.next();
-            int d = rs1.getInt("NEXTVAL");
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String m = dateFormat.format(new Date());
-
-            String query = "INSERT INTO PURCHASE (ID,PRISIONER_ID,PURCHASE_DATE,PURCHASE_TOTAL) VALUES ("+ d + "," + id + "," + "'" + m + "'" + ", 0)";
-            ResultSet rs = st.executeQuery(query);
-            rs.next();
-            System.out.println("PURCHASE");
-            //JOptionPane.showMessageDialog(null, "PURCHASE com sucesso.");
-            con.close();
-            return d;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e);
-            System.out.println("PURCHASE errada");
-            //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
-            return 0;
-        }
-
-    }
-
-     public static void addPressProdut(int id, int quantidade, int idproduto){
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st = con.createStatement();
-            String query1 = "SELECT SEQUENCE_GENERATOR.nextval FROM dual";
-            ResultSet rs1 = st.executeQuery(query1);
-            rs1.next();
-            int d = rs1.getInt("NEXTVAL");
-            System.out.println(idproduto);
-            String query = "INSERT INTO PRESS_PRODUCT (ID, QTY ,PRICE_TOTAL, PURCHASE_ID, PRODUCT_ID) VALUES ("+d+","+quantidade+",0, "+id+", "+idproduto+")";
-            ResultSet rs = st.executeQuery(query);
-            rs.next();
-            System.out.println("PRESS PRODUCT");
-            //JOptionPane.showMessageDialog(null, "PRESS PRODUCT com sucesso.");
-            con.close();
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
-            System.out.println("PRESS errada");
-            //JOptionPane.showMessageDialog(null, "Erro na tentativa de candidatura.");
-        }
-    }
-
-    /*public static Quiz loadQuiz(int ID) {
-        try {
-
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM QUESTION ");
-
-            while (rs.next()) {
-                if (rs.getInt(1) == ID) {
-                    Prisioneiro user = new Prisioneiro(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDate(6),rs.getInt(7));
-                    System.out.println(rs.getInt(1)+ rs.getString(2)+ rs.getInt(4) + rs.getDate(6 ) + rs.getInt(7));
-                    return user;
-                }
-            }
-            con.close();
-
-
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
-            System.out.println("Conexão sem sucesso");
-
-
-        }
-        return null;
-    }*/
-
-
-
-    public static Quiz getQuiz(int id){ // este id é do prisioneiro , não do quiz o do quiz está como idquiz
-        try {
-
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            System.out.println("Conexão com sucesso");
-
-
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT QUIZ_ID FROM PRIS_QUIZ WHERE PRISIONER_ID = "+id+" AND APPROVAL = 1 AND COMPLETED = 0");
-            rs.next();
-            int idquiz = rs.getInt("QUIZ_ID");
-            con.close();
-
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con2 = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st2 = con2.createStatement();
-            ResultSet rs2 = st2.executeQuery("SELECT QUESTION_ID FROM QUESTION_QUIZ WHERE QUIZ_ID = "+idquiz);
-
-            ArrayList<Integer> questionids = new ArrayList<>();
-
-            rs2.next();
-            for(int i =0 ; i<5;i++){
-                questionids.add(rs2.getInt("QUESTION_ID"));
-                rs2.next();
-            }
-
-            con2.close();
-
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con3 = DriverManager.getConnection(dburl, dbusername, dbpassword);
-
-            Statement st3 = con3.createStatement();
-
-            ArrayList<Questoes> questions = new ArrayList<>();
-
-            for(int i = 0 ; i<5;i++){
-            ResultSet rs3 = st3.executeQuery("SELECT * FROM QUESTION WHERE ID = "+questionids.get(i));
-            rs3.next();
-            ArrayList<String> answers = new ArrayList<>();
-            answers.add(rs3.getString("WRONG_ANSWER_1"));
-            answers.add(rs3.getString("WRONG_ANSWER_2"));
-            answers.add(rs3.getString("WRONG_ANSWER_3"));
-
-            Questoes x = new Questoes(rs3.getInt("ID"),rs3.getString("QUESTION"),answers,rs3.getInt("JHI_VALUE"),rs3.getString("ANSWER"));
-            questions.add(x);
-
-            }
-
-            Quiz quiz = new Quiz(idquiz,5,questions);
-
-            System.out.println("QUIZ ADICIONADO à SESSION");
-            con3.close();
-            return quiz;
-
-
-        }catch(SQLException | ClassNotFoundException e){
-            System.out.print("Não há QUIZ");
-
-            return null;
-        }
-
-
-    }
-
-
-    public static void addCredits(int id,int credits){
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("UPDATE PRISIONER set balance = (balance + "+credits+") where id = "+id);
-
-        }catch(SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
-
-    }
-
-
-    public static void answerQuestion(String answer,int questionid,int quizid){
-        try{
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("UPDATE QUESTION_QUIZ set QUESTION_ANSWER = '"+answer+"' where question_id = "+ questionid+" and quiz_id = "+quizid);
-            rs.close();
-            System.out.println("UPDATE QUESTION_QUIZ set QUESTION_ANSWER = '"+answer+"' where question_id = "+ questionid+" and quiz_id = "+quizid);
-            con.close();
-        }catch(SQLException | ClassNotFoundException e){e.printStackTrace();}
-
-    }
-
-
-    public static boolean checkWorking(int pid){
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT WORKING FROM PRISIONER WHERE ID =" + pid);
-            rs.next();
-
-            int wrk = rs.getInt("WORKING");
-
-            if (wrk == 0) {
-                return false;
-            } else return true;
-        }catch (ClassNotFoundException | SQLException e){
-        }
-
-        return false;
-    }
-
-
-
-    public static void completeQuiz(int pid){
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(dburl, dbusername, dbpassword);
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("UPDATE PRIS_QUIZ SET COMPLETED = 1 WHERE PRISIONER_ID =" +pid);
-            rs.next();
-            con.close();
-
-
-        }catch (ClassNotFoundException | SQLException e){
-        }
-
-    }
-
-
-
-
-
-
-
 
 }

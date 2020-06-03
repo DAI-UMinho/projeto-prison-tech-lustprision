@@ -21,6 +21,7 @@ import sample.controller.PRODUCT_TB;
 import sample.model.Produto;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -198,9 +199,8 @@ public class ShopController implements Initializable {
         String end_statement = Main.sis.sessionatual.finishShopping();
 
         if(end_statement.equals("finished")){
-
+            JOptionPane.showMessageDialog(null, "Pagamento com sucesso.");
             ShopController.isshopping=false;
-
             Parent loja_parent = FXMLLoader.load(getClass().getResource("/sample/view/shop.fxml"));
             Scene loja_scene = new Scene(loja_parent);
             Stage loja_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
