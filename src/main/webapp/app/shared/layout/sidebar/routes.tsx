@@ -41,6 +41,12 @@ const routes = [
     layout: "/dashboard"
   },
   {
+    path: "/sellers",
+    name: "Vendedores",
+    icon: "nc-icon nc-tag-content",
+    layout: "/dashboard"
+  },
+  {
     path: "/works",
     name: "Trabalhos",
     icon: "nc-icon nc-briefcase-24",

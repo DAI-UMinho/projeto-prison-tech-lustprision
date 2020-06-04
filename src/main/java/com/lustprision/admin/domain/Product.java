@@ -1,5 +1,6 @@
 package com.lustprision.admin.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -53,6 +54,12 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @OneToMany(mappedBy = "product")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressProduct> ids = new HashSet<>();
+
+    @NotAudited
+    @ManyToOne
+    @JoinColumn(name = "seller", referencedColumnName = "name")
+    @JsonIgnoreProperties("ids")
+    private Seller seller;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -179,6 +186,19 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.ids = pressProducts;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public Product seller(Seller seller) {
+        this.seller = seller;
+        return this;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -19,6 +19,7 @@ import Employees from "app/modules/administration/employees/";
 import Quiz from "app/modules/quizs"
 import DocsPage from "app/modules/administration/docs/docs";
 import AuditsPage from "app/modules/administration/audits/audits";
+import Seller from "app/modules/products/seller";
 
 export interface IDashboardProps {
   isAuthenticated: boolean;
@@ -45,12 +46,13 @@ const Dashboard = (props: IDashboardProps) => {
       />
      <Scrollbars>
       <div className="main-panel ps" style={{paddingTop}}>
-        <Header currentUrl={currentRoute} {...props}/>
+        <Header currentUrl={props.currentLocale} {...props}/>
         <div className="content content-padding">
           <Switch>
             <PrivateRoute path={`${currentRoute.url}/profile`} component={User} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/works`} component={Works} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/products`} component={Products} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
+            <PrivateRoute path={`${currentRoute.url}/sellers`} component={Seller} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/home`} component={HDashboard} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/prisoners`} component={Prisioner} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
             <PrivateRoute path={`${currentRoute.url}/quizs`} component={Quiz} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>

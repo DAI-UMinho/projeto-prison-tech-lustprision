@@ -50,7 +50,6 @@ export const Question = (props: IQuizProps) => {
 
   const questionClick = (id?: number) => {
     if(id){
-      console.log("ID: " + id);
       setSelQuestion(id)
     }else{
       setSelQuestion(undefined);

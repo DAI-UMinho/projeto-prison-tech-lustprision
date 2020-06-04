@@ -37,7 +37,7 @@ public class QuizService {
     }
 
     public List<CompletedQuizDTO> getCompletedQuizzes(){
-        List<CompletedQuizDTO> quizList = prisQuizRepository.getAllByApproval(1).stream()
+        List<CompletedQuizDTO> quizList = prisQuizRepository.getAllByApprovalAndCompleted(1, 1).stream()
             .map(CompletedQuizDTO::new)
             .collect(Collectors.toList());
 
@@ -56,7 +56,7 @@ public class QuizService {
     }
 
     public  List<CompletedQuizDTO> getPrisonerCompletedQuizzes(Prisioner prisioner){
-        List<CompletedQuizDTO> quizList = prisQuizRepository.getAllByPrisionerAndAndApproval(prisioner,1)
+        List<CompletedQuizDTO> quizList = prisQuizRepository.getAllByPrisionerAndApprovalAndCompleted(prisioner, 1, 1)
             .stream()
             .map(CompletedQuizDTO::new)
             .collect(Collectors.toList());

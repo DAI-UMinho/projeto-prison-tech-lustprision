@@ -9,6 +9,7 @@ import com.lustprision.admin.repository.PressWorkRepository;
 import com.lustprision.admin.repository.PrisionerRepository;
 import com.lustprision.admin.repository.StateRepository;
 import com.lustprision.admin.repository.WorkRepository;
+import com.lustprision.admin.service.WorkService;
 import com.lustprision.admin.service.dto.WorkDTO;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
 
@@ -55,7 +56,8 @@ public class PressWorkResourceIT {
     private WorkRepository workRepository;
     @Autowired
     private StateRepository stateRepository;
-
+    @Autowired
+    private WorkService workService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -72,7 +74,6 @@ public class PressWorkResourceIT {
     @Autowired
     private Validator validator;
 
-
     private MockMvc restPressWorkMockMvc;
 
     private PressWork pressWork;
@@ -82,7 +83,7 @@ public class PressWorkResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PressWorkResource pressWorkResource = new PressWorkResource(pressWorkRepository, stateRepository);
+        final PressWorkResource pressWorkResource = new PressWorkResource(pressWorkRepository, stateRepository, workService);
         this.restPressWorkMockMvc = MockMvcBuilders.standaloneSetup(pressWorkResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

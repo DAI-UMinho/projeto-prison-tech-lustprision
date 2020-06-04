@@ -1,7 +1,7 @@
 
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, RouteComponentProps} from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,7 +13,8 @@ import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,Dropdown,DropdownT
 import routes, {adminRoutes} from "app/shared/layout/sidebar/routes";
 import {Button} from "@material-ui/core";
 import {IRootState} from "app/shared/reducers";
-import {getSession, } from "app/shared/reducers/authentication";
+import {useHistory} from "react-router";
+import {getSession} from "app/shared/reducers/authentication";
 
 interface IHeader{
   currentUrl: any;
@@ -28,9 +29,8 @@ const Header = (props: IUserHeader) => {
   const [color, setColor] = useState("transparent");
   const [open, setOpen] = React.useState(false);
 
-  const { account, isAuthenticated, currentUrl } = props;
 
-  console.log(currentUrl);
+  const { account, isAuthenticated, currentUrl } = props;
 
   useEffect(() => {
     props.getSession();
@@ -47,7 +47,8 @@ const Header = (props: IUserHeader) => {
   const handleLogout = (exit?: boolean) => {
     setOpen(false);
     if(exit){
-      window.location.replace('/logout');
+      window.location.assign('/exit');
+      console.log(props);
     }
   };
 

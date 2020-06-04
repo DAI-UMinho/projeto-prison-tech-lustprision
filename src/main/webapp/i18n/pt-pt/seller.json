@@ -1,0 +1,23 @@
+{
+  "lustPrisionApp": {
+    "seller": {
+      "home": {
+        "title": "Sellers",
+        "createLabel": "Criar novo(a) Seller",
+        "createOrEditLabel": "Criar ou editar Seller",
+        "notFound": "Nenhum Sellers encontrado"
+      },
+      "created": "Um novo Seller foi criado com o identificador {{ param }}",
+      "updated": "Seller com identificador {{ param }} foi actualizado",
+      "deleted": "Seller com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Seller {{ id }}?"
+      },
+      "detail": {
+        "title": "Seller"
+      },
+      "name": "Name",
+      "product": "Product"
+    }
+  }
+}

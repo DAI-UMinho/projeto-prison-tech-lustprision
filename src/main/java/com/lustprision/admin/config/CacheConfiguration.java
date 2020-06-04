@@ -48,8 +48,8 @@ public class CacheConfiguration {
             createCache(cm, com.lustprision.admin.domain.PrisQuiz.class.getName());
             createCache(cm, com.lustprision.admin.domain.QuestionQuiz.class.getName());
             createCache(cm, com.lustprision.admin.domain.PressProduct.class.getName());
-            createCache(cm, com.lustprision.admin.domain.Work.class.getName());
-            createCache(cm, com.lustprision.admin.domain.Work.class.getName() + ".idWorks");
+//            createCache(cm, com.lustprision.admin.domain.Work.class.getName());
+//            createCache(cm, com.lustprision.admin.domain.Work.class.getName() + ".idWorks");
             createCache(cm, com.lustprision.admin.domain.Quiz.class.getName());
             createCache(cm, com.lustprision.admin.domain.Quiz.class.getName() + ".idQuizs");
             createCache(cm, com.lustprision.admin.domain.Quiz.class.getName() + ".idQuzs");
@@ -60,13 +60,15 @@ public class CacheConfiguration {
             createCache(cm, com.lustprision.admin.domain.Product.class.getName());
             createCache(cm, com.lustprision.admin.domain.Product.class.getName() + ".codeProds");
             createCache(cm, com.lustprision.admin.domain.Prisioner.class.getName() + ".ids");
-            createCache(cm, com.lustprision.admin.domain.Work.class.getName() + ".ids");
+//            createCache(cm, com.lustprision.admin.domain.Work.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Quiz.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Question.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Purchase.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.Product.class.getName() + ".ids");
             createCache(cm, com.lustprision.admin.domain.PressProduct.class.getName());
             createCache(cm, com.lustprision.admin.domain.State.class.getName());
+            createCache(cm, com.lustprision.admin.domain.Seller.class.getName());
+            createCache(cm, com.lustprision.admin.domain.Seller.class.getName() + ".products");
             // jhipster-needle-ehcache-add-entry
         };
     }

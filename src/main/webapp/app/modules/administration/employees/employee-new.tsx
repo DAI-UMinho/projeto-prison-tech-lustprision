@@ -30,8 +30,15 @@ export const EmployeeNew = (props: IEmployeeNewProps) => {
   };
 
   const saveUser = (event, values) => {
-    props.createUser(values);
-    handleClose();
+
+      const entity = {
+        ...user,
+        ...values,
+      };
+
+      props.createUser(entity);
+      handleClose();
+
   };
 
   const onBlobChange = (isAnImage, name) => event => {
@@ -120,7 +127,7 @@ export const EmployeeNew = (props: IEmployeeNewProps) => {
                       required: {
                         value: true,
                         errorMessage: translate('global.messages.validate.firstName.required')},
-                      pattern: {value: '^[A-Za-z0-9]+$'},
+                      pattern: {value: '^[A-Za-z]+$'},
                       maxLength: {
                         value: 50,
                       }
@@ -136,15 +143,14 @@ export const EmployeeNew = (props: IEmployeeNewProps) => {
                     className="form-control"
                     name="lastName"
                     validate={{
-                      required: {value: true},
-                      pattern: {value: '^[A-Za-z0-9]+$'},
-                      maxLength: {
-                        value: 50,
-                        errorMessage: translate('entity.validation.maxlength', { max: 50 })
-                      }
+                      required: {
+                        value: true,
+                        errorMessage: translate('global.messages.validate.lastName.required')
+                      },
+                      pattern: {value: '^[A-Za-z]+$'},
+                      maxLength: {value: 50}
                     }}
                   />
-                  <AvFeedback>This field cannot be longer than 50 characters.</AvFeedback>
                 </AvGroup>
                 <AvGroup>
                   <AvField
@@ -195,29 +201,6 @@ export const EmployeeNew = (props: IEmployeeNewProps) => {
                     ))}
                   </AvInput>
                 </AvGroup>
-{/*                <AvGroup>
-                  <AvField type="password" name="firstPassword"
-                    placeholder={translate('global.form.newpassword.placeholder')}
-                    onChange={updatePassword}
-                    validate={{
-                      required: { value: true, errorMessage: translate('global.messages.validate.newpassword.required') },
-                      minLength: { value: 4, errorMessage: translate('global.messages.validate.newpassword.minlength') },
-                      maxLength: { value: 50, errorMessage: translate('global.messages.validate.newpassword.maxlength') }
-                    }}
-                  />
-                  <PasswordStrengthBar password={password} />
-                </AvGroup>
-                <AvGroup>
-                  <AvField type="password" name="secondPassword"
-                    placeholder={translate('global.form.confirmpassword.placeholder')}
-                    validate={{
-                      required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                      minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                      maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                      match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
-                    }}
-                  />
-                </AvGroup>*/}
                 <Button tag={Link} to="/dashboard/employees" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;

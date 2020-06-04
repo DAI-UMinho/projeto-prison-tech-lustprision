@@ -13,10 +13,15 @@
           "type": "image/png"
       },
       {
-          "src": "./content/images/lustprision-302x302",
-          "sizes": "302x302",
+          "src": "./content/images/lustprision-384x384.png",
+          "sizes": "384x384",
           "type": "image/png"
       },
+      {
+          "src": "./content/images/lustprision-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+      }
   ],
   "theme_color": "#000000",
   "background_color": "#e0e0e0",

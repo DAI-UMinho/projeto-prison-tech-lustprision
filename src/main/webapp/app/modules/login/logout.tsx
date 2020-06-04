@@ -9,17 +9,16 @@ export interface ILogoutProps extends StateProps, DispatchProps {
   logoutUrl: string;
 }
 
-export const Logout = (props: ILogoutProps) => {
+export const EXIT = (props: ILogoutProps) => {
   useLayoutEffect(() => {
     props.logout();
     const logoutUrl = props.logoutUrl;
-    console.log("URL: " + logoutUrl);
-    /*if (logoutUrl) {
+    if (logoutUrl) {
       // if Keycloak, logoutUrl has protocol/openid-connect in it
       window.location.href = logoutUrl.includes('/protocol')
         ? logoutUrl + '?redirect_uri=' + window.location.origin
         : logoutUrl + '?id_token_hint=' + props.idToken + '&post_logout_redirect_uri=' + window.location.origin;
-    }*/
+    }
     window.location.replace('/login');
   });
 
@@ -36,4 +35,4 @@ const mapDispatchToProps = { logout };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default connect(mapStateToProps, mapDispatchToProps)(EXIT);

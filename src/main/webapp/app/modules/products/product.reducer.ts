@@ -10,6 +10,7 @@ import { IUser } from 'app/shared/model/user.model';
 import { IPayload } from 'react-jhipster/src/type/redux-action.type';
 
 export const ACTION_TYPES = {
+  FETCH_PRODUCT_MAX_VALUE_FILTER: 'product/FETCH_PRODUCT_MAX_VALUE_FILTER',
   FETCH_PRODUCT_PAGE_LIST: 'product/FETCH_PRODUCT_PAGE_LIST',
   FETCH_PRODUCT_RANGE_LIST: 'product/FETCH_PRODUCT_NAME_LIST',
   FETCH_PRODUCT_NAME_LIST: 'product/FETCH_PRODUCT_NAME_LIST',
@@ -25,12 +26,14 @@ export const ACTION_TYPES = {
 
 const initialState = {
   loading: false,
+  salesLoading: false,
   errorMessage: null,
   entities: [] as ReadonlyArray<IProduct>,
   productsPage: [] as ReadonlyArray<IProduct>,
   productsByName: [] as ReadonlyArray<IProduct>,
   productSales: [] as Array<any>,
   product: defaultValue,
+  maxValue: 0,
   updating: false,
   updateSuccess: false,
   totalItems: 0
@@ -42,7 +45,6 @@ export type ProductState = Readonly<typeof initialState>;
 
 export default (state: ProductState = initialState, action): ProductState => {
   switch (action.type) {
-    case REQUEST(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRODUCT_PAGE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRODUCT_RANGE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PRODUCT_NAME_LIST):
@@ -54,6 +56,19 @@ export default (state: ProductState = initialState, action): ProductState => {
         updateSuccess: false,
         loading: true
       };
+    case REQUEST(ACTION_TYPES.FETCH_PRODUCT_MAX_VALUE_FILTER):
+      return {
+        ...state,
+        errorMessage: null,
+        updateSuccess: false
+      };
+    case REQUEST(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
+      return {
+        ...state,
+        errorMessage: null,
+        updateSuccess: false,
+        salesLoading: true
+      };
     case REQUEST(ACTION_TYPES.CREATE_PRODUCT):
     case REQUEST(ACTION_TYPES.UPDATE_PRODUCT):
     case REQUEST(ACTION_TYPES.DELETE_PRODUCT):
@@ -63,8 +78,7 @@ export default (state: ProductState = initialState, action): ProductState => {
         updateSuccess: false,
         updating: true
       };
-
-    case FAILURE(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
+    case FAILURE(ACTION_TYPES.FETCH_PRODUCT_MAX_VALUE_FILTER):
     case FAILURE(ACTION_TYPES.FETCH_PRODUCT_PAGE_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRODUCT_RANGE_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PRODUCT_NAME_LIST):
@@ -80,12 +94,24 @@ export default (state: ProductState = initialState, action): ProductState => {
         updateSuccess: false,
         errorMessage: action.payload
       };
+    case FAILURE(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
+      return {
+        ...state,
+        salesLoading: false,
+        updating: false,
+        updateSuccess: false,
+        errorMessage: action.payload
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_PRODUCT_MAX_VALUE_FILTER):
+      return {
+        ...state,
+        maxValue: action.payload.data
+      };
     case SUCCESS(ACTION_TYPES.FETCH_PRODUCT_SALES_LIST):
       return {
         ...state,
-        loading: false,
-        productSales: action.payload.data,
-        totalItems: parseInt(action.payload.headers['x-total-count'], 10)
+        salesLoading: false,
+        productSales: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PRODUCT_PAGE_LIST):
       return {
@@ -181,6 +207,14 @@ export const getProductsByPageName: ICrudSearchBetweenAction<IProduct> = (name, 
   };
 };
 
+export const getProductMaxPriceByFilter: ICrudGetAction<number> = name => {
+  const requestUrl = `${apiUrl}/max-price?name=${name}`;
+  return {
+    type: ACTION_TYPES.FETCH_PRODUCT_MAX_VALUE_FILTER,
+    payload: axios.get<number>(requestUrl)
+  };
+};
+
 export const getProductsByPagePriceRange: ICrudSearchBetweenAction<IProduct> = (low, high, page, size, sort) => {
   const requestUrl = `${apiUrl}/byrange${sort ? `?page=${page}&size=${size}&sort=${sort}&low=${low}&high=${high}` : ''}`;
   return {
@@ -247,6 +281,12 @@ export const setBlob = (name, data, contentType?) => ({
 export const reset = () => ({
   type: ACTION_TYPES.RESET
 });
+
+export type ICrudSearchFilterBetweenAction<T> = (
+  low?: number,
+  high?: number,
+  name?: string
+) => IPayload<T> | ((dispatch: any) => IPayload<T>);
 
 export type ICrudSearchBetweenAction<T> = (
   name?: string,

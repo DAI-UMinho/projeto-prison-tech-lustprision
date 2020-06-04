@@ -4,7 +4,7 @@ import {Link, RouteComponentProps} from 'react-router-dom';
 import {Button, Col, Row, Card, CardHeader, CardBody, CardTitle, CardFooter, Table} from 'reactstrap';
 import {Translate, JhiItemCount, JhiPagination, getSortState} from 'react-jhipster';
 import {IRootState} from 'app/shared/reducers';
-import {getProductsByPage, getProductsByPageName,getProductsByPagePriceRange} from './product.reducer';
+import {getProductsByPage, getProductsByPageName,getProductsByPagePriceRange, getProductMaxPriceByFilter} from './product.reducer';
 import {getPurchaseTotalNumber, getProductTotalNumber} from "app/shared/reducers/statistics";
 import {Theme, createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
@@ -12,7 +12,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import { Ellipsis } from 'react-spinners-css';
 import {IProduct} from 'app/shared/model/product.model';
-import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 import SearchBar from "app/components/SearchBar";
 import Slider from "@material-ui/core/Slider";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -37,22 +36,22 @@ export const ProductOverview = (props: IProductProps) => {
   const [pagination, setPagination] = useState(getSortState(props.location, 6));
   const [searchValue, setSearchValue] = React.useState<string>('');
   const [sliderValue, setSliderValue] = React.useState<number[]>([0, 50]);
+  const [maxValue, setMaxValue] = useState(50);
 
   useEffect(() => {
-    console.log(pagination);
-    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], (pagination.activePage || 1)  - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
-    props.history.push(`${props.location.pathname}?page=${pagination.activePage || 1}&sort=${pagination.sort},${pagination.order}`);
+    props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], (pagination.activePage) - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+    props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
   useEffect(() => {
     props.getPurchaseTotalNumber(null);
     props.getProductTotalNumber(null);
+    props.getProductMaxPriceByFilter(searchValue);
   }, []);
 
-  const {totalItems, productsPage, match, loading, nSales, nProducts, statLoading} = props;
+  const {totalItems, productsPage, match, loading, nSales, nProducts, statLoading, filterMaxValue} = props;
 
   const purchaseSelect = (id) => {
-    console.log(id);
     props.history.push(`${match.url}/${id}`)};
 
   const handlePagination = currentPage =>
@@ -63,8 +62,6 @@ export const ProductOverview = (props: IProductProps) => {
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setSliderValue(newValue as number[]);
-    console.log(event);
-    //props.getProductsByPageName(searchValue, newValue[0], newValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`)
   };
 
   const searchChange = (e) => {
@@ -73,6 +70,7 @@ export const ProductOverview = (props: IProductProps) => {
   };
 
   useEffect(() => {
+    props.getProductMaxPriceByFilter(searchValue);
     props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
   }, [searchValue]);
 
@@ -80,8 +78,14 @@ export const ProductOverview = (props: IProductProps) => {
     props.getProductsByPageName(searchValue, sliderValue[0], sliderValue[1], pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
   }, [sliderValue]);
 
+  useEffect(() => {
+    if(filterMaxValue){
+      setSliderValue([sliderValue[0], filterMaxValue]);
+    }
+  }, [filterMaxValue]);
+
   const resetFilters = () => {
-    setSliderValue([0, 700]);
+    setSliderValue([0, 50]);
     setSearchValue('');
   };
 
@@ -143,8 +147,7 @@ export const ProductOverview = (props: IProductProps) => {
             <Slider
               value={sliderValue}
               onChangeCommitted={handleChange}
-              // onChange={handleChange}
-              max={50}
+              max={filterMaxValue}
               valueLabelDisplay="auto"
               aria-labelledby="continuous-slider"
             />
@@ -162,11 +165,8 @@ export const ProductOverview = (props: IProductProps) => {
                     <img src={`data:${product.imageContentType};base64,${product.image}`} alt={product.nameProd} />
                     <GridListTileBar
                       title={product.nameProd}
-                      subtitle={<span>by: {product.seler}</span>}
+                      subtitle={<span>by: {product.seller['name']}</span>}
                       actionIcon={
-                        /*<IconButton aria-label={`info about ${product.nameProd}`} className={classes.icon}>
-                          <InfoIcon/>
-                        </IconButton>*/
                         <h3 className={classes.gridPrice}>{product.price}</h3>
                       }
                     />
@@ -196,6 +196,7 @@ export const ProductOverview = (props: IProductProps) => {
 
 const mapStateToProps = ({product, statistics}: IRootState) => ({
   productsPage: product.productsPage,
+  filterMaxValue: product.maxValue,
   totalItems: product.totalItems,
   loading: product.loading,
   nProducts: statistics.nProducts,
@@ -212,6 +213,7 @@ const mapDispatchToProps = {
   getProductsByPagePriceRange,
   getPurchaseTotalNumber,
   getProductTotalNumber,
+  getProductMaxPriceByFilter
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -5,10 +5,7 @@ import com.lustprision.admin.domain.PressProduct;
 import com.lustprision.admin.domain.Prisioner;
 import com.lustprision.admin.domain.Product;
 import com.lustprision.admin.domain.Purchase;
-import com.lustprision.admin.repository.PressProductRepository;
-import com.lustprision.admin.repository.PrisionerRepository;
-import com.lustprision.admin.repository.ProductRepository;
-import com.lustprision.admin.repository.PurchaseRepository;
+import com.lustprision.admin.repository.*;
 import com.lustprision.admin.service.AuditService;
 import com.lustprision.admin.service.ProductService;
 import com.lustprision.admin.web.rest.errors.ExceptionTranslator;
@@ -75,6 +72,8 @@ public class ProductResourceIT {
     private ProductService productService;
     @Autowired
     private AuditService auditService;
+    @Autowired
+    private SellerRepository sellerRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -98,7 +97,7 @@ public class ProductResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProductResource productResource = new ProductResource(productRepository, productService, auditService);
+        final ProductResource productResource = new ProductResource(productRepository, sellerRepository, productService, auditService);
         this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

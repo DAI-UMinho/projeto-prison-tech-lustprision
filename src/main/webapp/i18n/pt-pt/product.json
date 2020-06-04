@@ -35,10 +35,6 @@
           "required": "O vendedor do produto é obrigatório",
           "length": "Introduza um nome de vendedor válido"
         },
-        "seller": {
-          "required": "O vendedor do produto é obrigatório",
-          "length": "Introduza um nome de vendedor válido"
-        },
         "stock": {
           "required": "O stock inicial do produto é obrigatório",
           "minLength": "Introduza um valor de stock válido",

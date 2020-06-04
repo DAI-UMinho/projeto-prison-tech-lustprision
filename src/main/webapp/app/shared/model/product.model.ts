@@ -6,6 +6,7 @@ export interface IProduct {
   nameProd?: string;
   price?: number;
   seler?: string;
+  seller?: string;
   descriptionProd?: string;
   quantyInStock?: number;
   buyPrice?: number;

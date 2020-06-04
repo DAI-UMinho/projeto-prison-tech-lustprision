@@ -44,6 +44,12 @@ public class WorkService {
         return subs;
     }
 
+    public void firePrisoner(Long id){
+        Work work = workRepository.getOne(id);
+        work.setNumRemainingEntries(work.getNumRemainingEntries() + 1);
+        workRepository.saveAndFlush(work);
+    }
+
     public boolean checkValidDate(LocalDate date){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());

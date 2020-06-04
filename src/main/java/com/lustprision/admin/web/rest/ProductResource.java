@@ -2,6 +2,7 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.Product;
 import com.lustprision.admin.repository.ProductRepository;
+import com.lustprision.admin.repository.SellerRepository;
 import com.lustprision.admin.service.AuditService;
 import com.lustprision.admin.service.ProductService;
 import com.lustprision.admin.service.dto.*;
@@ -44,13 +45,17 @@ public class ProductResource {
 
     private final ProductRepository productRepository;
 
+    private final SellerRepository sellerRepository;
+
     private final ProductService productService;
 
     private final AuditService auditService;
 
 
-    public ProductResource(ProductRepository productRepository, ProductService productService, AuditService auditService) {
+    public ProductResource(ProductRepository productRepository,SellerRepository sellerRepository,
+                           ProductService productService, AuditService auditService) {
         this.productRepository = productRepository;
+        this.sellerRepository = sellerRepository;
         this.productService = productService;
         this.auditService = auditService;
     }
@@ -68,6 +73,8 @@ public class ProductResource {
         if (product.getId() != null) {
             throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        product.setSeller(sellerRepository.getByName(product.getSeller().getName()).get());
+        log.debug("REST request to save Product : {}", product.getSeller());
         Product result = productRepository.save(product);
         return ResponseEntity.created(new URI("/api/products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -89,6 +96,7 @@ public class ProductResource {
         if (product.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        product.setSeller(sellerRepository.getByName(product.getSeller().getName()).get());
         Product result = productRepository.save(product);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, product.getId().toString()))
@@ -181,5 +189,10 @@ public class ProductResource {
     public List<ProductDTO> getProductLog(@PathVariable Long id){
         log.debug("REST request to get all Prisioner work jobs : {}", id);
         return auditService.getProductLogs(id);
+    }
+
+    @GetMapping("/products/max-price")
+    public Integer getProductLog(@RequestParam (value = "name") String name){
+        return productRepository.getProductMaxValueFilter(name);
     }
 }

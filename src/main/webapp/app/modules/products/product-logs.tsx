@@ -106,7 +106,7 @@ const ProductLogs = (props: SimpleDialogProps) => {
   };
 
   return (
-    <div>{error ? (<h1>SHIT</h1>) :
+    <div>{error ? (<h1></h1>) :
       (<Dialog onClose={handleClose} maxWidth={false} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Logs do Produto

@@ -34,6 +34,10 @@ public class PrisQuiz implements Serializable {
     @Column(name = "approval")
     private Integer approval;
 
+    @Max(value = 1)
+    @Column(name = "completed")
+    private Integer completed;
+
     @ManyToOne
     @JsonIgnoreProperties("ids")
     private Prisioner prisioner;
@@ -127,5 +131,13 @@ public class PrisQuiz implements Serializable {
             ", quizDate='" + getQuizDate() + "'" +
             ", approval=" + getApproval() +
             "}";
+    }
+
+    public Integer getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Integer completed) {
+        this.completed = completed;
     }
 }

@@ -75,7 +75,7 @@ export const PrisionerQuiz = (props: IPrisionerQuizProps) => {
               }}
               localization={{
                 body: {
-                  emptyDataSourceMessage: "Ainda não existem trabalhos para este presidiário",
+                  emptyDataSourceMessage: "Ainda não existem quizes deste presidiário",
                   editRow: {
                     deleteText: "Tem a certeza que quer eliminar este presidiário?!"
                   }

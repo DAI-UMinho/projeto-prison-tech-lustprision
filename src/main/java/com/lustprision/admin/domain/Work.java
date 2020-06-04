@@ -18,7 +18,7 @@ package com.lustprision.admin.domain;
 @Entity
 @Audited
 @Table(name = "work_job")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 public class Work extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class Work extends AbstractAuditingEntity implements Serializable {
     @OneToMany(mappedBy = "work")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PressWork> ids = new HashSet<>();
-    
+
     @NotAudited
     @OneToOne
     @JoinColumn(unique = true)

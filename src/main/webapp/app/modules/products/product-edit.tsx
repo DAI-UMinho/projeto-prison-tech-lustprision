@@ -8,7 +8,9 @@ import {Translate, translate, setFileData, openFile, byteSize, TextFormat,} from
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IRootState} from 'app/shared/reducers';
 
-import {getEntity, updateEntity, createEntity, setBlob, reset, getProductSales, deleteEntity} from './product.reducer';
+import {getEntity, updateEntity, setBlob, getProductSales, deleteEntity} from './product.reducer';
+import {getSellers} from "app/modules/products/seller.reducer";
+
 import CloseIcon from '@material-ui/icons/Close';
 import MaterialTable, {Column} from "material-table";
 import {APP_DATE_FORMAT, AUTHORITIES} from "app/config/constants";
@@ -17,7 +19,6 @@ import {Fab, useMediaQuery} from "@material-ui/core";
 import {useTheme} from "@material-ui/core/styles";
 import {Bar} from "react-chartjs-2";
 import {getChartProductSales} from "app/shared/reducers/statistics";
-import PrisonerLogs from "app/modules/account/prisoner/prisioner-logs";
 import ProductLogs from "app/modules/products/product-logs";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import {hasAnyAuthority} from "app/shared/auth/private-route";
@@ -30,12 +31,11 @@ interface TableState {
   columns: Array<Column<any>>;
 }
 
-export const ProductEditInfo = (props: IProductUpdateProps) => {
+export const ProductEdit = (props: IProductUpdateProps) => {
   const classes = logPages();
   const theme = useTheme();
   const colN = useMediaQuery(theme.breakpoints.down('lg')) ? 10 : 6;
 
-  const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const [chartProduct, setChartProduct] = useState([]);
   const [open, setOpen] = useState(false);
   const [state, setState] = React.useState<TableState>({
@@ -60,7 +60,7 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
       {title: 'Valor Total', field: 'priceTotal'},
     ]
   });
-  const {productEntity, loading, updating, productSales, chartSales, isAdmin} = props;
+  const {productEntity, loading, updating, productSales, chartSales, isAdmin, sellers} = props;
   const {image, imageContentType} = productEntity;
 
   const handleClose = () => {
@@ -72,13 +72,10 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
   };
 
   useEffect(() => {
-    if (isNew) {
-      props.reset();
-    } else {
-      props.getEntity(props.match.params.id);
-      props.getProductSales(props.match.params.id);
-      props.getChartProductSales(props.match.params.id);
-    }
+    props.getSellers();
+    props.getProductSales(props.match.params.id);
+    props.getChartProductSales(props.match.params.id);
+    props.getEntity(props.match.params.id);
   }, []);
 
   useEffect(() => {
@@ -107,14 +104,9 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
         ...values
       };
 
-      if (isNew) {
-        props.createEntity(entity);
-      } else {
-        props.updateEntity(entity);
-      }
+      props.updateEntity(entity);
     }
   };
-
 
   const deleteProduct = () => {
     props.deleteEntity(productEntity.id);
@@ -186,23 +178,19 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
         <Col md="8">
           <Card className="card-user justify-content-center">
             <CardHeader>
-              <CardTitle tag="h5">
-                {isNew ? ("Novo Produto") : ("Editar Produto")}
-              </CardTitle>
+              <CardTitle tag="h5">Editar Produto</CardTitle>
             </CardHeader>
             <CardBody>
               {loading ? (
                 <p>Loading...</p>
               ) : (
-                <AvForm model={isNew ? {} : productEntity} onSubmit={saveEntity}>
-                  {!isNew ? (
+                <AvForm model={productEntity} onSubmit={saveEntity}>
                     <AvGroup>
                       <Label for="product-id">
                         <Translate contentKey="global.field.id">ID</Translate>
                       </Label>
                       <AvInput id="product-id" type="text" className="form-control" name="id" required readOnly/>
                     </AvGroup>
-                  ) : null}
                   <div className="row">
                     <div className="pr-1 col-md-6">
                       <AvGroup>
@@ -255,23 +243,19 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                   <div className="row">
                     <div className="pr-1 col-md-6">
                       <AvGroup>
-                        <Label id="selerLabel" for="product-seler">
+                        <Label for="product-seler">
                           <Translate contentKey="lustPrisionApp.product.seler">Seller</Translate>
                         </Label>
-                        <AvField id="product-seler" type="text" name="seler" validate={{
-                          required: {
-                            value: true,
-                            errorMessage: translate('lustPrisionApp.product.validation.seller.required')
-                          },
-                          minLength: {
-                            value: 2,
-                            errorMessage: translate('lustPrisionApp.product.validation.seller.length')
-                          },
-                          maxLength: {
-                            value: 40,
-                            errorMessage: translate('lustPrisionApp.product.validation.seller.length')
-                          }
-                        }}/>
+                        <AvInput id="product-seller" type="select" className="form-control" name="seller.name">
+                          <option value="" key="0" />
+                          {sellers
+                            ? sellers.map(otherEntity => (
+                              <option value={otherEntity.name} key={otherEntity.name}>
+                                {otherEntity.name}
+                              </option>
+                            ))
+                            : null}
+                        </AvInput>
                       </AvGroup>
                     </div>
                     <div className="pr-1 col-md-6">
@@ -281,14 +265,14 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                         </Label>
                         <AvField id="product-quantyInStock" type="string" className="form-control"
                                  name="quantyInStock" validate={{
-                          number: true,
+
                           required: {
                             value: true,
                             errorMessage: translate('lustPrisionApp.product.validation.stock.required')
                           },
                           minLength: {
                             value: 1,
-                            errorMessage: translate('lustPrisionApp.product.validation.stock.minlength')
+                            errorMessage: translate('lustPrisionApp.product.validation.stock.minLength')
                           },
                           maxLength: {
                             value: 3,
@@ -331,12 +315,11 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
                       &nbsp;
                       <Translate contentKey="entity.action.save">Save</Translate>
                     </RButton>
-                    {!isNew &&
                     <RButton color="secondary" id="delete-entity" style={{float: 'right'}} onClick={deleteProduct} disabled={updating}>
                       <FontAwesomeIcon icon="trash"/>
                       &nbsp;
                       <Translate contentKey="entity.action.delete">Delete</Translate>
-                    </RButton>}
+                    </RButton>
                   </AvGroup>
                 </AvForm>
               )}
@@ -344,7 +327,6 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
           </Card>
         </Col>
       </Row>
-      {!isNew ? (
         <div>
           <hr></hr>
           <Row className="justify-content-center">
@@ -390,13 +372,13 @@ export const ProductEditInfo = (props: IProductUpdateProps) => {
             </Col>
           </Row>
         </div>
-      ) : null}
       <ProductLogs  open={open} productID={productEntity.id} onClose={handleDialogClose}/>
     </div>
   );
 };
 
 const mapStateToProps = (state: IRootState) => ({
+  sellers: state.seller.entities,
   productEntity: state.product.product,
   productSales: state.product.productSales,
   loading: state.product.loading,
@@ -408,11 +390,10 @@ const mapStateToProps = (state: IRootState) => ({
 
 const mapDispatchToProps = {
   getEntity,
+  getSellers,
   getProductSales,
   updateEntity,
   setBlob,
-  createEntity,
-  reset,
   deleteEntity,
   getChartProductSales
 };
@@ -420,4 +401,4 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductEditInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductEdit);

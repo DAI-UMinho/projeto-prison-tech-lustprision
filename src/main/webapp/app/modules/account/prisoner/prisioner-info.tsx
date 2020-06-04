@@ -10,10 +10,10 @@ import {createEntity, getEntity, reset, setBlob, updateEntity} from './prisioner
 import {CircularProgress} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import {DatePicker, KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import {subYears} from "date-fns";
+import PrisonerCredits from "app/modules/account/prisoner/prisioner-credits";
 
 export interface IPrisionerInfoProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string  }> {
 }
@@ -49,7 +49,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   const {prisionerEntity, loading, updating} = props;
   const {profileImage, profileImageContentType} = prisionerEntity;
 
-  const [nfcCode, setNfcCode] = useState(isNew? '' : prisionerEntity.nfcCode);
+  const [open, setOpen] = useState(false);
   const [selectedDate, handleDateChange] = useState(!isNew ? prisionerEntity.dataNascimento : subYears(new Date(), 18));
 
   const updatePassword = event => setPassword(event.target.value);
@@ -57,11 +57,14 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
   const eyeColor = eyeActive ? 'inherit' : 'action';
 
   const eyeClick = () => setEyeActive(!eyeActive);
-  const generateNFC = () => setNfcCode(Math.random().toString().slice(2,11));
 
   const handleClose = () => {
     props.history.push('/dashboard/prisoners');
   };
+
+  const handleCreditsClose = () => {
+    setOpen(!open);
+  }
 
   const onBlobChange = (isAnImage, name) => event => {
     setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
@@ -240,7 +243,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                              max: {value: 999999999}
                            }}/>
                 </AvGroup>
-                <AvGroup>
+                {/*<AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.nfcCode">NFC Code</Translate>
                   <Row>
                     <Col xs="12" sm="11">
@@ -266,7 +269,7 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                     </Col>
                     <RefreshIcon onClick={generateNFC} className={classes.eyeButton} />
                   </Row>
-                </AvGroup>
+                </AvGroup>*/}
                 <AvGroup>
                   <Translate contentKey="lustPrisionApp.prisioner.pinCode">PIN</Translate>
                   <Row>
@@ -294,6 +297,8 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                   </Row>
                 </AvGroup>
                 <AvField id="prisioner-balance" type="hidden" name="balance" value="0"/>
+                <AvField id="prisioner-working" type="hidden" name="working" value="0"/>
+                <AvInput id="prisioner-nfccode" type="hidden" name="nfcCode" value={5}/>
                 <Button tag={Link} id="cancel-save" to="/dashboard/prisoners" replace color="info">
                   <FontAwesomeIcon icon="arrow-left"/>
                   &nbsp;
@@ -307,11 +312,17 @@ export const PrisionerInfo = (props: IPrisionerInfoProps) => {
                   &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
+                {!isNew &&
+                (<Button color="secondary" id="update-entity" onClick={() => setOpen(true)} style={{float: 'right'}} disabled={updating}>
+                  &nbsp;
+                  Retirar Créditos
+                </Button>)}
               </AvForm>
             )}
           </CardBody>
         </Card>
       </Col>
+      <PrisonerCredits open={open} onClose={handleCreditsClose} prisoner={prisionerEntity}/>
     </Row>
   );
 };

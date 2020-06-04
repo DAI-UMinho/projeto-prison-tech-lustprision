@@ -30,6 +30,7 @@
 <!--    <include file="config/liquibase/changelog/20200320152600_added_entity_AdminEmploy.xml" relativeToChangelogFile="false"/>-->
 <!--    <include file="config/liquibase/changelog/20200320151700_added_entity_Pressproduct.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/20200419200941_added_entity_State.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200601185241_added_entity_Seller.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200320151300_added_entity_constraints_Prisioner.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320151400_added_entity_constraints_PressWork.xml" relativeToChangelogFile="false"/>
@@ -42,6 +43,7 @@
 <!--    <include file="config/liquibase/changelog/20200320151700_added_entity_constraints_Pressproduct.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/20200419200941_added_entity_constraints_State.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320151800_added_entity_constraints_Work.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200320152200_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320151300_added_entity_Prisioner_AUD.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320151300_added_entity_Product_AUD.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200320151300_added_entity_WORK_AUD.xml" relativeToChangelogFile="false"/>

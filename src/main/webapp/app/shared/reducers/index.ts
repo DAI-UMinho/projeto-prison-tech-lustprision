@@ -81,6 +81,10 @@ import statistics, {
 import state, {
   StateState
 } from 'app/entities/state/state.reducer';
+// prettier-ignore
+import seller, {
+  SellerState
+} from 'app/modules/products/seller.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -110,6 +114,7 @@ export interface IRootState {
   readonly adminEmploy: AdminEmployState;
   readonly statistics: StatisticsState;
   readonly state: StateState;
+  readonly seller: SellerState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -141,6 +146,7 @@ const rootReducer = combineReducers<IRootState>({
   adminEmploy,
   statistics,
   state,
+  seller,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

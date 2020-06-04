@@ -36,6 +36,10 @@
           "required": "O número de prisioneiro é obrigatório",
           "length": "O número de prisioneiro é constituido por 5 digitos"
         },
+        "balance": {
+          "required": "O número de créditos é obrigatório",
+          "length": "O número de créditos é inválido"
+        },
         "numCell": {
           "required": "O número de cela é obrigatório",
           "maxLength": "O número de cela é constituido por no max 4 digitos"

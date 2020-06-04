@@ -20,7 +20,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
 import Login from "app/modules/login/login";
-import Logout from "app/modules/login/logout";
+import EXIT from "app/modules/login/logout";
 import ActivatePage from "app/modules/account/activate/activate";
 import PasswordResetInit from "app/modules/account/password-reset/init/password-reset-init";
 import Dashboard from "app/Dashboard";
@@ -48,7 +48,7 @@ export const App = (props: IAppProps) => {
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
         <Switch>
           <ErrorBoundaryRoute path="/" exact component={() => <Redirect  to="/login"/>}/>
-          <ErrorBoundaryRoute path="/logout" exact component={Logout}/>
+          <ErrorBoundaryRoute path="/exit" exact component={EXIT}/>
           <ErrorBoundaryRoute path="/login" exact component={Login}/>
           <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
           <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
@@ -76,12 +76,6 @@ export const App = (props: IAppProps) => {
                 />
               </ErrorBoundary>
               <Switch>
-                {/*<ErrorBoundaryRoute path="/logout" exact component={Logout}/>*/}
-                {/*<ErrorBoundaryRoute path="/login" exact={true} component={Login}/>*/}
-                {/*<ErrorBoundaryRoute path="/account/register" exact={true} component={Register} />
-                <ErrorBoundaryRoute path="/account/activate/:key?" component={ActivatePage}/>
-                <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
-                <ErrorBoundaryRoute path="/account/reset/request" exact={true} component={PasswordResetInit} />*/}
                 <div className="container-fluid view-container" id="app-view-container">
                   <Card className="jh-card">
                     <ErrorBoundary>

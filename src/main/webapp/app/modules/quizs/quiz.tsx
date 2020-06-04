@@ -15,7 +15,6 @@ import {TextFormat, Translate} from "react-jhipster";
 import {getWaitingList, updateQuizAuthorization, deleteEntity} from "app/modules/quizs/pris-quiz.reducer";
 import {getCompletedQuizzes, getQuizResults, deleteQuiz} from "./quiz.reducer"
 import {StateBox, QuizBox} from "app/components/StateBox";
-import Swal from "sweetalert2";
 import QuizDetailDialog from "app/modules/quizs/quiz-details";
 import TableIcon from "app/shared/util/table-icon";
 import {quizTheme} from "app/shared/layout/themes/themes";

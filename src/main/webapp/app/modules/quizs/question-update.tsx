@@ -212,6 +212,7 @@ const QuestionUpdate = (props: SimpleDialogProps) => {
                            errorMessage: translate('lustPrisionApp.question.validate.required')
                          }
                        }}/>
+              <AvInput type="hidden" name="jhi_value" value={5}/>
             </AvGroup>
             &nbsp;
             <Button style={{float: 'right'}} color="primary" id="save-entity" type="submit">

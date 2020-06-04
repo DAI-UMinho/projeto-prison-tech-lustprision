@@ -105,15 +105,6 @@ public class AccountResource {
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
 
-/*
-    @GetMapping("/account2")
-    public AdminEmployDTO getAccountAlternative() {
-        return adminEmployService.getUserWithAuthorities()
-            .map(AdminEmployDTO::new)
-            .orElseThrow(() -> new AccountResourceException("User could not be found"));
-    }
-*/
-
     /**
      * {@code POST  /account} : update the current user information.
      *

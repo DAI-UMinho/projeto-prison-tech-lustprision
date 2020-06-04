@@ -17,6 +17,10 @@
     }
   },
   "lustPrisionApp": {
+    "loginVM": {
+      "password": "password",
+      "username": "nome de utilizador"
+    },
     "login": {
       "home": {
         "title": "Logins",

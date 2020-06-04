@@ -221,7 +221,8 @@ export const WorkInfo = (props: IWorkUpdateProps) => {
       }
     }).then((result: any) => {
       if(result.value.status === 200){
-        props.getWorkSubs(props.match.params.id)
+        props.getWorkSubs(props.match.params.id);
+        props.getEntity(props.match.params.id);
       }
     })
   };

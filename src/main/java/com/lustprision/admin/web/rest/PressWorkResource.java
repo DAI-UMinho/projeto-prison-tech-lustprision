@@ -2,8 +2,10 @@ package com.lustprision.admin.web.rest;
 
 import com.lustprision.admin.domain.PressWork;
 import com.lustprision.admin.domain.State;
+import com.lustprision.admin.domain.Work;
 import com.lustprision.admin.repository.PressWorkRepository;
 import com.lustprision.admin.repository.StateRepository;
+import com.lustprision.admin.service.WorkService;
 import com.lustprision.admin.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -41,9 +43,12 @@ public class PressWorkResource {
 
     private final StateRepository stateRepository;
 
-    public PressWorkResource(PressWorkRepository pressWorkRepository, StateRepository stateRepository) {
+    private final WorkService workService;
+
+    public PressWorkResource(PressWorkRepository pressWorkRepository, StateRepository stateRepository, WorkService workService) {
         this.pressWorkRepository = pressWorkRepository;
         this.stateRepository = stateRepository;
+        this.workService = workService;
     }
 
     /**
@@ -137,6 +142,8 @@ public class PressWorkResource {
         PressWork result = pressWorkRepository.findById(id).get();
         State mState = stateRepository.getOne(3L);
         result.setState(mState);
+
+        workService.firePrisoner(result.getWork().getId());
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

@@ -98,6 +98,16 @@ public class PrisionerResource {
             .body(result);
     }
 
+    @PutMapping("/prisioners/update-credits")
+    public ResponseEntity<Prisioner> updateCredits(@RequestBody Prisioner prisioner) throws URISyntaxException {
+        Prisioner p = prisionerRepository.getOne(prisioner.getId());
+        p.setBalance(prisioner.getBalance());
+        Prisioner result = prisionerRepository.save(p);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, prisioner.getId().toString()))
+            .body(result);
+    }
+
     /**
      * {@code GET  /prisioners} : get all the prisioners.
      *

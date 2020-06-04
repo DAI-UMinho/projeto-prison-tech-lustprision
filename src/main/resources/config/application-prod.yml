@@ -66,12 +66,13 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: lustprision@gmail.com
-    password: prisiontrabalho
+    username: prisonlust@gmail.com
+    password: prisontrabalho
     properties.mail.smtp:
       auth: true
       starttls.enable: true
       ssl.trust: smtp.gmail.com
+
   thymeleaf:
     cache: true
 
@@ -128,7 +129,7 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://my-server-url-to-change # Modify according to your server's URL
+    base-url: https://lust-prision.herokuapp.com # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

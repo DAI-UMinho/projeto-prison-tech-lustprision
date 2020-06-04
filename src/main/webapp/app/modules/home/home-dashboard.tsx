@@ -262,6 +262,7 @@ const HDashboard = (props) => {
                 </CardHeader>
                 <CardBody>
                   <Line
+                    legend={false}
                     data={test}
                     width={400}
                     height={100}

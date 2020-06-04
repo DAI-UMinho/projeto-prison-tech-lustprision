@@ -20,7 +20,6 @@ export const ACTION_TYPES = {
 const initialState = {
   nProducts: 0,
   nSales: 0,
-  // nPrisonerCompletedWork: 0,
   prisonerWorkStats: defaultValue,
   chartWorkState: [],
   chartCompletedWork: [],
